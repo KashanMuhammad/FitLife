@@ -28,8 +28,12 @@ class BottomBarIconsContainer extends StatelessWidget {
           imagePath,
           height: 24,
           width: 24,
-          color: isSelected ? Colors.white : Colors.green.withOpacity(0.8),
-        ),
+          colorFilter: ColorFilter.mode(
+        isSelected ? Colors.white : Colors.green.withValues(),
+        BlendMode.srcIn,
+      ),
+
+    ),
       ),
     );
   }

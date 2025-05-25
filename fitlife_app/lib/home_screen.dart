@@ -1,7 +1,6 @@
 import 'package:fitlife_app/custom%20widgets/custom_list_tile.dart';
 import 'package:fitlife_app/custom%20widgets/custom_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 class HomeScreen extends StatefulWidget {

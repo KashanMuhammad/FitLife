@@ -1,8 +1,10 @@
+import 'package:fitlife_app/main_screen.dart';
 import 'package:flutter/material.dart';
+
 
 void main() {
   runApp(
-    const MaterialApp(home: MainPage(), debugShowCheckedModeBanner: false),
+    const MaterialApp(home: MainScreen(), debugShowCheckedModeBanner: false),
   );
 }
 

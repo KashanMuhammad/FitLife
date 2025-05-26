@@ -1,5 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:fitlife_app/home_screen.dart';
+//import 'package:fitlife_app/home_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'main_screen.dart';

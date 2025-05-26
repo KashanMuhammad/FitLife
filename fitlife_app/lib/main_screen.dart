@@ -143,6 +143,13 @@ class _HomeScreenState extends State<MainScreen> {
           });
         },
       ),
+      floatingActionButton: FloatingActionButton(onPressed: (){
+
+      },
+      child: Icon(Icons.add),
+      backgroundColor: Color(0xFF00B712),
+      ),
+
     );
   }
 }

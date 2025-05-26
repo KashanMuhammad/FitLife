@@ -35,14 +35,12 @@ class _HomeScreenState extends State<MainScreen> {
         title: Row(
           crossAxisAlignment: CrossAxisAlignment.start, // avatar aligns top
           children: [
-            // Avatar top aligned
             CircleAvatar(
               radius: 24,
               child: Image.asset("assets/images/Male.png"),
             ),
             SizedBox(width: 20),
 
-            // Column vertically centered inside available height
             Expanded(
               child: Center(
                 child: Column(

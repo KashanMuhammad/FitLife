@@ -94,10 +94,11 @@ class _HomeScreenState extends State<MainScreen> {
             padding: const EdgeInsets.only(right: 16.0),
             child: Container(
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    colors: [Color(0xFF5AFF15), Color(0xFF00B712)],
-                ),
+               // gradient: LinearGradient(
+                 //   colors: [Color(0xFF5AFF15), Color(0xFF00B712)],
+                //),
                 borderRadius: BorderRadius.circular(23),
+                color: Color(0xFF00B712)
               ),
               padding: EdgeInsets.all(10),
               child: IconButton(

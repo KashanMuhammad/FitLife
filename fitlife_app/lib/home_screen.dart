@@ -106,6 +106,7 @@ class _HomeTabContentState extends State<HomeScreen> {
                   itemBuilder: (context, index) {
                     return CustomListTile(
                       title: todaysMeal[index],
+                      leading: Image.asset("assets/images/rectangle.png"),
                       subtitle: "3 Foods of  365 kcl",
                       onTap: () {},
                       trailing: IconButton(
@@ -127,6 +128,7 @@ class _HomeTabContentState extends State<HomeScreen> {
                   itemBuilder: (context, index) {
                     return CustomListTile(
                       title: cheatMeal[index],
+                      leading: Image.asset("assets/images/rectangle.png"),
                       subtitle: "3 Foods of  365 kcl",
                       trailing: IconButton(
                         onPressed: () {},
@@ -147,6 +149,7 @@ class _HomeTabContentState extends State<HomeScreen> {
                   itemBuilder: (context, index) {
                     return CustomListTile(
                       title: activity[index],
+                      leading: Image.asset("assets/images/rectangle.png"),
                       subtitle: "-250 kcl   20 mins",
                       trailing: IconButton(
                         onPressed: () {},
@@ -167,6 +170,7 @@ class _HomeTabContentState extends State<HomeScreen> {
                   itemBuilder: (context, index) {
                     return CustomListTile(
                       title: fasting[index],
+                      leading: Image.asset("assets/images/rectangle.png"),
                       subtitle: "12 hrs",
                       trailing: IconButton(
                         onPressed: () {},

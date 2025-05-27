@@ -1,6 +1,7 @@
 import 'package:fitlife_app/custom%20widgets/custom_list_tile.dart';
 import 'package:fitlife_app/custom%20widgets/custom_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -23,6 +24,80 @@ class _HomeTabContentState extends State<HomeScreen> {
     return SingleChildScrollView(
       child: Column(
         children: [
+          Padding(
+            padding: const EdgeInsets.all(27),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start, // avatar aligns top
+              children: [
+                SizedBox(height: 35),
+                CircleAvatar(
+                  radius: 24,
+                  child: Image.asset("assets/images/Male.png"),
+                ),
+                SizedBox(width: 25, height: 25),
+
+                Expanded(
+                  child: Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+
+                      children: [
+                        SizedBox(height: 15),
+                        Center(
+                          child: Text(
+                            "14-oct-2025",
+                            style: TextStyle(fontSize: 16, color: Colors.black),
+                          ),
+                        ),
+                        SizedBox(height: 25),
+                        Center(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Good Morning",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SvgPicture.asset("assets/images/hand.svg"),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 5),
+                        Center(
+                          child: Text(
+                            "You lose 500 g Today,Reach Your goal soon!",
+                            style: TextStyle(fontSize: 14, color: Colors.black),
+                          ),
+                        ),
+                        SizedBox(width: 50),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(height: 65),
+                Container(
+                  height: 45,
+                  width: 45,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    gradient: LinearGradient(
+                      colors: [Color(0xFF5AFF15), Color(0xFF00B712)],
+                    ),
+                  ),
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: Icon(Icons.notifications_outlined),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
           buildCaloriesGraph(screenSize),
           SizedBox(height: 10),
           CustomText(text: "Today's Meal"),

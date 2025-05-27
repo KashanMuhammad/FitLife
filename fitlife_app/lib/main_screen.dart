@@ -28,85 +28,8 @@ class _HomeScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 140,
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: Row(
-          crossAxisAlignment: CrossAxisAlignment.start, // avatar aligns top
-          children: [
-            CircleAvatar(
-              radius: 24,
-              child: Image.asset("assets/images/Male.png"),
-            ),
-            SizedBox(width: 20),
 
-            Expanded(
-              child: Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,  
-                  crossAxisAlignment: CrossAxisAlignment.start,
 
-                  children: [
-                    Center(
-                      child: Text(
-                        "14-oct-2025",
-                        style: TextStyle(fontSize: 16, color: Colors.black),
-                      ),
-                    ),
-                    SizedBox(height: 14),
-                    Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Good Morning",
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SvgPicture.asset("assets/images/hand.svg")
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Center(
-                      child: Text(
-                        "You lose 500 g Today,Reach Your goal soon!",
-                        style: TextStyle(fontSize: 14, color: Colors.black),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 16.0),
-            child: Container(
-              decoration: BoxDecoration(
-               // gradient: LinearGradient(
-                 //   colors: [Color(0xFF5AFF15), Color(0xFF00B712)],
-                //),
-                borderRadius: BorderRadius.circular(23),
-                color: Color(0xFF00B712)
-              ),
-              padding: EdgeInsets.all(10),
-              child: IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.notifications_outlined, color: Colors.white),
-              ),
-            ),
-          ),
-        ],
-      ),
       body: Container(
           color: Colors.white,
           child: _pages[_currentIndex]),

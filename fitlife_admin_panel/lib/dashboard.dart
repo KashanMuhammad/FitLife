@@ -1,4 +1,6 @@
+import 'package:fitlife_admin_panel/diet_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -17,6 +19,7 @@ class _DashboardState extends State<Dashboard> {
           Container(
             width: 250,
             decoration: BoxDecoration(
+              gradient: LinearGradient(colors: [Color(0xFF5AFF15), Color(0xFF00B712)]),
               color: Colors.lightGreen.shade500,
               borderRadius: BorderRadius.only(
                 topRight: Radius.circular(15),
@@ -60,23 +63,23 @@ class _DashboardState extends State<Dashboard> {
               labelType: NavigationRailLabelType.all,
               destinations: [
                 NavigationRailDestination(
-                  icon: Icon(Icons.analytics_rounded),
+                  icon: SvgPicture.asset('assets/analytics.svg'),
                   label: Text("Analytics"),
                 ),
                 NavigationRailDestination(
-                  icon: Icon(Icons.person),
+                  icon: SvgPicture.asset('assets/users.svg'),
                   label: Text("Users"),
                 ),
                 NavigationRailDestination(
-                  icon: Icon(Icons.emoji_food_beverage_outlined),
+                  icon: SvgPicture.asset('assets/diets.svg'),
                   label: Text("Diets"),
                 ),
                 NavigationRailDestination(
-                  icon: Icon(Icons.support_agent_outlined),
+                  icon: SvgPicture.asset('assets/support.svg'),
                   label: Text("Support"),
                 ),
                 NavigationRailDestination(
-                  icon: Icon(Icons.book_online_outlined),
+                  icon: SvgPicture.asset('assets/blogs.svg'),
                   label: Text("Blogs"),
                 ),
               ],
@@ -93,6 +96,7 @@ class _DashboardState extends State<Dashboard> {
             children: [
               Text("Analytics"),
               Text("Users"),
+              DietScreen(),
               Text("Support"),
               Text("Blogs"),
             ],

@@ -1,8 +1,9 @@
+import 'package:fitlife_admin_panel/dashboard.dart';
 import 'package:flutter/material.dart';
 
 void main() {
   runApp(MaterialApp(
-    home: MainScreen(),
+    home: Dashboard(),
     debugShowCheckedModeBanner: false,
   ));
 }
@@ -18,14 +19,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text("FitLife Admin Panel",
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 80,
-        ),
-        ),
-      ),
+
     );
   }
 }

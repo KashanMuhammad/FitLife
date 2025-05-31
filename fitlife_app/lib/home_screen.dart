@@ -21,36 +21,38 @@ class _HomeTabContentState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
 
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(27),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start, // avatar aligns top
-              children: [
-                SizedBox(height: 35),
-                CircleAvatar(
-                  radius: 24,
-                  child: Image.asset("assets/images/Male.png"),
-                ),
-                SizedBox(width: 25, height: 25),
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Icon(Icons.add),
+        backgroundColor: Color(0xFF00B712),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(27),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Remove this line: SizedBox(height: 35), (It's incorrectly placed)
+                  CircleAvatar(
+                    radius: 24,
+                    child: Image.asset("assets/images/Male.png"),
+                  ),
+                  SizedBox(width: 25),
 
-                Expanded(
-                  child: Center(
+                  Expanded(
                     child: Column(
-                      mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
-
                       children: [
-                        SizedBox(height: 15),
                         Center(
                           child: Text(
                             "14-oct-2025",
                             style: TextStyle(fontSize: 16, color: Colors.black),
                           ),
                         ),
-                        SizedBox(height: 25),
+                        SizedBox(height: 10),
                         Center(
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -63,6 +65,7 @@ class _HomeTabContentState extends State<HomeScreen> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
+                              SizedBox(width: 8),
                               SvgPicture.asset("assets/images/hand.svg"),
                             ],
                           ),
@@ -72,45 +75,44 @@ class _HomeTabContentState extends State<HomeScreen> {
                           child: Text(
                             "You lose 500 g Today,Reach Your goal soon!",
                             style: TextStyle(fontSize: 14, color: Colors.black),
+                            textAlign: TextAlign.center,
                           ),
                         ),
-                        SizedBox(width: 50),
                       ],
                     ),
                   ),
-                ),
-                SizedBox(height: 65),
-                Container(
-                  height: 45,
-                  width: 45,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    gradient: LinearGradient(
-                      colors: [Color(0xFF5AFF15), Color(0xFF00B712)],
+
+                  Container(
+                    height: 45,
+                    width: 45,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      gradient: LinearGradient(
+                        colors: [Color(0xFF5AFF15), Color(0xFF00B712)],
+                      ),
+                    ),
+                    child: IconButton(
+                      onPressed: () {},
+                      icon: Icon(Icons.notifications_outlined),
                     ),
                   ),
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.notifications_outlined),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-
-          buildCaloriesGraph(screenSize),
-          SizedBox(height: 10),
-          CustomText(text: "Today's Meal"),
-          buildTodaysMeal(),
-          CustomText(text: "Cheat Meal"),
-          buildCheatMeal(),
-          CustomText(text: "Activity"),
-          buildActivity(),
-          CustomText(text: "Fasting"),
-          buildFasting(),
-          SizedBox(height: 80),
-          // Add spacing so last item isn't hidden behind FAB
-        ],
+            buildCaloriesGraph(screenSize),
+            SizedBox(height: 10),
+            CustomText(text: "Today's Meal"),
+            buildTodaysMeal(),
+            CustomText(text: "Cheat Meal"),
+            buildCheatMeal(),
+            CustomText(text: "Activity"),
+            buildActivity(),
+            CustomText(text: "Fasting"),
+            buildFasting(),
+            SizedBox(height: 80),
+            // Add spacing so last item isn't hidden behind FAB
+          ],
+        ),
       ),
     );
   }

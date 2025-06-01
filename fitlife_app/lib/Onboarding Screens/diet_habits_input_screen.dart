@@ -1,21 +1,27 @@
 import 'package:flutter/material.dart';
 
-import 'gender_screen.dart';
+import '../custom widgets/custom_inkwell.dart';
+import 'healt_issues_input_screen.dart';
 
-class UserNameScreen extends StatefulWidget {
-  const UserNameScreen({super.key});
-
+class DietHabitsInputScreen extends StatefulWidget {
   @override
-  State<UserNameScreen> createState() => _UserNameScreenState();
+  State<DietHabitsInputScreen> createState() => _DietHabitsInputScreenState();
 }
 
-class _UserNameScreenState extends State<UserNameScreen> {
-  TextEditingController userNameController = TextEditingController();
+class _DietHabitsInputScreenState extends State<DietHabitsInputScreen> {
+  int selectedIndex = 0;
+ // First button selected by default
+  final List<String> options = [
+    "None",
+    "Lightly Vagetarian",
+    "Vegan",
+    "Gluten-free",
+    "Religious Restrictions",
+    "Other's",
+  ];
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -38,7 +44,7 @@ class _UserNameScreenState extends State<UserNameScreen> {
                         const TextSpan(
                           children: [
                             TextSpan(
-                              text: '1',
+                              text: '6',
                               style: TextStyle(
                                 color: Colors.green,
                                 fontWeight: FontWeight.bold,
@@ -71,7 +77,7 @@ class _UserNameScreenState extends State<UserNameScreen> {
                             ),
                           ),
                           TextSpan(
-                            text: 'Name?',
+                            text: 'Diet Habit?',
                             style: TextStyle(
                               color: Colors.green,
                               fontWeight: FontWeight.normal,
@@ -89,12 +95,23 @@ class _UserNameScreenState extends State<UserNameScreen> {
                     style: TextStyle(fontStyle: FontStyle.normal),
                   ),
                   const Text("         recommendation from your doctor         "),
-                  const Spacer(),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 60),
-                    child: buildTextFormField(),
+
+                  const SizedBox(height: 20),
+
+                  // Render each CustomInkwell using List.generate
+                  ...List.generate(options.length, (index) {
+                    return CustomInkwell(
+                      text: options[index],
+                      isSelected: selectedIndex == index,
+                       onTap: () { setState(() {
+                         selectedIndex = index;
+                       });  },
+                    );
+                  }),
+
+                  SizedBox(
+                    height: 80,
                   ),
-                  const Spacer(),
                   buildNextButton(context),
                   const SizedBox(height: 20),
                 ],
@@ -110,14 +127,12 @@ class _UserNameScreenState extends State<UserNameScreen> {
     return Center(
                   child: InkWell(
                     onTap: () {
-
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const GenderScreen(),
-                          ),
-                        );
-
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>  HealtIssuesInputScreen(),
+                        ),
+                      );
                     },
                     child: Container(
                       height: 50,
@@ -141,33 +156,5 @@ class _UserNameScreenState extends State<UserNameScreen> {
                     ),
                   ),
                 );
-  }
-
-  TextFormField buildTextFormField() {
-    return TextFormField(
-                    controller: userNameController,
-                    decoration: InputDecoration(
-                      hintText: "User Name",
-                      suffixIcon: const Icon(
-                        Icons.person_outline,
-                        color: Colors.green,
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide:
-                        const BorderSide(width: 1, color: Colors.green),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide:
-                        const BorderSide(width: 2, color: Colors.green),
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide:
-                        const BorderSide(width: 1, color: Colors.green),
-                      ),
-                    ),
-                  );
   }
 }

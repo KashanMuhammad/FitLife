@@ -90,34 +90,7 @@ class _SignUpState extends State<SignUp> {
               const SizedBox(height: 30),
 
               // Next Button (Centered, fixed size)
-              Center(
-                child: InkWell(
-                  onTap: () {
-                   Navigator.push(context, MaterialPageRoute(builder: (context) => UserNameScreen(),));
-                  },
-                  borderRadius: BorderRadius.circular(12),
-                  child: Container(
-                    height: 50,
-                    width: 400,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      gradient: const LinearGradient(
-                        colors: [Color(0xFF5AFF15), Color(0xFF00B712)],
-                      ),
-
-                    ),
-                    alignment: Alignment.center,
-                    child: const Text(
-                      "Next",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        fontSize: 18,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              buildNextButton(context),
 
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 20),
@@ -177,6 +150,37 @@ class _SignUpState extends State<SignUp> {
         ),
       ),
     );
+  }
+
+  Center buildNextButton(BuildContext context) {
+    return Center(
+              child: InkWell(
+                onTap: () {
+                 Navigator.push(context, MaterialPageRoute(builder: (context) => UserNameScreen(),));
+                },
+                borderRadius: BorderRadius.circular(12),
+                child: Container(
+                  height: 50,
+                  width: 400,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    gradient: const LinearGradient(
+                      colors: [Color(0xFF5AFF15), Color(0xFF00B712)],
+                    ),
+
+                  ),
+                  alignment: Alignment.center,
+                  child: const Text(
+                    "Next",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
+              ),
+            );
   }
 
   Widget _buildSocialButton(String assetPath) {

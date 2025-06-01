@@ -116,40 +116,7 @@ class _GenderScreenState extends State<GenderScreen> {
                     ],
                   ),
                   const Spacer(),
-                  Center(
-                    child: InkWell(
-                      onTap: () {
-
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => HeightInputScreen(),
-                            ),
-                          );
-
-                      },
-                      child: Container(
-                        height: 50,
-                        width: 300,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          gradient: const LinearGradient(
-                            colors: [Color(0xFF5AFF15), Color(0xFF00B712)],
-                          ),
-                        ),
-                        child: const Center(
-                          child: Text(
-                            "Next",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                              fontSize: 18,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  buildNextButton(context),
                   const SizedBox(height: 20),
                 ],
               ),
@@ -158,6 +125,43 @@ class _GenderScreenState extends State<GenderScreen> {
         ),
       ),
     );
+  }
+
+  Center buildNextButton(BuildContext context) {
+    return Center(
+                  child: InkWell(
+                    onTap: () {
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HeightInputScreen(),
+                          ),
+                        );
+
+                    },
+                    child: Container(
+                      height: 50,
+                      width: 300,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        gradient: const LinearGradient(
+                          colors: [Color(0xFF5AFF15), Color(0xFF00B712)],
+                        ),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          "Next",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                );
   }
 }
 

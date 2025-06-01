@@ -1,38 +1,34 @@
-import 'package:fitlife_app/Onboarding%20Screens/weight_input_screen.dart';
+import 'package:fitlife_app/Onboarding%20Screens/dateofbirth_input_screen.dart';
 import 'package:flutter/material.dart';
 
-class HeightInputScreen extends StatefulWidget {
-  const HeightInputScreen({super.key});
+class WeightInputScreen extends StatefulWidget {
+  const WeightInputScreen({super.key});
 
   @override
-  _HeightInputScreenState createState() => _HeightInputScreenState();
+  _WeightInputScreenState createState() => _WeightInputScreenState();
 }
 
-class _HeightInputScreenState extends State<HeightInputScreen> {
-  bool isCmSelected = true;
+class _WeightInputScreenState extends State<WeightInputScreen> {
+  bool isKgSelected = true;
 
-  final List<int> cmList = List.generate(121, (index) => 100 + index); // 100–220 cm
-  int selectedCmIndex = 70;
+  final List<int> kgList = List.generate(151, (index) => 30 + index); // 30–180 kg
+  int selectedKgIndex = 30;
 
-  final List<int> feetList = List.generate(4, (index) => 4 + index); // 4–7 ft
-  final List<int> inchList = List.generate(12, (index) => index);     // 0–11 in
-  int selectedFtIndex = 1;
-  int selectedInIndex = 8;
+  final List<int> lbsList = List.generate(221, (index) => 66 + index); // 66–286 lbs
+  int selectedLbsIndex = 34;
+
+  final FixedExtentScrollController kgController = FixedExtentScrollController(initialItem: 30);
+  final FixedExtentScrollController lbsController = FixedExtentScrollController(initialItem: 34);
 
   final Color selectedBackgroundColor = const Color(0xFFE9FDE3);
   final Color selectedTextColor = Colors.green;
 
-  final FixedExtentScrollController cmController = FixedExtentScrollController(initialItem: 70);
-  final FixedExtentScrollController ftController = FixedExtentScrollController(initialItem: 1);
-  final FixedExtentScrollController inchController = FixedExtentScrollController(initialItem: 8);
-
-  int _feetInchToCm(int ft, int inch) => (((ft * 12) + inch) * 2.54).round();
+  int _lbsToKg(int lbs) => (lbs / 2.205).round();
 
   @override
   void dispose() {
-    cmController.dispose();
-    ftController.dispose();
-    inchController.dispose();
+    kgController.dispose();
+    lbsController.dispose();
     super.dispose();
   }
 
@@ -58,7 +54,7 @@ class _HeightInputScreenState extends State<HeightInputScreen> {
                       TextSpan(
                         children: [
                           TextSpan(
-                            text: '3',
+                            text: '4',
                             style: TextStyle(
                               color: Colors.green,
                               fontWeight: FontWeight.bold,
@@ -90,7 +86,7 @@ class _HeightInputScreenState extends State<HeightInputScreen> {
                             ),
                           ),
                           TextSpan(
-                            text: 'Height?',
+                            text: 'Weight?',
                             style: TextStyle(
                               color: Colors.green,
                               fontWeight: FontWeight.normal,
@@ -112,17 +108,17 @@ class _HeightInputScreenState extends State<HeightInputScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      _unitButton("cm", isCmSelected, () {
-                        setState(() => isCmSelected = true);
+                      _unitButton("kg", isKgSelected, () {
+                        setState(() => isKgSelected = true);
                       }),
                       const SizedBox(width: 10),
-                      _unitButton("ft", !isCmSelected, () {
-                        setState(() => isCmSelected = false);
+                      _unitButton("lbs", !isKgSelected, () {
+                        setState(() => isKgSelected = false);
                       }),
                     ],
                   ),
                   const SizedBox(height: 30),
-                  isCmSelected ? _buildCmPicker() : _buildFeetInchPicker(),
+                  isKgSelected ? _buildKgPicker() : _buildLbsPicker(),
                   const Spacer(),
                   buildNextButton(context),
                   const SizedBox(height: 20),
@@ -139,15 +135,17 @@ class _HeightInputScreenState extends State<HeightInputScreen> {
     return Center(
                   child: InkWell(
                     onTap: () {
-                      int heightInCm = isCmSelected
-                          ? cmList[selectedCmIndex]
-                          : _feetInchToCm(feetList[selectedFtIndex], inchList[selectedInIndex]);
+                      int weightInKg = isKgSelected
+                          ? kgList[selectedKgIndex]
+                          : _lbsToKg(lbsList[selectedLbsIndex]);
 
-                      // TODO: Pass heightInCm to next screen if needed
+                      // TODO: Pass weightInKg to next screen if needed
 
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const WeightInputScreen()),
+                        MaterialPageRoute(
+                          builder: (context) => const DateofbirthInputScreen(),
+                        ),
                       );
                     },
                     child: Container(
@@ -174,86 +172,55 @@ class _HeightInputScreenState extends State<HeightInputScreen> {
                 );
   }
 
-  Widget _buildCmPicker() {
+  Widget _buildKgPicker() {
     return SizedBox(
       height: 150,
       child: ListWheelScrollView.useDelegate(
-        controller: cmController,
+        controller: kgController,
         itemExtent: 40,
         diameterRatio: 1.2,
         perspective: 0.005,
         physics: const FixedExtentScrollPhysics(),
         onSelectedItemChanged: (index) {
-          setState(() => selectedCmIndex = index);
+          setState(() => selectedKgIndex = index);
         },
         childDelegate: ListWheelChildBuilderDelegate(
           builder: (context, index) {
-            final isSelected = index == selectedCmIndex;
+            final isSelected = index == selectedKgIndex;
             return _scrollItem(
-              value: isSelected ? "${cmList[index]} cm" : "${cmList[index]}",
+              value: isSelected ? "${kgList[index]} kg" : "${kgList[index]}",
               isSelected: isSelected,
             );
           },
-          childCount: cmList.length,
+          childCount: kgList.length,
         ),
       ),
     );
   }
 
-  Widget _buildFeetInchPicker() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SizedBox(
-          height: 150,
-          width: 80,
-          child: ListWheelScrollView.useDelegate(
-            controller: ftController,
-            itemExtent: 40,
-            diameterRatio: 1.2,
-            perspective: 0.005,
-            physics: const FixedExtentScrollPhysics(),
-            onSelectedItemChanged: (index) {
-              setState(() => selectedFtIndex = index);
-            },
-            childDelegate: ListWheelChildBuilderDelegate(
-              builder: (context, index) {
-                final isSelected = index == selectedFtIndex;
-                return _scrollItem(
-                  value: isSelected ? "${feetList[index]} ft" : "${feetList[index]}",
-                  isSelected: isSelected,
-                );
-              },
-              childCount: feetList.length,
-            ),
-          ),
+  Widget _buildLbsPicker() {
+    return SizedBox(
+      height: 150,
+      child: ListWheelScrollView.useDelegate(
+        controller: lbsController,
+        itemExtent: 40,
+        diameterRatio: 1.2,
+        perspective: 0.005,
+        physics: const FixedExtentScrollPhysics(),
+        onSelectedItemChanged: (index) {
+          setState(() => selectedLbsIndex = index);
+        },
+        childDelegate: ListWheelChildBuilderDelegate(
+          builder: (context, index) {
+            final isSelected = index == selectedLbsIndex;
+            return _scrollItem(
+              value: isSelected ? "${lbsList[index]} lbs" : "${lbsList[index]}",
+              isSelected: isSelected,
+            );
+          },
+          childCount: lbsList.length,
         ),
-        const SizedBox(width: 10),
-        SizedBox(
-          height: 150,
-          width: 80,
-          child: ListWheelScrollView.useDelegate(
-            controller: inchController,
-            itemExtent: 40,
-            diameterRatio: 1.2,
-            perspective: 0.005,
-            physics: const FixedExtentScrollPhysics(),
-            onSelectedItemChanged: (index) {
-              setState(() => selectedInIndex = index);
-            },
-            childDelegate: ListWheelChildBuilderDelegate(
-              builder: (context, index) {
-                final isSelected = index == selectedInIndex;
-                return _scrollItem(
-                  value: isSelected ? "${inchList[index]} inch" : "${inchList[index]}",
-                  isSelected: isSelected,
-                );
-              },
-              childCount: inchList.length,
-            ),
-          ),
-        ),
-      ],
+      ),
     );
   }
 

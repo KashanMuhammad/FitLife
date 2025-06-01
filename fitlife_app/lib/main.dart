@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:fitlife_app/sign_up.dart';
 //import 'package:fitlife_app/home_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +18,7 @@ void main() async {
     ),
   );
   runApp(
-    const MaterialApp(home: MainScreen(), debugShowCheckedModeBanner: false),
+    const MaterialApp(home: SignUp(), debugShowCheckedModeBanner: false),
   );
 }
 

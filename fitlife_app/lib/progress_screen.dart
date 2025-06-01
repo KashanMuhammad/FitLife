@@ -57,9 +57,17 @@ class _ProgressScreenState extends State<ProgressScreen> {
                     buildFilterButton("1Y"),
                   ],
                 ),
+
+
+
+
                 SizedBox(height: 24),
 
-                SizedBox(height: 200, child: WeightProgressChart()),
+                SizedBox(height: 200,
+                    child: WeightProgressChart()),
+
+
+
                 SizedBox(height: 24),
 
                 Container(
@@ -280,7 +288,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8),
         decoration: BoxDecoration(
-          color: isSelected ? Color(0xFF00B712) : Colors.transparent,
+          color: isSelected ? Color(0xFF00B712)  : Colors.transparent,
           borderRadius: BorderRadius.circular(20),
         ),
         child: Text(
@@ -299,44 +307,44 @@ class WeightProgressChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LineChart(
-        LineChartData(
-            minX: 0,
-            maxX: 4,
-            minY: 70,
-            maxY: 100,
-            lineBarsData: [
-            LineChartBarData(
+      LineChartData(
+        minX: 0,
+        maxX: 4,
+        minY: 70,
+        maxY: 100,
+        lineBarsData: [
+          LineChartBarData(
             spots: [
 
-            FlSpot(0, 90),
-        FlSpot(1, 95),
-        FlSpot(2, 88),
-        FlSpot(3, 85),
-        FlSpot(4, 80),
-        ],
-    isCurved: true,
-    color: Colors.orangeAccent,
-    barWidth: 3,
-    belowBarData: BarAreaData(
-    show: true,
-    color: Colors.orangeAccent.withOpacity(0.3),
-    ),
-    dotData: FlDotData(show: true,
-    getDotPainter: (spot, percent, barData, index) {
-    return FlDotCirclePainter(
-    radius: 4,
-    color: Colors.white,
-    strokeWidth: 2,
-    strokeColor: Colors.orangeAccent,
-    );
-    },
-    ),),
+              FlSpot(0, 90),
+              FlSpot(1, 95),
+              FlSpot(2, 88),
+              FlSpot(3, 85),
+              FlSpot(4, 80),
+            ],
+            isCurved: true,
+            color: Colors.orangeAccent,
+            barWidth: 3,
+            belowBarData: BarAreaData(
+              show: true,
+              color: Colors.orangeAccent.withOpacity(0.3),
+            ),
+            dotData: FlDotData(show: true,
+              getDotPainter: (spot, percent, barData, index) {
+                return FlDotCirclePainter(
+                  radius: 4,
+                  color: Colors.white,
+                  strokeWidth: 2,
+                  strokeColor: Colors.orangeAccent,
+                );
+              },
+            ),),
 
-    ],
-    titlesData: FlTitlesData(show: false),
-    gridData: FlGridData(show: false),
-    borderData: FlBorderData(show: false),
-    ),
+        ],
+        titlesData: FlTitlesData(show: false),
+        gridData: FlGridData(show: false),
+        borderData: FlBorderData(show: false),
+      ),
     );
   }
 }

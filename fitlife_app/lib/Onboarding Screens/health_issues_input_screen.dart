@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
 
 import '../custom widgets/custom_inkwell.dart';
-import 'health_issues_input_screen.dart';
 
-class DietHabitsInputScreen extends StatefulWidget {
+class HealthIssuesInputScreen extends StatefulWidget {
   @override
-  State<DietHabitsInputScreen> createState() => _DietHabitsInputScreenState();
+  State<HealthIssuesInputScreen> createState() => _HealtIssuesInputScreenState();
 }
 
-class _DietHabitsInputScreenState extends State<DietHabitsInputScreen> {
+class _HealtIssuesInputScreenState extends State<HealthIssuesInputScreen> {
   int selectedIndex = 0;
 
   final List<String> options = [
     "None",
-    "Lightly Vegetarian",
-    "Vegan",
+    "High Blood Pressure",
+    "Diabetes",
     "Gluten-free",
-    "Religious Restrictions",
-    "Other's",
+    "High Cholestrole",
+    "Others?",
   ];
 
   @override
@@ -34,6 +33,8 @@ class _DietHabitsInputScreenState extends State<DietHabitsInputScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const SizedBox(height: 50),
+
+                    // Step Indicator
                     Center(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -41,7 +42,7 @@ class _DietHabitsInputScreenState extends State<DietHabitsInputScreen> {
                           const TextSpan(
                             children: [
                               TextSpan(
-                                text: '6',
+                                text: '7',
                                 style: TextStyle(
                                   color: Colors.green,
                                   fontWeight: FontWeight.bold,
@@ -61,6 +62,8 @@ class _DietHabitsInputScreenState extends State<DietHabitsInputScreen> {
                         ),
                       ),
                     ),
+
+                    // Title
                     Center(
                       child: Text.rich(
                         const TextSpan(
@@ -74,7 +77,7 @@ class _DietHabitsInputScreenState extends State<DietHabitsInputScreen> {
                               ),
                             ),
                             TextSpan(
-                              text: 'Diet Habit?',
+                              text: 'Health Issue?',
                               style: TextStyle(
                                 color: Colors.green,
                                 fontWeight: FontWeight.normal,
@@ -94,7 +97,7 @@ class _DietHabitsInputScreenState extends State<DietHabitsInputScreen> {
                     const Text("         recommendation from your doctor         "),
                     const SizedBox(height: 20),
 
-                    // Render options
+                    // Options
                     ...List.generate(options.length, (index) {
                       return CustomInkwell(
                         text: options[index],
@@ -113,10 +116,10 @@ class _DietHabitsInputScreenState extends State<DietHabitsInputScreen> {
               ),
             ),
 
-            // Fixed "Next" button at bottom
+            // Fixed "Next" Button
             Padding(
               padding: const EdgeInsets.only(bottom: 20),
-              child: buildNextButton(context),
+              child: buildNextButton(),
             ),
           ],
         ),
@@ -124,34 +127,27 @@ class _DietHabitsInputScreenState extends State<DietHabitsInputScreen> {
     );
   }
 
-  Center buildNextButton(BuildContext context) {
-    return Center(
-      child: InkWell(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => HealthIssuesInputScreen(),
-            ),
-          );
-        },
-        child: Container(
-          height: 50,
-          width: 300,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            gradient: const LinearGradient(
-              colors: [Color(0xFF5AFF15), Color(0xFF00B712)],
-            ),
+  Widget buildNextButton() {
+    return InkWell(
+      onTap: () {
+        // TODO: Add your next screen navigation or action here
+      },
+      child: Container(
+        height: 50,
+        width: 300,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          gradient: const LinearGradient(
+            colors: [Color(0xFF5AFF15), Color(0xFF00B712)],
           ),
-          child: const Center(
-            child: Text(
-              "Next",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-                fontSize: 18,
-              ),
+        ),
+        child: const Center(
+          child: Text(
+            "Next",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+              fontSize: 18,
             ),
           ),
         ),

@@ -1,8 +1,7 @@
+import 'package:fitlife_app/Onboarding%20Screens/user_name_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-
-import 'custom widgets/custom_inkwell.dart';
 import 'custom widgets/custom_textformfield.dart';
 
 class SignUp extends StatefulWidget {
@@ -24,7 +23,7 @@ class _SignUpState extends State<SignUp> {
       backgroundColor: Colors.transparent,
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -88,9 +87,37 @@ class _SignUpState extends State<SignUp> {
                 suffixSvgAsset: "assets/images/lock.svg",
                 obscureText: true,
               ),
-              //const SizedBox(height: 20),
-              CustomInkWellContainer(onTap: (){}, text: "Sign Up"),
+              const SizedBox(height: 30),
 
+              // Next Button (Centered, fixed size)
+              Center(
+                child: InkWell(
+                  onTap: () {
+                   Navigator.push(context, MaterialPageRoute(builder: (context) => UserNameScreen(),));
+                  },
+                  borderRadius: BorderRadius.circular(12),
+                  child: Container(
+                    height: 50,
+                    width: 400,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      gradient: const LinearGradient(
+                        colors: [Color(0xFF5AFF15), Color(0xFF00B712)],
+                      ),
+
+                    ),
+                    alignment: Alignment.center,
+                    child: const Text(
+                      "Next",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
 
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 20),
@@ -133,14 +160,18 @@ class _SignUpState extends State<SignUp> {
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Already have an account?"),
+                  const Text("Already have an account?"),
                   InkWell(
-                      onTap: (){},
-                      child: Text("login",style: TextStyle(color: Colors.green),))
+                    onTap: () {
+                      // TODO: Navigate to login screen
+                    },
+                    child: const Text(
+                      "login",
+                      style: TextStyle(color: Colors.green),
+                    ),
+                  )
                 ],
               ),
-
-
             ],
           ),
         ),

@@ -1,4 +1,6 @@
 import 'package:fitlife_admin_panel/diet_screen.dart';
+import 'package:fitlife_admin_panel/food_screen.dart';
+import 'package:fitlife_admin_panel/upload_diet_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -10,7 +12,9 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  bool showScreen =false;
   int selectedIndex =2;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,7 +60,7 @@ class _DashboardState extends State<Dashboard> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 40),
+                  SizedBox(height: 25),
                 ],
               ),
               backgroundColor: Colors.transparent,
@@ -75,6 +79,10 @@ class _DashboardState extends State<Dashboard> {
                   label: Text("Diets"),
                 ),
                 NavigationRailDestination(
+                  icon: SvgPicture.asset('assets/diets.svg'),
+                  label: Text("Food"),
+                ),
+                NavigationRailDestination(
                   icon: SvgPicture.asset('assets/support.svg'),
                   label: Text("Support"),
                 ),
@@ -82,11 +90,15 @@ class _DashboardState extends State<Dashboard> {
                   icon: SvgPicture.asset('assets/blogs.svg'),
                   label: Text("Blogs"),
                 ),
+
               ],
               selectedIndex: selectedIndex,
               onDestinationSelected: (int value){
                 setState(() {
                   selectedIndex = value;
+                  if (value == 2) {
+                    showScreen = false; 
+                  }
                 });
               },
             ),
@@ -96,7 +108,15 @@ class _DashboardState extends State<Dashboard> {
             children: [
               Text("Analytics"),
               Text("Users"),
-              DietScreen(),
+              showScreen
+                  ? UploadDietScreen()
+                  : DietScreen(onUploadPressed: () {
+                setState(() {
+                  showScreen = true;
+                });
+              }),
+             // DietScreen(),
+              FoodScreen(),
               Text("Support"),
               Text("Blogs"),
             ],

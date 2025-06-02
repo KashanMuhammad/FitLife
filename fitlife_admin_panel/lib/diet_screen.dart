@@ -1,14 +1,16 @@
-import 'package:fitlife_admin_panel/dashboard.dart';
 import 'package:flutter/material.dart';
 
 class DietScreen extends StatefulWidget {
-  const DietScreen({super.key});
+  final VoidCallback onUploadPressed;
+  const DietScreen({super.key , required this.onUploadPressed});
 
   @override
   State<DietScreen> createState() => _DietScreenState();
 }
 
 class _DietScreenState extends State<DietScreen> {
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -118,14 +120,7 @@ class _DietScreenState extends State<DietScreen> {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: ElevatedButton.icon(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Dashboard(),
-                        ),
-                      );
-                    },
+                    onPressed: widget.onUploadPressed,
                     label: Text(
                       "Upload Diet",
                       style: TextStyle(

@@ -21,7 +21,18 @@ class BottomBarIconsContainer extends StatelessWidget {
       width: 45,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30.0),
-        color: isSelected ? Color(0xFF00B712) : Colors.transparent,
+        // Use gradient if selected, else transparent color
+        gradient: isSelected
+            ? LinearGradient(
+          colors: [
+            Color(0xFF5AFF15),
+            Color(0xFF00B712),
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        )
+            : null,
+        color: isSelected ? null : Colors.transparent,
       ),
       child: Center(
         child: SvgPicture.asset(
@@ -29,13 +40,11 @@ class BottomBarIconsContainer extends StatelessWidget {
           height: 24,
           width: 24,
           colorFilter: ColorFilter.mode(
-        isSelected ? Colors.white : Colors.green.withValues(),
-        BlendMode.srcIn,
-      ),
-
-    ),
+            isSelected ? Colors.white : Colors.green,
+            BlendMode.srcIn,
+          ),
+        ),
       ),
     );
   }
 }
-

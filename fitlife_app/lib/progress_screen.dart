@@ -107,20 +107,21 @@ class _ProgressScreenState extends State<ProgressScreen> {
                               fontSize: 20, fontWeight: FontWeight.bold)),
                           SizedBox(height: 4),
                           Text("Left"),
+
                         ],
                       ),
 
-                      VerticalDivider(
-                          color: Colors.grey.shade400, thickness: 1),
 
-
-                      VerticalDivider(
-                          color: Colors.grey.shade400, thickness: 1),
 
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
+                            VerticalDivider(
+                              width: 10,
+                              thickness: 2,
+                              color: Colors.green,
+                            ),
                             Text("80", style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold)),
                             Text("kg", style: TextStyle(color: Colors.grey)),
@@ -260,7 +261,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
                 ),
                 SizedBox(height: 4),
                 Text(
-                  "17 Dec 2024",
+                  "05 july 2025",
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,

@@ -48,17 +48,18 @@ class _UploadDietScreenState extends State<UploadDietScreen> {
           child: Form(
             key: formKey,
             child: Column(
+              spacing: 15,
               children: [
                 CustomTextFormField(
                   controller: titleController,
                   label: "Title",
                 ),
-                SizedBox(height: 15),
+
                 CustomTextFormField(
                   controller: foodDescription,
                   label: "Description",
                 ),
-                SizedBox(height: 15),
+
                 CustomDropdown(
                   items: mealType,
                   hintText: 'Select Meal Type',
@@ -68,14 +69,14 @@ class _UploadDietScreenState extends State<UploadDietScreen> {
                     });
                   },
                 ),
-                SizedBox(height: 15),
+
                 CustomTextFormField(controller: dayController, label: 'Day'),
-                SizedBox(height: 15),
+
                 CustomTextFormField(
                   controller: timeController,
                   label: 'Time to Eat',
                 ),
-                SizedBox(height: 15),
+
                 CustomDropdown(
                   items: [],
                   hintText: 'List of Foods',
@@ -85,12 +86,12 @@ class _UploadDietScreenState extends State<UploadDietScreen> {
                     });
                   },
                 ),
-                SizedBox(height: 15),
+
                 CustomTextFormField(
                   controller: durationController,
                   label: 'Duration (Days)',
                 ),
-                SizedBox(height: 15),
+
                 CustomDropdown(
                   items: mealSuitability,
                   hintText: 'Suitable For',
@@ -100,7 +101,7 @@ class _UploadDietScreenState extends State<UploadDietScreen> {
                     });
                   },
                 ),
-                SizedBox(height: 15),
+
                 CustomDropdown(
                   items: mealTags,
                   hintText: 'Tags',
@@ -110,7 +111,7 @@ class _UploadDietScreenState extends State<UploadDietScreen> {
                     });
                   },
                 ),
-                SizedBox(height: 15),
+
                 Row(
                   children: [
                     Container(
@@ -149,17 +150,17 @@ class _UploadDietScreenState extends State<UploadDietScreen> {
                           : Image.file(File(_image!.path)),
                   ],
                 ),
-                SizedBox(height: 15),
+
                 CustomTextFormField(
                   controller: nameController,
                   label: 'Created By',
                 ),
-                SizedBox(height: 15),
+
                 CustomTextFormField(
                   controller: timeStampController,
                   label: 'Created At',
                 ),
-                SizedBox(height: 15),
+
                 Container(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(

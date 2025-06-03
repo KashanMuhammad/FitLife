@@ -68,21 +68,23 @@ class _FoodScreenState extends State<FoodScreen> {
           child: Form(
             key: formKey,
             child: Column(
+              spacing: 15,
               children: [
-                SizedBox(height: 30),
+
+                // SizedBox(height: 30),
                 CustomTextFormField(controller: foodName, label: "Food Name"),
-                SizedBox(height: 15),
+                // SizedBox(height: 15),
                 CustomTextFormField(
                   controller: foodDescription,
                   label: "Food Description",
                   maxLines: 3,
                 ),
-                SizedBox(height: 15),
+                // SizedBox(height: 15),
                 CustomTextFormField(
                   controller: quantityController,
                   label: "Quantity",
                 ),
-                SizedBox(height: 15),
+                // SizedBox(height: 15),
                 CustomDropdown(
                   items: quantityOptions,
                   hintText: "Select Units",
@@ -93,27 +95,27 @@ class _FoodScreenState extends State<FoodScreen> {
                     });
                   },
                 ),
-                SizedBox(height: 15),
+                // SizedBox(height: 15),
                 CustomTextFormField(
                   controller: caloriesPerServing,
                   label: "Calories Per Serving",
                 ),
-                SizedBox(height: 15),
+                // SizedBox(height: 15),
                 CustomTextFormField(
                   controller: proteinController,
                   label: "Protein (grams)",
                 ),
-                SizedBox(height: 15),
+                // SizedBox(height: 15),
                 CustomTextFormField(
                   controller: carbohydratesController,
                   label: "Carbohydrates (grams)",
                 ),
-                SizedBox(height: 15),
+                // SizedBox(height: 15),
                 CustomTextFormField(
                   controller: fatsController,
                   label: "Fats (grams)",
                 ),
-                SizedBox(height: 15),
+                // SizedBox(height: 15),
                 CustomDropdown(
                   items: tagsOptions,
                   hintText: "Select Tag",
@@ -124,7 +126,7 @@ class _FoodScreenState extends State<FoodScreen> {
                     });
                   },
                 ),
-                SizedBox(height: 15),
+                // SizedBox(height: 15),
                 Row(
                   children: [
                     Container(
@@ -163,7 +165,7 @@ class _FoodScreenState extends State<FoodScreen> {
                           : Image.file(File(_image!.path)),
                   ],
                 ),
-                SizedBox(height: 15),
+                // SizedBox(height: 15),
                 Container(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
@@ -183,7 +185,7 @@ class _FoodScreenState extends State<FoodScreen> {
                     child: Text('Submit'),
                   ),
                 ),
-                SizedBox(height: 15),
+                // SizedBox(height: 15),
                 Container(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(

@@ -4,8 +4,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
+import 'main.dart';
+
 class FoodScreen extends StatefulWidget {
-  const FoodScreen({super.key});
+  final Map<String, dynamic>? foodData;
+  const FoodScreen({super.key ,  this.foodData});
 
   @override
   State<FoodScreen> createState() => _FoodScreenState();
@@ -25,7 +28,7 @@ class _FoodScreenState extends State<FoodScreen> {
   final formKey = GlobalKey<FormState>();
   List<String> quantityOptions = ['grams', 'pieces', 'cups'];
   List<String> tagsOptions = ['Vegan', 'Low Carb', 'High Fiber'];
-  String? selectedQuantity, selectedTag;
+  String? selectedUnit, selectedTag;
   XFile? _image;
 
   Future<void> _pickImage() async {
@@ -39,6 +42,24 @@ class _FoodScreenState extends State<FoodScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    if (widget.foodData != null) {
+      final data = widget.foodData!;
+      foodName.text = data['foodName'] ?? '';
+      foodDescription.text = data['foodDescription'] ?? '';
+      quantityController.text = data['quantity'] ?? '';
+      selectedUnit = data['unit'];
+      caloriesPerServing.text = data['calories'] ?? '';
+      proteinController.text = data['protein'] ?? '';
+      carbohydratesController.text = data['carbohydrates'] ?? '';
+      fatsController.text = data['fats'] ?? '';
+      selectedTag = data['tag'];
+      if (data['image'] != null && data['image'] != '') {
+        _image = XFile(data['image']);
+      }
+    }
+  }
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(12.0),
@@ -49,31 +70,26 @@ class _FoodScreenState extends State<FoodScreen> {
             child: Column(
               children: [
                 SizedBox(height: 30),
-                CustomTextFormField(
-                  controller: foodName,
-                  label: "Food Name",
-                  hint: "Enter Food Name",
-                ),
+                CustomTextFormField(controller: foodName, label: "Food Name"),
                 SizedBox(height: 15),
                 CustomTextFormField(
                   controller: foodDescription,
                   label: "Food Description",
-                  hint: "Enter Food Description",
                   maxLines: 3,
                 ),
                 SizedBox(height: 15),
                 CustomTextFormField(
                   controller: quantityController,
                   label: "Quantity",
-                  hint: "Enter Quantity",
                 ),
                 SizedBox(height: 15),
                 CustomDropdown(
                   items: quantityOptions,
                   hintText: "Select Units",
+                  value: selectedUnit,
                   onChanged: (value) {
                     setState(() {
-                      selectedQuantity = value;
+                      selectedUnit = value;
                     });
                   },
                 ),
@@ -89,7 +105,7 @@ class _FoodScreenState extends State<FoodScreen> {
                 ),
                 SizedBox(height: 15),
                 CustomTextFormField(
-                  controller: caloriesPerServing,
+                  controller: carbohydratesController,
                   label: "Carbohydrates (grams)",
                 ),
                 SizedBox(height: 15),
@@ -101,6 +117,7 @@ class _FoodScreenState extends State<FoodScreen> {
                 CustomDropdown(
                   items: tagsOptions,
                   hintText: "Select Tag",
+                  value: selectedTag,
                   onChanged: (value) {
                     setState(() {
                       selectedTag = value;
@@ -164,6 +181,63 @@ class _FoodScreenState extends State<FoodScreen> {
                     ),
                     onPressed: _pickImage,
                     child: Text('Submit'),
+                  ),
+                ),
+                SizedBox(height: 15),
+                Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [Color(0xFF5AFF15), Color(0xFF00B712)],
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.transparent,
+                      shadowColor: Colors.transparent,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    onPressed: () {
+                      if (foodName.text.trim().isEmpty) {
+                        return;
+                      }
+
+                      String id =
+                          DateTime.now().millisecondsSinceEpoch
+                              .toString();
+
+                      Map<String, dynamic> foodData = {
+                        'foodName': foodName.text.trim(),
+                        'foodDescription': foodDescription.text.trim(),
+                        'quantity': quantityController.text.trim(),
+                        'unit': selectedUnit ?? '',
+                        'calories': caloriesPerServing.text.trim(),
+                        'protein': proteinController.text.trim(),
+                        'carbohydrates': carbohydratesController.text.trim(),
+                        'fats': fatsController.text.trim(),
+                        'tag': selectedTag ?? '',
+                        'image': _image?.path ?? '',
+                      };
+
+                      setState(() {
+                        globalFoodMap[id] = foodData;
+                      });
+
+
+                      foodName.clear();
+                      foodDescription.clear();
+                      quantityController.clear();
+                      caloriesPerServing.clear();
+                      proteinController.clear();
+                      carbohydratesController.clear();
+                      fatsController.clear();
+                      selectedUnit = null;
+                      selectedTag = null;
+                      _image = null;
+                    },
+                    child: Text("ADD FOOD"),
                   ),
                 ),
               ],

@@ -1,6 +1,6 @@
 import 'package:fitlife_admin_panel/dashboard.dart';
 import 'package:flutter/material.dart';
-
+Map<String, Map<String, dynamic>> globalFoodMap = {};
 void main() {
   runApp(MaterialApp(
     home: Dashboard(),
@@ -9,6 +9,7 @@ void main() {
 }
 
 class MainScreen extends StatefulWidget {
+
   const MainScreen({super.key});
 
   @override
@@ -16,6 +17,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,16 +1,21 @@
+import 'dart:io';
+import 'package:data_table_2/data_table_2.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+import 'food_screen.dart';
+import 'main.dart';
 
 class DietScreen extends StatefulWidget {
   final VoidCallback onUploadPressed;
-  const DietScreen({super.key , required this.onUploadPressed});
+
+  const DietScreen({super.key, required this.onUploadPressed ,});
 
   @override
   State<DietScreen> createState() => _DietScreenState();
 }
 
 class _DietScreenState extends State<DietScreen> {
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,13 +43,14 @@ class _DietScreenState extends State<DietScreen> {
                         Text("Dashboard Manager"),
                       ],
                     ),
-                    Column(children:
-                    [
-                      CircleAvatar(
-                        radius: 24,
-                        child: Image.asset("assets/male avatar.png"),
-                      )
-                    ,],),
+                    Column(
+                      children: [
+                        CircleAvatar(
+                          radius: 24,
+                          child: Image.asset("assets/male avatar.png"),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -140,6 +146,69 @@ class _DietScreenState extends State<DietScreen> {
                 ),
               ),
             ],
+          ),
+          SizedBox(height: 35),
+          DataTable(
+            columns: [
+              DataColumn(label: Text("Food Image")),
+              DataColumn(label: Text("Food Name")),
+              DataColumn(label: Text("Food Quantity")),
+              DataColumn(label: Text("Food Unit")),
+              DataColumn(label: Text("Calories Per Serving")),
+              DataColumn(label: Text("Food Tag")),
+              DataColumn(label: Text("Actions")),
+            ],
+            rows:
+                globalFoodMap.entries.map((entry) {
+                  final food = entry.value;
+
+                  return DataRow(
+                    cells: [
+                      DataCell(
+                        food['image'] != ''
+                            ? (kIsWeb
+                                ? Image.network(
+                                  food['image'],
+                                  width: 60,
+                                  height: 60,
+                                )
+                                : Image.file(
+                                  File(food['image']),
+                                  width: 60,
+                                  height: 60,
+                                ))
+                            : Icon(Icons.image),
+                      ),
+                      DataCell(Text(food['foodName'] ?? '')),
+                      DataCell(Text(food['quantity'] ?? "")),
+                      DataCell(Text(food['unit'] ?? "")),
+                      DataCell(Text(food['calories'] ?? "")),
+                      DataCell(Text(food['tag'] ?? '')),
+                      DataCell(
+                        PopupMenuButton<String>(
+                          icon: Icon(Icons.more_vert_outlined),
+                          offset: Offset(100, 0),
+                          onSelected: (String value) {
+                            if (value == 'form') {
+
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => FoodScreen(foodData: food,)),
+                              );
+                            }
+                          },
+                          itemBuilder: (BuildContext context) => [
+                            const PopupMenuItem<String>(
+                              value: 'form',
+                              child: Text('Form'),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                    ],
+                  );
+                }).toList(),
           ),
         ],
       ),

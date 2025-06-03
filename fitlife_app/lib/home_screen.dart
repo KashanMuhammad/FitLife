@@ -22,11 +22,25 @@ class _HomeTabContentState extends State<HomeScreen> {
     final screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: Icon(Icons.add),
-        backgroundColor: Color(0xFF00B712),
+      floatingActionButton: Container(
+        height: 56,
+        width: 56,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(14),
+          gradient: LinearGradient(
+            colors: [Color(0xFF5AFF15), Color(0xFF00B712)],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: FloatingActionButton(
+          onPressed: () {},
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          child: Icon(Icons.add),
+        ),
       ),
+
       body: SingleChildScrollView(
         child: Column(
           children: [

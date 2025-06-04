@@ -9,7 +9,6 @@ void main() {
 }
 
 class MainScreen extends StatefulWidget {
-
   const MainScreen({super.key});
 
   @override
@@ -17,11 +16,17 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+      body: Center(
+        child: Text("FitLife Admin Panel",
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 80,
+        ),
+        ),
+      ),
     );
   }
 }

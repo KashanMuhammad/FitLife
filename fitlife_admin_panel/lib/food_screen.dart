@@ -224,6 +224,7 @@ class _FoodScreenState extends State<FoodScreen> {
                       };
 
                       setState(() {
+
                         globalFoodMap[id] = foodData;
                       });
 

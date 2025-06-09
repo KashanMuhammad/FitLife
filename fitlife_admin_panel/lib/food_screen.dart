@@ -8,7 +8,8 @@ import 'main.dart';
 
 class FoodScreen extends StatefulWidget {
   final Map<String, dynamic>? foodData;
-  const FoodScreen({super.key ,  this.foodData});
+
+  const FoodScreen({super.key, this.foodData});
 
   @override
   State<FoodScreen> createState() => _FoodScreenState();
@@ -60,6 +61,7 @@ class _FoodScreenState extends State<FoodScreen> {
       }
     }
   }
+
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(12.0),
@@ -68,10 +70,10 @@ class _FoodScreenState extends State<FoodScreen> {
           child: Form(
             key: formKey,
             child: Column(
+
               spacing: 15,
               children: [
-
-                // SizedBox(height: 30),
+                 SizedBox(height: 8),
                 CustomTextFormField(controller: foodName, label: "Food Name"),
                 // SizedBox(height: 15),
                 CustomTextFormField(
@@ -193,61 +195,59 @@ class _FoodScreenState extends State<FoodScreen> {
                     ),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.transparent,
-                      shadowColor: Colors.transparent,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    onPressed: () {
-                      if (foodName.text.trim().isEmpty) {
-                        return;
-                      }
-
-                      String id =
-                          DateTime.now().millisecondsSinceEpoch
-                              .toString();
-
-                      Map<String, dynamic> foodData = {
-                        'foodName': foodName.text.trim(),
-                        'foodDescription': foodDescription.text.trim(),
-                        'quantity': quantityController.text.trim(),
-                        'unit': selectedUnit ?? '',
-                        'calories': caloriesPerServing.text.trim(),
-                        'protein': proteinController.text.trim(),
-                        'carbohydrates': carbohydratesController.text.trim(),
-                        'fats': fatsController.text.trim(),
-                        'tag': selectedTag ?? '',
-                        'image': _image?.path ?? '',
-                      };
-
-                      setState(() {
-
-                        globalFoodMap[id] = foodData;
-                      });
-
-
-                      foodName.clear();
-                      foodDescription.clear();
-                      quantityController.clear();
-                      caloriesPerServing.clear();
-                      proteinController.clear();
-                      carbohydratesController.clear();
-                      fatsController.clear();
-                      selectedUnit = null;
-                      selectedTag = null;
-                      _image = null;
-                    },
-                    child: Text("ADD FOOD"),
-                  ),
+                  child: buildCustomElevatedButton(),
                 ),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+
+  ElevatedButton buildCustomElevatedButton() {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.transparent,
+        shadowColor: Colors.transparent,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      ),
+      onPressed: () {
+        if (foodName.text.trim().isEmpty) {
+          return;
+        }
+
+        String id = DateTime.now().millisecondsSinceEpoch.toString();
+
+        Map<String, dynamic> foodData = {
+          'foodName': foodName.text.trim(),
+          'foodDescription': foodDescription.text.trim(),
+          'quantity': quantityController.text.trim(),
+          'unit': selectedUnit ?? '',
+          'calories': caloriesPerServing.text.trim(),
+          'protein': proteinController.text.trim(),
+          'carbohydrates': carbohydratesController.text.trim(),
+          'fats': fatsController.text.trim(),
+          'tag': selectedTag ?? '',
+          'image': _image?.path ?? '',
+        };
+
+        setState(() {
+          globalFoodMap[id] = foodData;
+        });
+
+        foodName.clear();
+        foodDescription.clear();
+        quantityController.clear();
+        caloriesPerServing.clear();
+        proteinController.clear();
+        carbohydratesController.clear();
+        fatsController.clear();
+        selectedUnit = null;
+        selectedTag = null;
+        _image = null;
+      },
+      child: Text("ADD FOOD"),
     );
   }
 }

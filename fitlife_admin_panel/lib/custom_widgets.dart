@@ -65,7 +65,6 @@ class _CustomDropdownState extends State<CustomDropdown> {
   @override
   void initState() {
     super.initState();
-    // Initialize selectedValue once from value if available, else from initialValue
     selectedValue = widget.value ?? widget.initialValue;
   }
 

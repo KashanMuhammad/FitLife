@@ -1,27 +1,33 @@
 class FirebaseDataModelClass {
-  final String userId;
-  final String username;
-  final String gender;
-  final double height;
-  final double weight;
-  final DateTime dateOfBirth;
-  final List<String> selectedDietHabits;
-  final List<String> selectedHealthIssues;
+  final String? userId;
+  final String? username;
+  final String? email;
+  final String? password;
+  final String? gender;
+  final double? height;
+  final double? weight;
+  final DateTime? dateOfBirth;
+  final List<String>? selectedDietHabits;
+  final List<String>? selectedHealthIssues;
 
   FirebaseDataModelClass({
-    required this.username,
-    required this.gender,
-    required this.height,
-    required this.weight,
-    required this.dateOfBirth,
-    required this.selectedDietHabits,
-    required this.selectedHealthIssues,
-    required this.userId,
+     this.email,
+     this.password,
+     this.username,
+     this.gender,
+     this.height,
+     this.weight,
+     this.dateOfBirth,
+     this.selectedDietHabits,
+     this.selectedHealthIssues,
+     this.userId,
   });
 
   Map<String, dynamic> toJson() {
     return {
       'userId': userId,
+      'email' : email,
+      'password' : password,
       'username': username,
       'gender': gender,
       'height': height,
@@ -35,6 +41,8 @@ class FirebaseDataModelClass {
   factory FirebaseDataModelClass.fromJson(Map<String, dynamic> json) {
     return FirebaseDataModelClass(
       userId: json['userId'],
+      email: json['email'],
+      password: json['password'],
       username: json['username'],
       gender: json['gender'],
       height: (json['height'] as num).toDouble(),

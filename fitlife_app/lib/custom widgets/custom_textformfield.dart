@@ -26,7 +26,7 @@ class CustomTextFormField extends StatelessWidget {
     this.readOnly = false,
     this.onTap,
     this.suffixSvgAsset,
-    this.suffixOnPressed,
+    this.suffixOnPressed,  IconButton? suffixIcon,
   });
 
   @override

@@ -3,8 +3,6 @@ import 'package:fitlife_app/home_screen.dart';
 import 'package:fitlife_app/progress_screen.dart';
 import 'package:fitlife_app/user_and_profile_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
 import 'blogs_screen.dart';
 import 'custom widgets/custom_container.dart'; // Make sure this points to the updated BottomBarIconsContainer
 

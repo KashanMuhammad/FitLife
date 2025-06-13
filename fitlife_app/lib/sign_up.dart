@@ -6,7 +6,6 @@ import 'package:shared/user_0nboarding_data_model_class.dart';
 import 'Onboarding Screens/user_name_screen.dart';
 import 'custom widgets/custom_textformfield.dart';
 
-
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
 
@@ -15,6 +14,7 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -31,86 +31,109 @@ class _SignUpState extends State<SignUp> {
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const SizedBox(height: 40),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text("Welcome Back ", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black)),
-                  SvgPicture.asset("assets/images/hand.svg"),
-                ],
-              ),
-              const SizedBox(height: 8),
-              const Text("Your journey continued stay committed and focused", textAlign: TextAlign.center, style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.italic)),
-              const SizedBox(height: 50),
-              const Text("Sign Up", textAlign: TextAlign.center, style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black)),
-              const SizedBox(height: 15),
-              CustomTextFormField(
-                hintText: "Full Name",
-                controller: nameController,
-                suffixSvgAsset: "assets/images/person.svg",
-                keyboardType: TextInputType.name,
-              ),
-              CustomTextFormField(
-                hintText: "Email",
-                controller: emailController,
-                suffixSvgAsset: "assets/images/mail.svg",
-                keyboardType: TextInputType.emailAddress,
-              ),
-              CustomTextFormField(
-                hintText: "Password",
-                controller: passwordController,
-                suffixSvgAsset: "assets/images/lock.svg",
-                obscureText: !passwordVisible,
-                suffixIcon: IconButton(
-                  icon: Icon(passwordVisible ? Icons.visibility : Icons.visibility_off, color: Colors.grey),
-                  onPressed: () => setState(() => passwordVisible = !passwordVisible),
-                ),
-              ),
-              CustomTextFormField(
-                hintText: "Confirm Password",
-                controller: confirmPasswordController,
-                suffixSvgAsset: "assets/images/lock.svg",
-                obscureText: !confirmPasswordVisible,
-                suffixIcon: IconButton(
-                  icon: Icon(confirmPasswordVisible ? Icons.visibility : Icons.visibility_off, color: Colors.grey),
-                  onPressed: () => setState(() => confirmPasswordVisible = !confirmPasswordVisible),
-                ),
-              ),
-              const SizedBox(height: 30),
-              buildNextButton(context),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 20),
-                child: Row(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const SizedBox(height: 40),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Expanded(child: Divider(color: Colors.grey, thickness: 1)),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 8),
-                      child: Text("OR", style: TextStyle(color: Colors.black54, fontWeight: FontWeight.bold)),
-                    ),
-                    Expanded(child: Divider(color: Colors.grey, thickness: 1)),
+                    const Text("Welcome Back ", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black)),
+                    SvgPicture.asset("assets/images/hand.svg"),
                   ],
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _buildSocialButton("assets/images/Google.svg"),
-                  _buildSocialButton("assets/images/Facebook.svg"),
-                  _buildSocialButton("assets/images/Apple.svg"),
-                ],
-              ),
-              const SizedBox(height: 30),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text("Already have an account?"),
-                  InkWell(onTap: () {}, child: const Text("Login", style: TextStyle(color: Colors.green))),
-                ],
-              ),
-            ],
+                const SizedBox(height: 8),
+                const Text("Your journey continued stay committed and focused", textAlign: TextAlign.center, style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.italic)),
+                const SizedBox(height: 50),
+                const Text("Sign Up", textAlign: TextAlign.center, style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black)),
+                const SizedBox(height: 15),
+                CustomTextFormField(
+                  hintText: "Full Name",
+                  controller: nameController,
+                  suffixSvgAsset: "assets/images/person.svg",
+                  keyboardType: TextInputType.name,
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) return 'Name is required';
+                    if (!RegExp(r"^[a-zA-Z\s]+$").hasMatch(value)) return 'Name can only contain letters';
+                    return null;
+                  },
+                ),
+                CustomTextFormField(
+                  hintText: "Email",
+                  controller: emailController,
+                  suffixSvgAsset: "assets/images/mail.svg",
+                  keyboardType: TextInputType.emailAddress,
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) return 'Email is required';
+                    if (!RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$").hasMatch(value)) return 'Enter a valid email';
+                    return null;
+                  },
+                ),
+                CustomTextFormField(
+                  hintText: "Password",
+                  controller: passwordController,
+                  suffixSvgAsset: "assets/images/lock.svg",
+                  obscureText: !passwordVisible,
+                  suffixIcon: IconButton(
+                    icon: Icon(passwordVisible ? Icons.visibility : Icons.visibility_off, color: Colors.grey),
+                    onPressed: () => setState(() => passwordVisible = !passwordVisible),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) return 'Password is required';
+                    if (!isValidPassword(value)) return 'Must be 6+ chars, include upper, lower, number, special char';
+                    return null;
+                  },
+                ),
+                CustomTextFormField(
+                  hintText: "Confirm Password",
+                  controller: confirmPasswordController,
+                  suffixSvgAsset: "assets/images/lock.svg",
+                  obscureText: !confirmPasswordVisible,
+                  suffixIcon: IconButton(
+                    icon: Icon(confirmPasswordVisible ? Icons.visibility : Icons.visibility_off, color: Colors.grey),
+                    onPressed: () => setState(() => confirmPasswordVisible = !confirmPasswordVisible),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) return 'Confirm your password';
+                    if (value != passwordController.text) return 'Passwords do not match';
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 30),
+                buildNextButton(context),
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 20),
+                  child: Row(
+                    children: [
+                      Expanded(child: Divider(color: Colors.grey, thickness: 1)),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8),
+                        child: Text("OR", style: TextStyle(color: Colors.black54, fontWeight: FontWeight.bold)),
+                      ),
+                      Expanded(child: Divider(color: Colors.grey, thickness: 1)),
+                    ],
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    _buildSocialButton("assets/images/Google.svg"),
+                    _buildSocialButton("assets/images/Facebook.svg"),
+                    _buildSocialButton("assets/images/Apple.svg"),
+                  ],
+                ),
+                const SizedBox(height: 30),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("Already have an account?"),
+                    InkWell(onTap: () {}, child: const Text("Login", style: TextStyle(color: Colors.green))),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -120,7 +143,13 @@ class _SignUpState extends State<SignUp> {
   Center buildNextButton(BuildContext context) {
     return Center(
       child: InkWell(
-        onTap: isLoading ? null : handleSignUp,
+        onTap: isLoading
+            ? null
+            : () {
+          if (_formKey.currentState!.validate()) {
+            handleSignUp();
+          }
+        },
         borderRadius: BorderRadius.circular(12),
         child: Container(
           height: 50,
@@ -142,32 +171,6 @@ class _SignUpState extends State<SignUp> {
     final name = nameController.text.trim();
     final email = emailController.text.trim();
     final password = passwordController.text.trim();
-    final confirmPassword = confirmPasswordController.text.trim();
-
-    if (name.isEmpty || email.isEmpty || password.isEmpty || confirmPassword.isEmpty) {
-      showSnackbar(context, 'All fields are required');
-      return;
-    }
-
-    if (!RegExp(r"^[a-zA-Z\s]+$").hasMatch(name)) {
-      showSnackbar(context, 'Name can only contain letters');
-      return;
-    }
-
-    if (!RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$").hasMatch(email)) {
-      showSnackbar(context, 'Enter a valid email');
-      return;
-    }
-
-    if (password != confirmPassword) {
-      showSnackbar(context, 'Passwords do not match');
-      return;
-    }
-
-    if (!isValidPassword(password)) {
-      showSnackbar(context, 'Password must be 6+ characters, include upper/lowercase, number, and special character');
-      return;
-    }
 
     setState(() => isLoading = true);
 
@@ -184,16 +187,16 @@ class _SignUpState extends State<SignUp> {
         email: email,
         password: password,
         username: name,
-
       );
-try {
-  await FirebaseFirestore.instance.collection('Users').doc(userId).set(
-      userData.toJson());
-}
-catch (e) {
-  print('Firestore error: $e');
-  showSnackbar(context, 'Failed to save data to Firestore.');
-}      Navigator.pushReplacement(
+
+      try {
+        await FirebaseFirestore.instance.collection('Users').doc(userId).set(userData.toJson());
+      } catch (e) {
+        print('Firestore error: $e');
+        showSnackbar(context, 'Failed to save data to Firestore.');
+      }
+
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const UserNameScreen()),
       );

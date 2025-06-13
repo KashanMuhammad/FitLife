@@ -1,6 +1,10 @@
+import 'package:fitlife_app/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../custom widgets/custom_inkwell.dart';
+import '../main_screen.dart';
 
 class HealthIssuesInputScreen extends StatefulWidget {
   @override
@@ -25,7 +29,6 @@ class _HealtIssuesInputScreenState extends State<HealthIssuesInputScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            // Scrollable content
             Expanded(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.all(15.0),
@@ -33,8 +36,6 @@ class _HealtIssuesInputScreenState extends State<HealthIssuesInputScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const SizedBox(height: 50),
-
-                    // Step Indicator
                     Center(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -62,8 +63,6 @@ class _HealtIssuesInputScreenState extends State<HealthIssuesInputScreen> {
                         ),
                       ),
                     ),
-
-                    // Title
                     Center(
                       child: Text.rich(
                         const TextSpan(
@@ -96,8 +95,6 @@ class _HealtIssuesInputScreenState extends State<HealthIssuesInputScreen> {
                     ),
                     const Text("         recommendation from your doctor         "),
                     const SizedBox(height: 20),
-
-                    // Options
                     ...List.generate(options.length, (index) {
                       return CustomInkwell(
                         text: options[index],
@@ -109,14 +106,11 @@ class _HealtIssuesInputScreenState extends State<HealthIssuesInputScreen> {
                         },
                       );
                     }),
-
                     const SizedBox(height: 20),
                   ],
                 ),
               ),
             ),
-
-            // Fixed "Next" Button
             Padding(
               padding: const EdgeInsets.only(bottom: 20),
               child: buildNextButton(),
@@ -129,8 +123,30 @@ class _HealtIssuesInputScreenState extends State<HealthIssuesInputScreen> {
 
   Widget buildNextButton() {
     return InkWell(
-      onTap: () {
-        // TODO: Add your next screen navigation or action here
+      onTap: () async {
+        final user = FirebaseAuth.instance.currentUser;
+        if (user != null) {
+          try {
+            await FirebaseFirestore.instance
+                .collection('Users') // Make sure this matches your other screens
+                .doc(user.uid)
+                .update({
+              'selectedHealthIssue': options[selectedIndex],
+            });
+
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => MainScreen()),
+            );
+          } catch (e) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Failed to save health issue'),
+                backgroundColor: Colors.redAccent,
+              ),
+            );
+          }
+        }
       },
       child: Container(
         height: 50,

@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitlife_app/Onboarding%20Screens/weight_input_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -11,11 +13,11 @@ class HeightInputScreen extends StatefulWidget {
 class _HeightInputScreenState extends State<HeightInputScreen> {
   bool isCmSelected = true;
 
-  final List<int> cmList = List.generate(121, (index) => 100 + index); // 100–220 cm
+  final List<int> cmList = List.generate(121, (index) => 100 + index);
   int selectedCmIndex = 70;
 
-  final List<int> feetList = List.generate(4, (index) => 4 + index); // 4–7 ft
-  final List<int> inchList = List.generate(12, (index) => index);     // 0–11 in
+  final List<int> feetList = List.generate(4, (index) => 4 + index);
+  final List<int> inchList = List.generate(12, (index) => index);
   int selectedFtIndex = 1;
   int selectedInIndex = 8;
 
@@ -137,41 +139,80 @@ class _HeightInputScreenState extends State<HeightInputScreen> {
 
   Center buildNextButton(BuildContext context) {
     return Center(
-                  child: InkWell(
-                    onTap: () {
-                      int heightInCm = isCmSelected
-                          ? cmList[selectedCmIndex]
-                          : _feetInchToCm(feetList[selectedFtIndex], inchList[selectedInIndex]);
+      child: InkWell(
+        onTap: () async {
+          final success = await handleHeightInput();
+          if (success) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const WeightInputScreen()),
+            );
+          }
+        },
+        child: Container(
+          height: 50,
+          width: 300,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            gradient: const LinearGradient(
+              colors: [Color(0xFF5AFF15), Color(0xFF00B712)],
+            ),
+          ),
+          child: const Center(
+            child: Text(
+              "Next",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+                fontSize: 18,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 
-                      // TODO: Pass heightInCm to next screen if needed
+  Future<bool> handleHeightInput() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      final userId = user.uid;
 
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const WeightInputScreen()),
-                      );
-                    },
-                    child: Container(
-                      height: 50,
-                      width: 300,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        gradient: const LinearGradient(
-                          colors: [Color(0xFF5AFF15), Color(0xFF00B712)],
-                        ),
-                      ),
-                      child: const Center(
-                        child: Text(
-                          "Next",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            fontSize: 18,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                );
+      int? heightValue;
+      String heightUnit;
+
+      if (isCmSelected) {
+        if (selectedCmIndex < 0 || selectedCmIndex >= cmList.length) {
+          return _showError("Invalid height selection.");
+        }
+        heightValue = cmList[selectedCmIndex];
+        heightUnit = 'cm';
+      } else {
+        if (selectedFtIndex < 0 || selectedFtIndex >= feetList.length || selectedInIndex < 0 || selectedInIndex >= inchList.length) {
+          return _showError("Invalid height selection.");
+        }
+        heightValue = _feetInchToCm(feetList[selectedFtIndex], inchList[selectedInIndex]);
+        heightUnit = 'ft_in';
+      }
+
+      try {
+        await FirebaseFirestore.instance.collection('Users').doc(userId).update({
+          'heightValue': heightValue,
+          'heightUnit': heightUnit,
+        });
+        return true;
+      } catch (e) {
+        return _showError("Failed to save height.");
+      }
+    }
+    return _showError("User not logged in.");
+  }
+
+  bool _showError(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message), backgroundColor: Colors.redAccent),
+    );
+    return false;
   }
 
   Widget _buildCmPicker() {

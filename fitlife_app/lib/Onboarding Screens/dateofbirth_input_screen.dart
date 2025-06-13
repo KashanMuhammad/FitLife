@@ -1,7 +1,8 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'diet_habits_input_screen.dart';
 
 class DateofbirthInputScreen extends StatefulWidget {
@@ -55,6 +56,15 @@ class _DateofbirthInputScreenState extends State<DateofbirthInputScreen> {
     super.dispose();
   }
 
+  void _showError(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: Colors.redAccent,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -72,8 +82,6 @@ class _DateofbirthInputScreenState extends State<DateofbirthInputScreen> {
               child: Column(
                 children: [
                   const SizedBox(height: 50),
-
-                  // Progress indicator
                   Center(
                     child: Text.rich(
                       TextSpan(
@@ -97,10 +105,7 @@ class _DateofbirthInputScreenState extends State<DateofbirthInputScreen> {
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 10),
-
-                  // Title
                   Center(
                     child: Text.rich(
                       TextSpan(
@@ -125,19 +130,14 @@ class _DateofbirthInputScreenState extends State<DateofbirthInputScreen> {
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 12),
-
                   const Text("     Choose your special calendar day below     "),
                   const Text(
                     "so we can tailor the plan that suits your needs",
                     style: TextStyle(fontStyle: FontStyle.normal),
                   ),
                   const Text("             and long-term health goals              "),
-
                   const SizedBox(height: 20),
-
-                  // Date Pickers
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -169,48 +169,65 @@ class _DateofbirthInputScreenState extends State<DateofbirthInputScreen> {
                       ),
                     ],
                   ),
-
                   const Spacer(),
-
-                  // Next Button
                   GestureDetector(
-                    onTap: () {
-                      int selectedDay = days[selectedDayIndex];
-                      int selectedMonth = months[selectedMonthIndex];
-                      int selectedYear = years[selectedYearIndex];
+                    onTap: () async {
+                      final user = FirebaseAuth.instance.currentUser;
+                      if (user != null) {
+                        try {
+                          int selectedDay = days[selectedDayIndex];
+                          int selectedMonth = months[selectedMonthIndex];
+                          int selectedYear = years[selectedYearIndex];
 
-                      DateTime dob = DateTime(selectedYear, selectedMonth, selectedDay);
-                      print("Selected DOB: $dob");
+                          final dob = DateTime(selectedYear, selectedMonth, selectedDay);
+                          final now = DateTime.now();
 
-                      // Navigate to next screen or perform action
+                          if (dob.isAfter(now)) {
+                            _showError('Date of birth cannot be in the future.');
+                            return;
+                          }
+
+                          final age = now.year - dob.year - ((now.month < dob.month || (now.month == dob.month && now.day < dob.day)) ? 1 : 0);
+                          if (age < 13) {
+                            _showError('You must be at least 13 years old.');
+                            return;
+                          }
+
+                          await FirebaseFirestore.instance
+                              .collection('Users')
+                              .doc(user.uid)
+                              .update({'dateOfBirth': dob.toIso8601String()});
+
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => DietHabitsInputScreen()),
+                          );
+                        } catch (e) {
+                          _showError('Invalid date selected.');
+                        }
+                      }
                     },
-                    child: InkWell(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => DietHabitsInputScreen(),));
-                      },
-                      child: Container(
-                        height: 50,
-                        width: 300,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          gradient: const LinearGradient(
-                            colors: [Color(0xFF5AFF15), Color(0xFF00B712)],
-                          ),
+                    child: Container(
+                      height: 50,
+                      width: 300,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        gradient: const LinearGradient(
+                          colors: [Color(0xFF5AFF15), Color(0xFF00B712)],
                         ),
-                        child: const Center(
-                          child: Text(
-                            "Next",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                              fontSize: 18,
-                            ),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          "Next",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            fontSize: 18,
                           ),
                         ),
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 20),
                 ],
               ),

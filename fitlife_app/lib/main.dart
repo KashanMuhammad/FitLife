@@ -21,7 +21,7 @@ void main() async {
     ),
   );
   runApp(
-    const MaterialApp(home: MainScreen(), debugShowCheckedModeBanner: false),
+    const MaterialApp(home: SignUp(), debugShowCheckedModeBanner: false),
   );
 }
 

@@ -52,7 +52,7 @@ class CustomDropdown extends StatefulWidget {
     required this.hintText,
     required this.onChanged,
     this.initialValue,
-    this.value,
+    this.value
   });
 
   @override
@@ -60,12 +60,12 @@ class CustomDropdown extends StatefulWidget {
 }
 
 class _CustomDropdownState extends State<CustomDropdown> {
-  late String? selectedValue;
+  String? selectedValue;
 
   @override
   void initState() {
     super.initState();
-    selectedValue = widget.value ?? widget.initialValue;
+    selectedValue = widget.initialValue;
   }
 
   @override
@@ -100,4 +100,3 @@ class _CustomDropdownState extends State<CustomDropdown> {
     );
   }
 }
-

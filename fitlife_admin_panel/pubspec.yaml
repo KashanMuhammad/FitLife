@@ -39,8 +39,8 @@ dependencies:
   dropdown_button2: ^2.3.9
   image_picker: ^1.1.2
   data_table_2: ^2.6.0
-  shared:
-    path: ../shared
+#  shared:
+#    path: ../shared
 
 dev_dependencies:
   flutter_test:

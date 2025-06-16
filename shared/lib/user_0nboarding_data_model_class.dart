@@ -24,19 +24,22 @@ class FirebaseDataModelClass {
   });
 
   Map<String, dynamic> toJson() {
-    return {
-      'userId': userId,
-      'email' : email,
-      'password' : password,
-      'username': username,
-      'gender': gender,
-      'height': height,
-      'weight': weight,
-      'dateOfBirth': dateOfBirth,
-      'selectedDietHabits': selectedDietHabits,
-      'selectedHealthIssues': selectedHealthIssues,
-    };
+    final Map<String, dynamic> data = {};
+
+    if (userId != null) data['userId'] = userId;
+    if (email != null) data['email'] = email;
+    if (password != null) data['password'] = password;
+    if (username != null) data['username'] = username;
+    if (gender != null) data['gender'] = gender;
+    if (height != null) data['height'] = height;
+    if (weight != null) data['weight'] = weight;
+    if (dateOfBirth != null) data['dateOfBirth'] = dateOfBirth!.toIso8601String();
+    if (selectedDietHabits != null) data['selectedDietHabits'] = selectedDietHabits;
+    if (selectedHealthIssues != null) data['selectedHealthIssues'] = selectedHealthIssues;
+
+    return data;
   }
+
 
   factory FirebaseDataModelClass.fromJson(Map<String, dynamic> json) {
     return FirebaseDataModelClass(

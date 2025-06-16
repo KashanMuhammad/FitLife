@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared/user_0nboarding_data_model_class.dart';
 import 'gender_screen.dart';
+
 
 class UserNameScreen extends StatefulWidget {
   const UserNameScreen({super.key});
@@ -118,18 +120,25 @@ class _UserNameScreenState extends State<UserNameScreen> {
     final username = userNameController.text.trim();
     setState(() => isLoading = true);
 
-    final userId = FirebaseAuth.instance.currentUser?.uid;
+    final user = FirebaseAuth.instance.currentUser;
+    final userId = user?.uid;
+
     if (userId == null) {
       showSnackbar('User not authenticated.');
       setState(() => isLoading = false);
       return;
     }
 
+    final model = FirebaseDataModelClass(
+      userId: userId,
+      username: username,
+    );
+
     try {
       await FirebaseFirestore.instance
           .collection('Users')
           .doc(userId)
-          .set({'username': username}, SetOptions(merge: true));
+          .set(model.toJson(), SetOptions(merge: true));
 
       Navigator.push(context, MaterialPageRoute(builder: (context) => const GenderScreen()));
     } catch (e) {

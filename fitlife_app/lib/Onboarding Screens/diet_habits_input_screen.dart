@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shared/user_0nboarding_data_model_class.dart';
 
 import '../custom widgets/custom_inkwell.dart';
 import 'health_issues_input_screen.dart';
@@ -125,29 +126,31 @@ class _DietHabitsInputScreenState extends State<DietHabitsInputScreen> {
       child: InkWell(
         onTap: () async {
           final user = FirebaseAuth.instance.currentUser;
-          if (user != null) {
-            String selectedDietHabit = options[selectedIndex];
+          final userId = user?.uid;
+          if (userId == null) return;
 
-            try {
-              await FirebaseFirestore.instance
-                  .collection('Users')
-                  .doc(user.uid)
-                  .update({'selectedDietHabits': selectedDietHabit});
+          final model = FirebaseDataModelClass(
+            userId: userId,
+            selectedDietHabits: [options[selectedIndex]],
+          );
 
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => HealthIssuesInputScreen(),
-                ),
-              );
-            } catch (e) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('Failed to save diet habit'),
-                  backgroundColor: Colors.redAccent,
-                ),
-              );
-            }
+          try {
+            await FirebaseFirestore.instance
+                .collection('Users')
+                .doc(userId)
+                .set(model.toJson(),SetOptions(merge: true));
+
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => HealthIssuesInputScreen()),
+            );
+          } catch (e) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Failed to save diet habit'),
+                backgroundColor: Colors.redAccent,
+              ),
+            );
           }
         },
         child: Container(
@@ -173,4 +176,5 @@ class _DietHabitsInputScreenState extends State<DietHabitsInputScreen> {
       ),
     );
   }
+
 }

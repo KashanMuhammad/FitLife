@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitlife_app/Onboarding%20Screens/dateofbirth_input_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -11,10 +13,10 @@ class WeightInputScreen extends StatefulWidget {
 class _WeightInputScreenState extends State<WeightInputScreen> {
   bool isKgSelected = true;
 
-  final List<int> kgList = List.generate(151, (index) => 30 + index); // 30–180 kg
+  final List<int> kgList = List.generate(151, (index) => 30 + index);
   int selectedKgIndex = 30;
 
-  final List<int> lbsList = List.generate(221, (index) => 66 + index); // 66–286 lbs
+  final List<int> lbsList = List.generate(221, (index) => 66 + index);
   int selectedLbsIndex = 34;
 
   final FixedExtentScrollController kgController = FixedExtentScrollController(initialItem: 30);
@@ -133,43 +135,61 @@ class _WeightInputScreenState extends State<WeightInputScreen> {
 
   Center buildNextButton(BuildContext context) {
     return Center(
-                  child: InkWell(
-                    onTap: () {
-                      int weightInKg = isKgSelected
-                          ? kgList[selectedKgIndex]
-                          : _lbsToKg(lbsList[selectedLbsIndex]);
+      child: InkWell(
+        onTap: () async {
+          int weightValue = isKgSelected
+              ? kgList[selectedKgIndex]
+              : lbsList[selectedLbsIndex];
+          String weightUnit = isKgSelected ? 'kg' : 'lbs';
 
-                      // TODO: Pass weightInKg to next screen if needed
+          await handleWeightInput(weightValue, weightUnit);
 
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const DateofbirthInputScreen(),
-                        ),
-                      );
-                    },
-                    child: Container(
-                      height: 50,
-                      width: 300,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        gradient: const LinearGradient(
-                          colors: [Color(0xFF5AFF15), Color(0xFF00B712)],
-                        ),
-                      ),
-                      child: const Center(
-                        child: Text(
-                          "Next",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            fontSize: 18,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                );
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const DateofbirthInputScreen(),
+            ),
+          );
+        },
+        child: Container(
+          height: 50,
+          width: 300,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            gradient: const LinearGradient(
+              colors: [Color(0xFF5AFF15), Color(0xFF00B712)],
+            ),
+          ),
+          child: const Center(
+            child: Text(
+              "Next",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+                fontSize: 18,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Future<void> handleWeightInput(int weightValue, String weightUnit) async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      final userId = user.uid;
+      try {
+        await FirebaseFirestore.instance.collection('Users').doc(userId).update({
+          'weightValue': weightValue,
+          'weightUnit': weightUnit,
+        });
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to save weight'), backgroundColor: Colors.redAccent),
+        );
+      }
+    }
   }
 
   Widget _buildKgPicker() {

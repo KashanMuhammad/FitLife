@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../custom widgets/custom_inkwell.dart';
 import 'health_issues_input_screen.dart';
@@ -26,7 +28,6 @@ class _DietHabitsInputScreenState extends State<DietHabitsInputScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            // Scrollable content
             Expanded(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.all(15.0),
@@ -93,8 +94,6 @@ class _DietHabitsInputScreenState extends State<DietHabitsInputScreen> {
                     ),
                     const Text("         recommendation from your doctor         "),
                     const SizedBox(height: 20),
-
-                    // Render options
                     ...List.generate(options.length, (index) {
                       return CustomInkwell(
                         text: options[index],
@@ -106,14 +105,11 @@ class _DietHabitsInputScreenState extends State<DietHabitsInputScreen> {
                         },
                       );
                     }),
-
                     const SizedBox(height: 20),
                   ],
                 ),
               ),
             ),
-
-            // Fixed "Next" button at bottom
             Padding(
               padding: const EdgeInsets.only(bottom: 20),
               child: buildNextButton(context),
@@ -127,13 +123,32 @@ class _DietHabitsInputScreenState extends State<DietHabitsInputScreen> {
   Center buildNextButton(BuildContext context) {
     return Center(
       child: InkWell(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => HealthIssuesInputScreen(),
-            ),
-          );
+        onTap: () async {
+          final user = FirebaseAuth.instance.currentUser;
+          if (user != null) {
+            String selectedDietHabit = options[selectedIndex];
+
+            try {
+              await FirebaseFirestore.instance
+                  .collection('Users')
+                  .doc(user.uid)
+                  .update({'selectedDietHabits': selectedDietHabit});
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HealthIssuesInputScreen(),
+                ),
+              );
+            } catch (e) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Failed to save diet habit'),
+                  backgroundColor: Colors.redAccent,
+                ),
+              );
+            }
+          }
         },
         child: Container(
           height: 50,

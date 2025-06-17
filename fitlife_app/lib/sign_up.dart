@@ -76,11 +76,7 @@ class _SignUpState extends State<SignUp> {
                   controller: passwordController,
                   suffixSvgAsset: "assets/images/lock.svg",
                   obscureText: !passwordVisible,
-                  suffixIcon: IconButton(
-                    icon: Icon(passwordVisible ? Icons.visibility : Icons.visibility_off, color: Colors.grey),
-                    onPressed: () => setState(() => passwordVisible = !passwordVisible),
-                  ),
-                  validator: (value) {
+validator: (value) {
                     if (value == null || value.isEmpty) return 'Password is required';
                     if (!isValidPassword(value)) return 'Must be 6+ chars, include upper, lower, number, special char';
                     return null;
@@ -161,7 +157,7 @@ class _SignUpState extends State<SignUp> {
           alignment: Alignment.center,
           child: isLoading
               ? const CircularProgressIndicator(color: Colors.white)
-              : const Text("Next", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 18)),
+              : const Text("Sign up", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 18)),
         ),
       ),
     );

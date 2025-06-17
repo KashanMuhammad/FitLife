@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:shared/user_0nboarding_data_model_class.dart';
 import 'height_input_screen.dart';
 
 class GenderScreen extends StatefulWidget {
@@ -84,29 +83,20 @@ class _GenderScreenState extends State<GenderScreen> {
           ? null
           : () async {
         setState(() => isLoading = true);
-        final user = FirebaseAuth.instance.currentUser;
-        final userId = user?.uid;
+        final userId = FirebaseAuth.instance.currentUser?.uid;
         if (userId == null) {
           showSnackbar('User not authenticated.');
           setState(() => isLoading = false);
           return;
         }
 
-        final model = FirebaseDataModelClass(
-          userId: userId,
-          gender: selectedGender,
-        );
-
         try {
           await FirebaseFirestore.instance
               .collection('Users')
               .doc(userId)
-              .set(model.toJson(),SetOptions(merge: true));
+              .set({'gender': selectedGender}, SetOptions(merge: true));
 
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const HeightInputScreen()),
-          );
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const HeightInputScreen()));
         } catch (e) {
           showSnackbar('Failed to save gender.');
         } finally {
@@ -131,7 +121,6 @@ class _GenderScreenState extends State<GenderScreen> {
       ),
     );
   }
-
 
   void showSnackbar(String message) {
     ScaffoldMessenger.of(context).showSnackBar(

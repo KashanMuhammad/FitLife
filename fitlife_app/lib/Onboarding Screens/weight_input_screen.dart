@@ -2,8 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitlife_app/Onboarding%20Screens/dateofbirth_input_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:shared/user_0nboarding_data_model_class.dart';
-
 
 class WeightInputScreen extends StatefulWidget {
   const WeightInputScreen({super.key});
@@ -14,7 +12,6 @@ class WeightInputScreen extends StatefulWidget {
 
 class _WeightInputScreenState extends State<WeightInputScreen> {
   bool isKgSelected = true;
-
 
   final List<int> kgList = List.generate(151, (index) => 30 + index);
   int selectedKgIndex = 30;
@@ -142,9 +139,10 @@ class _WeightInputScreenState extends State<WeightInputScreen> {
         onTap: () async {
           int weightValue = isKgSelected
               ? kgList[selectedKgIndex]
-              : _lbsToKg(lbsList[selectedLbsIndex]);
+              : lbsList[selectedLbsIndex];
+          String weightUnit = isKgSelected ? 'kg' : 'lbs';
 
-          await handleWeightInput(weightValue.toDouble());
+          await handleWeightInput(weightValue, weightUnit);
 
           Navigator.push(
             context,
@@ -177,20 +175,15 @@ class _WeightInputScreenState extends State<WeightInputScreen> {
     );
   }
 
-  Future<void> handleWeightInput(double weightValue) async {
+  Future<void> handleWeightInput(int weightValue, String weightUnit) async {
     final user = FirebaseAuth.instance.currentUser;
-    final userId = user?.uid;
-
-    if (userId != null) {
-      final model = FirebaseDataModelClass(
-        userId: userId,
-        weight: weightValue,
-      );
+    if (user != null) {
+      final userId = user.uid;
       try {
-        await FirebaseFirestore.instance
-            .collection('Users')
-            .doc(userId)
-            .set(model.toJson(), SetOptions(merge: true));
+        await FirebaseFirestore.instance.collection('Users').doc(userId).update({
+          'weightValue': weightValue,
+          'weightUnit': weightUnit,
+        });
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Failed to save weight'), backgroundColor: Colors.redAccent),

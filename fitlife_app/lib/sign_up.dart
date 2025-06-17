@@ -190,9 +190,9 @@ class _SignUpState extends State<SignUp> {
       );
 
       try {
-        await FirebaseFirestore.instance.collection('Users').doc(userId).set(userData.toJson(), SetOptions(merge: true));
+        await FirebaseFirestore.instance.collection('Users').doc(userId).set(userData.toJson());
       } catch (e) {
-
+        print('Firestore error: $e');
         showSnackbar(context, 'Failed to save data to Firestore.');
       }
 

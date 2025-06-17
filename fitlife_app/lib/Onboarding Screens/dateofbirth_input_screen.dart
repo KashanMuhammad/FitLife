@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:shared/user_0nboarding_data_model_class.dart';
 import 'diet_habits_input_screen.dart';
 
 class DateofbirthInputScreen extends StatefulWidget {
@@ -17,10 +16,7 @@ class _DateofbirthInputScreenState extends State<DateofbirthInputScreen> {
   final Color selectedBackgroundColor = const Color(0xFFE9FDE3);
   final Color selectedTextColor = Colors.green;
 
-  final List<int> years = List.generate(
-    100,
-    (index) => DateTime.now().year - index,
-  );
+  final List<int> years = List.generate(100, (index) => DateTime.now().year - index);
   final List<int> months = List.generate(12, (index) => index + 1);
   final List<int> days = List.generate(31, (index) => index + 1);
 
@@ -48,9 +44,7 @@ class _DateofbirthInputScreenState extends State<DateofbirthInputScreen> {
     selectedYearIndex = randomYearIndex;
 
     dayController = FixedExtentScrollController(initialItem: randomDayIndex);
-    monthController = FixedExtentScrollController(
-      initialItem: randomMonthIndex,
-    );
+    monthController = FixedExtentScrollController(initialItem: randomMonthIndex);
     yearController = FixedExtentScrollController(initialItem: randomYearIndex);
   }
 
@@ -64,7 +58,10 @@ class _DateofbirthInputScreenState extends State<DateofbirthInputScreen> {
 
   void _showError(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message), backgroundColor: Colors.redAccent),
+      SnackBar(
+        content: Text(message),
+        backgroundColor: Colors.redAccent,
+      ),
     );
   }
 
@@ -79,8 +76,7 @@ class _DateofbirthInputScreenState extends State<DateofbirthInputScreen> {
           padding: const EdgeInsets.all(15.0),
           child: ConstrainedBox(
             constraints: BoxConstraints(
-              minHeight:
-                  screenHeight - screenPadding.top - screenPadding.bottom,
+              minHeight: screenHeight - screenPadding.top - screenPadding.bottom,
             ),
             child: IntrinsicHeight(
               child: Column(
@@ -100,7 +96,10 @@ class _DateofbirthInputScreenState extends State<DateofbirthInputScreen> {
                           ),
                           const TextSpan(
                             text: ' / 7',
-                            style: TextStyle(color: Colors.black, fontSize: 18),
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                            ),
                           ),
                         ],
                       ),
@@ -132,16 +131,12 @@ class _DateofbirthInputScreenState extends State<DateofbirthInputScreen> {
                     ),
                   ),
                   const SizedBox(height: 12),
-                  const Text(
-                    "     Choose your special calendar day below     ",
-                  ),
+                  const Text("     Choose your special calendar day below     "),
                   const Text(
                     "so we can tailor the plan that suits your needs",
                     style: TextStyle(fontStyle: FontStyle.normal),
                   ),
-                  const Text(
-                    "             and long-term health goals              ",
-                  ),
+                  const Text("             and long-term health goals              "),
                   const SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -156,13 +151,7 @@ class _DateofbirthInputScreenState extends State<DateofbirthInputScreen> {
                       ),
                       const SizedBox(width: 10),
                       _buildWheel(
-                        values:
-                            months
-                                .map(
-                                  (m) =>
-                                      DateFormat.MMM().format(DateTime(0, m)),
-                                )
-                                .toList(),
+                        values: months.map((m) => DateFormat.MMM().format(DateTime(0, m))).toList(),
                         controller: monthController,
                         selectedIndex: selectedMonthIndex,
                         onSelectedItemChanged: (index) {
@@ -184,62 +173,40 @@ class _DateofbirthInputScreenState extends State<DateofbirthInputScreen> {
                   GestureDetector(
                     onTap: () async {
                       final user = FirebaseAuth.instance.currentUser;
-                      final userId = user?.uid;
-                      if (userId != null) {
+                      if (user != null) {
                         try {
                           int selectedDay = days[selectedDayIndex];
                           int selectedMonth = months[selectedMonthIndex];
                           int selectedYear = years[selectedYearIndex];
 
-                          final dob = DateTime(
-                            selectedYear,
-                            selectedMonth,
-                            selectedDay,
-                          );
+                          final dob = DateTime(selectedYear, selectedMonth, selectedDay);
                           final now = DateTime.now();
 
                           if (dob.isAfter(now)) {
-                            _showError(
-                              'Date of birth cannot be in the future.',
-                            );
+                            _showError('Date of birth cannot be in the future.');
                             return;
                           }
 
-                          final age =
-                              now.year -
-                              dob.year -
-                              ((now.month < dob.month ||
-                                      (now.month == dob.month &&
-                                          now.day < dob.day))
-                                  ? 1
-                                  : 0);
+                          final age = now.year - dob.year - ((now.month < dob.month || (now.month == dob.month && now.day < dob.day)) ? 1 : 0);
                           if (age < 13) {
                             _showError('You must be at least 13 years old.');
                             return;
                           }
 
-                          final model = FirebaseDataModelClass(
-                            userId: userId,
-                            dateOfBirth: dob,
-                          );
-
                           await FirebaseFirestore.instance
                               .collection('Users')
-                              .doc(userId)
-                              .set(model.toJson(), SetOptions(merge: true));
+                              .doc(user.uid)
+                              .update({'dateOfBirth': dob.toIso8601String()});
 
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                              builder: (context) => DietHabitsInputScreen(),
-                            ),
+                            MaterialPageRoute(builder: (context) => DietHabitsInputScreen()),
                           );
                         } catch (e) {
                           _showError('Invalid date selected.');
                         }
                       }
                     },
-
                     child: Container(
                       height: 50,
                       width: 300,
@@ -292,21 +259,19 @@ class _DateofbirthInputScreenState extends State<DateofbirthInputScreen> {
             final isSelected = index == selectedIndex;
             return Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-              decoration:
-                  isSelected
-                      ? BoxDecoration(
-                        color: selectedBackgroundColor,
-                        borderRadius: BorderRadius.circular(12),
-                      )
-                      : null,
+              decoration: isSelected
+                  ? BoxDecoration(
+                color: selectedBackgroundColor,
+                borderRadius: BorderRadius.circular(12),
+              )
+                  : null,
               child: Center(
                 child: Text(
                   values[index],
                   style: TextStyle(
                     color: isSelected ? selectedTextColor : Colors.black,
                     fontSize: isSelected ? 20 : 16,
-                    fontWeight:
-                        isSelected ? FontWeight.bold : FontWeight.normal,
+                    fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                   ),
                 ),
               ),

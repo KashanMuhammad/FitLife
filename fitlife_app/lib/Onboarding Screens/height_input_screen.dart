@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitlife_app/Onboarding%20Screens/weight_input_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:shared/user_0nboarding_data_model_class.dart';
 
 class HeightInputScreen extends StatefulWidget {
   const HeightInputScreen({super.key});
@@ -25,14 +24,9 @@ class _HeightInputScreenState extends State<HeightInputScreen> {
   final Color selectedBackgroundColor = const Color(0xFFE9FDE3);
   final Color selectedTextColor = Colors.green;
 
-  final FixedExtentScrollController cmController = FixedExtentScrollController(
-    initialItem: 70,
-  );
-  final FixedExtentScrollController ftController = FixedExtentScrollController(
-    initialItem: 1,
-  );
-  final FixedExtentScrollController inchController =
-      FixedExtentScrollController(initialItem: 8);
+  final FixedExtentScrollController cmController = FixedExtentScrollController(initialItem: 70);
+  final FixedExtentScrollController ftController = FixedExtentScrollController(initialItem: 1);
+  final FixedExtentScrollController inchController = FixedExtentScrollController(initialItem: 8);
 
   int _feetInchToCm(int ft, int inch) => (((ft * 12) + inch) * 2.54).round();
 
@@ -55,8 +49,7 @@ class _HeightInputScreenState extends State<HeightInputScreen> {
           padding: const EdgeInsets.all(15.0),
           child: ConstrainedBox(
             constraints: BoxConstraints(
-              minHeight:
-                  screenHeight - screenPadding.top - screenPadding.bottom,
+              minHeight: screenHeight - screenPadding.top - screenPadding.bottom,
             ),
             child: IntrinsicHeight(
               child: Column(
@@ -76,7 +69,10 @@ class _HeightInputScreenState extends State<HeightInputScreen> {
                           ),
                           const TextSpan(
                             text: ' / 7',
-                            style: TextStyle(color: Colors.black, fontSize: 18),
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                            ),
                           ),
                         ],
                       ),
@@ -108,16 +104,12 @@ class _HeightInputScreenState extends State<HeightInputScreen> {
                     ),
                   ),
                   const SizedBox(height: 12),
-                  const Text(
-                    "      Provide details about your health, dietary    ",
-                  ),
+                  const Text("      Provide details about your health, dietary    "),
                   const Text(
                     "habit and goals to receive a personalized diet",
                     style: TextStyle(fontStyle: FontStyle.normal),
                   ),
-                  const Text(
-                    "         recommendation from your doctor         ",
-                  ),
+                  const Text("         recommendation from your doctor         "),
                   const SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -153,9 +145,7 @@ class _HeightInputScreenState extends State<HeightInputScreen> {
           if (success) {
             Navigator.push(
               context,
-              MaterialPageRoute(
-                builder: (context) => const WeightInputScreen(),
-              ),
+              MaterialPageRoute(builder: (context) => const WeightInputScreen()),
             );
           }
         },
@@ -185,39 +175,31 @@ class _HeightInputScreenState extends State<HeightInputScreen> {
 
   Future<bool> handleHeightInput() async {
     final user = FirebaseAuth.instance.currentUser;
-    final userId = user?.uid;
+    if (user != null) {
+      final userId = user.uid;
 
-    if (userId != null) {
       int? heightValue;
+      String heightUnit;
 
       if (isCmSelected) {
         if (selectedCmIndex < 0 || selectedCmIndex >= cmList.length) {
           return _showError("Invalid height selection.");
         }
         heightValue = cmList[selectedCmIndex];
+        heightUnit = 'cm';
       } else {
-        if (selectedFtIndex < 0 ||
-            selectedFtIndex >= feetList.length ||
-            selectedInIndex < 0 ||
-            selectedInIndex >= inchList.length) {
+        if (selectedFtIndex < 0 || selectedFtIndex >= feetList.length || selectedInIndex < 0 || selectedInIndex >= inchList.length) {
           return _showError("Invalid height selection.");
         }
-        heightValue = _feetInchToCm(
-          feetList[selectedFtIndex],
-          inchList[selectedInIndex],
-        );
+        heightValue = _feetInchToCm(feetList[selectedFtIndex], inchList[selectedInIndex]);
+        heightUnit = 'ft_in';
       }
 
-      final model = FirebaseDataModelClass(
-        userId: userId,
-        height: heightValue.toDouble(),
-      );
-
       try {
-        await FirebaseFirestore.instance
-            .collection('Users')
-            .doc(userId)
-            .set(model.toJson(), SetOptions(merge: true));
+        await FirebaseFirestore.instance.collection('Users').doc(userId).update({
+          'heightValue': heightValue,
+          'heightUnit': heightUnit,
+        });
         return true;
       } catch (e) {
         return _showError("Failed to save height.");
@@ -279,10 +261,7 @@ class _HeightInputScreenState extends State<HeightInputScreen> {
               builder: (context, index) {
                 final isSelected = index == selectedFtIndex;
                 return _scrollItem(
-                  value:
-                      isSelected
-                          ? "${feetList[index]} ft"
-                          : "${feetList[index]}",
+                  value: isSelected ? "${feetList[index]} ft" : "${feetList[index]}",
                   isSelected: isSelected,
                 );
               },
@@ -307,10 +286,7 @@ class _HeightInputScreenState extends State<HeightInputScreen> {
               builder: (context, index) {
                 final isSelected = index == selectedInIndex;
                 return _scrollItem(
-                  value:
-                      isSelected
-                          ? "${inchList[index]} inch"
-                          : "${inchList[index]}",
+                  value: isSelected ? "${inchList[index]} inch" : "${inchList[index]}",
                   isSelected: isSelected,
                 );
               },
@@ -325,13 +301,12 @@ class _HeightInputScreenState extends State<HeightInputScreen> {
   Widget _scrollItem({required String value, required bool isSelected}) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      decoration:
-          isSelected
-              ? BoxDecoration(
-                color: selectedBackgroundColor,
-                borderRadius: BorderRadius.circular(12),
-              )
-              : null,
+      decoration: isSelected
+          ? BoxDecoration(
+        color: selectedBackgroundColor,
+        borderRadius: BorderRadius.circular(12),
+      )
+          : null,
       child: Center(
         child: Text(
           value,
@@ -353,9 +328,7 @@ class _HeightInputScreenState extends State<HeightInputScreen> {
         decoration: BoxDecoration(
           color: isSelected ? selectedBackgroundColor : Colors.transparent,
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: isSelected ? selectedTextColor : Colors.grey.shade300,
-          ),
+          border: Border.all(color: isSelected ? selectedTextColor : Colors.grey.shade300),
         ),
         child: Text(
           label,

@@ -11,45 +11,54 @@ class FirebaseDataModelClass {
   final List<String>? selectedHealthIssues;
 
   FirebaseDataModelClass({
-     this.email,
-     this.password,
-     this.username,
-     this.gender,
-     this.height,
-     this.weight,
-     this.dateOfBirth,
-     this.selectedDietHabits,
-     this.selectedHealthIssues,
-     this.userId,
+    this.userId,
+    this.username,
+    this.email,
+    this.password,
+    this.gender,
+    this.height,
+    this.weight,
+    this.dateOfBirth,
+    this.selectedDietHabits,
+    this.selectedHealthIssues,
   });
 
   Map<String, dynamic> toJson() {
-    return {
-      'userId': userId,
-      'email' : email,
-      'password' : password,
-      'username': username,
-      'gender': gender,
-      'height': height,
-      'weight': weight,
-      'dateOfBirth': dateOfBirth,
-      'selectedDietHabits': selectedDietHabits,
-      'selectedHealthIssues': selectedHealthIssues,
-    };
+    final Map<String, dynamic> data = {};
+    if (userId != null) data['userId'] = userId;
+    if (email != null) data['email'] = email;
+    if (password != null) data['password'] = password;
+    if (username != null) data['username'] = username;
+    if (gender != null) data['gender'] = gender;
+    if (height != null) data['height'] = height;
+    if (weight != null) data['weight'] = weight;
+    if (dateOfBirth != null) data['dateOfBirth'] = dateOfBirth!.toIso8601String();
+    if (selectedDietHabits != null) data['selectedDietHabits'] = selectedDietHabits;
+    if (selectedHealthIssues != null) data['selectedHealthIssues'] = selectedHealthIssues;
+    return data;
   }
 
   factory FirebaseDataModelClass.fromJson(Map<String, dynamic> json) {
+    List<String>? toList(dynamic value) {
+      if (value == null) return null;
+      if (value is String) return [value];
+      if (value is Iterable) return List<String>.from(value);
+      return null;
+    }
+
     return FirebaseDataModelClass(
-      userId: json['userId'],
-      email: json['email'],
-      password: json['password'],
-      username: json['username'],
-      gender: json['gender'],
-      height: (json['height'] as num).toDouble(),
-      weight: (json['weight'] as num).toDouble(),
-      dateOfBirth: DateTime.parse(json['dateOfBirth']),
-      selectedDietHabits: List<String>.from(json['selectedDietHabits']),
-      selectedHealthIssues: List<String>.from(json['selectedHealthIssues']),
+      userId: json['userId'] as String?,
+      email: json['email'] as String?,
+      password: json['password'] as String?,
+      username: json['username'] as String?,
+      gender: json['gender'] as String?,
+      height: (json['height'] as num?)?.toDouble(),
+      weight: (json['weight'] as num?)?.toDouble(),
+      dateOfBirth: json['dateOfBirth'] != null
+          ? DateTime.tryParse(json['dateOfBirth'])
+          : null,
+      selectedDietHabits: toList(json['selectedDietHabits']),
+      selectedHealthIssues: toList(json['selectedHealthIssues']),
     );
   }
 

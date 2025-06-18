@@ -1,13 +1,13 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:fitlife_app/home_screen.dart';
+
 import 'package:fitlife_app/progress_screen.dart';
-import 'package:fitlife_app/sign_up.dart';
+
 //import 'package:fitlife_app/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared/web_test.dart';
 
-import 'Onboarding Screens/user_name_screen.dart';
-import 'main_screen.dart';
+
+
 
 
 void main() async {
@@ -22,7 +22,7 @@ void main() async {
     ),
   );
   runApp(
-    const MaterialApp(home: MainScreen(), debugShowCheckedModeBanner: false),
+    const MaterialApp(home: MainPage(), debugShowCheckedModeBanner: false),
   );
 }
 

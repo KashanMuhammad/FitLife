@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'custom widgets/custom_painter.dart';
+
 
 class ProgressScreen extends StatefulWidget {
   const ProgressScreen({super.key});
@@ -237,7 +237,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
             height: 140,
             width: 140,
             child: CustomPaint(
-              foregroundPainter: ArcProgressPainter(0.85),
+
               child: Center(
                 child: Text(
                   "85%",

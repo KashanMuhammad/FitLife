@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-
+import 'custom widgets/custom_painter.dart';
 
 class ProgressScreen extends StatefulWidget {
   const ProgressScreen({super.key});
@@ -42,11 +42,8 @@ class _ProgressScreenState extends State<ProgressScreen> {
                   ],
                 ),
                 SizedBox(height: 25),
-
-
                 buildProgressCard(),
                 SizedBox(height: 25),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -57,19 +54,9 @@ class _ProgressScreenState extends State<ProgressScreen> {
                     buildFilterButton("1Y"),
                   ],
                 ),
-
-
-
-
                 SizedBox(height: 24),
-
-                SizedBox(height: 200,
-                    child: WeightProgressChart()),
-
-
-
+                SizedBox(height: 200, child: WeightProgressChart()),
                 SizedBox(height: 24),
-
                 Container(
                   padding: EdgeInsets.all(16),
                   decoration: BoxDecoration(
@@ -77,72 +64,63 @@ class _ProgressScreenState extends State<ProgressScreen> {
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text("70", style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold)),
-                            Text("kg", style: TextStyle(color: Colors.grey)),
-                            SizedBox(height: 4),
-                            Text("Goal Weight"),
-                            SizedBox(height: 8),
-
-                            LinearProgressIndicator(
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text("70", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                          Text("kg", style: TextStyle(color: Colors.grey)),
+                          SizedBox(height: 4),
+                          Text("Goal Weight"),
+                          SizedBox(height: 8),
+                          SizedBox(
+                            width: 100,
+                            child: LinearProgressIndicator(
                               value: 0.7,
-                              minHeight: 8,
+                              minHeight: 6,
                               backgroundColor: Colors.grey.shade300,
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                  Colors.green),
+                              valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Text("9w", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                          SizedBox(height: 4),
+                          Text("left"),
+                        ],
+                      ),
+                      Container(
+                        height: 60,
+                        width: 1,
+                        color: Colors.grey.shade400,
+                        margin: EdgeInsets.symmetric(horizontal: 12),
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text("9w", style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold)),
+                          Text("80", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                          Text("kg", style: TextStyle(color: Colors.grey)),
                           SizedBox(height: 4),
-                          Text("Left"),
-
-                        ],
-                      ),
-
-
-
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            VerticalDivider(
-                              width: 10,
-                              thickness: 2,
-                              color: Colors.green,
-                            ),
-                            Text("80", style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold)),
-                            Text("kg", style: TextStyle(color: Colors.grey)),
-                            SizedBox(height: 4),
-                            Text("Current Weight"),
-                            SizedBox(height: 8),
-                            LinearProgressIndicator(
+                          Text("Current Weight"),
+                          SizedBox(height: 8),
+                          SizedBox(
+                            width: 100,
+                            child: LinearProgressIndicator(
                               value: 0.85,
-                              minHeight: 8,
+                              minHeight: 6,
                               backgroundColor: Colors.grey.shade300,
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                  Colors.green),
+                              valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
                 ),
                 SizedBox(height: 24),
-
                 Text(
                   "Body Mass Index",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -161,11 +139,9 @@ class _ProgressScreenState extends State<ProgressScreen> {
                         children: [
                           Icon(Icons.fitness_center, size: 28),
                           SizedBox(width: 12),
-                          Text("BMI Score", style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.w600)),
+                          Text("BMI Score", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
                           Spacer(),
-                          Text("21.02", style: TextStyle(
-                              fontSize: 22, fontWeight: FontWeight.bold)),
+                          Text("21.02", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
                         ],
                       ),
                       SizedBox(height: 8),
@@ -182,12 +158,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
                             height: 8,
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
-                                colors: [
-                                  Colors.green,
-                                  Colors.yellow,
-                                  Colors.orange,
-                                  Colors.red,
-                                ],
+                                colors: [Colors.green, Colors.yellow, Colors.orange, Colors.red],
                                 stops: [0.15, 0.25, 0.3, 0.4],
                               ),
                               borderRadius: BorderRadius.circular(8),
@@ -195,9 +166,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
                           ),
                           Positioned(
                             left: 130,
-                            child: Icon(
-                                Icons.arrow_drop_down, color: Colors.green,
-                                size: 28),
+                            child: Icon(Icons.arrow_drop_down, color: Colors.green, size: 28),
                           ),
                         ],
                       ),
@@ -237,7 +206,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
             height: 140,
             width: 140,
             child: CustomPaint(
-
+              foregroundPainter: ArcProgressPainter(0.85),
               child: Center(
                 child: Text(
                   "85%",
@@ -289,7 +258,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8),
         decoration: BoxDecoration(
-          color: isSelected ? Color(0xFF00B712)  : Colors.transparent,
+          color: isSelected ? Color(0xFF00B712) : Colors.transparent,
           borderRadius: BorderRadius.circular(20),
         ),
         child: Text(
@@ -304,48 +273,69 @@ class _ProgressScreenState extends State<ProgressScreen> {
   }
 }
 
-class WeightProgressChart extends StatelessWidget {
+class WeightProgressChart extends StatefulWidget {
+  @override
+  State<WeightProgressChart> createState() => _WeightProgressChartState();
+}
+
+class _WeightProgressChartState extends State<WeightProgressChart> {
+  final List<FlSpot> spots = [
+    FlSpot(0, 90),
+    FlSpot(1, 95),
+    FlSpot(2, 88),
+    FlSpot(3, 85),
+    FlSpot(4, 80),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    return LineChart(
-      LineChartData(
-        minX: 0,
-        maxX: 4,
-        minY: 70,
-        maxY: 100,
-        lineBarsData: [
-          LineChartBarData(
-            spots: [
-
-              FlSpot(0, 90),
-              FlSpot(1, 95),
-              FlSpot(2, 88),
-              FlSpot(3, 85),
-              FlSpot(4, 80),
+    return Stack(
+      children: [
+        LineChart(
+          LineChartData(
+            minX: 0,
+            maxX: 4,
+            minY: 70,
+            maxY: 100,
+            lineBarsData: [
+              LineChartBarData(
+                spots: spots,
+                isCurved: true,
+                color: Colors.orangeAccent,
+                barWidth: 3,
+                belowBarData: BarAreaData(
+                  show: true,
+                  color: Colors.orangeAccent.withOpacity(0.3),
+                ),
+                dotData: FlDotData(
+                  show: true,
+                  getDotPainter: (spot, percent, barData, index) {
+                    return FlDotCirclePainter(
+                      radius: 4,
+                      color: Colors.white,
+                      strokeWidth: 2,
+                      strokeColor: Colors.orangeAccent,
+                    );
+                  },
+                ),
+              ),
             ],
-            isCurved: true,
-            color: Colors.orangeAccent,
-            barWidth: 3,
-            belowBarData: BarAreaData(
-              show: true,
-              color: Colors.orangeAccent.withOpacity(0.3),
+            titlesData: FlTitlesData(show: false),
+            gridData: FlGridData(show: false),
+            borderData: FlBorderData(show: false),
+          ),
+        ),
+        ...spots.map((spot) {
+          return Positioned(
+            left: (spot.x / 4) * MediaQuery.of(context).size.width * 0.8,
+            top: ((100 - spot.y) / 30) * 200 - 16,
+            child: Text(
+              "${spot.y.toInt()} kg",
+              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
             ),
-            dotData: FlDotData(show: true,
-              getDotPainter: (spot, percent, barData, index) {
-                return FlDotCirclePainter(
-                  radius: 4,
-                  color: Colors.white,
-                  strokeWidth: 2,
-                  strokeColor: Colors.orangeAccent,
-                );
-              },
-            ),),
-
-        ],
-        titlesData: FlTitlesData(show: false),
-        gridData: FlGridData(show: false),
-        borderData: FlBorderData(show: false),
-      ),
+          );
+        }).toList(),
+      ],
     );
   }
 }

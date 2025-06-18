@@ -1,8 +1,10 @@
+import 'package:fitlife_admin_panel/dashboard.dart';
 import 'package:flutter/material.dart';
-
+Map<String, Map<String, dynamic>> globalFoodMap = {};
+Map<String, Map<String, dynamic>> globalDietMap = {};
 void main() {
   runApp(MaterialApp(
-    home: MainScreen(),
+    home: Dashboard(),
     debugShowCheckedModeBanner: false,
   ));
 }

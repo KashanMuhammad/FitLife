@@ -1,173 +1,126 @@
 import 'dart:io';
-import 'package:fitlife_admin_panel/custom_widgets.dart';
+import 'package:fitlife_admin_panel/upload_food_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 
 import 'main.dart';
 
 class FoodScreen extends StatefulWidget {
-  final Map<String, dynamic>? foodData;
-
-  const FoodScreen({super.key, this.foodData});
+  final VoidCallback? onUploadPressed;
+  const FoodScreen({super.key , this.onUploadPressed});
 
   @override
   State<FoodScreen> createState() => _FoodScreenState();
 }
 
 class _FoodScreenState extends State<FoodScreen> {
-  String dropdownValue = "grams";
-  TextEditingController foodName = TextEditingController();
-  TextEditingController foodDescription = TextEditingController();
-  TextEditingController quantityController = TextEditingController();
-  TextEditingController caloriesPerServing = TextEditingController();
-  TextEditingController proteinController = TextEditingController();
-  TextEditingController carbohydratesController = TextEditingController();
-  TextEditingController fatsController = TextEditingController();
-  TextEditingController tagController = TextEditingController();
-  TextEditingController imageController = TextEditingController();
-  final formKey = GlobalKey<FormState>();
-  List<String> quantityOptions = ['grams', 'pieces', 'cups'];
-  List<String> tagsOptions = ['Vegan', 'Low Carb', 'High Fiber'];
-  String? selectedUnit, selectedTag;
-  XFile? _image;
-
-  Future<void> _pickImage() async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      setState(() {
-        _image = image;
-      });
-    }
-  }
-
+  int selectedToggleIndex = 0;
   @override
   void initState() {
     super.initState();
-    if (widget.foodData != null) {
-      final data = widget.foodData!;
-      foodName.text = data['foodName'] ?? '';
-      foodDescription.text = data['foodDescription'] ?? '';
-      quantityController.text = data['quantity'] ?? '';
-      selectedUnit = data['unit'];
-      caloriesPerServing.text = data['calories'] ?? '';
-      proteinController.text = data['protein'] ?? '';
-      carbohydratesController.text = data['carbohydrates'] ?? '';
-      fatsController.text = data['fats'] ?? '';
-      selectedTag = data['tag'];
-      if (data['image'] != null && data['image'] != '') {
-        _image = XFile(data['image']);
-      }
+    _initializeDefaultFoodData();
+  }
+  void _initializeDefaultFoodData() {
+    if (globalFoodMap.isEmpty) {
+      globalFoodMap = {
+        '1': {
+          'image': 'assets/Brown Rice.jpeg',
+          'foodName': 'Brown Rice',
+          'quantity': '100',
+          'unit': 'grams',
+          'calories': '112',
+          'tag': 'Carbs',
+        },
+        '2': {
+          'image': 'assets/Grilled Salmon.jpeg',
+          'foodName': 'Grilled Salmon',
+          'quantity': '150',
+          'unit': 'grams',
+          'calories': '208',
+          'tag': 'Protein',
+        },
+      };
     }
   }
-
+  @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(12.0),
-      child: Scaffold(
-        body: SingleChildScrollView(
-          child: Form(
-            key: formKey,
-            child: Column(
-
-              spacing: 15,
+    return Scaffold(
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
               children: [
-                 SizedBox(height: 8),
-                CustomTextFormField(controller: foodName, label: "Food Name"),
-                // SizedBox(height: 15),
-                CustomTextFormField(
-                  controller: foodDescription,
-                  label: "Food Description",
-                  maxLines: 3,
+                Text(
+                  "Foods",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
                 ),
-                // SizedBox(height: 15),
-                CustomTextFormField(
-                  controller: quantityController,
-                  label: "Quantity",
-                ),
-                // SizedBox(height: 15),
-                CustomDropdown(
-                  items: quantityOptions,
-                  hintText: "Select Units",
-                  value: selectedUnit,
-                  onChanged: (value) {
-                    setState(() {
-                      selectedUnit = value;
-                    });
-                  },
-                ),
-                // SizedBox(height: 15),
-                CustomTextFormField(
-                  controller: caloriesPerServing,
-                  label: "Calories Per Serving",
-                ),
-                // SizedBox(height: 15),
-                CustomTextFormField(
-                  controller: proteinController,
-                  label: "Protein (grams)",
-                ),
-                // SizedBox(height: 15),
-                CustomTextFormField(
-                  controller: carbohydratesController,
-                  label: "Carbohydrates (grams)",
-                ),
-                // SizedBox(height: 15),
-                CustomTextFormField(
-                  controller: fatsController,
-                  label: "Fats (grams)",
-                ),
-                // SizedBox(height: 15),
-                CustomDropdown(
-                  items: tagsOptions,
-                  hintText: "Select Tag",
-                  value: selectedTag,
-                  onChanged: (value) {
-                    setState(() {
-                      selectedTag = value;
-                    });
-                  },
-                ),
-                // SizedBox(height: 15),
+                Spacer(),
                 Row(
                   children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [Color(0xFF5AFF15), Color(0xFF00B712)],
-                        ),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.transparent,
-                          shadowColor: Colors.transparent,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                        onPressed: _pickImage,
-                        child: Text('Pick Image'),
-                      ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text("Cody Fisher"),
+                        Text("Dashboard Manager"),
+                      ],
                     ),
-                    SizedBox(width: 45),
-                    if (_image != null)
-                      kIsWeb
-                          ? Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(width: 3),
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            child: Image.network(
-                              _image!.path,
-                              height: 300,
-                              width: 500,
-                            ),
-                          )
-                          : Image.file(File(_image!.path)),
+                    SizedBox(width: 10),
+                    CircleAvatar(
+                      radius: 24,
+                      backgroundImage: AssetImage("assets/male avatar.png"),
+                    ),
                   ],
                 ),
-                // SizedBox(height: 15),
+              ],
+            ),
+            Divider(height: 20),
+            Row(
+              children: [
+
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+
+                  ),
+                  child: ToggleButtons(
+                    isSelected: [selectedToggleIndex == 0, selectedToggleIndex == 1],
+                    onPressed: (index) {
+                      setState(() {
+                        selectedToggleIndex = index;
+                      });
+                    },
+                    fillColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    borderColor: Colors.transparent,
+                    selectedColor: Colors.white,
+                    color: Colors.green.shade900,
+                    borderRadius: BorderRadius.circular(8),
+                    renderBorder: false,
+                    children: [
+                      _buildToggleButton("All Foods", selectedToggleIndex == 0),
+                      _buildToggleButton("New Uploads", selectedToggleIndex == 1),
+                    ],
+                  ),
+                ),
+
+                Spacer(),
+                SizedBox(
+                  width: 250,
+                  child: TextField(
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.search),
+                      hintText: "Search",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(width: 15),
                 Container(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
@@ -175,7 +128,17 @@ class _FoodScreenState extends State<FoodScreen> {
                     ),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: ElevatedButton(
+                  child: ElevatedButton.icon(
+                     onPressed: widget.onUploadPressed,
+
+                    icon: Icon(Icons.add, color: Colors.white),
+                    label: Text(
+                      "Upload Food",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.transparent,
                       shadowColor: Colors.transparent,
@@ -183,71 +146,89 @@ class _FoodScreenState extends State<FoodScreen> {
                         borderRadius: BorderRadius.circular(8),
                       ),
                     ),
-                    onPressed: _pickImage,
-                    child: Text('Submit'),
                   ),
-                ),
-                // SizedBox(height: 15),
-                Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [Color(0xFF5AFF15), Color(0xFF00B712)],
-                    ),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: buildCustomElevatedButton(),
                 ),
               ],
             ),
-          ),
+            Text("Food List", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            SizedBox(height: 8),
+            Card(
+              elevation: 2,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              child: DataTable(
+                headingRowColor: WidgetStateProperty.all(Colors.grey[200]),
+                headingTextStyle: TextStyle(fontWeight: FontWeight.bold),
+                border: TableBorder.all(color: Colors.grey.shade300),
+                columns: [
+                  DataColumn(label: Text("Food Image")),
+                  DataColumn(label: Text("Food Name")),
+                  DataColumn(label: Text("Food Quantity")),
+                  DataColumn(label: Text("Food Unit")),
+                  DataColumn(label: Text("Calories Per Serving")),
+                  DataColumn(label: Text("Food Tag")),
+                  DataColumn(label: Text("Actions")),
+                ],
+                rows: globalFoodMap.entries.map((entry) {
+                  final food = entry.value;
+
+                  return DataRow(cells: [
+                    DataCell(
+                      food['image'] != ''
+                          ? (kIsWeb
+                          ? Image.network(food['image'], width: 60, height: 60)
+                          : Image.file(File(food['image']), width: 60, height: 60))
+                          : Icon(Icons.image),
+                    ),
+                    DataCell(Text(food['foodName'] ?? '')),
+                    DataCell(Text(food['quantity'] ?? '')),
+                    DataCell(Text(food['unit'] ?? '')),
+                    DataCell(Text(food['calories'] ?? '')),
+                    DataCell(Text(food['tag'] ?? '')),
+                    DataCell(
+                      PopupMenuButton<String>(
+                        icon: Icon(Icons.more_vert_outlined),
+                        offset: Offset(100, 0),
+                        onSelected: (value) {
+                          if (value == 'form') {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => UploadFoodScreen(foodData: food,),
+                              ),
+                            );
+                          }
+                        },
+                        itemBuilder: (context) => [
+                          const PopupMenuItem(value: 'form', child: Text('Form')),
+                        ],
+                      ),
+                    ),
+                  ]);
+                }).toList(),
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
-
-  ElevatedButton buildCustomElevatedButton() {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.transparent,
-        shadowColor: Colors.transparent,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+  Widget _buildToggleButton(String text, bool selected) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+      decoration: BoxDecoration(
+        gradient: selected
+            ? LinearGradient(colors: [Color(0xFF5AFF15), Color(0xFF00B712)])
+            : null,
+        color: selected ? null : Colors.grey.shade100,
+        borderRadius: BorderRadius.circular(8),
       ),
-      onPressed: () {
-        if (foodName.text.trim().isEmpty) {
-          return;
-        }
-
-        String id = DateTime.now().millisecondsSinceEpoch.toString();
-
-        Map<String, dynamic> foodData = {
-          'foodName': foodName.text.trim(),
-          'foodDescription': foodDescription.text.trim(),
-          'quantity': quantityController.text.trim(),
-          'unit': selectedUnit ?? '',
-          'calories': caloriesPerServing.text.trim(),
-          'protein': proteinController.text.trim(),
-          'carbohydrates': carbohydratesController.text.trim(),
-          'fats': fatsController.text.trim(),
-          'tag': selectedTag ?? '',
-          'image': _image?.path ?? '',
-        };
-
-        setState(() {
-          globalFoodMap[id] = foodData;
-        });
-
-        foodName.clear();
-        foodDescription.clear();
-        quantityController.clear();
-        caloriesPerServing.clear();
-        proteinController.clear();
-        carbohydratesController.clear();
-        fatsController.clear();
-        selectedUnit = null;
-        selectedTag = null;
-        _image = null;
-      },
-      child: Text("ADD FOOD"),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: selected ? Colors.white : Colors.black,
+        ),
+      ),
     );
   }
 }

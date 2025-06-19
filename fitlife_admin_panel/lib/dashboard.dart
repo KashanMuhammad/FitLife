@@ -1,10 +1,12 @@
 import 'package:fitlife_admin_panel/diet_screen.dart';
 import 'package:fitlife_admin_panel/food_screen.dart';
 import 'package:fitlife_admin_panel/upload_diet_screen.dart';
+import 'package:fitlife_admin_panel/upload_food_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class Dashboard extends StatefulWidget {
+
   const Dashboard({super.key});
 
   @override
@@ -12,17 +14,20 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  bool showScreen = false;
+  bool showDietUploadScreen = false;
+  bool showFoodUploadScreen = false;
+
 
   int selectedIndex = 2;
   Widget? selectedScreen;
 
   void showFoodForm(Map<String, dynamic> foodData) {
     setState(() {
-      selectedScreen = FoodScreen(foodData: foodData);
       selectedIndex = 3;
+      showFoodUploadScreen = true;
     });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -43,32 +48,37 @@ class _DashboardState extends State<Dashboard> {
             ),
             child: buildNavigationRail(),
           ),
-          Expanded(
-            child: IndexedStack(
-              index: selectedIndex,
-              children: [
-                Text("Analytics"),
-                Text("Users"),
-                showScreen
-                    ? UploadDietScreen()
-                    : DietScreen(
-                      onUploadPressed: () {
-                        setState(() {
-                          showScreen = true;
-                        });
-                      },
-                    ),
-
-                // DietScreen(),
-                FoodScreen(),
-                Text("Support"),
-                Text("Blogs"),
-              ],
+      Expanded(
+        child: IndexedStack(
+          index: selectedIndex,
+          children: [
+            Center(child: Text("Analytics")),
+            Center(child: Text("Users")),
+            showDietUploadScreen
+                ? UploadDietScreen()
+                : DietScreen(
+              onUploadPressed: () {
+                setState(() {
+                  showDietUploadScreen = true;
+                });
+              },
             ),
-          ),
-        ],
+            showFoodUploadScreen
+                ? UploadFoodScreen()
+                : FoodScreen(
+              onUploadPressed: () {
+                setState(() {
+                  showFoodUploadScreen = true;
+                });
+              },
+            ),
+            Center(child: Text("Support")),
+            Center(child: Text("Blogs")),
+          ],
+        ),
       ),
-    );
+      ],
+    ));
   }
 
   NavigationRail buildNavigationRail() {
@@ -131,9 +141,9 @@ class _DashboardState extends State<Dashboard> {
       onDestinationSelected: (int value) {
         setState(() {
           selectedIndex = value;
-          if (value == 2) {
-            showScreen = false;
-          }
+          // Reset screen toggles
+          if (value == 2) showDietUploadScreen = false;
+          if (value == 3) showFoodUploadScreen = false;
         });
       },
     );

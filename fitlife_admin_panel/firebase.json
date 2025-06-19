@@ -1,1 +1,28 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"fitlife-admin-panel","appId":"1:172805082300:android:38ef75bed1a237cc5e14b9","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"fitlife-admin-panel","configurations":{"android":"1:172805082300:android:38ef75bed1a237cc5e14b9","ios":"1:172805082300:ios:5edd2e0c947e37825e14b9","web":"1:172805082300:web:fcc32a78d759283f5e14b9"}}}}}}
+{
+  "hosting": {
+    "public": "build/web",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  },
+  "flutter": {
+    "platforms": {
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "fitlife-a042d",
+          "configurations": {
+            "web": "1:984332560461:web:9b4f49a7427c9531c01404"
+          }
+        }
+      }
+    }
+  }
+}

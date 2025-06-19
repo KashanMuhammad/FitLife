@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitlife_app/custom%20widgets/custom_textformfield.dart';
 import 'package:fitlife_app/home_screen.dart';
+import 'package:fitlife_app/main_screen.dart';
 import 'package:fitlife_app/sign_up.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -183,7 +184,7 @@ class _LoginScreenState extends State<LoginScreen> {
         final userData = FirebaseDataModelClass.fromJson(doc.data()!);
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const HomeScreen()),
+          MaterialPageRoute(builder: (context) => const MainScreen()),
         );
       } else {
         showSnackbar(context, 'User data not found in Firestore.');

@@ -47,28 +47,28 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAfIHLI8wa-DAsci6fGVnPIwLB1W4pG4mY',
-    appId: '1:1001660030744:web:2b39f90aa411c6d0fc486d',
-    messagingSenderId: '1001660030744',
-    projectId: 'fitlife-app-bd9b4',
-    authDomain: 'fitlife-app-bd9b4.firebaseapp.com',
-    storageBucket: 'fitlife-app-bd9b4.firebasestorage.app',
+    apiKey: 'AIzaSyATekogZr4ONXOpYn912sc5_QCEVLk10BU',
+    appId: '1:984332560461:web:9b4f49a7427c9531c01404',
+    messagingSenderId: '984332560461',
+    projectId: 'fitlife-a042d',
+    authDomain: 'fitlife-a042d.firebaseapp.com',
+    storageBucket: 'fitlife-a042d.firebasestorage.app',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDf8Snq2D6Ln9i_kSimkjtwBrDuPAqJzDs',
-    appId: '1:1001660030744:android:5730f8428bdedabcfc486d',
-    messagingSenderId: '1001660030744',
-    projectId: 'fitlife-app-bd9b4',
-    storageBucket: 'fitlife-app-bd9b4.firebasestorage.app',
+    apiKey: 'AIzaSyBNhPs9MnqFr_Ll-Uqg27_Hts01DvpOMPM',
+    appId: '1:984332560461:android:7ce19e19d396bff4c01404',
+    messagingSenderId: '984332560461',
+    projectId: 'fitlife-a042d',
+    storageBucket: 'fitlife-a042d.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBomoOhE03b6c9qbwYKMJVc9NHUw7XEBwo',
-    appId: '1:1001660030744:ios:554a6f33c5371e76fc486d',
-    messagingSenderId: '1001660030744',
-    projectId: 'fitlife-app-bd9b4',
-    storageBucket: 'fitlife-app-bd9b4.firebasestorage.app',
+    apiKey: 'AIzaSyDMcr9jL7WD9MgCjuxYdhLuvFwFQ7NTtxI',
+    appId: '1:984332560461:ios:bf6c3b645eec08b6c01404',
+    messagingSenderId: '984332560461',
+    projectId: 'fitlife-a042d',
+    storageBucket: 'fitlife-a042d.firebasestorage.app',
     iosBundleId: 'com.example.fitlifeApp',
   );
 }

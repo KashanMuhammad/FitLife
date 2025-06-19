@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "fitlife": "fitlife-admin-panel",
+    "default": "fitlife-admin-panel"
+  },
+  "targets": {},
+  "etags": {}
+}

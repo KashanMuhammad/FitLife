@@ -1,26 +1,20 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:fitlife_app/home_screen.dart';
 import 'package:fitlife_app/login_screen.dart';
-import 'package:fitlife_app/progress_screen.dart';
-import 'package:fitlife_app/sign_up.dart';
 //import 'package:fitlife_app/home_screen.dart';
 import 'package:flutter/material.dart';
-
-import 'Onboarding Screens/user_name_screen.dart';
-import 'main_screen.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: FirebaseOptions(
-      apiKey: 'AIzaSyDf8Snq2D6Ln9i_kSimkjtwBrDuPAqJzDs',
-      appId: '1:1001660030744:android:5730f8428bdedabcfc486d',
-      messagingSenderId: '1001660030744',
-      projectId: 'fitlife-app-bd9b4',
-      storageBucket: 'fitlife-app-bd9b4.firebasestorage.app',
+      apiKey: "AIzaSyBNhPs9MnqFr_Ll-Uqg27_Hts01DvpOMPM",
+      appId: "1:984332560461:android:7ce19e19d396bff4c01404",
+      messagingSenderId: "984332560461",
+      projectId: "fitlife-a042d",
+      storageBucket: "fitlife-a042d.firebasestorage.app",
     ),
   );
+
   runApp(
     const MaterialApp(home: LoginScreen(), debugShowCheckedModeBanner: false),
   );
@@ -36,7 +30,6 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: Center(
         child: Text(

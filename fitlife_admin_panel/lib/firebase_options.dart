@@ -47,12 +47,12 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyA5mJzism4zpHCURyYbCo9uwMfdvAZPnkc',
-    appId: '1:172805082300:web:fcc32a78d759283f5e14b9',
-    messagingSenderId: '172805082300',
-    projectId: 'fitlife-admin-panel',
-    authDomain: 'fitlife-admin-panel.firebaseapp.com',
-    storageBucket: 'fitlife-admin-panel.firebasestorage.app',
+    apiKey: 'AIzaSyATekogZr4ONXOpYn912sc5_QCEVLk10BU',
+    appId: '1:984332560461:web:9b4f49a7427c9531c01404',
+    messagingSenderId: '984332560461',
+    projectId: 'fitlife-a042d',
+    authDomain: 'fitlife-a042d.firebaseapp.com',
+    storageBucket: 'fitlife-a042d.firebasestorage.app',
   );
 
   static const FirebaseOptions android = FirebaseOptions(

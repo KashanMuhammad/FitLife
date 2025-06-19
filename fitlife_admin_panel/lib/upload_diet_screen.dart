@@ -8,7 +8,8 @@ import 'main.dart';
 
 class UploadDietScreen extends StatefulWidget {
   final Map<String, dynamic>? dietData;
-  const UploadDietScreen({super.key , this.dietData});
+
+  const UploadDietScreen({super.key, this.dietData});
 
   @override
   State<UploadDietScreen> createState() => _UploadDietScreenState();
@@ -43,7 +44,7 @@ class _UploadDietScreenState extends State<UploadDietScreen> {
   }
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     if (widget.dietData != null) {
       final data = widget.dietData!;
@@ -58,7 +59,7 @@ class _UploadDietScreenState extends State<UploadDietScreen> {
       selectedMealTags = data['mealTag'] ?? '';
       if (data['image'] != null && data['image'] != '') {
         _image = XFile(data['image']);
-      };
+      }
       nameController.text = data['createdBy'] ?? '';
       timeStampController.text = data['createdTime'] ?? '';
       if (mealType.contains(data['mealType'])) {
@@ -70,9 +71,10 @@ class _UploadDietScreenState extends State<UploadDietScreen> {
       if (mealTags.contains(data['mealTag'])) {
         selectedMealTags = data['mealTag'];
       }
-
     }
   }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
@@ -83,14 +85,6 @@ class _UploadDietScreenState extends State<UploadDietScreen> {
             child: Column(
               spacing: 15,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    
-                  ],
-                ),
-                // SizedBox(height: 8),
                 CustomTextFormField(
                   controller: diettitleController,
                   label: "Title",
@@ -120,9 +114,10 @@ class _UploadDietScreenState extends State<UploadDietScreen> {
                 ),
 
                 CustomDropdown(
-                  items: globalFoodMap.values
-                      .map<String>((food) => food['foodName'].toString())
-                      .toList(),
+                  items:
+                      globalFoodMap.values
+                          .map<String>((food) => food['foodName'].toString())
+                          .toList(),
                   hintText: 'List of Foods',
                   value: selectedFood,
                   onChanged: (value) {
@@ -274,13 +269,8 @@ class _UploadDietScreenState extends State<UploadDietScreen> {
         _image = null;
 
         setState(() {});
-
       },
       child: Text("Submit"),
     );
   }
 }
-
-
-
-

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shared/user_0nboarding_data_model_class.dart';
 import 'Onboarding Screens/user_name_screen.dart';
 import 'custom widgets/custom_textformfield.dart';
 

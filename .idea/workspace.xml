@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="05b95cb7-b20e-4910-a2b3-2a820501810a" name="Changes" comment="Connected with new firebase project">
-      <change afterPath="$PROJECT_DIR$/fitlife_app/lib/help_and_support_screen.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fitlife_app/lib/privacy_policy_screen.dart" afterDir="false" />
+    <list default="true" id="05b95cb7-b20e-4910-a2b3-2a820501810a" name="Changes" comment="Pulled the origin code after we deplyed the admin panel.&#10;Created privacy_policy_screen.dart and help_and_support_screen.dart and started working on them.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fitlife_app/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/main.dart" afterDir="false" />
     </list>
@@ -60,25 +58,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Flutter.app.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.readMode.enableVisualFormatting": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "android.gradle.sync.needed": "true",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "fawadalishan/privacy__policy__and__help__and__support",
-    "io.flutter.reload.alreadyRun": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "E:/FitLife/fitlife_app/android/settings.gradle.kts",
-    "show.migrate.to.gradle.popup": "false"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Flutter.app.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;android.gradle.sync.needed&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;fawadalishan/privacy__policy__and__help__and__support&quot;,
+    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/FitLife/fitlife_app/android/settings.gradle.kts&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\FitLife\fitlife_app\lib" />
@@ -142,7 +140,15 @@
       <option name="project" value="LOCAL" />
       <updated>1750315829598</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Pulled the origin code after we deplyed the admin panel.&#10;Created privacy_policy_screen.dart and help_and_support_screen.dart and started working on them.">
+      <option name="closed" value="true" />
+      <created>1750409098569</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1750409098569</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -161,6 +167,7 @@
     <MESSAGE value="just a commit" />
     <MESSAGE value="Brought back the shared folder" />
     <MESSAGE value="Connected with new firebase project" />
-    <option name="LAST_COMMIT_MESSAGE" value="Connected with new firebase project" />
+    <MESSAGE value="Pulled the origin code after we deplyed the admin panel.&#10;Created privacy_policy_screen.dart and help_and_support_screen.dart and started working on them." />
+    <option name="LAST_COMMIT_MESSAGE" value="Pulled the origin code after we deplyed the admin panel.&#10;Created privacy_policy_screen.dart and help_and_support_screen.dart and started working on them." />
   </component>
 </project>

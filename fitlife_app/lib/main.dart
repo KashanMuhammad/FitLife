@@ -1,21 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fitlife_app/login_screen.dart';
-//import 'package:fitlife_app/home_screen.dart';
 import 'package:flutter/material.dart';
-
-
-import 'Onboarding Screens/user_name_screen.dart';
-import 'firebase_options.dart';
-import 'main_screen.dart';
-
-
-
 
 void main() async {
   await Firebase.initializeApp(
-
-
-
     options: FirebaseOptions(
       apiKey: "AIzaSyBNhPs9MnqFr_Ll-Uqg27_Hts01DvpOMPM",
       appId: "1:984332560461:android:7ce19e19d396bff4c01404",

@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="05b95cb7-b20e-4910-a2b3-2a820501810a" name="Changes" comment="Pulled the origin code after we deplyed the admin panel.&#10;Created privacy_policy_screen.dart and help_and_support_screen.dart and started working on them.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/main.dart" afterDir="false" />
-    </list>
+    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Major Updates (New FireBase Project with three platforms &amp; Many corrections &amp; Modifications) some files added" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,18 +12,6 @@
   </component>
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
-  </component>
-  <component name="ExternalProjectsManager">
-    <system id="GRADLE">
-      <state>
-        <projects_view>
-          <tree_state>
-            <expand />
-            <select />
-          </tree_state>
-        </projects_view>
-      </state>
-    </system>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -41,114 +26,277 @@
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
     &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;FawadAliShan010&quot;
+    &quot;assignee&quot;: &quot;KashanMuhammad&quot;
   }
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/KashanMuhammad/FitLife.git&quot;,
-    &quot;accountId&quot;: &quot;5f640996-ceef-45cc-981f-d0540746f73c&quot;
+    &quot;accountId&quot;: &quot;fdbe591c-7d9b-4c99-9d34-380bd3f1166e&quot;
   }
 }</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 5
+  &quot;associatedIndex&quot;: 3
 }</component>
-  <component name="ProjectId" id="2yg4AykOv2P1pCvQQ8BMf4kKhca" />
+  <component name="ProjectId" id="2xQ08TpVobaHfcvT6iiVUctJen0" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;Flutter.app.executor&quot;: &quot;Run&quot;,
+    &quot;Flutter.main.dart.executor&quot;: &quot;Run&quot;,
+    &quot;Flutter.main.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;android.gradle.sync.needed&quot;: &quot;true&quot;,
     &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;fawadalishan/privacy__policy__and__help__and__support&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;kashan/admin-panel/dashboard&quot;,
     &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/FitLife/fitlife_app/android/settings.gradle.kts&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/practice_flutter&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   }
 }</component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="E:\FitLife\fitlife_app\lib" />
-      <recent name="E:\FitLife\fitlife_app\android\app" />
-      <recent name="E:\FitLife\fitlife_app\android\app\src" />
-      <recent name="E:\FitLife\fitlife_app\ios\Runner" />
-    </key>
-  </component>
   <component name="RunManager">
-    <configuration name="app" type="FlutterRunConfigurationType" factoryName="Flutter">
-      <option name="filePath" value="$PROJECT_DIR$/fitlife_app/lib/main.dart" />
+    <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
+      <option name="filePath" value="$PROJECT_DIR$/fitlife_admin_panel/lib/main.dart" />
       <method v="2" />
     </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
-    <task id="LOCAL-00001" summary="Giting pull of a commit for previous shared folder">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="" />
+      <created>1747854831066</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1747854831066</updated>
+    </task>
+    <task id="LOCAL-00001" summary="firebase configured with app and admin both">
       <option name="closed" value="true" />
-      <created>1750235571027</created>
+      <created>1747941131657</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1750235571027</updated>
+      <updated>1747941131657</updated>
     </task>
-    <task id="LOCAL-00002" summary="just a commit">
+    <task id="LOCAL-00002" summary="firebase initialization in both app and admin">
       <option name="closed" value="true" />
-      <created>1750236063589</created>
+      <created>1747946755159</created>
       <option name="number" value="00002" />
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1750236063589</updated>
+      <updated>1747946755159</updated>
     </task>
-    <task id="LOCAL-00003" summary="just a commit">
+    <task id="LOCAL-00003" summary="admin panel side navigation bar created">
       <option name="closed" value="true" />
-      <created>1750236288112</created>
+      <created>1748286340347</created>
       <option name="number" value="00003" />
       <option name="presentableId" value="LOCAL-00003" />
       <option name="project" value="LOCAL" />
-      <updated>1750236288112</updated>
+      <updated>1748286340347</updated>
     </task>
-    <task id="LOCAL-00004" summary="Brought back the shared folder">
+    <task id="LOCAL-00004" summary="admin panel Diet Screen finalized">
       <option name="closed" value="true" />
-      <created>1750236557252</created>
+      <created>1748559889374</created>
       <option name="number" value="00004" />
       <option name="presentableId" value="LOCAL-00004" />
       <option name="project" value="LOCAL" />
-      <updated>1750236557252</updated>
+      <updated>1748559889374</updated>
     </task>
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="05b95cb7-b20e-4910-a2b3-2a820501810a" name="Changes" comment="Brought back the shared folder" />
-      <created>1750242758891</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1750242758891</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Connected with new firebase project">
+    <task id="LOCAL-00005" summary="Food Screen Completed">
       <option name="closed" value="true" />
-      <created>1750315829598</created>
+      <created>1748865063803</created>
       <option name="number" value="00005" />
       <option name="presentableId" value="LOCAL-00005" />
       <option name="project" value="LOCAL" />
-      <updated>1750315829598</updated>
+      <updated>1748865063803</updated>
     </task>
-    <task id="LOCAL-00006" summary="Pulled the origin code after we deplyed the admin panel.&#10;Created privacy_policy_screen.dart and help_and_support_screen.dart and started working on them.">
+    <task id="LOCAL-00006" summary="Custom Widgets Created For Programmer Ease">
       <option name="closed" value="true" />
-      <created>1750409098569</created>
+      <created>1748865164206</created>
       <option name="number" value="00006" />
       <option name="presentableId" value="LOCAL-00006" />
       <option name="project" value="LOCAL" />
-      <updated>1750409098569</updated>
+      <updated>1748865164206</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Upload Diet (Button) Screen Created to upload Diet Plan">
+      <option name="closed" value="true" />
+      <created>1748865293605</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1748865293605</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Table Created in Diet Screen and also used package and also created global map">
+      <option name="closed" value="true" />
+      <created>1748974241883</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1748974241883</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Replaced SizedBox Widget with Spacing property of the Column">
+      <option name="closed" value="true" />
+      <created>1748982782275</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1748982782275</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Replaced SizedBox Widget with Spacing property of the Column">
+      <option name="closed" value="true" />
+      <created>1748999515205</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1748999515205</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Global map created for Diet Plan">
+      <option name="closed" value="true" />
+      <created>1749408478199</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1749408478199</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Method Created to store data in the diet plan map">
+      <option name="closed" value="true" />
+      <created>1749408588450</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1749408588450</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Another table created for Diet Plan">
+      <option name="closed" value="true" />
+      <created>1749408695465</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1749408695465</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Method created for Add Button the store data in the Global Food map">
+      <option name="closed" value="true" />
+      <created>1749408773081</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1749408773081</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Some logical corrections in the Customs Widgets">
+      <option name="closed" value="true" />
+      <created>1749408833224</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1749408833224</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Modified Code">
+      <option name="closed" value="true" />
+      <created>1749408904039</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1749408904039</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Modified Code">
+      <option name="closed" value="true" />
+      <created>1749518418575</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1749518418575</updated>
+    </task>
+    <task id="LOCAL-00018" summary="commit">
+      <option name="closed" value="true" />
+      <created>1749520073373</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1749520073373</updated>
+    </task>
+    <task id="LOCAL-00019" summary="modified">
+      <option name="closed" value="true" />
+      <created>1749520290410</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1749520290410</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Dependencies Updated">
+      <option name="closed" value="true" />
+      <created>1749945982712</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1749945982712</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Project Slightly Updated">
+      <option name="closed" value="true" />
+      <created>1750184264084</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1750184264084</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Project Slightly Updated">
+      <option name="closed" value="true" />
+      <created>1750184867537</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1750184867537</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Project Slightly Updated">
+      <option name="closed" value="true" />
+      <created>1750210515455</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1750210515455</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Pulled Slightly Updated Project">
+      <option name="closed" value="true" />
+      <created>1750211060615</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1750211060615</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Pulled Slightly Updated Project">
+      <option name="closed" value="true" />
+      <created>1750275924645</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1750275924645</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Major Updates (New FireBase Project with three platforms &amp; Many corrections &amp; Modifications)">
+      <option name="closed" value="true" />
+      <created>1750376220767</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1750376220767</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Major Updates (New FireBase Project with three platforms &amp; Many corrections &amp; Modifications) some files added">
+      <option name="closed" value="true" />
+      <created>1750377220094</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1750377220094</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -163,11 +311,28 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Giting pull of a commit for previous shared folder" />
-    <MESSAGE value="just a commit" />
-    <MESSAGE value="Brought back the shared folder" />
-    <MESSAGE value="Connected with new firebase project" />
-    <MESSAGE value="Pulled the origin code after we deplyed the admin panel.&#10;Created privacy_policy_screen.dart and help_and_support_screen.dart and started working on them." />
-    <option name="LAST_COMMIT_MESSAGE" value="Pulled the origin code after we deplyed the admin panel.&#10;Created privacy_policy_screen.dart and help_and_support_screen.dart and started working on them." />
+    <MESSAGE value="firebase configured with app and admin both" />
+    <MESSAGE value="firebase initialization in both app and admin" />
+    <MESSAGE value="admin panel side navigation bar created" />
+    <MESSAGE value="admin panel Diet Screen finalized" />
+    <MESSAGE value="Food Screen Completed" />
+    <MESSAGE value="Custom Widgets Created For Programmer Ease" />
+    <MESSAGE value="Upload Diet (Button) Screen Created to upload Diet Plan" />
+    <MESSAGE value="Table Created in Diet Screen and also used package and also created global map" />
+    <MESSAGE value="Replaced SizedBox Widget with Spacing property of the Column" />
+    <MESSAGE value="Global map created for Diet Plan" />
+    <MESSAGE value="Method Created to store data in the diet plan map" />
+    <MESSAGE value="Another table created for Diet Plan" />
+    <MESSAGE value="Method created for Add Button the store data in the Global Food map" />
+    <MESSAGE value="Some logical corrections in the Customs Widgets" />
+    <MESSAGE value="Modified Code" />
+    <MESSAGE value="commit" />
+    <MESSAGE value="modified" />
+    <MESSAGE value="Dependencies Updated" />
+    <MESSAGE value="Project Slightly Updated" />
+    <MESSAGE value="Pulled Slightly Updated Project" />
+    <MESSAGE value="Major Updates (New FireBase Project with three platforms &amp; Many corrections &amp; Modifications)" />
+    <MESSAGE value="Major Updates (New FireBase Project with three platforms &amp; Many corrections &amp; Modifications) some files added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Major Updates (New FireBase Project with three platforms &amp; Many corrections &amp; Modifications) some files added" />
   </component>
 </project>

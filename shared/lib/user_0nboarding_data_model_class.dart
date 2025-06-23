@@ -9,6 +9,8 @@ class FirebaseDataModelClass {
   final DateTime? dateOfBirth;
   final List<String>? selectedDietHabits;
   final List<String>? selectedHealthIssues;
+  final bool? privacyPolicyAccepted;
+
 
   FirebaseDataModelClass({
     this.userId,
@@ -21,6 +23,7 @@ class FirebaseDataModelClass {
     this.dateOfBirth,
     this.selectedDietHabits,
     this.selectedHealthIssues,
+    this.privacyPolicyAccepted
   });
 
   Map<String, dynamic> toJson() {
@@ -35,6 +38,7 @@ class FirebaseDataModelClass {
     if (dateOfBirth != null) data['dateOfBirth'] = dateOfBirth!.toIso8601String();
     if (selectedDietHabits != null) data['selectedDietHabits'] = selectedDietHabits;
     if (selectedHealthIssues != null) data['selectedHealthIssues'] = selectedHealthIssues;
+    if (privacyPolicyAccepted != null) data['privacyPolicyAccepted'] = privacyPolicyAccepted;
     return data;
   }
 
@@ -59,6 +63,8 @@ class FirebaseDataModelClass {
           : null,
       selectedDietHabits: toList(json['selectedDietHabits']),
       selectedHealthIssues: toList(json['selectedHealthIssues']),
+      privacyPolicyAccepted: json['privacyPolicyAccepted'] as bool?,
+
     );
   }
 

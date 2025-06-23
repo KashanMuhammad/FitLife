@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitlife_app/privacy_policy_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared/user_0nboarding_data_model_class.dart';
@@ -194,7 +195,7 @@ validator: (value) {
 
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const UserNameScreen()),
+        MaterialPageRoute(builder: (context) => const PrivacyPolicyScreen()),
       );
     } on FirebaseAuthException catch (e) {
       String errorMessage;

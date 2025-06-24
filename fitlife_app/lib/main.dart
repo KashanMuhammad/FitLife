@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:fitlife_app/forgot_password_screen.dart';
 import 'package:fitlife_app/login_screen.dart';
 import 'package:fitlife_app/privacy_policy_screen.dart';
 import 'package:fitlife_app/sign_up.dart';
@@ -17,7 +18,7 @@ void main() async {
   );
 
   runApp(
-    const MaterialApp(home: SignUp(), debugShowCheckedModeBanner: false),
+    const MaterialApp(home: ForgotPasswordScreen(), debugShowCheckedModeBanner: false),
   );
 }
 

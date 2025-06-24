@@ -4,10 +4,17 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="forgot_password_screen.dart completed with firebase functionalty">
-      <change afterPath="$PROJECT_DIR$/fitlife_app/lib/create_new_password_screen.dart" afterDir="false" />
+    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="create_new_password_screen.dart screen completed">
+      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/FitLifelogo.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/climbing-stairs.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/interfacetesting.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/workout-indoors.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/fitlife_splash_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/skip_one_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/skip_three_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/skip_two_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/lib/custom widgets/skip_screens_template.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/forgot_password_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/forgot_password_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fitlife_app/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/main.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -326,7 +333,15 @@
       <option name="project" value="LOCAL" />
       <updated>1750740454906</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="create_new_password_screen.dart screen completed">
+      <option name="closed" value="true" />
+      <created>1750743264874</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1750743264874</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -341,7 +356,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="firebase initialization in both app and admin" />
     <MESSAGE value="admin panel side navigation bar created" />
     <MESSAGE value="admin panel Diet Screen finalized" />
     <MESSAGE value="Food Screen Completed" />
@@ -366,6 +380,7 @@
     <MESSAGE value="Re pulled and merged the code after just deployed the admin panel and now committing it." />
     <MESSAGE value="privacy_policy_screen.dart and help_and_support_screen.dart is completed with firebase functionality." />
     <MESSAGE value="forgot_password_screen.dart completed with firebase functionalty" />
-    <option name="LAST_COMMIT_MESSAGE" value="forgot_password_screen.dart completed with firebase functionalty" />
+    <MESSAGE value="create_new_password_screen.dart screen completed" />
+    <option name="LAST_COMMIT_MESSAGE" value="create_new_password_screen.dart screen completed" />
   </component>
 </project>

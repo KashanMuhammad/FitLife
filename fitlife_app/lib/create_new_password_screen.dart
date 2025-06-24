@@ -1,18 +1,19 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fitlife_app/create_new_password_screen.dart';
 import 'package:fitlife_app/custom%20widgets/custom_textformfield.dart';
 import 'package:flutter/material.dart';
 
-class ForgotPasswordScreen extends StatefulWidget {
-  const ForgotPasswordScreen({super.key});
+class CreateNewPasswordScreen extends StatefulWidget {
+  const CreateNewPasswordScreen({super.key});
 
   @override
-  State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
+  State<CreateNewPasswordScreen> createState() => _CreateNewPasswordScreenState();
 }
 
-class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
+class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +39,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 const SizedBox(height: 75),
                 const Center(
                   child: Text(
-                    'Forgot Password',
+                    'Create New Password',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -46,18 +47,33 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     ),
                   ),
                 ),
-                const Text("Check your inbox for the passcode. It's needed to keep"),
-                const Center(child: Text("your account secure")),
+                const Text(
+                  "Choose a secure password you’ll remember. Make sure it’s strong for added protection.",
+                  textAlign: TextAlign.center,
+                ),
                 const SizedBox(height: 25),
                 CustomTextFormField(
-                  hintText: "Email",
-                  controller: emailController,
+                  hintText: "New Password",
+                  controller: passwordController,
                   suffixSvgAsset: "assets/images/person.svg",
+                  obscureText: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter your email';
-                    } else if (!value.contains('@')) {
-                      return 'Please enter a valid email';
+                      return 'Please enter your new password';
+                    } else if (value.length < 6) {
+                      return 'Password must be at least 6 characters';
+                    }
+                    return null;
+                  },
+                ),
+                CustomTextFormField(
+                  hintText: "Confirm New Password",
+                  controller: confirmPasswordController,
+                  suffixSvgAsset: "assets/images/person.svg",
+                  obscureText: true,
+                  validator: (value) {
+                    if (value != passwordController.text) {
+                      return 'Passwords do not match';
                     }
                     return null;
                   },
@@ -67,21 +83,31 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   onTap: () async {
                     if (_formKey.currentState!.validate()) {
                       try {
-                        await FirebaseAuth.instance.sendPasswordResetEmail(
-                          email: emailController.text.trim(),
-                        );
+                        final user = FirebaseAuth.instance.currentUser;
+                        final newPassword = passwordController.text.trim();
+                        final userId = user?.uid;
+
+                        await user?.updatePassword(newPassword);
+
+                        if (userId != null) {
+                          await FirebaseFirestore.instance
+                              .collection('Users')
+                              .doc(userId)
+                              .update({'password': newPassword});
+                        }
 
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Password reset email sent!')),
+                          const SnackBar(
+                            content: Text("Password updated successfully"),
+                          ),
                         );
 
                         Navigator.pop(context);
                       } on FirebaseAuthException catch (e) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text(e.message ?? 'Something went wrong')),
+                          SnackBar(content: Text(e.message ?? "Error occurred")),
                         );
                       }
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=> CreateNewPasswordScreen()));
                     }
                   },
                   borderRadius: BorderRadius.circular(12),

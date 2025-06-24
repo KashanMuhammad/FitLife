@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:fitlife_app/create_new_password_screen.dart';
 import 'package:fitlife_app/forgot_password_screen.dart';
 import 'package:fitlife_app/login_screen.dart';
 import 'package:fitlife_app/privacy_policy_screen.dart';
@@ -14,11 +15,13 @@ void main() async {
       projectId: "fitlife-a042d",
       storageBucket: "fitlife-a042d.firebasestorage.app",
     ),
-
   );
 
   runApp(
-    const MaterialApp(home: ForgotPasswordScreen(), debugShowCheckedModeBanner: false),
+    const MaterialApp(
+      home: ForgotPasswordScreen(),
+      debugShowCheckedModeBanner: false,
+    ),
   );
 }
 

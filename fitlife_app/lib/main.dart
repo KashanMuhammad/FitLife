@@ -1,4 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:fitlife_app/Onboarding%20Screens/fitlife_splash_screen.dart';
+import 'package:fitlife_app/Onboarding%20Screens/skip_one_screen.dart';
+import 'package:fitlife_app/create_new_password_screen.dart';
+import 'package:fitlife_app/forgot_password_screen.dart';
 import 'package:fitlife_app/login_screen.dart';
 import 'package:fitlife_app/privacy_policy_screen.dart';
 import 'package:fitlife_app/sign_up.dart';
@@ -13,11 +17,13 @@ void main() async {
       projectId: "fitlife-a042d",
       storageBucket: "fitlife-a042d.firebasestorage.app",
     ),
-
   );
 
   runApp(
-    const MaterialApp(home: SignUp(), debugShowCheckedModeBanner: false),
+    const MaterialApp(
+      home: SkipOneScreen(),
+      debugShowCheckedModeBanner: false,
+    ),
   );
 }
 

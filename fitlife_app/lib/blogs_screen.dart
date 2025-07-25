@@ -36,6 +36,7 @@ class _BlogsScreenState extends State<BlogsScreen> {
     ),
     ],
     ),
+
           ]
     ),
     ),

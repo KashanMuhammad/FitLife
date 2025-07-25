@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Created blogs_screen.dart and Dleteted the separate screens skipscreen 1 2 and 3 and apply the functionality of these in only one page directly by using SkipScreenTemplate.">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Added blog_model.dart Class for working in blogs_screen.dart">
+      <change afterPath="$PROJECT_DIR$/fitlife_app/lib/custom widgets/blog_card.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/fitlife_splash_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/fitlife_splash_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fitlife_app/lib/blogs_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/blogs_screen.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -429,7 +428,15 @@
       <option name="project" value="LOCAL" />
       <updated>1753433956696</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="Added blog_model.dart Class for working in blogs_screen.dart">
+      <option name="closed" value="true" />
+      <created>1753450379442</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1753450379442</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -444,7 +451,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Food Screen Completed" />
     <MESSAGE value="Custom Widgets Created For Programmer Ease" />
     <MESSAGE value="Upload Diet (Button) Screen Created to upload Diet Plan" />
     <MESSAGE value="Table Created in Diet Screen and also used package and also created global map" />
@@ -469,6 +475,7 @@
     <MESSAGE value="create_new_password_screen.dart screen completed" />
     <MESSAGE value="Done with the splash screen, skip screens , forgot password screen and the create new password screen in the forgot_password_branch." />
     <MESSAGE value="Created blogs_screen.dart and Dleteted the separate screens skipscreen 1 2 and 3 and apply the functionality of these in only one page directly by using SkipScreenTemplate." />
-    <option name="LAST_COMMIT_MESSAGE" value="Created blogs_screen.dart and Dleteted the separate screens skipscreen 1 2 and 3 and apply the functionality of these in only one page directly by using SkipScreenTemplate." />
+    <MESSAGE value="Added blog_model.dart Class for working in blogs_screen.dart" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added blog_model.dart Class for working in blogs_screen.dart" />
   </component>
 </project>

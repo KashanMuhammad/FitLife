@@ -9,12 +9,38 @@ class BlogsScreen extends StatefulWidget {
 class _BlogsScreenState extends State<BlogsScreen> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        height: 100,
-        width: 100,
-        color: Colors.greenAccent,
-      ),
+    return  Scaffold(
+        backgroundColor: Colors.white,
+        body: SingleChildScrollView(
+        child: SafeArea(
+        child: Padding(
+        padding: const EdgeInsets.all(20),
+    child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+    Row(
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+    CircleAvatar(
+    radius: 16,
+    backgroundImage: AssetImage("assets/images/Male.png"),
+    ),
+    SizedBox(width: 135),
+    Text(
+    "Blogs",
+    style: TextStyle(
+    fontSize: 22,
+    fontWeight: FontWeight.bold,
+    color: Colors.black87,
+    ),
+    ),
+    ],
+    ),
+          ]
+    ),
+    ),
+    ),
+    )
     );
   }
 }

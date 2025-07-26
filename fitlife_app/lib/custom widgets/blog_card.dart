@@ -1,17 +1,19 @@
 // blog_card.dart
 import 'package:fitlife_app/Model%20Classes/blog_model.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_svg/flutter_svg.dart';
 
 class BlogCard extends StatelessWidget {
   final BlogModel blog;
+
   const BlogCard({required this.blog});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white, borderRadius: BorderRadius.circular(12),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
         boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4)],
       ),
       padding: EdgeInsets.all(12),
@@ -20,28 +22,40 @@ class BlogCard extends StatelessWidget {
         children: [
           Hero(
             tag: blog.id,
-            child: Material(
-              color: Colors.transparent,
-              child: Text(
-                blog.title,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            child: ClipRRect(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
+              child: Image.asset(
+                blog.imagePath,
+                width: double.infinity,
+                height: 150,
+                fit: BoxFit.cover,
               ),
             ),
           ),
-          SizedBox(height: 8),
-          Text(blog.author, style: TextStyle(color: Colors.grey[700])),
-          Text(blog.date, style: TextStyle(color: Colors.grey[600], fontSize: 12)),
-          Spacer(),
+          Text(
+            blog.title,
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+          ),
+          SizedBox(height: 30),
+
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+
+              Column(children: [
+              Text(blog.author, style: TextStyle(color: Colors.black87)),
+              Text(
+                blog.date,
+                style: TextStyle(color: Colors.black38, fontSize: 12),
+              ),
+              ],
+              ),
               Text('${blog.views} Views', style: TextStyle(fontSize: 12)),
-              Icon(Icons.verified, color: Colors.green, size: 18),
+              SvgPicture.asset('assets/images/blogsIconsbuttun.svg'),
             ],
-          )
+          ),
         ],
       ),
     );
   }
 }
-

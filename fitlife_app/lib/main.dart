@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fitlife_app/Onboarding%20Screens/fitlife_splash_screen.dart';
+import 'package:fitlife_app/blogs_screen.dart';
 
 import 'package:fitlife_app/create_new_password_screen.dart';
 import 'package:fitlife_app/forgot_password_screen.dart';
@@ -24,7 +25,7 @@ void main() async {
 
   runApp(
     const MaterialApp(
-      home: FitlifeSplashScreen(),
+      home: BlogsScreen(),
       debugShowCheckedModeBanner: false,
     ),
   );

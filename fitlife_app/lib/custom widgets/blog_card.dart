@@ -12,7 +12,7 @@ class BlogCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Color(0xFFF5F5F5),
         borderRadius: BorderRadius.circular(12),
         boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4)],
       ),
@@ -21,6 +21,7 @@ class BlogCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Hero(
+
             tag: blog.id,
             child: ClipRRect(
               borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
@@ -32,11 +33,18 @@ class BlogCard extends StatelessWidget {
               ),
             ),
           ),
-          Text(
-            blog.title,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+          SizedBox(height: 15,),
+          Row(
+            children: [
+              Text(
+                blog.title,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              ),
+              Spacer(),
+              Text("3 min",style: TextStyle(color: Colors.black26),)
+            ],
           ),
-          SizedBox(height: 30),
+          SizedBox(height: 35),
 
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -51,7 +59,7 @@ class BlogCard extends StatelessWidget {
               ],
               ),
               Text('${blog.views} Views', style: TextStyle(fontSize: 12)),
-              SvgPicture.asset('assets/images/blogsIconsbuttun.svg'),
+              SvgPicture.asset('assets/images/blogsIconsbuttun.svg',),
             ],
           ),
         ],

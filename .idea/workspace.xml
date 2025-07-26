@@ -4,21 +4,10 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Added blog_card.dart and blog_details_screen.dart still to do works with these screens">
-      <change afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/migrations.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/blogsIconsbuttun.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/blogsPicture.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/blogspicture.svg" afterDir="false" />
+    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Working with blogs screen completed but the picture be imported">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Model Classes/blog_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Model Classes/blog_model.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/SkipScreens.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/SkipScreens.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fitlife_app/lib/blog_details_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/blog_details_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/blogs_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/blogs_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fitlife_app/lib/custom widgets/blog_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/custom widgets/blog_card.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/main.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,27 +57,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Flutter.main.dart.executor": "Run",
-    "Flutter.main.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.readMode.enableVisualFormatting": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "android.gradle.sync.needed": "true",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "fawadalishan/blogs__screen",
-    "io.flutter.reload.alreadyRun": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "E:/practice_flutter",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "show.migrate.to.gradle.popup": "false"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Flutter.main.dart.executor&quot;: &quot;Run&quot;,
+    &quot;Flutter.main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;android.gradle.sync.needed&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;fawadalishan/blogs__screen&quot;,
+    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/practice_flutter&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Flutter.main.dart">
     <configuration name="android.app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
       <module name="android.app" />
@@ -456,7 +445,15 @@
       <option name="project" value="LOCAL" />
       <updated>1753451069016</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="Working with blogs screen completed but the picture be imported">
+      <option name="closed" value="true" />
+      <created>1753510820315</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1753510820315</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -471,7 +468,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Upload Diet (Button) Screen Created to upload Diet Plan" />
     <MESSAGE value="Table Created in Diet Screen and also used package and also created global map" />
     <MESSAGE value="Replaced SizedBox Widget with Spacing property of the Column" />
     <MESSAGE value="Global map created for Diet Plan" />
@@ -496,6 +492,7 @@
     <MESSAGE value="Created blogs_screen.dart and Dleteted the separate screens skipscreen 1 2 and 3 and apply the functionality of these in only one page directly by using SkipScreenTemplate." />
     <MESSAGE value="Added blog_model.dart Class for working in blogs_screen.dart" />
     <MESSAGE value="Added blog_card.dart and blog_details_screen.dart still to do works with these screens" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added blog_card.dart and blog_details_screen.dart still to do works with these screens" />
+    <MESSAGE value="Working with blogs screen completed but the picture be imported" />
+    <option name="LAST_COMMIT_MESSAGE" value="Working with blogs screen completed but the picture be imported" />
   </component>
 </project>

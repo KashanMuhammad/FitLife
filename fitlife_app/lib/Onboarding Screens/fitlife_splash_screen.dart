@@ -1,3 +1,4 @@
+import 'package:fitlife_app/Onboarding%20Screens/SkipScreens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -26,7 +27,7 @@ class _FitlifeSplashScreenState extends State<FitlifeSplashScreen> with SingleTi
     );
     _controller.forward();
     Future.delayed(Duration(seconds: 5), (){
-      Navigator.pushReplacementNamed(context,"" );
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> SkipScreens())  );
     });
   }
   @override

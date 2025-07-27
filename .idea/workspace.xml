@@ -4,20 +4,16 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Added option_card.dart and started working with the user screen">
-      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/Group.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/Group.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/Help.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/Help.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/PrivacyPolicy.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/Setting.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/Setting.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/Shield_perspective_matte.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/Subscription.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/Subscription.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/icon.svg" afterDir="false" />
+    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="completed working with the user_and_profile_screen.dart">
+      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/Calender.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/Gender.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/Height.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/iconsbuttun.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/weight.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/lib/custom widgets/build_textformfield.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/lib/edit_profile_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/lib/update_profile_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/custom widgets/option_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/custom widgets/option_card.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fitlife_app/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fitlife_app/lib/user_and_profile_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/user_and_profile_screen.dart" afterDir="false" />
     </list>
@@ -481,7 +477,15 @@
       <option name="project" value="LOCAL" />
       <updated>1753589763858</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="completed working with the user_and_profile_screen.dart">
+      <option name="closed" value="true" />
+      <created>1753608554286</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1753608554286</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -523,7 +527,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Global map created for Diet Plan" />
     <MESSAGE value="Method Created to store data in the diet plan map" />
     <MESSAGE value="Another table created for Diet Plan" />
     <MESSAGE value="Method created for Add Button the store data in the Global Food map" />
@@ -548,6 +551,7 @@
     <MESSAGE value="Working with blogs screen completed but the picture be imported" />
     <MESSAGE value="Working with blogs screen and blog detail screen completed" />
     <MESSAGE value="Added option_card.dart and started working with the user screen" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added option_card.dart and started working with the user screen" />
+    <MESSAGE value="completed working with the user_and_profile_screen.dart" />
+    <option name="LAST_COMMIT_MESSAGE" value="completed working with the user_and_profile_screen.dart" />
   </component>
 </project>

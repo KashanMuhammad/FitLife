@@ -1,4 +1,5 @@
 import 'package:fitlife_app/custom%20widgets/option_card.dart';
+import 'package:fitlife_app/edit_profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -71,7 +72,9 @@ class _UserAndProfileScreenState extends State<UserAndProfileScreen> {
                       child: OptionCard(
                         title: "Profile",
                         imageAssetPath: 'assets/images/Group.png',
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=> EditProfileScreen()));
+                        },
                         backgroundColor: Color(0xFFEAFBEA),
                       ),
                     ),

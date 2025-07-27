@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -21,26 +20,36 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   TextEditingController currentWeightController = TextEditingController();
   TextEditingController goalWeightController = TextEditingController();
   TextEditingController heightController = TextEditingController();
-  bool isLoading=true;
+
+  bool isLoading = true;
+
   @override
-  void initState(){
+  void initState() {
     super.initState();
     fetchUserData();
   }
+
   Future<void> fetchUserData() async {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     print("Fetching user data for UID: $uid");
+
     if (uid != null) {
-      final docSnapshot = await FirebaseFirestore.instance.collection('users').doc(uid).get();
+      final docSnapshot =
+      await FirebaseFirestore.instance.collection('users').doc(uid).get();
+
       if (docSnapshot.exists) {
         final data = docSnapshot.data()!;
         print("User data fetched: $data");
+
         setState(() {
           usernameController.text = data['username'] ?? '';
           emailController.text = data['email'] ?? '';
           genderController.text = data['gender'] ?? '';
           dateofbirthController.text = data['dateOfBirth'] != null
-              ? DateTime.parse(data['dateOfBirth']).toLocal().toString().split(' ')[0]
+              ? DateTime.parse(data['dateOfBirth'])
+              .toLocal()
+              .toString()
+              .split(' ')[0]
               : '';
           currentWeightController.text = data['weight']?.toString() ?? '';
           goalWeightController.text = data['goalWeight']?.toString() ?? '';
@@ -61,28 +70,25 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: SafeArea(
         child: isLoading
-            ? Center(child: CircularProgressIndicator())
+            ? const Center(child: CircularProgressIndicator())
             : SingleChildScrollView(
           child: Column(
             children: [
               Row(
                 children: [
                   IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: Icon(Icons.arrow_back_ios),
+                    onPressed: () => Navigator.pop(context),
+                    icon: const Icon(Icons.arrow_back_ios),
                   ),
-                  SizedBox(width: 160),
-                  Padding(
-                    padding: const EdgeInsets.all(25.0),
+                  const SizedBox(width: 160),
+                  const Padding(
+                    padding: EdgeInsets.all(25.0),
                     child: Text(
                       "Profile",
                       style: TextStyle(
@@ -94,8 +100,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                 ],
               ),
-              SizedBox(height: 11),
-              CircleAvatar(
+              const SizedBox(height: 11),
+               CircleAvatar(
                 radius: 50,
                 child: ClipOval(
                   child: Image.asset(
@@ -106,7 +112,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               BuildTextformfield(
                 controller: usernameController,
                 svgIconPath: 'assets/images/person.svg',
@@ -128,7 +134,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         readOnly: true,
                       ),
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     Expanded(
                       child: BuildTextformfield(
                         controller: genderController,
@@ -139,35 +145,35 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ],
                 ),
               ),
-             Row(
-               children: [
-                 Expanded(
-                   child: BuildTextformfield(
-                     controller: currentWeightController,
-                     svgIconPath: 'assets/images/Weight.svg',
-                     readOnly: true,
+             Padding(
+               padding: const EdgeInsets.all(8.0),
+               child: Row(
+                 children: [
+                   Expanded(
+                     child: BuildTextformfield(
+                       controller: currentWeightController,
+                       svgIconPath: 'assets/images/Weight.svg',
+                       readOnly: true,
+                     ),
                    ),
-                 ),
-                 SizedBox(width: 10,),
-                 Expanded(
-                   child: BuildTextformfield(
-                     controller: goalWeightController,
-                     svgIconPath: 'assets/images/Weight.svg',
-                     readOnly: true,
+                   Expanded(
+                     child: BuildTextformfield(
+                       controller: goalWeightController,
+                       svgIconPath: 'assets/images/Weight.svg',
+                       readOnly: true,
+                     ),
                    ),
-                 ),
-               ],
+                 ],
+               ),
              ),
               BuildTextformfield(
                 controller: heightController,
                 svgIconPath: 'assets/images/Height.svg',
                 readOnly: true,
               ),
-              SizedBox(
-                height: 20,
-              ),
+              const SizedBox(height: 20),
               buildNextButton(context),
-              SizedBox(height: 23,),
+              const SizedBox(height: 20),
             ],
           ),
         ),
@@ -178,25 +184,28 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
 Widget buildNextButton(BuildContext context) {
   return InkWell(
-    onTap: (){
-
+    onTap: () {
+      // Navigation to edit screen (optional)
     },
-
     child: Container(
-    height: 50,
-    width: 300,
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(12),
-      gradient: const LinearGradient(
-          colors: [Color(0xFF5AFF15), Color(0xFF00B712)]),
-    ),
-
-    child: Center(
-      child: Text(
-        "Edit Profile",
-        style: TextStyle(
-            fontWeight: FontWeight.bold, color: Colors.white, fontSize: 18),
+      height: 50,
+      width: 300,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        gradient: const LinearGradient(
+          colors: [Color(0xFF5AFF15), Color(0xFF00B712)],
+        ),
+      ),
+      child: const Center(
+        child: Text(
+          "Edit Profile",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+            fontSize: 18,
+          ),
+        ),
       ),
     ),
-  ),);
+  );
 }

@@ -3,53 +3,63 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class OptionCard extends StatelessWidget {
   final String title;
-  final String svgAssetPath;
+  final String imageAssetPath;
   final VoidCallback onTap;
   final Color backgroundColor;
 
   const OptionCard({
     super.key,
     required this.title,
-    required this.svgAssetPath,
+    required this.imageAssetPath,
     required this.onTap,
     required this.backgroundColor,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: backgroundColor,
-      elevation: 3,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      margin: EdgeInsets.symmetric(vertical: 8),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(12),
-        onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
-          child: Column(
-            children: [
-              SvgPicture.asset(svgAssetPath, height: 26, width: 26),
-              Spacer(),
-              Row(
+    return SizedBox( // ✅ Constrains the height
+      height: 156, // You can adjust this height as needed
+        child: Card(
+          color: backgroundColor,
+          elevation: 3,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          margin: const EdgeInsets.symmetric(vertical: 8),
+          child: InkWell(
+            borderRadius: BorderRadius.circular(12),
+            onTap: onTap,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    title,
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                  Image.asset(imageAssetPath, height: 26, width: 26),
+                  SizedBox(
+                    height: 40,
                   ),
-                  Expanded(
-                    child: Icon(
-                      Icons.arrow_forward_ios,
-                      size: 16,
-                      color: Colors.grey,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        title,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black, // You can adjust text color
+                        ),
+                      ),
+                      const Icon(
+                        Icons.arrow_forward_ios,
+                        size: 16,
+                        color: Colors.grey,
+                      ),
+                    ],
                   ),
                 ],
               ),
-            ],
+            ),
           ),
         ),
-      ),
+
     );
   }
 }

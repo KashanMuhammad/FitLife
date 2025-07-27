@@ -26,7 +26,7 @@ void main() async {
 
   runApp(
     const MaterialApp(
-      home: UserAndProfileScreen(),
+      home: MainScreen(),
       debugShowCheckedModeBanner: false,
     ),
   );

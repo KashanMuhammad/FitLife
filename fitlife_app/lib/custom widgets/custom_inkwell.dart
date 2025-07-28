@@ -8,16 +8,17 @@ class CustomInkwell extends StatelessWidget {
   const CustomInkwell({
     super.key,
     required this.text,
-    required this.isSelected,
+    this.isSelected = false,
     required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8),
       child: InkWell(
         onTap: onTap,
+        borderRadius: BorderRadius.circular(12),
         child: Container(
           height: 50,
           width: 250,
@@ -30,13 +31,12 @@ class CustomInkwell extends StatelessWidget {
             )
                 : null,
           ),
-          child: Center(
-            child: Text(
-              text,
-              style: TextStyle(
-                color: isSelected ? Colors.white : Colors.black,
-                fontWeight: FontWeight.w600,
-              ),
+          alignment: Alignment.center,
+          child: Text(
+            text,
+            style: TextStyle(
+              color: isSelected ? Colors.white : Colors.black,
+              fontWeight: FontWeight.w600,
             ),
           ),
         ),

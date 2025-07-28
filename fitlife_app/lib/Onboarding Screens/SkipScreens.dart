@@ -1,3 +1,4 @@
+import 'package:fitlife_app/login_screen.dart';
 import 'package:fitlife_app/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:fitlife_app/home_screen.dart';
@@ -42,12 +43,12 @@ class _OnboardingScreenState extends State<SkipScreens> {
     if (_currentPage < pages.length - 1) {
       _controller.nextPage(duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
     } else {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MainScreen()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
     }
   }
 
   void _onSkip() {
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
   }
 
   @override

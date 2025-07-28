@@ -1,4 +1,3 @@
-// blog_card.dart
 import 'package:fitlife_app/Model%20Classes/blog_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -21,45 +20,71 @@ class BlogCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Hero(
-
             tag: blog.id,
             child: ClipRRect(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
+              borderRadius: BorderRadius.circular(8),
               child: Image.asset(
                 blog.imagePath,
                 width: double.infinity,
-                height: 150,
+                height: 100,
                 fit: BoxFit.cover,
               ),
             ),
           ),
-          SizedBox(height: 15,),
+          SizedBox(height: 12),
           Row(
             children: [
-              Text(
-                blog.title,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              Expanded(
+                child: Text(
+                  blog.title,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
-              Spacer(),
-              Text("3 min",style: TextStyle(color: Colors.black26),)
+              SizedBox(width: 4),
+              Text(
+                "3 min",
+                style: TextStyle(color: Colors.black38, fontSize: 12),
+              ),
             ],
           ),
-          SizedBox(height: 35),
-
+          SizedBox(height: 16),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-
-              Column(children: [
-              Text(blog.author, style: TextStyle(color: Colors.black87)),
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      blog.author,
+                      style: TextStyle(color: Colors.black87, fontSize: 12),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Text(
+                      blog.date,
+                      style: TextStyle(color: Colors.black38, fontSize: 10),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(width: 4),
               Text(
-                blog.date,
-                style: TextStyle(color: Colors.black38, fontSize: 12),
+                '${blog.views} Views',
+                style: TextStyle(fontSize: 10),
+                overflow: TextOverflow.ellipsis,
               ),
-              ],
+              SizedBox(width: 4),
+              SvgPicture.asset(
+                'assets/images/blogsIconsbuttun.svg',
+                width: 20,
+                height: 20,
+                fit: BoxFit.contain,
               ),
-              Text('${blog.views} Views', style: TextStyle(fontSize: 12)),
-              SvgPicture.asset('assets/images/blogsIconsbuttun.svg',),
             ],
           ),
         ],

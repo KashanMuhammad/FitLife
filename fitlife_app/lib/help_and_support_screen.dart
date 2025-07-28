@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitlife_app/Onboarding%20Screens/user_name_screen.dart';
 import 'package:fitlife_app/custom%20widgets/custom_inkwell.dart';
 import 'package:fitlife_app/custom%20widgets/custom_textformfield.dart';
 import 'package:flutter/material.dart';
@@ -195,7 +196,9 @@ class _HelpAndSupportScreenState extends State<HelpAndSupportScreen> {
                             ),
                           );
                         }
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=> UserNameScreen()));
                       }
+
                     },
                   ),
                 ),

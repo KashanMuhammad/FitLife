@@ -4,10 +4,25 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Working with blogs screen completed but the picture be imported">
+    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="edit_profile_screen.dart and update_profile_screen.dart completed but still needs maintenance">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/blog_details_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/blog_details_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/android/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/android/app/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/dateofbirth_input_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/dateofbirth_input_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/diet_habits_input_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/diet_habits_input_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/gender_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/gender_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/health_issues_input_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/health_issues_input_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/height_input_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/height_input_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/user_name_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/user_name_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/weight_input_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/weight_input_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/blogs_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/blogs_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fitlife_app/lib/custom widgets/blog_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/custom widgets/blog_card.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/edit_profile_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/edit_profile_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/home_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/login_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/login_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/progress_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/progress_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/sign_up.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/sign_up.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/update_profile_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/update_profile_screen.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,11 +85,11 @@
     &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;fawadalishan/blogs__screen&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;fawadalishan/addmealsbranch&quot;,
     &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;E:/practice_flutter&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;AndroidSdkUpdater&quot;,
     &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   }
 }</component>
@@ -453,27 +468,96 @@
       <option name="project" value="LOCAL" />
       <updated>1753510820315</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="Working with blogs screen and blog detail screen completed">
+      <option name="closed" value="true" />
+      <created>1753525418564</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1753525418564</updated>
+    </task>
+    <task id="LOCAL-00038" summary="Added option_card.dart and started working with the user screen">
+      <option name="closed" value="true" />
+      <created>1753589763858</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1753589763858</updated>
+    </task>
+    <task id="LOCAL-00039" summary="completed working with the user_and_profile_screen.dart">
+      <option name="closed" value="true" />
+      <created>1753608554286</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1753608554286</updated>
+    </task>
+    <task id="LOCAL-00040" summary="completed working with the user_and_profile_screen and edit profile screen">
+      <option name="closed" value="true" />
+      <created>1753617258645</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1753617258645</updated>
+    </task>
+    <task id="LOCAL-00041" summary="Slightly updated profile Screen">
+      <option name="closed" value="true" />
+      <created>1753618866220</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1753618866220</updated>
+    </task>
+    <task id="LOCAL-00042" summary="edit_profile_screen.dart and update_profile_screen.dart completed but still needs maintenance">
+      <option name="closed" value="true" />
+      <created>1753684214775</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1753684214775</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="User">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="*" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="user">
+                    <value>
+                      <list>
+                        <option value="*" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Table Created in Diet Screen and also used package and also created global map" />
-    <MESSAGE value="Replaced SizedBox Widget with Spacing property of the Column" />
-    <MESSAGE value="Global map created for Diet Plan" />
-    <MESSAGE value="Method Created to store data in the diet plan map" />
-    <MESSAGE value="Another table created for Diet Plan" />
-    <MESSAGE value="Method created for Add Button the store data in the Global Food map" />
     <MESSAGE value="Some logical corrections in the Customs Widgets" />
     <MESSAGE value="Modified Code" />
     <MESSAGE value="commit" />
@@ -493,6 +577,12 @@
     <MESSAGE value="Added blog_model.dart Class for working in blogs_screen.dart" />
     <MESSAGE value="Added blog_card.dart and blog_details_screen.dart still to do works with these screens" />
     <MESSAGE value="Working with blogs screen completed but the picture be imported" />
-    <option name="LAST_COMMIT_MESSAGE" value="Working with blogs screen completed but the picture be imported" />
+    <MESSAGE value="Working with blogs screen and blog detail screen completed" />
+    <MESSAGE value="Added option_card.dart and started working with the user screen" />
+    <MESSAGE value="completed working with the user_and_profile_screen.dart" />
+    <MESSAGE value="completed working with the user_and_profile_screen and edit profile screen" />
+    <MESSAGE value="Slightly updated profile Screen" />
+    <MESSAGE value="edit_profile_screen.dart and update_profile_screen.dart completed but still needs maintenance" />
+    <option name="LAST_COMMIT_MESSAGE" value="edit_profile_screen.dart and update_profile_screen.dart completed but still needs maintenance" />
   </component>
 </project>

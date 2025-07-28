@@ -17,11 +17,27 @@ import 'package:fitlife_app/update_profile_screen.dart';
 import 'package:fitlife_app/user_and_profile_screen.dart';
 import 'package:flutter/material.dart';
 
+
+// kashan/admin-panel/dashboard
+import 'Onboarding Screens/user_name_screen.dart';
+import 'firebase_options.dart';
+import 'main_screen.dart';
+
+
+
+// main
+
 import 'Onboarding Screens/SkipScreens.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
+
+// kashan/admin-panel/dashboard
+   // options: DefaultFirebaseOptions.currentPlatform,
+
+
     options: FirebaseOptions(
       apiKey: "AIzaSyBNhPs9MnqFr_Ll-Uqg27_Hts01DvpOMPM",
       appId: "1:984332560461:android:7ce19e19d396bff4c01404",
@@ -29,6 +45,9 @@ void main() async {
       projectId: "fitlife-a042d",
       storageBucket: "fitlife-a042d.firebasestorage.app",
     ),
+
+  // main
+
   );
  // await FirebaseAuth.instance.setPersistence(Persistence.LOCAL);
   runApp(

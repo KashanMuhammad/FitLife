@@ -10,6 +10,7 @@ import 'package:fitlife_app/login_screen.dart';
 import 'package:fitlife_app/main_screen.dart';
 import 'package:fitlife_app/privacy_policy_screen.dart';
 import 'package:fitlife_app/sign_up.dart';
+import 'package:fitlife_app/update_profile_screen.dart';
 import 'package:fitlife_app/user_and_profile_screen.dart';
 import 'package:flutter/material.dart';
 

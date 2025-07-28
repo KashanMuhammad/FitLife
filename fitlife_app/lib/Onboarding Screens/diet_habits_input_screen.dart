@@ -105,13 +105,13 @@ class _DietHabitsInputScreenState extends State<DietHabitsInputScreen> {
                         },
                       );
                     }),
-                    const SizedBox(height: 20),
+
                   ],
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(bottom: 20),
+              padding: const EdgeInsets.only(bottom: 45),
               child: buildNextButton(context),
             ),
           ],

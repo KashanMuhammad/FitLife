@@ -74,7 +74,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Form(
@@ -88,7 +88,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                       onPressed: () => Navigator.pop(context),
                       icon: const Icon(Icons.arrow_back_ios),
                     ),
-                    const SizedBox(width: 160),
+                    const SizedBox(width: 77),
                     const Padding(
                       padding: EdgeInsets.all(25.0),
                       child: Center(

@@ -74,7 +74,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: Colors.white,
       body: SafeArea(
         child:
             isLoading
@@ -89,7 +89,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             onPressed: () => Navigator.pop(context),
                             icon: const Icon(Icons.arrow_back_ios),
                           ),
-                          const SizedBox(width: 160),
+                          const SizedBox(width: 77),
                           const Padding(
                             padding: EdgeInsets.all(25.0),
                             child: Center(

@@ -44,6 +44,9 @@ class _HomeTabContentState extends State<HomeScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            SizedBox(
+              height: 40,
+            ),
             Padding(
               padding: const EdgeInsets.all(27),
               child: Row(
@@ -228,7 +231,7 @@ class _HomeTabContentState extends State<HomeScreen> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        height: screenSize.height * 0.4,
+        height: screenSize.height * 0.27,
         width: screenSize.width,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
@@ -236,7 +239,7 @@ class _HomeTabContentState extends State<HomeScreen> {
         ),
         child: Column(
           children: [
-            SizedBox(height: 125),
+            SizedBox(height: 100),
             Expanded(
               child: SfRadialGauge(
                 axes: <RadialAxis>[
@@ -251,7 +254,8 @@ class _HomeTabContentState extends State<HomeScreen> {
                     showTicks: false,
                     startAngle: 180,
                     endAngle: 0,
-                    radiusFactor: 2.8,
+                    radiusFactor:  2.5,
+
                     ranges: <GaugeRange>[
                       GaugeRange(
                         startValue: 0,
@@ -272,8 +276,8 @@ class _HomeTabContentState extends State<HomeScreen> {
                           children: [
                             Image.asset(
                               "assets/images/Fire.png",
-                              height: 50,
-                              width: 50,
+                              height: 65,
+                              width: 65,
                             ),
                             SizedBox(height: 8),
                             Text("Calories"),
@@ -281,6 +285,7 @@ class _HomeTabContentState extends State<HomeScreen> {
                           ],
                         ),
                         angle: 90,
+                        positionFactor: 0,
                       ),
                     ],
                   ),

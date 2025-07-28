@@ -112,7 +112,7 @@ class _HealtIssuesInputScreenState extends State<HealthIssuesInputScreen> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(bottom: 20),
+              padding: const EdgeInsets.only(bottom: 45),
               child: buildNextButton(),
             ),
           ],

@@ -169,7 +169,9 @@ class _DateofbirthInputScreenState extends State<DateofbirthInputScreen> {
                       ),
                     ],
                   ),
-                  const Spacer(),
+                  SizedBox(
+                   height: 290,
+                  ),
                   GestureDetector(
                     onTap: () async {
                       final user = FirebaseAuth.instance.currentUser;
@@ -228,7 +230,7 @@ class _DateofbirthInputScreenState extends State<DateofbirthInputScreen> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 20),
+
                 ],
               ),
             ),

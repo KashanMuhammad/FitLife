@@ -41,12 +41,16 @@ class _UserNameScreenState extends State<UserNameScreen> {
                     const Text("Provide details about your health, dietary"),
                     const Text("habit and goals to receive a personalized diet"),
                     const Text("recommendation from your doctor"),
-                    const Spacer(),
+                    SizedBox(
+                      height: 220,
+                    ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 60),
                       child: buildTextFormField(),
                     ),
-                    const Spacer(),
+                    SizedBox(
+                      height: 210,
+                    ),
                     buildNextButton(context),
                     const SizedBox(height: 20),
                   ],

@@ -125,7 +125,9 @@ class _HeightInputScreenState extends State<HeightInputScreen> {
                   ),
                   const SizedBox(height: 30),
                   isCmSelected ? _buildCmPicker() : _buildFeetInchPicker(),
-                  const Spacer(),
+                  SizedBox(
+                    height: 225,
+                  ),
                   buildNextButton(context),
                   const SizedBox(height: 20),
                 ],

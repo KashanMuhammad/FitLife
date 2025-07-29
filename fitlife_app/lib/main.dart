@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:fitlife_app/Onboarding%20Screens/dateofbirth_input_screen.dart';
 import 'package:fitlife_app/Onboarding%20Screens/fitlife_splash_screen.dart';
 import 'package:fitlife_app/Onboarding%20Screens/user_name_screen.dart';
+import 'package:fitlife_app/add_meals_screen.dart';
 import 'package:fitlife_app/blogs_screen.dart';
 
 import 'package:fitlife_app/create_new_password_screen.dart';
@@ -18,6 +19,7 @@ import 'package:fitlife_app/user_and_profile_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'Onboarding Screens/SkipScreens.dart';
+import 'add_meals_summary_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,7 +35,7 @@ void main() async {
  // await FirebaseAuth.instance.setPersistence(Persistence.LOCAL);
   runApp(
     const MaterialApp(
-      home: FitlifeSplashScreen(),
+      home: AddMealsSummaryScreen(),
       debugShowCheckedModeBanner: false,
     ),
   );

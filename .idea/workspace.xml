@@ -4,25 +4,15 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="edit_profile_screen.dart and update_profile_screen.dart completed but still needs maintenance">
+    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Checked the UI on mobile and customize the ui if needed and now its coming perfect on the mobile.">
+      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/Cross.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/Rectangleimage.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/lib/add_meals_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/lib/add_meals_summary_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/lib/custom widgets/add_meals_tile.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/lib/custom widgets/summary_meals_tile.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/android/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/android/app/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/dateofbirth_input_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/dateofbirth_input_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/diet_habits_input_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/diet_habits_input_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/gender_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/gender_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/health_issues_input_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/health_issues_input_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/height_input_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/height_input_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/user_name_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/user_name_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/weight_input_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/weight_input_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/blogs_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/blogs_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/custom widgets/blog_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/custom widgets/blog_card.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/edit_profile_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/edit_profile_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/home_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/login_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/login_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fitlife_app/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/progress_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/progress_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/sign_up.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/sign_up.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/update_profile_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/update_profile_screen.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -516,7 +506,15 @@
       <option name="project" value="LOCAL" />
       <updated>1753684214775</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="Checked the UI on mobile and customize the ui if needed and now its coming perfect on the mobile.">
+      <option name="closed" value="true" />
+      <created>1753703965537</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1753703965537</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -558,7 +556,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Some logical corrections in the Customs Widgets" />
     <MESSAGE value="Modified Code" />
     <MESSAGE value="commit" />
     <MESSAGE value="modified" />
@@ -583,6 +580,7 @@
     <MESSAGE value="completed working with the user_and_profile_screen and edit profile screen" />
     <MESSAGE value="Slightly updated profile Screen" />
     <MESSAGE value="edit_profile_screen.dart and update_profile_screen.dart completed but still needs maintenance" />
-    <option name="LAST_COMMIT_MESSAGE" value="edit_profile_screen.dart and update_profile_screen.dart completed but still needs maintenance" />
+    <MESSAGE value="Checked the UI on mobile and customize the ui if needed and now its coming perfect on the mobile." />
+    <option name="LAST_COMMIT_MESSAGE" value="Checked the UI on mobile and customize the ui if needed and now its coming perfect on the mobile." />
   </component>
 </project>

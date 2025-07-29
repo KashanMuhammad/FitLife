@@ -4,36 +4,12 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-
-    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Some changes made by the system">
-      <change beforePath="$PROJECT_DIR$/.idea/AndroidProjectSystem.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="add_meals screens UI completed but some functionality still remaining">
+      <change afterPath="$PROJECT_DIR$/fitlife_app/lib/delete_account_setting.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/lib/meals_history_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/custom widgets/custom_list_tile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/custom widgets/custom_list_tile.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fitlife_app/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/main.dart" afterDir="false" />
-
-    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="edit_profile_screen.dart and update_profile_screen.dart completed but still needs maintenance">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/android/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/android/app/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/dateofbirth_input_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/dateofbirth_input_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/diet_habits_input_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/diet_habits_input_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/gender_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/gender_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/health_issues_input_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/health_issues_input_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/height_input_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/height_input_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/user_name_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/user_name_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/weight_input_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/weight_input_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/blogs_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/blogs_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/custom widgets/blog_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/custom widgets/blog_card.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/edit_profile_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/edit_profile_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/home_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/login_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/login_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/progress_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/progress_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/sign_up.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/sign_up.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/update_profile_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/update_profile_screen.dart" afterDir="false" />
-
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,30 +19,12 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
-
   <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=LocalEmulator, isTemplate=false, identifier=path=C:\Users\fawad\.android\avd\Medium_Phone.avd)]" />
-
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$/fitlife_app/android">
       <ProjectState />
     </projectState>
   </component>
-
-  <component name="ExternalProjectsManager">
-    <system id="GRADLE">
-      <state>
-        <projects_view>
-          <tree_state>
-            <expand />
-            <select />
-          </tree_state>
-        </projects_view>
-      </state>
-    </system>
-  </component>
-
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -425,17 +383,6 @@
       <option name="project" value="LOCAL" />
       <updated>1750377220094</updated>
     </task>
-
-    <task id="LOCAL-00028" summary="commited some files">
-      <option name="closed" value="true" />
-      <created>1750454913322</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1750454913322</updated>
-    </task>
-    <option name="localTasksCounter" value="29" />
-
     <task id="LOCAL-00028" summary="Re pulled and merged the code after just deployed the admin panel and now committing it.">
       <option name="closed" value="true" />
       <created>1750412442776</created>
@@ -556,8 +503,23 @@
       <option name="project" value="LOCAL" />
       <updated>1753684214775</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
-
+    <task id="LOCAL-00043" summary="Checked the UI on mobile and customize the ui if needed and now its coming perfect on the mobile.">
+      <option name="closed" value="true" />
+      <created>1753703965537</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1753703965537</updated>
+    </task>
+    <task id="LOCAL-00044" summary="add_meals screens UI completed but some functionality still remaining">
+      <option name="closed" value="true" />
+      <created>1753780911165</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1753780911165</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -599,8 +561,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Some logical corrections in the Customs Widgets" />
-    <MESSAGE value="Modified Code" />
     <MESSAGE value="commit" />
     <MESSAGE value="modified" />
     <MESSAGE value="Dependencies Updated" />
@@ -608,11 +568,6 @@
     <MESSAGE value="Pulled Slightly Updated Project" />
     <MESSAGE value="Major Updates (New FireBase Project with three platforms &amp; Many corrections &amp; Modifications)" />
     <MESSAGE value="Major Updates (New FireBase Project with three platforms &amp; Many corrections &amp; Modifications) some files added" />
-
-    <MESSAGE value="commited some files" />
-    <MESSAGE value="Some changes made by the system" />
-    <option name="LAST_COMMIT_MESSAGE" value="Some changes made by the system" />
-
     <MESSAGE value="Slightly uodates the files and now going to pull the code again" />
     <MESSAGE value="Re pulled and merged the code after just deployed the admin panel and now committing it." />
     <MESSAGE value="privacy_policy_screen.dart and help_and_support_screen.dart is completed with firebase functionality." />
@@ -629,7 +584,8 @@
     <MESSAGE value="completed working with the user_and_profile_screen and edit profile screen" />
     <MESSAGE value="Slightly updated profile Screen" />
     <MESSAGE value="edit_profile_screen.dart and update_profile_screen.dart completed but still needs maintenance" />
-    <option name="LAST_COMMIT_MESSAGE" value="edit_profile_screen.dart and update_profile_screen.dart completed but still needs maintenance" />
-
+    <MESSAGE value="Checked the UI on mobile and customize the ui if needed and now its coming perfect on the mobile." />
+    <MESSAGE value="add_meals screens UI completed but some functionality still remaining" />
+    <option name="LAST_COMMIT_MESSAGE" value="add_meals screens UI completed but some functionality still remaining" />
   </component>
 </project>

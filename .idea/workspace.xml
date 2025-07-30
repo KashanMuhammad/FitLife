@@ -561,8 +561,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="commit" />
-    <MESSAGE value="modified" />
     <MESSAGE value="Dependencies Updated" />
     <MESSAGE value="Project Slightly Updated" />
     <MESSAGE value="Pulled Slightly Updated Project" />
@@ -586,6 +584,8 @@
     <MESSAGE value="edit_profile_screen.dart and update_profile_screen.dart completed but still needs maintenance" />
     <MESSAGE value="Checked the UI on mobile and customize the ui if needed and now its coming perfect on the mobile." />
     <MESSAGE value="add_meals screens UI completed but some functionality still remaining" />
-    <option name="LAST_COMMIT_MESSAGE" value="add_meals screens UI completed but some functionality still remaining" />
+    <MESSAGE value="Full UI of the app completed with firebase functionalities in some pages and for other the firebase and backend functionalities still remaining." />
+    <MESSAGE value="Removed the conflicts now pushing" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed the conflicts now pushing" />
   </component>
 </project>

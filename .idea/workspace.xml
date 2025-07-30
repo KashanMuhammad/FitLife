@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="baa72bd9-3cf5-4d3f-9d12-96bd97cee417" name="Changes" comment="Some changes made by the system">
+      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/Calender.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/FitLifelogo.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/Gender.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/Group.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/Group.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/Height.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/Help.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/Help.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/PrivacyPolicy.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/Setting.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/Setting.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/Shield_perspective_matte.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/Subscription.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/Subscription.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/blogsIconsbuttun.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/blogsPicture.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/blogspicture.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/climbing-stairs.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/icon.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/iconsbuttun.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/interfacetesting.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/weight.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/assets/images/workout-indoors.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/lib/Model Classes/blog_model.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/SkipScreens.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/fitlife_splash_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/lib/blog_details_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/lib/create_new_password_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/lib/custom widgets/blog_card.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/lib/custom widgets/build_textformfield.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/lib/custom widgets/option_card.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/lib/custom widgets/skip_screens_template.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/lib/edit_profile_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/lib/forgot_password_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/lib/help_and_support_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/lib/privacy_policy_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_app/lib/update_profile_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/android/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/android/app/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/dateofbirth_input_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/dateofbirth_input_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/diet_habits_input_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/diet_habits_input_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/gender_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/gender_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/health_issues_input_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/health_issues_input_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/height_input_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/height_input_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/user_name_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/user_name_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/weight_input_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Onboarding Screens/weight_input_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/blogs_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/blogs_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/custom widgets/custom_inkwell.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/custom widgets/custom_inkwell.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/home_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/login_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/login_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/progress_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/progress_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/sign_up.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/sign_up.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/user_and_profile_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/user_and_profile_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/lib/user_0nboarding_data_model_class.dart" beforeDir="false" afterPath="$PROJECT_DIR$/shared/lib/user_0nboarding_data_model_class.dart" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="android" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 4
+}]]></component>
+  <component name="ProjectId" id="30beSSRpgAM8zsHhoGz4ZGnBH9i" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "Merging kashan/admin-panel/feature/firebase-integration-shared-class",
+    "kotlin-language-version-configured": "true",
+    "show.migrate.to.gradle.popup": "false"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task id="LOCAL-00001" summary="Some changes made by the system">
+      <option name="closed" value="true" />
+      <created>1753754981725</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1753754981725</updated>
+    </task>
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="baa72bd9-3cf5-4d3f-9d12-96bd97cee417" name="Changes" comment="Some changes made by the system" />
+      <created>1753900709114</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1753900709114</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Some changes made by the system" />
+    <option name="LAST_COMMIT_MESSAGE" value="Some changes made by the system" />
+  </component>
+</project>

@@ -231,7 +231,7 @@ class _HomeTabContentState extends State<HomeScreen> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        height: screenSize.height * 0.27,
+        height: screenSize.height * 0.30,
         width: screenSize.width,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),

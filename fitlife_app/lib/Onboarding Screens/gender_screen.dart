@@ -39,7 +39,9 @@ class _GenderScreenState extends State<GenderScreen> {
                   const Text("Provide details about your health, dietary"),
                   const Text("habit and goals to receive a personalized diet"),
                   const Text("recommendation from your doctor"),
-                  const Spacer(),
+                   SizedBox(
+                    height: 180,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -65,7 +67,9 @@ class _GenderScreenState extends State<GenderScreen> {
                       ),
                     ],
                   ),
-                  const Spacer(),
+                  SizedBox(
+                    height: 200,
+                  ),
                   buildNextButton(context),
                   const SizedBox(height: 20),
                 ],

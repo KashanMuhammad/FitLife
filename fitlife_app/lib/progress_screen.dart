@@ -30,7 +30,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
                       radius: 16,
                       backgroundImage: AssetImage("assets/images/Male.png"),
                     ),
-                    SizedBox(width: 115),
+                    SizedBox(width: 50),
                     Text(
                       "Weight Progress",
                       style: TextStyle(

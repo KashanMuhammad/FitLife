@@ -121,7 +121,9 @@ class _WeightInputScreenState extends State<WeightInputScreen> {
                   ),
                   const SizedBox(height: 30),
                   isKgSelected ? _buildKgPicker() : _buildLbsPicker(),
-                  const Spacer(),
+                  SizedBox(
+                    height: 227,
+                  ),
                   buildNextButton(context),
                   const SizedBox(height: 20),
                 ],

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitlife_app/Onboarding%20Screens/weight_input_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:shared/user_0nboarding_data_model_class.dart';
 
 class HeightInputScreen extends StatefulWidget {
   const HeightInputScreen({super.key});
@@ -198,10 +199,14 @@ class _HeightInputScreenState extends State<HeightInputScreen> {
       }
 
       try {
-        await FirebaseFirestore.instance.collection('Users').doc(userId).update({
-          'heightValue': heightValue,
-          'heightUnit': heightUnit,
-        });
+        final userModel= FirebaseDataModelClass(
+
+          height: heightValue.toDouble(),
+          heightUnit: heightUnit
+        );
+        await FirebaseFirestore.instance.collection('Khan').doc(userId).update(
+         userModel.toJson()
+        );
         return true;
       } catch (e) {
         return _showError("Failed to save height.");

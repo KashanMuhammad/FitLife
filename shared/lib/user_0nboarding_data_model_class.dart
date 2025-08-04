@@ -5,20 +5,24 @@ class FirebaseDataModelClass {
   final String? password;
   final String? gender;
   final double? height;
+  final String? heightUnit;
   final double? weight;
+  final String? weightUnit;
   final DateTime? dateOfBirth;
   final List<String>? selectedDietHabits;
   final List<String>? selectedHealthIssues;
   final bool? privacyPolicyAccepted;
 
 
-  FirebaseDataModelClass({
+  FirebaseDataModelClass( {
+
     this.userId,
     this.username,
     this.email,
     this.password,
     this.gender,
     this.height,
+    this.heightUnit, this.weightUnit,
     this.weight,
     this.dateOfBirth,
     this.selectedDietHabits,
@@ -34,7 +38,9 @@ class FirebaseDataModelClass {
     if (username != null) data['username'] = username;
     if (gender != null) data['gender'] = gender;
     if (height != null) data['height'] = height;
+    if (heightUnit != null) data['heightUnit'] = heightUnit;
     if (weight != null) data['weight'] = weight;
+    if (weightUnit != null) data['weightUnit'] = weightUnit;
     if (dateOfBirth != null) data['dateOfBirth'] = dateOfBirth!.toIso8601String();
     if (selectedDietHabits != null) data['selectedDietHabits'] = selectedDietHabits;
     if (selectedHealthIssues != null) data['selectedHealthIssues'] = selectedHealthIssues;
@@ -57,7 +63,9 @@ class FirebaseDataModelClass {
       username: json['username'] as String?,
       gender: json['gender'] as String?,
       height: (json['height'] as num?)?.toDouble(),
+      heightUnit: (json['heightUnit'] as String?),
       weight: (json['weight'] as num?)?.toDouble(),
+      weightUnit: (json['weightUnit'] as String),
       dateOfBirth: json['dateOfBirth'] != null
           ? DateTime.tryParse(json['dateOfBirth'])
           : null,

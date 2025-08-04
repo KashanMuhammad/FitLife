@@ -1,7 +1,11 @@
+import 'package:fitlife_admin_panel/analytics_screen.dart';
+import 'package:fitlife_admin_panel/blog_screen.dart';
+import 'package:fitlife_admin_panel/customer_support.dart';
 import 'package:fitlife_admin_panel/diet_screen.dart';
 import 'package:fitlife_admin_panel/food_screen.dart';
 import 'package:fitlife_admin_panel/upload_diet_screen.dart';
 import 'package:fitlife_admin_panel/upload_food_screen.dart';
+import 'package:fitlife_admin_panel/user_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -52,8 +56,10 @@ class _DashboardState extends State<Dashboard> {
         child: IndexedStack(
           index: selectedIndex,
           children: [
-            Center(child: Text("Analytics")),
-            Center(child: Text("Users")),
+            // Center(child: Text("Analytics")),
+            AnalyticsScreen(),
+            UserScreen(),
+            // Center(child: Text("Users")),
             showDietUploadScreen
                 ? UploadDietScreen()
                 : DietScreen(
@@ -72,8 +78,10 @@ class _DashboardState extends State<Dashboard> {
                 });
               },
             ),
-            Center(child: Text("Support")),
-            Center(child: Text("Blogs")),
+            CustomerSupport(),
+            // Center(child: Text("Support")),
+            //Center(child: Text("Blogs")),
+            BlogScreen(),
           ],
         ),
       ),

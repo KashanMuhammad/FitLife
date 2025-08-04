@@ -11,6 +11,17 @@ class FirebaseDataModelClass {
   final List<String>? selectedHealthIssues;
   final bool? privacyPolicyAccepted;
 
+  final String? foodName;
+  final String? foodDescription;
+  final String? quantity;
+  final String? caloriesPerServing;
+  final String? protein;
+  final String? carbohydrates;
+  final String? fats;
+  final String? tag;
+  final String? selectedUnits;
+  final String? selectedTag;
+
 
   FirebaseDataModelClass({
     this.userId,
@@ -23,7 +34,19 @@ class FirebaseDataModelClass {
     this.dateOfBirth,
     this.selectedDietHabits,
     this.selectedHealthIssues,
-    this.privacyPolicyAccepted
+    this.privacyPolicyAccepted,
+
+
+    this.foodName,
+    this.foodDescription,
+    this.quantity,
+    this.selectedUnits,
+    this.caloriesPerServing,
+    this.protein,
+    this.carbohydrates,
+    this.fats,
+    this.tag,
+    this.selectedTag,
   });
 
   Map<String, dynamic> toJson() {
@@ -39,6 +62,18 @@ class FirebaseDataModelClass {
     if (selectedDietHabits != null) data['selectedDietHabits'] = selectedDietHabits;
     if (selectedHealthIssues != null) data['selectedHealthIssues'] = selectedHealthIssues;
     if (privacyPolicyAccepted != null) data['privacyPolicyAccepted'] = privacyPolicyAccepted;
+
+    if (foodName != null) data['foodName'] = foodName;
+    if (foodDescription != null) data['foodDescription'] = foodDescription;
+    if (quantity != null) data['quantity'] = quantity;
+    if (selectedUnits != null) data['selectedUnits'] = selectedUnits;
+    if (caloriesPerServing != null) data['caloriesPerServing'] = caloriesPerServing;
+    if (protein != null) data['protein'] = protein;
+    if (carbohydrates != null) data['carbohydrates'] = carbohydrates;
+    if (fats != null) data['fats'] = fats;
+    if (tag != null) data['tag'] = tag;
+    if (selectedTag != null) data['selectedTag'] = selectedTag;
+
     return data;
   }
 
@@ -64,6 +99,18 @@ class FirebaseDataModelClass {
       selectedDietHabits: toList(json['selectedDietHabits']),
       selectedHealthIssues: toList(json['selectedHealthIssues']),
       privacyPolicyAccepted: json['privacyPolicyAccepted'] as bool?,
+
+
+      foodName: json['foodName'] as String?,
+      foodDescription: json['foodDescription'] as String?,
+      quantity: json['quantity'] as String?,
+      caloriesPerServing: json['caloriesPerServing'] as String?,
+      selectedUnits: json['selectedUnits'] as String?,
+      protein: json['protein'] as String?,
+      carbohydrates: json['carbohydrates'] as String?,
+      fats: json['fats'] as String?,
+      tag: json['tag'] as String?,
+      selectedTag: json['selectedTag'] as String?,
 
     );
   }

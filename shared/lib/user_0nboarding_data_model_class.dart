@@ -22,6 +22,17 @@ class FirebaseDataModelClass {
   final String? selectedUnits;
   final String? selectedTag;
 
+  final String? dietTitle;
+  final String? dietDescription;
+  final String? selectedMealType;
+  final String? day;
+  final String? timeToEat;
+  final String? listOfFood;
+  final String? duration;
+  final String? suitableFor;
+  final String? dietTag;
+  final String? createdBy;
+  final String? createdAt;
 
   FirebaseDataModelClass({
     this.userId,
@@ -47,6 +58,18 @@ class FirebaseDataModelClass {
     this.fats,
     this.tag,
     this.selectedTag,
+
+    this.dietTitle,
+    this.dietDescription,
+    this.selectedMealType,
+    this.day,
+    this.timeToEat,
+    this.listOfFood,
+    this.duration,
+    this.suitableFor,
+    this.dietTag,
+    this.createdBy,
+    this.createdAt,
   });
 
   Map<String, dynamic> toJson() {
@@ -74,6 +97,17 @@ class FirebaseDataModelClass {
     if (tag != null) data['tag'] = tag;
     if (selectedTag != null) data['selectedTag'] = selectedTag;
 
+    if (dietTitle != null) data['dietTitle'] = dietTitle;
+    if (dietDescription != null) data['dietDescription'] = dietDescription;
+    if (selectedMealType != null) data['selectedMealType'] = selectedMealType;
+    if (day != null) data['day'] = day;
+    if (timeToEat != null) data['timeToEat'] = timeToEat;
+    if (listOfFood != null) data['listOfFood'] = listOfFood;
+    if (duration != null) data['duration'] = duration;
+    if (suitableFor  != null) data['suitableFor'] = suitableFor;
+    if (dietTag != null) data['dietTag'] = dietTag;
+    if (createdBy != null) data['createdBy'] = createdBy;
+    if (createdAt != null) data['createdAt'] = createdAt;
     return data;
   }
 
@@ -112,6 +146,18 @@ class FirebaseDataModelClass {
       tag: json['tag'] as String?,
       selectedTag: json['selectedTag'] as String?,
 
+
+      dietTitle: json['dietTitle'] as String?,
+      dietDescription: json['dietDescription'] as String?,
+      selectedMealType: json['selectedMealType'] as String?,
+      day: json['day'] as String?,
+      timeToEat: json['timeToEat'] as String?,
+      listOfFood: json['listOfFood'] as String?,
+      duration: json['duration'] as String?,
+      suitableFor: json['suitableFor'] as String?,
+      dietTag: json['dietTag'] as String?,
+      createdBy: json['createdBy'] as String?,
+      createdAt: json['createdAt'] as String?,
     );
   }
 

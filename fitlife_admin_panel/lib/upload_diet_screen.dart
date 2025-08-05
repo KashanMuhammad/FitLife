@@ -1,8 +1,10 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fitlife_admin_panel/custom_widgets.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared/user_0nboarding_data_model_class.dart';
 
 import 'main.dart';
 
@@ -16,6 +18,8 @@ class UploadDietScreen extends StatefulWidget {
 }
 
 class _UploadDietScreenState extends State<UploadDietScreen> {
+  List<String> foodNames = [];
+
   String? selectedMealType,
       selectedFood,
       selectedMealSuitability,
@@ -46,6 +50,7 @@ class _UploadDietScreenState extends State<UploadDietScreen> {
   @override
   void initState() {
     super.initState();
+    loadFoodNames();
     if (widget.dietData != null) {
       final data = widget.dietData!;
       diettitleController.text = data['dietTitle'] ?? '';
@@ -72,6 +77,19 @@ class _UploadDietScreenState extends State<UploadDietScreen> {
         selectedMealTags = data['mealTag'];
       }
     }
+  }
+
+  Future<void> loadFoodNames() async {
+    final names = await fetchFoodNames();
+
+    setState(() {
+      foodNames = names;
+
+      // Fix: Ensure selectedFood is valid
+      if (!foodNames.contains(selectedFood)) {
+        selectedFood = null;
+      }
+    });
   }
 
   @override
@@ -114,10 +132,7 @@ class _UploadDietScreenState extends State<UploadDietScreen> {
                 ),
 
                 CustomDropdown(
-                  items:
-                      globalFoodMap.values
-                          .map<String>((food) => food['foodName'].toString())
-                          .toList(),
+                  items: foodNames,
                   hintText: 'List of Foods',
                   value: selectedFood,
                   onChanged: (value) {
@@ -227,50 +242,76 @@ class _UploadDietScreenState extends State<UploadDietScreen> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
       onPressed: () {
-        if (diettitleController.text.trim().isEmpty) {
-          return;
-        }
+        timeStampController.text = DateTime.now().toIso8601String();
+        // if (diettitleController.text.trim().isEmpty) {
+        //   return;
+        // }
+        //
+        // String id = DateTime.now().millisecondsSinceEpoch.toString();
+        //
+        // Map<String, dynamic> dietData = {
+        //   'dietTitle': diettitleController.text.trim(),
+        //   'dietDescription': dietDescription.text.trim(),
+        //   'mealType': selectedMealType ?? '',
+        //   'day': dayController.text.trim(),
+        //   'timeToEat': timeController.text.trim(),
+        //   'foodList': selectedFood ?? '',
+        //   'duration': durationController.text.trim(),
+        //   'mealSuitability': selectedMealSuitability ?? '',
+        //   'mealTag': selectedMealTags ?? '',
+        //   'image': _image?.path ?? '',
+        //   'createdBy': nameController.text.trim(),
+        //   'createdTime': timeStampController.text.trim(),
+        // };
+        //
+        // setState(() {
+        //   globalDietMap[id] = dietData;
+        // });
+        //
+        // // Clearing controllers
+        // diettitleController.clear();
+        // dayController.clear();
+        // timeController.clear();
+        // durationController.clear();
+        // nameController.clear();
+        // timeStampController.clear();
+        //
+        // // Reset dropdown selections here
+        // selectedMealType = null;
+        // selectedFood = null;
+        // selectedMealSuitability = null;
+        // selectedMealTags = null;
+        //
+        // _image = null;
+        //
+        // setState(() {});
 
-        String id = DateTime.now().millisecondsSinceEpoch.toString();
+        final user = FirebaseDataModelClass(
+          dietTitle: diettitleController.text,
+          dietDescription: dietDescription.text,
+          selectedMealType: selectedMealType,
+          timeToEat: timeController.text,
+          listOfFood: selectedFood,
+          duration: durationController.text,
+          suitableFor: selectedMealSuitability,
+          tag: selectedMealTags,
+          createdBy: nameController.text,
+          createdAt: timeStampController.text,
+        );
 
-        Map<String, dynamic> dietData = {
-          'dietTitle': diettitleController.text.trim(),
-          'dietDescription': dietDescription.text.trim(),
-          'mealType': selectedMealType ?? '',
-          'day': dayController.text.trim(),
-          'timeToEat': timeController.text.trim(),
-          'foodList': selectedFood ?? '',
-          'duration': durationController.text.trim(),
-          'mealSuitability': selectedMealSuitability ?? '',
-          'mealTag': selectedMealTags ?? '',
-          'image': _image?.path ?? '',
-          'createdBy': nameController.text.trim(),
-          'createdTime': timeStampController.text.trim(),
-        };
-
-        setState(() {
-          globalDietMap[id] = dietData;
-        });
-
-        // Clearing controllers
-        diettitleController.clear();
-        dayController.clear();
-        timeController.clear();
-        durationController.clear();
-        nameController.clear();
-        timeStampController.clear();
-
-        // Reset dropdown selections here
-        selectedMealType = null;
-        selectedFood = null;
-        selectedMealSuitability = null;
-        selectedMealTags = null;
-
-        _image = null;
-
-        setState(() {});
+        FirebaseFirestore.instance.collection('diet').doc().set(user.toJson());
       },
       child: Text("Submit"),
     );
   }
+}
+
+Future<List<String>> fetchFoodNames() async {
+  final snapshot = await FirebaseFirestore.instance.collection('food').get();
+
+  return snapshot.docs
+      .map((doc) => doc['foodName'] as String?)
+      .where((name) => name != null && name.isNotEmpty)
+      .cast<String>()
+      .toList();
 }

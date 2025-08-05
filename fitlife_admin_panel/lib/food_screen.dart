@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fitlife_admin_panel/upload_food_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -152,61 +153,134 @@ class _FoodScreenState extends State<FoodScreen> {
             ),
             Text("Food List", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             SizedBox(height: 8),
+            // Card(
+            //   elevation: 2,
+            //   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            //   child: DataTable(
+            //     headingRowColor: WidgetStateProperty.all(Colors.grey[200]),
+            //     headingTextStyle: TextStyle(fontWeight: FontWeight.bold),
+            //     border: TableBorder.all(color: Colors.grey.shade300),
+            //     columns: [
+            //       DataColumn(label: Text("Food Image")),
+            //       DataColumn(label: Text("Food Name")),
+            //       DataColumn(label: Text("Food Quantity")),
+            //       DataColumn(label: Text("Food Unit")),
+            //       DataColumn(label: Text("Calories Per Serving")),
+            //       DataColumn(label: Text("Food Tag")),
+            //       DataColumn(label: Text("Actions")),
+            //     ],
+            //     rows: globalFoodMap.entries.map((entry) {
+            //       final food = entry.value;
+            //
+            //       return DataRow(cells: [
+            //         DataCell(
+            //           food['image'] != ''
+            //               ? (kIsWeb
+            //               ? Image.network(food['image'], width: 60, height: 60)
+            //               : Image.file(File(food['image']), width: 60, height: 60))
+            //               : Icon(Icons.image),
+            //         ),
+            //         DataCell(Text(food['foodName'] ?? '')),
+            //         DataCell(Text(food['quantity'] ?? '')),
+            //         DataCell(Text(food['unit'] ?? '')),
+            //         DataCell(Text(food['calories'] ?? '')),
+            //         DataCell(Text(food['tag'] ?? '')),
+            //         DataCell(
+            //           PopupMenuButton<String>(
+            //             icon: Icon(Icons.more_vert_outlined),
+            //             offset: Offset(100, 0),
+            //             onSelected: (value) {
+            //               if (value == 'form') {
+            //                 Navigator.push(
+            //                   context,
+            //                   MaterialPageRoute(
+            //                     builder: (context) => UploadFoodScreen(foodData: food,),
+            //                   ),
+            //                 );
+            //               }
+            //             },
+            //             itemBuilder: (context) => [
+            //               const PopupMenuItem(value: 'form', child: Text('Form')),
+            //             ],
+            //           ),
+            //         ),
+            //       ]);
+            //     }).toList(),
+            //   ),
+            // ),
             Card(
               elevation: 2,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-              child: DataTable(
-                headingRowColor: WidgetStateProperty.all(Colors.grey[200]),
-                headingTextStyle: TextStyle(fontWeight: FontWeight.bold),
-                border: TableBorder.all(color: Colors.grey.shade300),
-                columns: [
-                  DataColumn(label: Text("Food Image")),
-                  DataColumn(label: Text("Food Name")),
-                  DataColumn(label: Text("Food Quantity")),
-                  DataColumn(label: Text("Food Unit")),
-                  DataColumn(label: Text("Calories Per Serving")),
-                  DataColumn(label: Text("Food Tag")),
-                  DataColumn(label: Text("Actions")),
-                ],
-                rows: globalFoodMap.entries.map((entry) {
-                  final food = entry.value;
+              child: StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance.collection('food').snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  }
 
-                  return DataRow(cells: [
-                    DataCell(
-                      food['image'] != ''
-                          ? (kIsWeb
-                          ? Image.network(food['image'], width: 60, height: 60)
-                          : Image.file(File(food['image']), width: 60, height: 60))
-                          : Icon(Icons.image),
-                    ),
-                    DataCell(Text(food['foodName'] ?? '')),
-                    DataCell(Text(food['quantity'] ?? '')),
-                    DataCell(Text(food['unit'] ?? '')),
-                    DataCell(Text(food['calories'] ?? '')),
-                    DataCell(Text(food['tag'] ?? '')),
-                    DataCell(
-                      PopupMenuButton<String>(
-                        icon: Icon(Icons.more_vert_outlined),
-                        offset: Offset(100, 0),
-                        onSelected: (value) {
-                          if (value == 'form') {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => UploadFoodScreen(foodData: food,),
-                              ),
-                            );
-                          }
-                        },
-                        itemBuilder: (context) => [
-                          const PopupMenuItem(value: 'form', child: Text('Form')),
-                        ],
-                      ),
-                    ),
-                  ]);
-                }).toList(),
+                  if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                    return Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text("No food data found."),
+                    );
+                  }
+
+                  final docs = snapshot.data!.docs;
+
+                  return DataTable(
+                    headingRowColor: WidgetStateProperty.all(Colors.grey[200]),
+                    headingTextStyle: TextStyle(fontWeight: FontWeight.bold),
+                    border: TableBorder.all(color: Colors.grey.shade300),
+                    columns: const [
+                      DataColumn(label: Text("Food Image")),
+                      DataColumn(label: Text("Food Name")),
+                      DataColumn(label: Text("Food Quantity")),
+                      DataColumn(label: Text("Food Unit")),
+                      DataColumn(label: Text("Calories Per Serving")),
+                      DataColumn(label: Text("Food Tag")),
+                      DataColumn(label: Text("Actions")),
+                    ],
+                    rows: docs.map((doc) {
+                      final food = doc.data() as Map<String, dynamic>;
+
+                      return DataRow(cells: [
+                        DataCell(
+                          food['image'] != null && food['image'] != ''
+                              ? Image.network(food['image'], width: 60, height: 60)
+                              : Icon(Icons.image),
+                        ),
+                        DataCell(Text(food['foodName'] ?? '')),
+                        DataCell(Text(food['quantity'] ?? '')),
+                        DataCell(Text(food['selectedUnits'] ?? '')),
+                        DataCell(Text(food['caloriesPerServing'] ?? '')),
+                        DataCell(Text(food['selectedTag'] ?? '')),
+                        DataCell(
+                          PopupMenuButton<String>(
+                            icon: Icon(Icons.more_vert_outlined),
+                            offset: Offset(100, 0),
+                            onSelected: (value) {
+                              if (value == 'form') {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        UploadFoodScreen(foodData: food),
+                                  ),
+                                );
+                              }
+                            },
+                            itemBuilder: (context) => [
+                              const PopupMenuItem(value: 'form', child: Text('Form')),
+                            ],
+                          ),
+                        ),
+                      ]);
+                    }).toList(),
+                  );
+                },
               ),
-            ),
+            )
+
           ],
         ),
       ),

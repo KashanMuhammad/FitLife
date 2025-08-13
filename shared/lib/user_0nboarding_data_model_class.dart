@@ -27,7 +27,7 @@ class FirebaseDataModelClass {
   final String? selectedMealType;
   final String? day;
   final String? timeToEat;
-  final String? listOfFood;
+  final List<String>? listOfFood;
   final String? duration;
   final String? suitableFor;
   final String? dietTag;
@@ -152,7 +152,7 @@ class FirebaseDataModelClass {
       selectedMealType: json['selectedMealType'] as String?,
       day: json['day'] as String?,
       timeToEat: json['timeToEat'] as String?,
-      listOfFood: json['listOfFood'] as String?,
+      listOfFood: toList(json['listOfFood']),
       duration: json['duration'] as String?,
       suitableFor: json['suitableFor'] as String?,
       dietTag: json['dietTag'] as String?,

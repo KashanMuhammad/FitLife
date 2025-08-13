@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared/user_0nboarding_data_model_class.dart';
 
+import 'dashboard.dart';
 import 'main.dart';
 
 class UploadDietScreen extends StatefulWidget {
@@ -19,7 +20,8 @@ class UploadDietScreen extends StatefulWidget {
 
 class _UploadDietScreenState extends State<UploadDietScreen> {
   List<String> foodNames = [];
-
+  List<Map<String, dynamic>> allFoods = [];
+  List<String> selectedFoods = [];
   String? selectedMealType,
       selectedFood,
       selectedMealSuitability,
@@ -79,16 +81,30 @@ class _UploadDietScreenState extends State<UploadDietScreen> {
     }
   }
 
+  // Future<void> loadFoodNames() async {
+  //   final names = await fetchFoodNames();
+  //
+  //   setState(() {
+  //     foodNames = names;
+  //
+  //     // Fix: Ensure selectedFood is valid
+  //     if (!foodNames.contains(selectedFood)) {
+  //       selectedFood = null;
+  //     }
+  //   });
+  // }
+
   Future<void> loadFoodNames() async {
-    final names = await fetchFoodNames();
+    final snapshot = await FirebaseFirestore.instance.collection('food').get();
+    final foodList =
+        snapshot.docs.map((doc) {
+          final data = doc.data();
+          data['id'] = doc.id;
+          return data;
+        }).toList();
 
     setState(() {
-      foodNames = names;
-
-      // Fix: Ensure selectedFood is valid
-      if (!foodNames.contains(selectedFood)) {
-        selectedFood = null;
-      }
+      allFoods = foodList;
     });
   }
 
@@ -103,6 +119,21 @@ class _UploadDietScreenState extends State<UploadDietScreen> {
             child: Column(
               spacing: 15,
               children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Dashboard()),
+                        );
+                      },
+                      icon: Icon(Icons.arrow_back_rounded),
+                    ),
+                  ],
+                ),
+
                 CustomTextFormField(
                   controller: diettitleController,
                   label: "Title",
@@ -131,15 +162,106 @@ class _UploadDietScreenState extends State<UploadDietScreen> {
                   label: 'Time to Eat',
                 ),
 
-                CustomDropdown(
-                  items: foodNames,
-                  hintText: 'List of Foods',
-                  value: selectedFood,
-                  onChanged: (value) {
-                    setState(() {
-                      selectedFood = value;
-                    });
-                  },
+                // CustomDropdown(
+                //   items: foodNames,
+                //   hintText: 'List of Foods',
+                //   value: selectedFood,
+                //   onChanged: (value) {
+                //     setState(() {
+                //       selectedFood = value;
+                //     });
+                //   },
+                // ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  child: GridView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: allFoods.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 5,
+                      childAspectRatio: 3 / 2,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                    ),
+                    itemBuilder: (context, index) {
+                      final food = allFoods[index];
+                      final foodName = food['foodName'] ?? 'Unnamed';
+                      // final foodImage = food['imageUrl'];
+                      // final foodDescription = food['foodDescription'] ?? '';
+                      final caloriesPerServing = food['caloriesPerServing'];
+                      final isSelected = selectedFoods.contains(foodName);
+
+                      return Card(
+                        elevation: 3,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: InkWell(
+                          onTap: () {
+                            setState(() {
+                              isSelected
+                                  ? selectedFoods.remove(foodName)
+                                  : selectedFoods.add(foodName);
+                            });
+                          },
+                          child: Stack(
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  // if (foodImage != null && foodImage.toString().isNotEmpty)
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.vertical(
+                                      top: Radius.circular(12),
+                                    ),
+                                    child: Image.asset(
+                                      'assets/male avatar.png',
+                                      // <-- replace with your actual asset path
+                                      height: 40,
+                                      width: 40,
+                                      // fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Center(
+                                      child: Text(
+                                        foodName,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Center(
+                                    child: Text(
+                                      'CaloriesPerServing: $caloriesPerServing kcal',
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Positioned(
+                                top: 4,
+                                right: 4,
+                                child: Checkbox(
+                                  value: isSelected,
+                                  onChanged: (bool? value) {
+                                    setState(() {
+                                      value == true
+                                          ? selectedFoods.add(foodName)
+                                          : selectedFoods.remove(foodName);
+                                    });
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                 ),
 
                 CustomTextFormField(
@@ -291,7 +413,7 @@ class _UploadDietScreenState extends State<UploadDietScreen> {
           dietDescription: dietDescription.text,
           selectedMealType: selectedMealType,
           timeToEat: timeController.text,
-          listOfFood: selectedFood,
+          listOfFood: selectedFoods,
           duration: durationController.text,
           suitableFor: selectedMealSuitability,
           tag: selectedMealTags,

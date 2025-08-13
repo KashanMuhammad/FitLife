@@ -5,7 +5,7 @@ import 'package:fitlife_admin_panel/diet_screen.dart';
 import 'package:fitlife_admin_panel/food_screen.dart';
 import 'package:fitlife_admin_panel/upload_diet_screen.dart';
 import 'package:fitlife_admin_panel/upload_food_screen.dart';
-import 'package:fitlife_admin_panel/user_screen.dart';
+import 'package:fitlife_admin_panel/patient_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -126,7 +126,7 @@ class _DashboardState extends State<Dashboard> {
         ),
         NavigationRailDestination(
           icon: SvgPicture.asset('assets/users.svg'),
-          label: Text("Users"),
+          label: Text("Patients"),
         ),
         NavigationRailDestination(
           icon: SvgPicture.asset('assets/diets.svg'),

@@ -16,6 +16,7 @@ class DietScreen extends StatefulWidget {
 
 class _DietScreenState extends State<DietScreen> {
   int selectedToggleIndex = 0;
+
   @override
   void initState() {
     super.initState();
@@ -82,10 +83,12 @@ class _DietScreenState extends State<DietScreen> {
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
-
                   ),
                   child: ToggleButtons(
-                    isSelected: [selectedToggleIndex == 0, selectedToggleIndex == 1],
+                    isSelected: [
+                      selectedToggleIndex == 0,
+                      selectedToggleIndex == 1,
+                    ],
                     onPressed: (index) {
                       setState(() {
                         selectedToggleIndex = index;
@@ -102,7 +105,10 @@ class _DietScreenState extends State<DietScreen> {
                     renderBorder: false,
                     children: [
                       _buildToggleButton("All Diets", selectedToggleIndex == 0),
-                      _buildToggleButton("New Uploads", selectedToggleIndex == 1),
+                      _buildToggleButton(
+                        "New Uploads",
+                        selectedToggleIndex == 1,
+                      ),
                     ],
                   ),
                 ),
@@ -157,6 +163,7 @@ class _DietScreenState extends State<DietScreen> {
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 8),
+
             // Card(
             //   elevation: 2,
             //   shape: RoundedRectangleBorder(
@@ -229,14 +236,14 @@ class _DietScreenState extends State<DietScreen> {
             //         }).toList(),
             //   ),
             // ),
-
             Card(
               elevation: 2,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
               child: StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance.collection('diet').snapshots(),
+                stream:
+                    FirebaseFirestore.instance.collection('diet').snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(child: CircularProgressIndicator());
@@ -263,61 +270,64 @@ class _DietScreenState extends State<DietScreen> {
                       DataColumn(label: Text("Created By")),
                       DataColumn(label: Text("Actions")),
                     ],
-                    rows: docs.map((doc) {
-                      final diet = doc.data() as Map<String, dynamic>;
+                    rows:
+                        docs.map((doc) {
+                          final diet = doc.data() as Map<String, dynamic>;
 
-                      return DataRow(
-                        cells: [
-                          DataCell(
-                            diet['image'] != null && diet['image'] != ''
-                                ? (kIsWeb
-                                ? Image.network(
-                              diet['image'],
-                              width: 60,
-                              height: 60,
-                            )
-                                : Image.file(
-                              File(diet['image']),
-                              width: 60,
-                              height: 60,
-                            ))
-                                : Icon(Icons.image),
-                          ),
-                          DataCell(Text(diet['dietTitle'] ?? '')),
-                          DataCell(Text(diet['suitableFor'] ?? '')),
-                          DataCell(Text(diet['tag'] ?? '')),
-                          DataCell(Text(diet['createdBy'] ?? '')),
-                          DataCell(
-                            PopupMenuButton<String>(
-                              icon: Icon(Icons.more_vert_outlined),
-                              offset: Offset(100, 0),
-                              onSelected: (value) {
-                                if (value == 'form') {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          UploadDietScreen(dietData: diet),
-                                    ),
-                                  );
-                                }
-                              },
-                              itemBuilder: (context) => const [
-                                PopupMenuItem(
-                                  value: 'form',
-                                  child: Text('Form'),
+                          return DataRow(
+                            cells: [
+                              DataCell(
+                                diet['image'] != null && diet['image'] != ''
+                                    ? (kIsWeb
+                                        ? Image.network(
+                                          diet['image'],
+                                          width: 60,
+                                          height: 60,
+                                        )
+                                        : Image.file(
+                                          File(diet['image']),
+                                          width: 60,
+                                          height: 60,
+                                        ))
+                                    : Icon(Icons.image),
+                              ),
+                              DataCell(Text(diet['dietTitle'] ?? '')),
+                              DataCell(Text(diet['suitableFor'] ?? '')),
+                              DataCell(Text(diet['tag'] ?? '')),
+                              DataCell(Text(diet['createdBy'] ?? '')),
+                              DataCell(
+                                PopupMenuButton<String>(
+                                  icon: Icon(Icons.more_vert_outlined),
+                                  offset: Offset(100, 0),
+                                  onSelected: (value) {
+                                    if (value == 'form') {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder:
+                                              (context) => UploadDietScreen(
+                                                dietData: diet,
+                                              ),
+                                        ),
+                                      );
+                                    }
+                                  },
+                                  itemBuilder:
+                                      (context) => const [
+                                        PopupMenuItem(
+                                          value: 'form',
+                                          child: Text('Form'),
+                                        ),
+                                      ],
                                 ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      );
-                    }).toList(),
+                              ),
+                            ],
+                          );
+                        }).toList(),
                   );
                 },
               ),
             ),
-
 
             SizedBox(height: 30),
           ],
@@ -325,13 +335,15 @@ class _DietScreenState extends State<DietScreen> {
       ),
     );
   }
+
   Widget _buildToggleButton(String text, bool selected) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 18, vertical: 10),
       decoration: BoxDecoration(
-        gradient: selected
-            ? LinearGradient(colors: [Color(0xFF5AFF15), Color(0xFF00B712)])
-            : null,
+        gradient:
+            selected
+                ? LinearGradient(colors: [Color(0xFF5AFF15), Color(0xFF00B712)])
+                : null,
         color: selected ? null : Colors.grey.shade100,
         borderRadius: BorderRadius.circular(8),
       ),

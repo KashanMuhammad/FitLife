@@ -4,11 +4,14 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Added Firebase FireStore Functionality to the upload food button in the upload diet screen and successfully working">
+    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Added Firebase FireStore Functionality to the upload diet button in the upload diet screen and successfully working and also updated diet and food table to fench real time data from the firebase firestore">
+      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/dashboard.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/dashboard.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/diet_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/diet_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/food_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/food_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_diet_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_diet_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_food_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_food_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/user_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/patient_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shared/lib/user_0nboarding_data_model_class.dart" beforeDir="false" afterPath="$PROJECT_DIR$/shared/lib/user_0nboarding_data_model_class.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -533,7 +536,15 @@
       <option name="project" value="LOCAL" />
       <updated>1754334432347</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="Added Firebase FireStore Functionality to the upload diet button in the upload diet screen and successfully working and also updated diet and food table to fench real time data from the firebase firestore">
+      <option name="closed" value="true" />
+      <created>1754416628520</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1754416628520</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -575,7 +586,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Dependencies Updated" />
     <MESSAGE value="Project Slightly Updated" />
     <MESSAGE value="Pulled Slightly Updated Project" />
     <MESSAGE value="Major Updates (New FireBase Project with three platforms &amp; Many corrections &amp; Modifications)" />
@@ -600,6 +610,17 @@
     <MESSAGE value="add_meals screens UI completed but some functionality still remaining" />
     <MESSAGE value="Pulled Updated Application code" />
     <MESSAGE value="Added Firebase FireStore Functionality to the upload food button in the upload diet screen and successfully working" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Firebase FireStore Functionality to the upload food button in the upload diet screen and successfully working" />
+    <MESSAGE value="Added Firebase FireStore Functionality to the upload diet button in the upload diet screen and successfully working and also updated diet and food table to fench real time data from the firebase firestore" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Firebase FireStore Functionality to the upload diet button in the upload diet screen and successfully working and also updated diet and food table to fench real time data from the firebase firestore" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/fitlife_app/lib/login_screen.dart</url>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

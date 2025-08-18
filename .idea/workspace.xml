@@ -4,14 +4,8 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Admin panel Patient Screen completed and also given functionality to assigned diet plan to the users or patients">
-      <change afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_blog_screen.dart" afterDir="false" />
+    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Admin panel Upload Blog Screen completed and also given functionality to create blog button">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/blog_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/blog_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/dashboard.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/dashboard.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/food_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/food_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_diet_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_diet_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/lib/user_0nboarding_data_model_class.dart" beforeDir="false" afterPath="$PROJECT_DIR$/shared/lib/user_0nboarding_data_model_class.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -551,7 +545,15 @@
       <option name="project" value="LOCAL" />
       <updated>1755121498352</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="Admin panel Upload Blog Screen completed and also given functionality to create blog button">
+      <option name="closed" value="true" />
+      <created>1755543199996</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1755543199996</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -593,7 +595,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Pulled Slightly Updated Project" />
     <MESSAGE value="Major Updates (New FireBase Project with three platforms &amp; Many corrections &amp; Modifications)" />
     <MESSAGE value="Major Updates (New FireBase Project with three platforms &amp; Many corrections &amp; Modifications) some files added" />
     <MESSAGE value="Slightly uodates the files and now going to pull the code again" />
@@ -618,7 +619,8 @@
     <MESSAGE value="Added Firebase FireStore Functionality to the upload food button in the upload diet screen and successfully working" />
     <MESSAGE value="Added Firebase FireStore Functionality to the upload diet button in the upload diet screen and successfully working and also updated diet and food table to fench real time data from the firebase firestore" />
     <MESSAGE value="Admin panel Patient Screen completed and also given functionality to assigned diet plan to the users or patients" />
-    <option name="LAST_COMMIT_MESSAGE" value="Admin panel Patient Screen completed and also given functionality to assigned diet plan to the users or patients" />
+    <MESSAGE value="Admin panel Upload Blog Screen completed and also given functionality to create blog button" />
+    <option name="LAST_COMMIT_MESSAGE" value="Admin panel Upload Blog Screen completed and also given functionality to create blog button" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

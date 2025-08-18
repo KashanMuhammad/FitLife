@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Get started with backend">
+    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Getting the diet plan for the user in addmeals screen uplaoded by the admin panel">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/add_meals_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/add_meals_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/custom widgets/add_meals_tile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/custom widgets/add_meals_tile.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/main.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -164,14 +161,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1747854831066</updated>
-    </task>
-    <task id="LOCAL-00001" summary="firebase configured with app and admin both">
-      <option name="closed" value="true" />
-      <created>1747941131657</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1747941131657</updated>
     </task>
     <task id="LOCAL-00002" summary="firebase initialization in both app and admin">
       <option name="closed" value="true" />
@@ -557,7 +546,15 @@
       <option name="project" value="LOCAL" />
       <updated>1754306993968</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="Getting the diet plan for the user in addmeals screen uplaoded by the admin panel">
+      <option name="closed" value="true" />
+      <created>1755497459813</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1755497459813</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -599,7 +596,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Major Updates (New FireBase Project with three platforms &amp; Many corrections &amp; Modifications)" />
     <MESSAGE value="Major Updates (New FireBase Project with three platforms &amp; Many corrections &amp; Modifications) some files added" />
     <MESSAGE value="Slightly uodates the files and now going to pull the code again" />
     <MESSAGE value="Re pulled and merged the code after just deployed the admin panel and now committing it." />
@@ -624,6 +620,7 @@
     <MESSAGE value="Now it's time to go for the backend." />
     <MESSAGE value="Now it's time to go for the backend.hhhh" />
     <MESSAGE value="Get started with backend" />
-    <option name="LAST_COMMIT_MESSAGE" value="Get started with backend" />
+    <MESSAGE value="Getting the diet plan for the user in addmeals screen uplaoded by the admin panel" />
+    <option name="LAST_COMMIT_MESSAGE" value="Getting the diet plan for the user in addmeals screen uplaoded by the admin panel" />
   </component>
 </project>

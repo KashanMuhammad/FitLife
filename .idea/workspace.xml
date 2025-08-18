@@ -4,8 +4,23 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Getting the diet plan for the user in addmeals screen uplaoded by the admin panel">
+
+    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Admin panel Patient Screen completed and also given functionality to assigned diet plan to the users or patients">
+      <change afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_blog_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/blog_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/blog_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/dashboard.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/dashboard.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/food_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/food_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_diet_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_diet_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/lib/user_0nboarding_data_model_class.dart" beforeDir="false" afterPath="$PROJECT_DIR$/shared/lib/user_0nboarding_data_model_class.dart" afterDir="false" />
+
+    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Removed the conflicts now pushing">
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/home_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/user_and_profile_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/user_and_profile_screen.dart" afterDir="false" />
+
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,7 +30,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=LocalEmulator, isTemplate=false, identifier=path=C:\Users\fawad\.android\avd\Medium_Phone.avd)]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$/fitlife_app/android">
       <ProjectState />
@@ -67,7 +82,7 @@
     &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;fawadalishan/backend&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;kashan/admin-panel/feature/firebase-integration-shared-class&quot;,
     &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;E:/practice_flutter&quot;,
@@ -77,7 +92,6 @@
 }</component>
   <component name="RunManager" selected="Flutter.main.dart">
     <configuration name="android.app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
-      <module name="android.app" />
       <option name="ANDROID_RUN_CONFIGURATION_SCHEMA_VERSION" value="1" />
       <option name="DEPLOY" value="true" />
       <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
@@ -148,10 +162,18 @@
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
-      <option name="filePath" value="$PROJECT_DIR$/fitlife_app/lib/main.dart" />
+    <configuration name="Unnamed" type="FlutterRunConfigurationType" factoryName="Flutter" nameIsGenerated="true">
       <method v="2" />
     </configuration>
+    <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
+      <option name="filePath" value="$PROJECT_DIR$/fitlife_admin_panel/lib/main.dart" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Android App.android.app" />
+      <item itemvalue="Flutter.Unnamed" />
+      <item itemvalue="Flutter.main.dart" />
+    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -161,6 +183,14 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1747854831066</updated>
+    </task>
+    <task id="LOCAL-00001" summary="firebase configured with app and admin both">
+      <option name="closed" value="true" />
+      <created>1747941131657</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1747941131657</updated>
     </task>
     <task id="LOCAL-00002" summary="firebase initialization in both app and admin">
       <option name="closed" value="true" />
@@ -506,6 +536,33 @@
       <option name="project" value="LOCAL" />
       <updated>1753780911165</updated>
     </task>
+
+    <task id="LOCAL-00045" summary="Added Firebase FireStore Functionality to the upload food button in the upload diet screen and successfully working">
+      <option name="closed" value="true" />
+      <created>1754334432347</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1754334432347</updated>
+    </task>
+    <task id="LOCAL-00046" summary="Added Firebase FireStore Functionality to the upload diet button in the upload diet screen and successfully working and also updated diet and food table to fench real time data from the firebase firestore">
+      <option name="closed" value="true" />
+      <created>1754416628520</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1754416628520</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Admin panel Patient Screen completed and also given functionality to assigned diet plan to the users or patients">
+      <option name="closed" value="true" />
+      <created>1755121498352</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1755121498352</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
+
     <task id="LOCAL-00045" summary="Removed the conflicts now pushing">
       <option name="closed" value="true" />
       <created>1753788988962</created>
@@ -514,47 +571,8 @@
       <option name="project" value="LOCAL" />
       <updated>1753788988962</updated>
     </task>
-    <task id="LOCAL-00046" summary="Now it's time to go for the backend.">
-      <option name="closed" value="true" />
-      <created>1753872478756</created>
-      <option name="number" value="00046" />
-      <option name="presentableId" value="LOCAL-00046" />
-      <option name="project" value="LOCAL" />
-      <updated>1753872478756</updated>
-    </task>
-    <task id="LOCAL-00047" summary="Now it's time to go for the backend.hhhh">
-      <option name="closed" value="true" />
-      <created>1753872663876</created>
-      <option name="number" value="00047" />
-      <option name="presentableId" value="LOCAL-00047" />
-      <option name="project" value="LOCAL" />
-      <updated>1753872663876</updated>
-    </task>
-    <task id="LOCAL-00048" summary="Now it's time to go for the backend.hhhh">
-      <option name="closed" value="true" />
-      <created>1753872676511</created>
-      <option name="number" value="00048" />
-      <option name="presentableId" value="LOCAL-00048" />
-      <option name="project" value="LOCAL" />
-      <updated>1753872676511</updated>
-    </task>
-    <task id="LOCAL-00049" summary="Get started with backend">
-      <option name="closed" value="true" />
-      <created>1754306993968</created>
-      <option name="number" value="00049" />
-      <option name="presentableId" value="LOCAL-00049" />
-      <option name="project" value="LOCAL" />
-      <updated>1754306993968</updated>
-    </task>
-    <task id="LOCAL-00050" summary="Getting the diet plan for the user in addmeals screen uplaoded by the admin panel">
-      <option name="closed" value="true" />
-      <created>1755497459813</created>
-      <option name="number" value="00050" />
-      <option name="presentableId" value="LOCAL-00050" />
-      <option name="project" value="LOCAL" />
-      <updated>1755497459813</updated>
-    </task>
-    <option name="localTasksCounter" value="51" />
+    <option name="localTasksCounter" value="46" />
+
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -596,6 +614,12 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+
+    <MESSAGE value="Dependencies Updated" />
+    <MESSAGE value="Project Slightly Updated" />
+
+    <MESSAGE value="Pulled Slightly Updated Project" />
+    <MESSAGE value="Major Updates (New FireBase Project with three platforms &amp; Many corrections &amp; Modifications)" />
     <MESSAGE value="Major Updates (New FireBase Project with three platforms &amp; Many corrections &amp; Modifications) some files added" />
     <MESSAGE value="Slightly uodates the files and now going to pull the code again" />
     <MESSAGE value="Re pulled and merged the code after just deployed the admin panel and now committing it." />
@@ -615,12 +639,26 @@
     <MESSAGE value="edit_profile_screen.dart and update_profile_screen.dart completed but still needs maintenance" />
     <MESSAGE value="Checked the UI on mobile and customize the ui if needed and now its coming perfect on the mobile." />
     <MESSAGE value="add_meals screens UI completed but some functionality still remaining" />
+
+    <MESSAGE value="Pulled Updated Application code" />
+    <MESSAGE value="Added Firebase FireStore Functionality to the upload food button in the upload diet screen and successfully working" />
+    <MESSAGE value="Added Firebase FireStore Functionality to the upload diet button in the upload diet screen and successfully working and also updated diet and food table to fench real time data from the firebase firestore" />
+    <MESSAGE value="Admin panel Patient Screen completed and also given functionality to assigned diet plan to the users or patients" />
+    <option name="LAST_COMMIT_MESSAGE" value="Admin panel Patient Screen completed and also given functionality to assigned diet plan to the users or patients" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/fitlife_app/lib/login_screen.dart</url>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+
     <MESSAGE value="Full UI of the app completed with firebase functionalities in some pages and for other the firebase and backend functionalities still remaining." />
     <MESSAGE value="Removed the conflicts now pushing" />
-    <MESSAGE value="Now it's time to go for the backend." />
-    <MESSAGE value="Now it's time to go for the backend.hhhh" />
-    <MESSAGE value="Get started with backend" />
-    <MESSAGE value="Getting the diet plan for the user in addmeals screen uplaoded by the admin panel" />
-    <option name="LAST_COMMIT_MESSAGE" value="Getting the diet plan for the user in addmeals screen uplaoded by the admin panel" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed the conflicts now pushing" />
+
   </component>
 </project>

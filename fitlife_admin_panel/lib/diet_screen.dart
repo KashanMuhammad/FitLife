@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'main.dart';
@@ -15,6 +16,7 @@ class DietScreen extends StatefulWidget {
 
 class _DietScreenState extends State<DietScreen> {
   int selectedToggleIndex = 0;
+
   @override
   void initState() {
     super.initState();
@@ -81,10 +83,12 @@ class _DietScreenState extends State<DietScreen> {
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
-
                   ),
                   child: ToggleButtons(
-                    isSelected: [selectedToggleIndex == 0, selectedToggleIndex == 1],
+                    isSelected: [
+                      selectedToggleIndex == 0,
+                      selectedToggleIndex == 1,
+                    ],
                     onPressed: (index) {
                       setState(() {
                         selectedToggleIndex = index;
@@ -101,7 +105,10 @@ class _DietScreenState extends State<DietScreen> {
                     renderBorder: false,
                     children: [
                       _buildToggleButton("All Diets", selectedToggleIndex == 0),
-                      _buildToggleButton("New Uploads", selectedToggleIndex == 1),
+                      _buildToggleButton(
+                        "New Uploads",
+                        selectedToggleIndex == 1,
+                      ),
                     ],
                   ),
                 ),
@@ -156,76 +163,169 @@ class _DietScreenState extends State<DietScreen> {
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 8),
+
+            // Card(
+            //   elevation: 2,
+            //   shape: RoundedRectangleBorder(
+            //     borderRadius: BorderRadius.circular(12),
+            //   ),
+            //   child: DataTable(
+            //     headingRowColor: WidgetStateProperty.all(Colors.grey[200]),
+            //     headingTextStyle: TextStyle(fontWeight: FontWeight.bold),
+            //     border: TableBorder.all(color: Colors.grey.shade300),
+            //     columns: [
+            //       DataColumn(label: Text("Diet Image")),
+            //       DataColumn(label: Text("Diet Name")),
+            //       DataColumn(label: Text("Suitable For")),
+            //       DataColumn(label: Text("Diet Tag")),
+            //       DataColumn(label: Text("Created By")),
+            //       DataColumn(label: Text("Actions")),
+            //     ],
+            //     rows:
+            //         globalDietMap.entries.map((entry) {
+            //           final diet = entry.value;
+            //
+            //           return DataRow(
+            //             cells: [
+            //               DataCell(
+            //                 diet['image'] != ''
+            //                     ? (kIsWeb
+            //                         ? Image.network(
+            //                           diet['image'],
+            //                           width: 60,
+            //                           height: 60,
+            //                         )
+            //                         : Image.file(
+            //                           File(diet['image']),
+            //                           width: 60,
+            //                           height: 60,
+            //                         ))
+            //                     : Icon(Icons.image),
+            //               ),
+            //               DataCell(Text(diet['dietTitle'] ?? '')),
+            //               DataCell(Text(diet['mealSuitability'] ?? '')),
+            //               DataCell(Text(diet['mealTag'] ?? '')),
+            //               DataCell(Text(diet['createdBy'] ?? '')),
+            //               DataCell(
+            //                 PopupMenuButton<String>(
+            //                   icon: Icon(Icons.more_vert_outlined),
+            //                   offset: Offset(100, 0),
+            //                   onSelected: (value) {
+            //                     if (value == 'form') {
+            //                       Navigator.push(
+            //                         context,
+            //                         MaterialPageRoute(
+            //                           builder:
+            //                               (context) =>
+            //                                   UploadDietScreen(dietData: diet),
+            //                         ),
+            //                       );
+            //                     }
+            //                   },
+            //                   itemBuilder:
+            //                       (context) => [
+            //                         const PopupMenuItem(
+            //                           value: 'form',
+            //                           child: Text('Form'),
+            //                         ),
+            //                       ],
+            //                 ),
+            //               ),
+            //             ],
+            //           );
+            //         }).toList(),
+            //   ),
+            // ),
             Card(
               elevation: 2,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: DataTable(
-                headingRowColor: WidgetStateProperty.all(Colors.grey[200]),
-                headingTextStyle: TextStyle(fontWeight: FontWeight.bold),
-                border: TableBorder.all(color: Colors.grey.shade300),
-                columns: [
-                  DataColumn(label: Text("Diet Image")),
-                  DataColumn(label: Text("Diet Name")),
-                  DataColumn(label: Text("Suitable For")),
-                  DataColumn(label: Text("Diet Tag")),
-                  DataColumn(label: Text("Created By")),
-                  DataColumn(label: Text("Actions")),
-                ],
-                rows:
-                    globalDietMap.entries.map((entry) {
-                      final diet = entry.value;
+              child: StreamBuilder<QuerySnapshot>(
+                stream:
+                    FirebaseFirestore.instance.collection('diet').snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  }
 
-                      return DataRow(
-                        cells: [
-                          DataCell(
-                            diet['image'] != ''
-                                ? (kIsWeb
-                                    ? Image.network(
-                                      diet['image'],
-                                      width: 60,
-                                      height: 60,
-                                    )
-                                    : Image.file(
-                                      File(diet['image']),
-                                      width: 60,
-                                      height: 60,
-                                    ))
-                                : Icon(Icons.image),
-                          ),
-                          DataCell(Text(diet['dietTitle'] ?? '')),
-                          DataCell(Text(diet['mealSuitability'] ?? '')),
-                          DataCell(Text(diet['mealTag'] ?? '')),
-                          DataCell(Text(diet['createdBy'] ?? '')),
-                          DataCell(
-                            PopupMenuButton<String>(
-                              icon: Icon(Icons.more_vert_outlined),
-                              offset: Offset(100, 0),
-                              onSelected: (value) {
-                                if (value == 'form') {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder:
-                                          (context) =>
-                                              UploadDietScreen(dietData: diet),
-                                    ),
-                                  );
-                                }
-                              },
-                              itemBuilder:
-                                  (context) => [
-                                    const PopupMenuItem(
-                                      value: 'form',
-                                      child: Text('Form'),
-                                    ),
-                                  ],
-                            ),
-                          ),
-                        ],
-                      );
-                    }).toList(),
+                  if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                    return Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text("No diet data found."),
+                    );
+                  }
+
+                  final docs = snapshot.data!.docs;
+
+                  return DataTable(
+                    headingRowColor: WidgetStateProperty.all(Colors.grey[200]),
+                    headingTextStyle: TextStyle(fontWeight: FontWeight.bold),
+                    border: TableBorder.all(color: Colors.grey.shade300),
+                    columns: const [
+                      DataColumn(label: Text("Diet Image")),
+                      DataColumn(label: Text("Diet Name")),
+                      DataColumn(label: Text("Suitable For")),
+                      DataColumn(label: Text("Diet Tag")),
+                      DataColumn(label: Text("Created By")),
+                      DataColumn(label: Text("Actions")),
+                    ],
+                    rows:
+                        docs.map((doc) {
+                          final diet = doc.data() as Map<String, dynamic>;
+
+                          return DataRow(
+                            cells: [
+                              DataCell(
+                                diet['image'] != null && diet['image'] != ''
+                                    ? (kIsWeb
+                                        ? Image.network(
+                                          diet['image'],
+                                          width: 60,
+                                          height: 60,
+                                        )
+                                        : Image.file(
+                                          File(diet['image']),
+                                          width: 60,
+                                          height: 60,
+                                        ))
+                                    : Icon(Icons.image),
+                              ),
+                              DataCell(Text(diet['dietTitle'] ?? '')),
+                              DataCell(Text(diet['suitableFor'] ?? '')),
+                              DataCell(Text(diet['tag'] ?? '')),
+                              DataCell(Text(diet['createdBy'] ?? '')),
+                              DataCell(
+                                PopupMenuButton<String>(
+                                  icon: Icon(Icons.more_vert_outlined),
+                                  offset: Offset(100, 0),
+                                  onSelected: (value) {
+                                    if (value == 'form') {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder:
+                                              (context) => UploadDietScreen(
+                                                dietData: diet,
+                                              ),
+                                        ),
+                                      );
+                                    }
+                                  },
+                                  itemBuilder:
+                                      (context) => const [
+                                        PopupMenuItem(
+                                          value: 'form',
+                                          child: Text('Form'),
+                                        ),
+                                      ],
+                                ),
+                              ),
+                            ],
+                          );
+                        }).toList(),
+                  );
+                },
               ),
             ),
 
@@ -235,13 +335,15 @@ class _DietScreenState extends State<DietScreen> {
       ),
     );
   }
+
   Widget _buildToggleButton(String text, bool selected) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 18, vertical: 10),
       decoration: BoxDecoration(
-        gradient: selected
-            ? LinearGradient(colors: [Color(0xFF5AFF15), Color(0xFF00B712)])
-            : null,
+        gradient:
+            selected
+                ? LinearGradient(colors: [Color(0xFF5AFF15), Color(0xFF00B712)])
+                : null,
         color: selected ? null : Colors.grey.shade100,
         borderRadius: BorderRadius.circular(8),
       ),

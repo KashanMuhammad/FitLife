@@ -1,5 +1,5 @@
 import 'package:fitlife_admin_panel/analytics_screen.dart';
-import 'package:fitlife_admin_panel/blog_screen.dart';
+import 'package:fitlife_admin_panel/upload_blog_screen.dart';
 import 'package:fitlife_admin_panel/customer_support.dart';
 import 'package:fitlife_admin_panel/diet_screen.dart';
 import 'package:fitlife_admin_panel/food_screen.dart';
@@ -9,8 +9,9 @@ import 'package:fitlife_admin_panel/patient_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class Dashboard extends StatefulWidget {
+import 'blog_screen.dart';
 
+class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
 
   @override
@@ -20,7 +21,7 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   bool showDietUploadScreen = false;
   bool showFoodUploadScreen = false;
-
+  bool showCreateBlogScreen = false;
 
   int selectedIndex = 2;
   Widget? selectedScreen;
@@ -31,7 +32,6 @@ class _DashboardState extends State<Dashboard> {
       showFoodUploadScreen = true;
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -52,41 +52,51 @@ class _DashboardState extends State<Dashboard> {
             ),
             child: buildNavigationRail(),
           ),
-      Expanded(
-        child: IndexedStack(
-          index: selectedIndex,
-          children: [
-            // Center(child: Text("Analytics")),
-            AnalyticsScreen(),
-            UserScreen(),
-            // Center(child: Text("Users")),
-            showDietUploadScreen
-                ? UploadDietScreen()
-                : DietScreen(
-              onUploadPressed: () {
-                setState(() {
-                  showDietUploadScreen = true;
-                });
-              },
+          Expanded(
+            child: IndexedStack(
+              index: selectedIndex,
+              children: [
+                // Center(child: Text("Analytics")),
+                AnalyticsScreen(),
+                UserScreen(),
+                // Center(child: Text("Users")),
+                showDietUploadScreen
+                    ? UploadDietScreen()
+                    : DietScreen(
+                      onUploadPressed: () {
+                        setState(() {
+                          showDietUploadScreen = true;
+                        });
+                      },
+                    ),
+                showFoodUploadScreen
+                    ? UploadFoodScreen()
+                    : FoodScreen(
+                      onUploadPressed: () {
+                        setState(() {
+                          showFoodUploadScreen = true;
+                        });
+                      },
+                    ),
+                CustomerSupport(),
+                // Center(child: Text("Support")),
+                //Center(child: Text("Blogs")),
+                // BlogScreen(),
+                showCreateBlogScreen
+                    ? BlogFormScreen()
+                    : BlogScreen(
+                      onUploadPressed: () {
+                        setState(() {
+                          showCreateBlogScreen = true;
+                        });
+                      },
+                    ),
+              ],
             ),
-            showFoodUploadScreen
-                ? UploadFoodScreen()
-                : FoodScreen(
-              onUploadPressed: () {
-                setState(() {
-                  showFoodUploadScreen = true;
-                });
-              },
-            ),
-            CustomerSupport(),
-            // Center(child: Text("Support")),
-            //Center(child: Text("Blogs")),
-            BlogScreen(),
-          ],
-        ),
+          ),
+        ],
       ),
-      ],
-    ));
+    );
   }
 
   NavigationRail buildNavigationRail() {
@@ -152,6 +162,7 @@ class _DashboardState extends State<Dashboard> {
           // Reset screen toggles
           if (value == 2) showDietUploadScreen = false;
           if (value == 3) showFoodUploadScreen = false;
+          if (value == 5) showCreateBlogScreen = false;
         });
       },
     );

@@ -34,6 +34,12 @@ class FirebaseDataModelClass {
   final String? createdBy;
   final String? createdAt;
 
+  final String? blogTitle;
+  final String? blogShortDescription;
+  final String? blogFullContent;
+  final String? blogAuthorName;
+  final String? blogCategory;
+
   FirebaseDataModelClass({
     this.userId,
     this.username,
@@ -70,6 +76,12 @@ class FirebaseDataModelClass {
     this.dietTag,
     this.createdBy,
     this.createdAt,
+
+    this.blogTitle,
+    this.blogShortDescription,
+    this.blogFullContent,
+    this.blogAuthorName,
+    this.blogCategory,
   });
 
   Map<String, dynamic> toJson() {
@@ -108,6 +120,13 @@ class FirebaseDataModelClass {
     if (dietTag != null) data['dietTag'] = dietTag;
     if (createdBy != null) data['createdBy'] = createdBy;
     if (createdAt != null) data['createdAt'] = createdAt;
+
+    if (blogTitle != null) data['blogTitle'] = blogTitle;
+    if (blogShortDescription != null) data['blogShortDescription'] = blogShortDescription;
+    if (blogFullContent != null) data['blogFullContent'] = blogFullContent;
+    if (blogCategory != null) data['blogCategory'] = blogCategory;
+    if (blogAuthorName != null) data['blogAuthorName'] = blogAuthorName;
+
     return data;
   }
 

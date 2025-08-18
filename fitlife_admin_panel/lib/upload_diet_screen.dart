@@ -30,7 +30,7 @@ class _UploadDietScreenState extends State<UploadDietScreen> {
   List<String> mealSuitability = ['Weight loss', 'Diabetes', 'PCOS'];
   List<String> mealTags = ['Low Carb', 'High Protein', 'Vegetarian'];
   final formKey = GlobalKey<FormState>();
-  TextEditingController diettitleController = TextEditingController();
+  TextEditingController dietTitleController = TextEditingController();
   TextEditingController dietDescription = TextEditingController();
   TextEditingController dayController = TextEditingController();
   TextEditingController timeController = TextEditingController();
@@ -55,7 +55,7 @@ class _UploadDietScreenState extends State<UploadDietScreen> {
     loadFoodNames();
     if (widget.dietData != null) {
       final data = widget.dietData!;
-      diettitleController.text = data['dietTitle'] ?? '';
+      dietTitleController.text = data['dietTitle'] ?? '';
       dietDescription.text = data['dietDescription'] ?? '';
       selectedMealType = data['mealType'] ?? '';
       dayController.text = data['day'] ?? '';
@@ -135,7 +135,7 @@ class _UploadDietScreenState extends State<UploadDietScreen> {
                 ),
 
                 CustomTextFormField(
-                  controller: diettitleController,
+                  controller: dietTitleController,
                   label: "Title",
                 ),
 
@@ -409,7 +409,7 @@ class _UploadDietScreenState extends State<UploadDietScreen> {
         // setState(() {});
 
         final user = FirebaseDataModelClass(
-          dietTitle: diettitleController.text,
+          dietTitle: dietTitleController.text,
           dietDescription: dietDescription.text,
           selectedMealType: selectedMealType,
           timeToEat: timeController.text,

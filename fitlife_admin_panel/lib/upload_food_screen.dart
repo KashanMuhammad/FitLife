@@ -1,9 +1,13 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fitlife_admin_panel/custom_widgets.dart';
+import 'package:fitlife_admin_panel/food_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared/user_0nboarding_data_model_class.dart';
 
+import 'dashboard.dart';
 import 'main.dart';
 
 class UploadFoodScreen extends StatefulWidget {
@@ -74,7 +78,21 @@ class _FoodScreenState extends State<UploadFoodScreen> {
 
               spacing: 15,
               children: [
-                SizedBox(height: 8),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Dashboard()),
+                        );
+                      },
+                      icon: Icon(Icons.arrow_back_rounded),
+                    ),
+                  ],
+                ),
+
                 CustomTextFormField(controller: foodName, label: "Food Name"),
                 // SizedBox(height: 15),
                 CustomTextFormField(
@@ -169,25 +187,7 @@ class _FoodScreenState extends State<UploadFoodScreen> {
                   ],
                 ),
                 // SizedBox(height: 15),
-                Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [Color(0xFF5AFF15), Color(0xFF00B712)],
-                    ),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.transparent,
-                      shadowColor: Colors.transparent,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    onPressed: _pickImage,
-                    child: Text('Submit'),
-                  ),
-                ),
+
                 // SizedBox(height: 15),
                 Container(
                   decoration: BoxDecoration(
@@ -214,39 +214,54 @@ class _FoodScreenState extends State<UploadFoodScreen> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
       onPressed: () {
-        if (foodName.text.trim().isEmpty) {
-          return;
-        }
+        // if (foodName.text.trim().isEmpty) {
+        //   return;
+        // }
+        //
+        // String id = DateTime.now().millisecondsSinceEpoch.toString();
+        //
+        // Map<String, dynamic> foodData = {
+        //   'foodName': foodName.text.trim(),
+        //   'foodDescription': foodDescription.text.trim(),
+        //   'quantity': quantityController.text.trim(),
+        //   'unit': selectedUnit ?? '',
+        //   'calories': caloriesPerServing.text.trim(),
+        //   'protein': proteinController.text.trim(),
+        //   'carbohydrates': carbohydratesController.text.trim(),
+        //   'fats': fatsController.text.trim(),
+        //   'tag': selectedTag ?? '',
+        //   'image': _image?.path ?? '',
+        // };
+        //
+        // setState(() {
+        //   globalFoodMap[id] = foodData;
+        // });
+        //
+        // foodName.clear();
+        // foodDescription.clear();
+        // quantityController.clear();
+        // caloriesPerServing.clear();
+        // proteinController.clear();
+        // carbohydratesController.clear();
+        // fatsController.clear();
+        // selectedUnit = null;
+        // selectedTag = null;
+        // _image = null;
 
-        String id = DateTime.now().millisecondsSinceEpoch.toString();
+        final user = FirebaseDataModelClass(
+          foodName: foodName.text,
+          foodDescription: foodDescription.text,
+          quantity: quantityController.text,
+          caloriesPerServing: caloriesPerServing.text,
+          protein: proteinController.text,
+          carbohydrates: carbohydratesController.text,
+          fats: fatsController.text,
+          selectedTag: selectedTag,
+          selectedUnits: selectedUnit,
+        );
 
-        Map<String, dynamic> foodData = {
-          'foodName': foodName.text.trim(),
-          'foodDescription': foodDescription.text.trim(),
-          'quantity': quantityController.text.trim(),
-          'unit': selectedUnit ?? '',
-          'calories': caloriesPerServing.text.trim(),
-          'protein': proteinController.text.trim(),
-          'carbohydrates': carbohydratesController.text.trim(),
-          'fats': fatsController.text.trim(),
-          'tag': selectedTag ?? '',
-          'image': _image?.path ?? '',
-        };
+      FirebaseFirestore.instance.collection('food').doc().set(user.toJson());
 
-        setState(() {
-          globalFoodMap[id] = foodData;
-        });
-
-        foodName.clear();
-        foodDescription.clear();
-        quantityController.clear();
-        caloriesPerServing.clear();
-        proteinController.clear();
-        carbohydratesController.clear();
-        fatsController.clear();
-        selectedUnit = null;
-        selectedTag = null;
-        _image = null;
       },
       child: Text("ADD FOOD"),
     );

@@ -1,9 +1,12 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fitlife_admin_panel/custom_widgets.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared/user_0nboarding_data_model_class.dart';
 
+import 'dashboard.dart';
 import 'main.dart';
 
 class UploadDietScreen extends StatefulWidget {
@@ -16,6 +19,9 @@ class UploadDietScreen extends StatefulWidget {
 }
 
 class _UploadDietScreenState extends State<UploadDietScreen> {
+  List<String> foodNames = [];
+  List<Map<String, dynamic>> allFoods = [];
+  List<String> selectedFoods = [];
   String? selectedMealType,
       selectedFood,
       selectedMealSuitability,
@@ -24,7 +30,7 @@ class _UploadDietScreenState extends State<UploadDietScreen> {
   List<String> mealSuitability = ['Weight loss', 'Diabetes', 'PCOS'];
   List<String> mealTags = ['Low Carb', 'High Protein', 'Vegetarian'];
   final formKey = GlobalKey<FormState>();
-  TextEditingController diettitleController = TextEditingController();
+  TextEditingController dietTitleController = TextEditingController();
   TextEditingController dietDescription = TextEditingController();
   TextEditingController dayController = TextEditingController();
   TextEditingController timeController = TextEditingController();
@@ -46,9 +52,10 @@ class _UploadDietScreenState extends State<UploadDietScreen> {
   @override
   void initState() {
     super.initState();
+    loadFoodNames();
     if (widget.dietData != null) {
       final data = widget.dietData!;
-      diettitleController.text = data['dietTitle'] ?? '';
+      dietTitleController.text = data['dietTitle'] ?? '';
       dietDescription.text = data['dietDescription'] ?? '';
       selectedMealType = data['mealType'] ?? '';
       dayController.text = data['day'] ?? '';
@@ -74,6 +81,33 @@ class _UploadDietScreenState extends State<UploadDietScreen> {
     }
   }
 
+  // Future<void> loadFoodNames() async {
+  //   final names = await fetchFoodNames();
+  //
+  //   setState(() {
+  //     foodNames = names;
+  //
+  //     // Fix: Ensure selectedFood is valid
+  //     if (!foodNames.contains(selectedFood)) {
+  //       selectedFood = null;
+  //     }
+  //   });
+  // }
+
+  Future<void> loadFoodNames() async {
+    final snapshot = await FirebaseFirestore.instance.collection('food').get();
+    final foodList =
+        snapshot.docs.map((doc) {
+          final data = doc.data();
+          data['id'] = doc.id;
+          return data;
+        }).toList();
+
+    setState(() {
+      allFoods = foodList;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,8 +119,23 @@ class _UploadDietScreenState extends State<UploadDietScreen> {
             child: Column(
               spacing: 15,
               children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Dashboard()),
+                        );
+                      },
+                      icon: Icon(Icons.arrow_back_rounded),
+                    ),
+                  ],
+                ),
+
                 CustomTextFormField(
-                  controller: diettitleController,
+                  controller: dietTitleController,
                   label: "Title",
                 ),
 
@@ -113,18 +162,106 @@ class _UploadDietScreenState extends State<UploadDietScreen> {
                   label: 'Time to Eat',
                 ),
 
-                CustomDropdown(
-                  items:
-                      globalFoodMap.values
-                          .map<String>((food) => food['foodName'].toString())
-                          .toList(),
-                  hintText: 'List of Foods',
-                  value: selectedFood,
-                  onChanged: (value) {
-                    setState(() {
-                      selectedFood = value;
-                    });
-                  },
+                // CustomDropdown(
+                //   items: foodNames,
+                //   hintText: 'List of Foods',
+                //   value: selectedFood,
+                //   onChanged: (value) {
+                //     setState(() {
+                //       selectedFood = value;
+                //     });
+                //   },
+                // ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  child: GridView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: allFoods.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 5,
+                      childAspectRatio: 3 / 2,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                    ),
+                    itemBuilder: (context, index) {
+                      final food = allFoods[index];
+                      final foodName = food['foodName'] ?? 'Unnamed';
+                      // final foodImage = food['imageUrl'];
+                      // final foodDescription = food['foodDescription'] ?? '';
+                      final caloriesPerServing = food['caloriesPerServing'];
+                      final isSelected = selectedFoods.contains(foodName);
+
+                      return Card(
+                        elevation: 3,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: InkWell(
+                          onTap: () {
+                            setState(() {
+                              isSelected
+                                  ? selectedFoods.remove(foodName)
+                                  : selectedFoods.add(foodName);
+                            });
+                          },
+                          child: Stack(
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  // if (foodImage != null && foodImage.toString().isNotEmpty)
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.vertical(
+                                      top: Radius.circular(12),
+                                    ),
+                                    child: Image.asset(
+                                      'assets/male avatar.png',
+                                      // <-- replace with your actual asset path
+                                      height: 40,
+                                      width: 40,
+                                      // fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Center(
+                                      child: Text(
+                                        foodName,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Center(
+                                    child: Text(
+                                      'CaloriesPerServing: $caloriesPerServing kcal',
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Positioned(
+                                top: 4,
+                                right: 4,
+                                child: Checkbox(
+                                  value: isSelected,
+                                  onChanged: (bool? value) {
+                                    setState(() {
+                                      value == true
+                                          ? selectedFoods.add(foodName)
+                                          : selectedFoods.remove(foodName);
+                                    });
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                 ),
 
                 CustomTextFormField(
@@ -227,50 +364,76 @@ class _UploadDietScreenState extends State<UploadDietScreen> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
       onPressed: () {
-        if (diettitleController.text.trim().isEmpty) {
-          return;
-        }
+        timeStampController.text = DateTime.now().toIso8601String();
+        // if (diettitleController.text.trim().isEmpty) {
+        //   return;
+        // }
+        //
+        // String id = DateTime.now().millisecondsSinceEpoch.toString();
+        //
+        // Map<String, dynamic> dietData = {
+        //   'dietTitle': diettitleController.text.trim(),
+        //   'dietDescription': dietDescription.text.trim(),
+        //   'mealType': selectedMealType ?? '',
+        //   'day': dayController.text.trim(),
+        //   'timeToEat': timeController.text.trim(),
+        //   'foodList': selectedFood ?? '',
+        //   'duration': durationController.text.trim(),
+        //   'mealSuitability': selectedMealSuitability ?? '',
+        //   'mealTag': selectedMealTags ?? '',
+        //   'image': _image?.path ?? '',
+        //   'createdBy': nameController.text.trim(),
+        //   'createdTime': timeStampController.text.trim(),
+        // };
+        //
+        // setState(() {
+        //   globalDietMap[id] = dietData;
+        // });
+        //
+        // // Clearing controllers
+        // diettitleController.clear();
+        // dayController.clear();
+        // timeController.clear();
+        // durationController.clear();
+        // nameController.clear();
+        // timeStampController.clear();
+        //
+        // // Reset dropdown selections here
+        // selectedMealType = null;
+        // selectedFood = null;
+        // selectedMealSuitability = null;
+        // selectedMealTags = null;
+        //
+        // _image = null;
+        //
+        // setState(() {});
 
-        String id = DateTime.now().millisecondsSinceEpoch.toString();
+        final user = FirebaseDataModelClass(
+          dietTitle: dietTitleController.text,
+          dietDescription: dietDescription.text,
+          selectedMealType: selectedMealType,
+          timeToEat: timeController.text,
+          listOfFood: selectedFoods,
+          duration: durationController.text,
+          suitableFor: selectedMealSuitability,
+          tag: selectedMealTags,
+          createdBy: nameController.text,
+          createdAt: timeStampController.text,
+        );
 
-        Map<String, dynamic> dietData = {
-          'dietTitle': diettitleController.text.trim(),
-          'dietDescription': dietDescription.text.trim(),
-          'mealType': selectedMealType ?? '',
-          'day': dayController.text.trim(),
-          'timeToEat': timeController.text.trim(),
-          'foodList': selectedFood ?? '',
-          'duration': durationController.text.trim(),
-          'mealSuitability': selectedMealSuitability ?? '',
-          'mealTag': selectedMealTags ?? '',
-          'image': _image?.path ?? '',
-          'createdBy': nameController.text.trim(),
-          'createdTime': timeStampController.text.trim(),
-        };
-
-        setState(() {
-          globalDietMap[id] = dietData;
-        });
-
-        // Clearing controllers
-        diettitleController.clear();
-        dayController.clear();
-        timeController.clear();
-        durationController.clear();
-        nameController.clear();
-        timeStampController.clear();
-
-        // Reset dropdown selections here
-        selectedMealType = null;
-        selectedFood = null;
-        selectedMealSuitability = null;
-        selectedMealTags = null;
-
-        _image = null;
-
-        setState(() {});
+        FirebaseFirestore.instance.collection('diet').doc().set(user.toJson());
       },
       child: Text("Submit"),
     );
   }
+}
+
+Future<List<String>> fetchFoodNames() async {
+  final snapshot = await FirebaseFirestore.instance.collection('food').get();
+
+  return snapshot.docs
+      .map((doc) => doc['foodName'] as String?)
+      .where((name) => name != null && name.isNotEmpty)
+      .cast<String>()
+      .toList();
 }

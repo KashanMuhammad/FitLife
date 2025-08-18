@@ -89,7 +89,7 @@ class _AddMealsScreenState extends State<AddMealsScreen> {
                                   value: value,
                                   child: Text(
                                     value,
-                                    style: const TextStyle(color: Colors.white),
+                                    style: const TextStyle(color: Colors.black),
                                   ),
                                 );
                               }).toList(),

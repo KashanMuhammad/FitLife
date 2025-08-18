@@ -90,23 +90,26 @@ class _AddMealsTileState extends State<AddMealsTile> {
             ),
           ),
           const SizedBox(width: 10),
-          Container(
-            height: 35,
-            width: 50,
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              gradient: const LinearGradient(
-                colors: [
-                  Color(0xFF5AFF15),
-                  Color(0xFF00B712),
-                ],
+          InkWell(
+            onTap:(){} ,
+            child: Container(
+              height: 35,
+              width: 50,
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                gradient: const LinearGradient(
+                  colors: [
+                    Color(0xFF5AFF15),
+                    Color(0xFF00B712),
+                  ],
+                ),
               ),
-            ),
-            child: const Center(
-              child: Text(
-                "Add",
-                style: TextStyle(color: Colors.white),
+              child: const Center(
+                child: Text(
+                  "Add",
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ),
           ),

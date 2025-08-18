@@ -19,7 +19,7 @@ class _UserScreenState extends State<UserScreen> {
 
   Future<List<Map<String, dynamic>>> _getAllUsers() async {
     QuerySnapshot snapshot =
-    await FirebaseFirestore.instance.collection('Users').get();
+        await FirebaseFirestore.instance.collection('Users').get();
 
     return snapshot.docs.map((doc) {
       final data = doc.data() as Map<String, dynamic>;
@@ -115,26 +115,30 @@ class _UserScreenState extends State<UserScreen> {
                                 icon: const Icon(Icons.more_vert, size: 20),
                                 onSelected: (value) async {
                                   if (value == 'dietPlan') {
-                                    final snapshot = await FirebaseFirestore
-                                        .instance
-                                        .collection('diet')
-                                        .get();
+                                    final snapshot =
+                                        await FirebaseFirestore.instance
+                                            .collection('diet')
+                                            .get();
 
                                     // Remove duplicates
-                                    final List<String> dietPlans = snapshot.docs
-                                        .map((doc) =>
-                                    doc['dietTitle'] as String)
-                                        .toSet()
-                                        .toList();
+                                    final List<String> dietPlans =
+                                        snapshot.docs
+                                            .map(
+                                              (doc) =>
+                                                  doc['dietTitle'] as String,
+                                            )
+                                            .toSet()
+                                            .toList();
 
                                     String? selectedPlan;
 
                                     // Only preselect if it exists in list
                                     if (user['assignedDietPlan'] != null &&
                                         dietPlans.contains(
-                                            user['assignedDietPlan'])) {
+                                          user['assignedDietPlan'],
+                                        )) {
                                       selectedPlan =
-                                      user['assignedDietPlan'] as String;
+                                          user['assignedDietPlan'] as String;
                                     }
 
                                     showDialog(
@@ -148,14 +152,17 @@ class _UserScreenState extends State<UserScreen> {
                                                 isExpanded: true,
                                                 value: selectedPlan,
                                                 hint: const Text(
-                                                    'Choose a diet plan'),
-                                                items: dietPlans.map((plan) {
-                                                  return DropdownMenuItem<
-                                                      String>(
-                                                    value: plan,
-                                                    child: Text(plan),
-                                                  );
-                                                }).toList(),
+                                                  'Choose a diet plan',
+                                                ),
+                                                items:
+                                                    dietPlans.map((plan) {
+                                                      return DropdownMenuItem<
+                                                        String
+                                                      >(
+                                                        value: plan,
+                                                        child: Text(plan),
+                                                      );
+                                                    }).toList(),
                                                 onChanged: (value) {
                                                   setState(() {
                                                     selectedPlan = value;
@@ -173,17 +180,19 @@ class _UserScreenState extends State<UserScreen> {
                                                       .collection('Users')
                                                       .doc(user['id'])
                                                       .update({
-                                                    'assignedDietPlan':
-                                                    selectedPlan
-                                                  });
+                                                        'assignedDietPlan':
+                                                            selectedPlan,
+                                                      });
 
                                                   Navigator.of(context).pop();
 
-                                                  ScaffoldMessenger.of(context)
-                                                      .showSnackBar(
+                                                  ScaffoldMessenger.of(
+                                                    context,
+                                                  ).showSnackBar(
                                                     const SnackBar(
                                                       content: Text(
-                                                          'Diet plan assigned successfully'),
+                                                        'Diet plan assigned successfully',
+                                                      ),
                                                     ),
                                                   );
 
@@ -203,20 +212,21 @@ class _UserScreenState extends State<UserScreen> {
                                     );
                                   }
                                 },
-                                itemBuilder: (context) => const [
-                                  PopupMenuItem(
-                                    value: 'deleteUser',
-                                    child: Text('Delete User'),
-                                  ),
-                                  PopupMenuItem(
-                                    value: 'blockUser',
-                                    child: Text('Block User'),
-                                  ),
-                                  PopupMenuItem(
-                                    value: 'dietPlan',
-                                    child: Text('Diet Plan'),
-                                  ),
-                                ],
+                                itemBuilder:
+                                    (context) => const [
+                                      PopupMenuItem(
+                                        value: 'deleteUser',
+                                        child: Text('Delete User'),
+                                      ),
+                                      PopupMenuItem(
+                                        value: 'blockUser',
+                                        child: Text('Block User'),
+                                      ),
+                                      PopupMenuItem(
+                                        value: 'dietPlan',
+                                        child: Text('Diet Plan'),
+                                      ),
+                                    ],
                               ),
                             ),
 
@@ -247,9 +257,9 @@ class _UserScreenState extends State<UserScreen> {
                             // Diet plan info
                             Text(
                               (user['assignedDietPlan'] != null &&
-                                  user['assignedDietPlan']
-                                      .toString()
-                                      .isNotEmpty)
+                                      user['assignedDietPlan']
+                                          .toString()
+                                          .isNotEmpty)
                                   ? 'Plan: ${user['assignedDietPlan']}'
                                   : 'No Diet Plan Assigned',
                               textAlign: TextAlign.center,

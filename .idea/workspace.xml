@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Admin panel Upload Blog Screen completed and also given functionality to create blog button">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/patient_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/patient_screen.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -596,7 +595,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Major Updates (New FireBase Project with three platforms &amp; Many corrections &amp; Modifications) some files added" />
     <MESSAGE value="Slightly uodates the files and now going to pull the code again" />
     <MESSAGE value="Re pulled and merged the code after just deployed the admin panel and now committing it." />
     <MESSAGE value="privacy_policy_screen.dart and help_and_support_screen.dart is completed with firebase functionality." />
@@ -621,7 +619,8 @@
     <MESSAGE value="Admin panel Patient Screen completed and also given functionality to assigned diet plan to the users or patients" />
     <MESSAGE value="Admin panel Upload Blog Screen completed and also given functionality to create blog button" />
     <MESSAGE value="pulling updated project" />
-    <option name="LAST_COMMIT_MESSAGE" value="pulling updated project" />
+    <MESSAGE value="new file commited" />
+    <option name="LAST_COMMIT_MESSAGE" value="new file commited" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

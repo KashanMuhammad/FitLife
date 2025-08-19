@@ -37,7 +37,7 @@ void main() async {
  // await FirebaseAuth.instance.setPersistence(Persistence.LOCAL);
   runApp(
     const MaterialApp(
-      home: DeleteAccountSetting(),
+      home: FitlifeSplashScreen(),
       debugShowCheckedModeBanner: false,
     ),
   );

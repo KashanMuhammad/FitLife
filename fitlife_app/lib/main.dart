@@ -1,27 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:fitlife_app/Onboarding%20Screens/dateofbirth_input_screen.dart';
-import 'package:fitlife_app/Onboarding%20Screens/fitlife_splash_screen.dart';
-import 'package:fitlife_app/Onboarding%20Screens/user_name_screen.dart';
-import 'package:fitlife_app/add_meals_screen.dart';
-import 'package:fitlife_app/blogs_screen.dart';
 
-import 'package:fitlife_app/create_new_password_screen.dart';
-import 'package:fitlife_app/delete_account_setting.dart';
-import 'package:fitlife_app/edit_profile_screen.dart';
-import 'package:fitlife_app/forgot_password_screen.dart';
-import 'package:fitlife_app/home_screen.dart';
-import 'package:fitlife_app/login_screen.dart';
-import 'package:fitlife_app/main_screen.dart';
-import 'package:fitlife_app/meals_history_screen.dart';
-import 'package:fitlife_app/privacy_policy_screen.dart';
-import 'package:fitlife_app/sign_up.dart';
-import 'package:fitlife_app/update_profile_screen.dart';
-import 'package:fitlife_app/user_and_profile_screen.dart';
+import 'package:fitlife_app/add_meals_screen.dart';
+
+
+
 import 'package:flutter/material.dart';
 
-import 'Onboarding Screens/SkipScreens.dart';
-import 'add_meals_summary_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

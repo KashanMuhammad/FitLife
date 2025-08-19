@@ -153,7 +153,7 @@ class FirebaseDataModelClass {
       height: (json['height'] as num?)?.toDouble(),
       heightUnit: (json['heightUnit'] as String?),
       weight: (json['weight'] as num?)?.toDouble(),
-      weightUnit: (json['weightUnit'] as String),
+      weightUnit: (json['weightUnit'] as String?),
       dateOfBirth: json['dateOfBirth'] != null
           ? DateTime.tryParse(json['dateOfBirth'])
           : null,

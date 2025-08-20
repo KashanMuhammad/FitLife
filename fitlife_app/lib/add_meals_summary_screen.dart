@@ -157,14 +157,6 @@ class _AddMealsScreenState extends State<AddMealsSummaryScreen> {
                 SizedBox(
                   height: 10,
                 ),
-                AddMealsTile(itemName: "Bred", kcal: "3 foods 780 "),
-                AddMealsTile(itemName: "Bred", kcal: "3 foods 780 "),
-                AddMealsTile(itemName: "Bred", kcal: "3 foods 780 "),
-                AddMealsTile(itemName: "Bred", kcal: "3 foods 780 "),
-                AddMealsTile(itemName: "Bred", kcal: "3 foods 780 "),
-                AddMealsTile(itemName: "Bred", kcal: "3 foods 780 "),
-                AddMealsTile(itemName: "Bred", kcal: "3 foods 780 "),
-                AddMealsTile(itemName: "Bred", kcal: "3 foods 780 "),
 
               ],
             ),

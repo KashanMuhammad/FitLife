@@ -61,7 +61,7 @@ class _AddMealsTileState extends State<AddMealsTile> {
                   children: [
                     Text(widget.subtitle),
                     Text(
-                      "${widget.kcal} kcl",
+                      "  ${widget.kcal} kcl",
                       style: const TextStyle(color: Colors.grey),
                     ),
                   ],

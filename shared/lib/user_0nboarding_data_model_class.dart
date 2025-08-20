@@ -47,6 +47,7 @@ class FirebaseDataModelClass {
 
   // ✅ Assigned foods list
   final List<FoodModel>? assignedFoods;
+  final List<FoodModel>? userSelectedFood;
 
   FirebaseDataModelClass({
     this.userId,
@@ -89,6 +90,7 @@ class FirebaseDataModelClass {
     this.blogAuthorName,
     this.blogCategory,
     this.assignedFoods,
+    this.userSelectedFood,
   });
 
   // ✅ Convert object to JSON
@@ -202,19 +204,27 @@ class FirebaseDataModelClass {
       assignedFoods: (json['assignedFoods'] as List<dynamic>?)
           ?.map((item) => FoodModel.fromMap(item))
           .toList(),
+      userSelectedFood: (json['userSelectedFood'] as List<dynamic>?)
+          ?.map((item) => FoodModel.fromMap(item))
+          .toList(),
     );
   }
 }
 
+
+
 class FoodModel {
   final String foodName;
   final String calories;
-  final String quantity;
   final String foodDescription;
-  FoodModel( {
-    required this.foodDescription,
+  final List<ConsumptionEntry> consumptions;
+  final String? quantity;
+
+  FoodModel({
     required this.foodName,
     required this.calories,
+    required this.foodDescription,
+    required this.consumptions,
     required this.quantity,
   });
 
@@ -222,8 +232,11 @@ class FoodModel {
     return FoodModel(
       foodName: data['foodName'] ?? '',
       calories: data['caloriesPerServing'] ?? '0',
-      quantity: data['quantity'] ?? '0',
-      foodDescription: data['foodDescription'] ,
+      foodDescription: data['foodDescription'] ?? '',
+      quantity: data['quantity'],
+      consumptions: (data['consumptions'] as List<dynamic>? ?? [])
+          .map((e) => ConsumptionEntry.fromMap(e as Map<String, dynamic>))
+          .toList(),
     );
   }
 
@@ -231,8 +244,32 @@ class FoodModel {
     return {
       'foodName': foodName,
       'caloriesPerServing': calories,
-      'quantity': quantity,
-      'foodDescription': foodDescription
+      'foodDescription': foodDescription,
+      'consumptions': consumptions.map((e) => e.toJson()).toList(),
     };
   }
 }
+class ConsumptionEntry {
+  final String date;
+  final String foodQuantity;
+
+  ConsumptionEntry({
+    required this.date,
+    required this.foodQuantity,
+  });
+
+  factory ConsumptionEntry.fromMap(Map<String, dynamic> data) {
+    return ConsumptionEntry(
+      date: data['date'] ?? '',
+      foodQuantity: data['foodQuantity'] ?? '0',
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'date': date,
+      'foodQuantity': foodQuantity,
+    };
+  }
+}
+

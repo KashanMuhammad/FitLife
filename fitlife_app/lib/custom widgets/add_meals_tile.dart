@@ -5,11 +5,14 @@ class AddMealsTile extends StatefulWidget {
   final String itemName;
   final String kcal;
   final String subtitle;
+  final Function(int) onAdd;
 
   const AddMealsTile({
     super.key,
     required this.itemName,
-    required this.kcal, required this.subtitle,
+    required this.kcal,
+    required this.subtitle,
+    required this.onAdd,
   });
 
   @override
@@ -82,7 +85,11 @@ class _AddMealsTileState extends State<AddMealsTile> {
               children: [
                 InkWell(
                   onTap: decrement,
-                  child: const Icon(Icons.remove, size: 16, color: Colors.green),
+                  child: const Icon(
+                    Icons.remove,
+                    size: 16,
+                    color: Colors.green,
+                  ),
                 ),
                 Text(
                   number.toString(),
@@ -97,7 +104,11 @@ class _AddMealsTileState extends State<AddMealsTile> {
           ),
           const SizedBox(width: 10),
           InkWell(
-            onTap:(){} ,
+            onTap: () {
+              if(number>0){
+                widget.onAdd(number);
+              }
+            },
             child: Container(
               height: 35,
               width: 50,
@@ -105,17 +116,11 @@ class _AddMealsTileState extends State<AddMealsTile> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16),
                 gradient: const LinearGradient(
-                  colors: [
-                    Color(0xFF5AFF15),
-                    Color(0xFF00B712),
-                  ],
+                  colors: [Color(0xFF5AFF15), Color(0xFF00B712)],
                 ),
               ),
               child: const Center(
-                child: Text(
-                  "Add",
-                  style: TextStyle(color: Colors.white),
-                ),
+                child: Text("Add", style: TextStyle(color: Colors.white)),
               ),
             ),
           ),

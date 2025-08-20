@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fitlife_app/custom%20widgets/add_meals_tile.dart';
+import 'package:fitlife_app/meals_history_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared/user_0nboarding_data_model_class.dart';
 
@@ -21,7 +22,7 @@ void initState(){
   loadUserData();
 }
 Future<void> loadUserData()async{
-  const userId="uwgI64Jan9UWY9Hk4hQJCHFfOeI2";
+  const userId="3UCi7hE0jHNl79r7dIzA3wl0D083";
   try{
     final doc= await FirebaseFirestore.instance.collection("Users").doc(userId).get();
     if(doc.exists){
@@ -158,8 +159,35 @@ Future<void> loadUserData()async{
                       final food= foods[index];
                       return AddMealsTile( itemName: food.foodName.isNotEmpty ? food.foodName : "Unknown",
                         subtitle: food.quantity ?? "No quantity",
-                        kcal: food.calories, );
-                    })
+                        kcal: food.calories,
+                      onAdd: (qty)async{
+                        final consumptionEntry = {
+                          "date": DateTime.now().toIso8601String(),
+                          "foodQuantity": qty.toString(),
+                        };
+                        final updatedFood={
+                          "foodName": food.foodName,
+                          "caloriesPerServing": food.calories,
+                          "consumptions": [consumptionEntry],
+                        };
+
+    try {
+    await FirebaseFirestore.instance
+        .collection("Users")
+        .doc("3UCi7hE0jHNl79r7dIzA3wl0D083").update({
+    "userSelectedFood": FieldValue.arrayUnion([updatedFood]),
+    });
+    } catch (e) {
+      print("Error updated");
+    }
+                      },
+                      );
+                    }),
+                InkWell(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> MealsHistoryScreen()));
+                    },
+                    child: Text("Meals History")),
 
               ],
             ),

@@ -1,4 +1,5 @@
 
+import 'package:fitlife_app/add_meals_screen.dart';
 import 'package:fitlife_app/custom%20widgets/custom_list_tile.dart';
 import 'package:fitlife_app/custom%20widgets/custom_text.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +50,11 @@ class HomeScreen extends ConsumerWidget {
           ),
         ),
         child: FloatingActionButton(
-          onPressed: () {},
+          onPressed: (
+
+              ) {
+            Navigator.push(context, MaterialPageRoute(builder: (context)=> AddMealsScreen() ));
+          },
           backgroundColor: Colors.transparent,
           elevation: 0,
           child: Icon(Icons.add),

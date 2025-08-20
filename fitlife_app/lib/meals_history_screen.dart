@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fitlife_app/custom%20widgets/add_meals_tile.dart';
 import 'package:fitlife_app/custom%20widgets/custom_list_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:shared/user_0nboarding_data_model_class.dart';
 
 class MealsHistoryScreen extends StatefulWidget {
   const MealsHistoryScreen({super.key});
@@ -10,13 +12,52 @@ class MealsHistoryScreen extends StatefulWidget {
 }
 
 class _MealsHistoryScreenState extends State<MealsHistoryScreen> {
+  FirebaseDataModelClass? userData;
+  bool _isLoading= true;
   int selectedIndex = 0;
   final List<String> todaysMeal = ['Bred', 'Bred', 'Bred'];
   final List<String> yesterdayMeal = ['Bred', 'Bred', 'Bred'];
   final List<String> beforeYesterdayMeal = ['Bred', 'Bred', 'Bred'];
+@override
+void initState(){
+  super.initState();
+  loadUserData();
+}
+  Future<void> loadUserData() async {
+    const userId = "3UCi7hE0jHNl79r7dIzA3wl0D083";
+    try {
+      final doc =
+      await FirebaseFirestore.instance.collection("Users").doc(userId).get();
+
+      if (doc.exists) {
+        setState(() {
+          userData = FirebaseDataModelClass.fromJson(doc.data()!);
+          _isLoading = false;
+        });
+      } else {
+        setState(() => _isLoading = false);
+      }
+    } catch (e) {
+      print("⚠️ Error fetching user meals: $e");
+      setState(() => _isLoading = false);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    if (_isLoading) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
+
+    if (userData == null || userData!.userSelectedFood == null) {
+      return const Scaffold(
+        body: Center(child: Text("No meals history found")),
+      );
+    }
+
+    final List<FoodModel> foods = userData!.userSelectedFood ?? [];
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -220,12 +261,24 @@ class _MealsHistoryScreenState extends State<MealsHistoryScreen> {
               child: ListView.builder(
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
-                itemCount: todaysMeal.length,
+                itemCount: foods.length,
                 itemBuilder: (context, index) {
+                  final food = foods[index];
+
+                  // Create a string of all consumption entries
+                  String consumptionText = food.consumptions.map((c) {
+                    double foodCalories = double.tryParse(food.calories) ?? 0;
+                    double quantity = double.tryParse(c.foodQuantity) ?? 1;
+                    double totalCalories = foodCalories * quantity;
+                    return "${c.foodQuantity} Foods   (${totalCalories.toStringAsFixed(0)} kcal) on ${c.date.split("T")[0]}";
+                  }).join("\n");
+
                   return CustomListTile(
-                    title: todaysMeal[index],
+                    title: food.foodName,
                     leading: Image.asset("assets/images/rectangle.png"),
-                    subtitle: "3 foods 370 kcl",
+                    subtitle: consumptionText.isEmpty
+                        ? "No consumption entries • ${food.calories} kcal"
+                        : consumptionText,
                     trailing: IconButton(
                       onPressed: () {},
                       icon: Icon(Icons.arrow_forward_ios),

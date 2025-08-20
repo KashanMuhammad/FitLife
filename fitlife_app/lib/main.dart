@@ -1,7 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:fitlife_app/Onboarding%20Screens/fitlife_splash_screen.dart';
 
 import 'package:fitlife_app/add_meals_screen.dart';
+import 'package:fitlife_app/login_screen.dart';
+import 'package:fitlife_app/meals_history_screen.dart';
 
 
 
@@ -22,7 +25,7 @@ void main() async {
  // await FirebaseAuth.instance.setPersistence(Persistence.LOCAL);
   runApp(
     MaterialApp(
-      home:AddMealsScreen() ,
+      home:FitlifeSplashScreen() ,
       debugShowCheckedModeBanner: false,
     ),
   );

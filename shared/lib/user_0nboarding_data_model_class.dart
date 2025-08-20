@@ -1,3 +1,4 @@
+
 class FirebaseDataModelClass {
   final String? userId;
   final String? username;
@@ -41,7 +42,7 @@ class FirebaseDataModelClass {
   final String? blogFullContent;
   final String? blogAuthorName;
   final String? blogCategory;
-
+  final List<FoodModel>? assignedFoods;
   FirebaseDataModelClass( {
 
     this.userId,
@@ -86,6 +87,7 @@ class FirebaseDataModelClass {
     this.blogFullContent,
     this.blogAuthorName,
     this.blogCategory,
+    this.assignedFoods,
   });
 
   Map<String, dynamic> toJson() {
@@ -188,4 +190,23 @@ class FirebaseDataModelClass {
     );
   }
 
+}
+class FoodModel {
+  final String foodName;
+  final String calories;
+  final String quantity;
+
+  FoodModel({
+    required this.foodName,
+    required this.calories,
+    required this.quantity,
+  });
+
+  factory FoodModel.fromMap(Map<String, dynamic> data) {
+    return FoodModel(
+      foodName: data['foodName'] ?? '',
+      calories: data['caloriesPerServing'] ?? '0',
+      quantity: data['quantity'] ?? '0',
+    );
+  }
 }

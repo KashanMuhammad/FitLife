@@ -4,11 +4,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 class AddMealsTile extends StatefulWidget {
   final String itemName;
   final String kcal;
+  final String subtitle;
 
   const AddMealsTile({
     super.key,
     required this.itemName,
-    required this.kcal,
+    required this.kcal, required this.subtitle,
   });
 
   @override
@@ -56,9 +57,14 @@ class _AddMealsTileState extends State<AddMealsTile> {
                   widget.itemName,
                   style: const TextStyle(fontWeight: FontWeight.w600),
                 ),
-                Text(
-                  "${widget.kcal} Kcal",
-                  style: const TextStyle(color: Colors.grey),
+                Row(
+                  children: [
+                    Text(widget.subtitle),
+                    Text(
+                      "${widget.kcal} kcl",
+                      style: const TextStyle(color: Colors.grey),
+                    ),
+                  ],
                 ),
               ],
             ),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared/user_0nboarding_data_model_class.dart';
 import 'diet_habits_input_screen.dart';
 
 class DateofbirthInputScreen extends StatefulWidget {
@@ -174,8 +175,8 @@ class _DateofbirthInputScreenState extends State<DateofbirthInputScreen> {
                   ),
                   GestureDetector(
                     onTap: () async {
-                      final user = FirebaseAuth.instance.currentUser;
-                      if (user != null) {
+                      final userId = FirebaseAuth.instance.currentUser;
+                      if (userId != null) {
                         try {
                           int selectedDay = days[selectedDayIndex];
                           int selectedMonth = months[selectedMonthIndex];
@@ -194,11 +195,14 @@ class _DateofbirthInputScreenState extends State<DateofbirthInputScreen> {
                             _showError('You must be at least 13 years old.');
                             return;
                           }
+                        final userModel= FirebaseDataModelClass(
 
+                          dateOfBirth: dob,
+                        );
                           await FirebaseFirestore.instance
-                              .collection('Users')
-                              .doc(user.uid)
-                              .update({'dateOfBirth': dob.toIso8601String()});
+                              .collection('Khan')
+                              .doc(userId.uid)
+                              .update(userModel.toJson());
 
                           Navigator.push(
                             context,

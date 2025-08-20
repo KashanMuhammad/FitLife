@@ -2,6 +2,7 @@ import 'package:fitlife_app/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared/user_0nboarding_data_model_class.dart';
 
 import '../custom widgets/custom_inkwell.dart';
 import '../main_screen.dart';
@@ -124,15 +125,18 @@ class _HealtIssuesInputScreenState extends State<HealthIssuesInputScreen> {
   Widget buildNextButton() {
     return InkWell(
       onTap: () async {
-        final user = FirebaseAuth.instance.currentUser;
-        if (user != null) {
+        final userId = FirebaseAuth.instance.currentUser;
+        if (userId != null) {
+          String selectedHealthIssues = options[selectedIndex];
           try {
+            final userModel= FirebaseDataModelClass(
+
+              selectedHealthIssues: [selectedHealthIssues]
+            );
             await FirebaseFirestore.instance
-                .collection('Users') // Make sure this matches your other screens
-                .doc(user.uid)
-                .update({
-              'selectedHealthIssue': options[selectedIndex],
-            });
+                .collection('Khan') // Make sure this matches your other screens
+                .doc(userId.uid)
+                .update(userModel.toJson());
 
             Navigator.push(
               context,

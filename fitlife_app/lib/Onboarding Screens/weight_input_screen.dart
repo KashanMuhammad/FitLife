@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitlife_app/Onboarding%20Screens/dateofbirth_input_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:shared/user_0nboarding_data_model_class.dart';
 
 class WeightInputScreen extends StatefulWidget {
   const WeightInputScreen({super.key});
@@ -182,10 +183,14 @@ class _WeightInputScreenState extends State<WeightInputScreen> {
     if (user != null) {
       final userId = user.uid;
       try {
-        await FirebaseFirestore.instance.collection('Users').doc(userId).update({
-          'weightValue': weightValue,
-          'weightUnit': weightUnit,
-        });
+        final userModel= FirebaseDataModelClass(
+          weight: weightValue.toDouble(),
+          weightUnit:weightUnit,
+
+        );
+        await FirebaseFirestore.instance.collection('Khan').doc(userId).update(
+          userModel.toJson()
+        );
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Failed to save weight'), backgroundColor: Colors.redAccent),

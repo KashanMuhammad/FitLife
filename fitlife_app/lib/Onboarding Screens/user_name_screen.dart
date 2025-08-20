@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared/user_0nboarding_data_model_class.dart';
 import 'gender_screen.dart';
 
 class UserNameScreen extends StatefulWidget {
@@ -130,10 +131,14 @@ class _UserNameScreenState extends State<UserNameScreen> {
     }
 
     try {
+      final userModel = FirebaseDataModelClass(
+
+        username: username,
+      );
       await FirebaseFirestore.instance
-          .collection('Users')
+          .collection('Khan')
           .doc(userId)
-          .set({'username': username}, SetOptions(merge: true));
+          .set(userModel.toJson(), SetOptions(merge: true));
 
       Navigator.push(context, MaterialPageRoute(builder: (context) => const GenderScreen()));
     } catch (e) {

@@ -178,7 +178,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
       final userId = credential.user?.uid ?? '';
 
-      final doc = await FirebaseFirestore.instance.collection('Users').doc(userId).get();
+      final doc = await FirebaseFirestore.instance.collection('Khan').doc(userId).get();
 
       if (doc.exists) {
         final userData = FirebaseDataModelClass.fromJson(doc.data()!);

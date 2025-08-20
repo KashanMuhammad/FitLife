@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fitlife_app/custom%20widgets/add_meals_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:shared/user_0nboarding_data_model_class.dart';
 
 class AddMealsScreen extends StatefulWidget {
   const AddMealsScreen({super.key});
@@ -9,14 +11,58 @@ class AddMealsScreen extends StatefulWidget {
 }
 
 class _AddMealsScreenState extends State<AddMealsScreen> {
-  String selectedMealType = 'Breakfast';
-  List<String> mealTypes = ['Breakfast', 'Lunch', 'Dinner'];
+  String selectedMealType= "Breakfast";
+  List<String> mealTypes= ["Breakfast","Lunch","Dinner"];
+FirebaseDataModelClass? userData;
+bool _isloading=true;
+@override
+void initState(){
+  super.initState();
+  loadUserData();
+}
+Future<void> loadUserData()async{
+  const userId="uwgI64Jan9UWY9Hk4hQJCHFfOeI2";
+  try{
+    final doc= await FirebaseFirestore.instance.collection("Users").doc(userId).get();
+    if(doc.exists){
+      setState(() {
+        userData= FirebaseDataModelClass.fromJson(doc.data()!);
+        _isloading=false;
+      });
+    }
+    else{
+      setState(() {
+        _isloading=false;
+      });
+    }
+  }
+  catch (e){
+    print("Error fetching user data: $e");
+    setState(()=> _isloading=true);
+  }
 
+
+}
   @override
   Widget build(BuildContext context) {
+    if (_isloading) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
+
+    if (userData == null) {
+      return const Scaffold(
+        body: Center(child: Text("No user data found")),
+      );
+    }
+
+    final foods = userData!.assignedFoods ?? [];
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SafeArea(
+      body: foods.isEmpty
+          ? const Center(child: Text("No foods assigned"))
+          : SafeArea(
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -89,7 +135,7 @@ class _AddMealsScreenState extends State<AddMealsScreen> {
                                   value: value,
                                   child: Text(
                                     value,
-                                    style: const TextStyle(color: Colors.white),
+                                    style: const TextStyle(color: Colors.black),
                                   ),
                                 );
                               }).toList(),
@@ -104,16 +150,17 @@ class _AddMealsScreenState extends State<AddMealsScreen> {
                   ],
                 ),
                 SizedBox(height: 30),
-                AddMealsTile(itemName: "Bred", kcal: '3 foods 320 kcl'),
-                AddMealsTile(itemName: "Bred", kcal: '3 foods 320 kcl'),
-                AddMealsTile(itemName: "Bred", kcal: '3 foods 320 kcl'),
-                AddMealsTile(itemName: "Bred", kcal: '3 foods 320 kcl'),
-                AddMealsTile(itemName: "Bred", kcal: '3 foods 320 kcl'),
-                AddMealsTile(itemName: "Bred", kcal: '3 foods 320 kcl'),
-                AddMealsTile(itemName: "Bred", kcal: '3 foods 320 kcl'),
-                AddMealsTile(itemName: "Bred", kcal: '3 foods 320 kcl'),
-                AddMealsTile(itemName: "Bred", kcal: '3 foods 320 kcl'),
-                AddMealsTile(itemName: "Bred", kcal: '3 foods 320 kcl'),
+                ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: foods.length,
+                    itemBuilder: (context,index){
+                      final food= foods[index];
+                      return AddMealsTile( itemName: food.foodName.isNotEmpty ? food.foodName : "Unknown",
+                        subtitle: food.quantity ?? "No quantity",
+                        kcal: food.calories, );
+                    })
+
               ],
             ),
           ),

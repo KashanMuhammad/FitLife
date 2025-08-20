@@ -5,12 +5,15 @@ class FirebaseDataModelClass {
   final String? password;
   final String? gender;
   final double? height;
+  final String? heightUnit;
   final double? weight;
+  final String? weightUnit;
   final DateTime? dateOfBirth;
   final List<String>? selectedDietHabits;
   final List<String>? selectedHealthIssues;
   final bool? privacyPolicyAccepted;
 
+  // Food fields
   final String? foodName;
   final String? foodDescription;
   final String? quantity;
@@ -22,6 +25,7 @@ class FirebaseDataModelClass {
   final String? selectedUnits;
   final String? selectedTag;
 
+  // Diet fields
   final String? dietTitle;
   final String? dietDescription;
   final String? selectedMealType;
@@ -34,11 +38,15 @@ class FirebaseDataModelClass {
   final String? createdBy;
   final String? createdAt;
 
+  // Blog fields
   final String? blogTitle;
   final String? blogShortDescription;
   final String? blogFullContent;
   final String? blogAuthorName;
   final String? blogCategory;
+
+  // ✅ Assigned foods list
+  final List<FoodModel>? assignedFoods;
 
   FirebaseDataModelClass({
     this.userId,
@@ -47,24 +55,23 @@ class FirebaseDataModelClass {
     this.password,
     this.gender,
     this.height,
+    this.heightUnit,
     this.weight,
+    this.weightUnit,
     this.dateOfBirth,
     this.selectedDietHabits,
     this.selectedHealthIssues,
     this.privacyPolicyAccepted,
-
-
     this.foodName,
     this.foodDescription,
     this.quantity,
-    this.selectedUnits,
     this.caloriesPerServing,
     this.protein,
     this.carbohydrates,
     this.fats,
     this.tag,
+    this.selectedUnits,
     this.selectedTag,
-
     this.dietTitle,
     this.dietDescription,
     this.selectedMealType,
@@ -76,60 +83,72 @@ class FirebaseDataModelClass {
     this.dietTag,
     this.createdBy,
     this.createdAt,
-
     this.blogTitle,
     this.blogShortDescription,
     this.blogFullContent,
     this.blogAuthorName,
     this.blogCategory,
+    this.assignedFoods,
   });
 
+  // ✅ Convert object to JSON
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = {};
-    if (userId != null) data['userId'] = userId;
-    if (email != null) data['email'] = email;
-    if (password != null) data['password'] = password;
-    if (username != null) data['username'] = username;
-    if (gender != null) data['gender'] = gender;
-    if (height != null) data['height'] = height;
-    if (weight != null) data['weight'] = weight;
-    if (dateOfBirth != null) data['dateOfBirth'] = dateOfBirth!.toIso8601String();
-    if (selectedDietHabits != null) data['selectedDietHabits'] = selectedDietHabits;
-    if (selectedHealthIssues != null) data['selectedHealthIssues'] = selectedHealthIssues;
-    if (privacyPolicyAccepted != null) data['privacyPolicyAccepted'] = privacyPolicyAccepted;
 
-    if (foodName != null) data['foodName'] = foodName;
-    if (foodDescription != null) data['foodDescription'] = foodDescription;
-    if (quantity != null) data['quantity'] = quantity;
-    if (selectedUnits != null) data['selectedUnits'] = selectedUnits;
-    if (caloriesPerServing != null) data['caloriesPerServing'] = caloriesPerServing;
-    if (protein != null) data['protein'] = protein;
-    if (carbohydrates != null) data['carbohydrates'] = carbohydrates;
-    if (fats != null) data['fats'] = fats;
-    if (tag != null) data['tag'] = tag;
-    if (selectedTag != null) data['selectedTag'] = selectedTag;
+    data['userId'] = userId;
+    data['email'] = email;
+    data['password'] = password;
+    data['username'] = username;
+    data['gender'] = gender;
+    data['height'] = height;
+    data['heightUnit'] = heightUnit;
+    data['weight'] = weight;
+    data['weightUnit'] = weightUnit;
+    if (dateOfBirth != null) {
+      data['dateOfBirth'] = dateOfBirth!.toIso8601String();
+    }
+    data['selectedDietHabits'] = selectedDietHabits;
+    data['selectedHealthIssues'] = selectedHealthIssues;
+    data['privacyPolicyAccepted'] = privacyPolicyAccepted;
 
-    if (dietTitle != null) data['dietTitle'] = dietTitle;
-    if (dietDescription != null) data['dietDescription'] = dietDescription;
-    if (selectedMealType != null) data['selectedMealType'] = selectedMealType;
-    if (day != null) data['day'] = day;
-    if (timeToEat != null) data['timeToEat'] = timeToEat;
-    if (listOfFood != null) data['listOfFood'] = listOfFood;
-    if (duration != null) data['duration'] = duration;
-    if (suitableFor  != null) data['suitableFor'] = suitableFor;
-    if (dietTag != null) data['dietTag'] = dietTag;
-    if (createdBy != null) data['createdBy'] = createdBy;
-    if (createdAt != null) data['createdAt'] = createdAt;
+    data['foodName'] = foodName;
+    data['foodDescription'] = foodDescription;
+    data['quantity'] = quantity;
+    data['selectedUnits'] = selectedUnits;
+    data['caloriesPerServing'] = caloriesPerServing;
+    data['protein'] = protein;
+    data['carbohydrates'] = carbohydrates;
+    data['fats'] = fats;
+    data['tag'] = tag;
+    data['selectedTag'] = selectedTag;
 
-    if (blogTitle != null) data['blogTitle'] = blogTitle;
-    if (blogShortDescription != null) data['blogShortDescription'] = blogShortDescription;
-    if (blogFullContent != null) data['blogFullContent'] = blogFullContent;
-    if (blogCategory != null) data['blogCategory'] = blogCategory;
-    if (blogAuthorName != null) data['blogAuthorName'] = blogAuthorName;
+    data['dietTitle'] = dietTitle;
+    data['dietDescription'] = dietDescription;
+    data['selectedMealType'] = selectedMealType;
+    data['day'] = day;
+    data['timeToEat'] = timeToEat;
+    data['listOfFood'] = listOfFood;
+    data['duration'] = duration;
+    data['suitableFor'] = suitableFor;
+    data['dietTag'] = dietTag;
+    data['createdBy'] = createdBy;
+    data['createdAt'] = createdAt;
+
+    data['blogTitle'] = blogTitle;
+    data['blogShortDescription'] = blogShortDescription;
+    data['blogFullContent'] = blogFullContent;
+    data['blogCategory'] = blogCategory;
+    data['blogAuthorName'] = blogAuthorName;
+
+    if (assignedFoods != null) {
+      data['assignedFoods'] =
+          assignedFoods!.map((f) => f.toJson()).toList();
+    }
 
     return data;
   }
 
+  // ✅ Factory to create from JSON
   factory FirebaseDataModelClass.fromJson(Map<String, dynamic> json) {
     List<String>? toList(dynamic value) {
       if (value == null) return null;
@@ -145,15 +164,15 @@ class FirebaseDataModelClass {
       username: json['username'] as String?,
       gender: json['gender'] as String?,
       height: (json['height'] as num?)?.toDouble(),
+      heightUnit: json['heightUnit'] as String?,
       weight: (json['weight'] as num?)?.toDouble(),
+      weightUnit: json['weightUnit'] as String?,
       dateOfBirth: json['dateOfBirth'] != null
           ? DateTime.tryParse(json['dateOfBirth'])
           : null,
       selectedDietHabits: toList(json['selectedDietHabits']),
       selectedHealthIssues: toList(json['selectedHealthIssues']),
       privacyPolicyAccepted: json['privacyPolicyAccepted'] as bool?,
-
-
       foodName: json['foodName'] as String?,
       foodDescription: json['foodDescription'] as String?,
       quantity: json['quantity'] as String?,
@@ -164,8 +183,6 @@ class FirebaseDataModelClass {
       fats: json['fats'] as String?,
       tag: json['tag'] as String?,
       selectedTag: json['selectedTag'] as String?,
-
-
       dietTitle: json['dietTitle'] as String?,
       dietDescription: json['dietDescription'] as String?,
       selectedMealType: json['selectedMealType'] as String?,
@@ -177,7 +194,45 @@ class FirebaseDataModelClass {
       dietTag: json['dietTag'] as String?,
       createdBy: json['createdBy'] as String?,
       createdAt: json['createdAt'] as String?,
+      blogTitle: json['blogTitle'] as String?,
+      blogShortDescription: json['blogShortDescription'] as String?,
+      blogFullContent: json['blogFullContent'] as String?,
+      blogCategory: json['blogCategory'] as String?,
+      blogAuthorName: json['blogAuthorName'] as String?,
+      assignedFoods: (json['assignedFoods'] as List<dynamic>?)
+          ?.map((item) => FoodModel.fromMap(item))
+          .toList(),
+    );
+  }
+}
+
+class FoodModel {
+  final String foodName;
+  final String calories;
+  final String quantity;
+  final String foodDescription;
+  FoodModel( {
+    required this.foodDescription,
+    required this.foodName,
+    required this.calories,
+    required this.quantity,
+  });
+
+  factory FoodModel.fromMap(Map<String, dynamic> data) {
+    return FoodModel(
+      foodName: data['foodName'] ?? '',
+      calories: data['caloriesPerServing'] ?? '0',
+      quantity: data['quantity'] ?? '0',
+      foodDescription: data['foodDescription'] ,
     );
   }
 
+  Map<String, dynamic> toJson() {
+    return {
+      'foodName': foodName,
+      'caloriesPerServing': calories,
+      'quantity': quantity,
+      'foodDescription': foodDescription
+    };
+  }
 }

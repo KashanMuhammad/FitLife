@@ -1,24 +1,39 @@
+
 import 'package:fitlife_app/custom%20widgets/custom_list_tile.dart';
 import 'package:fitlife_app/custom%20widgets/custom_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class HomeScreen extends ConsumerWidget {
+   HomeScreen({super.key});
 
-  @override
-  State<HomeScreen> createState() => _HomeTabContentState();
-}
-
-class _HomeTabContentState extends State<HomeScreen> {
   final List<String> todaysMeal = ['Bred', 'Lunch', 'Dinner'];
+
   final List<String> cheatMeal = ['Checken Thi'];
+
   final List<String> activity = ['Football', 'Cricket'];
+
   final List<String> fasting = ['Fasting'];
 
+  String getGreeting() {
+    final hour = DateTime.now().hour;
+
+    if (hour >= 5 && hour < 12) {
+      return 'Good Morning';
+    } else if (hour >= 12 && hour < 17) {
+      return 'Good Afternoon';
+    } else if (hour >= 17 && hour < 21) {
+      return 'Good Evening';
+    } else {
+      return 'Good Night';
+    }
+  }
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+   // final userAsync= ref.watch();
     final screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -65,7 +80,7 @@ class _HomeTabContentState extends State<HomeScreen> {
                       children: [
                         Center(
                           child: Text(
-                            "14-oct-2025",
+                            DateTime.now().toString(),
                             style: TextStyle(fontSize: 16, color: Colors.black),
                           ),
                         ),
@@ -75,7 +90,7 @@ class _HomeTabContentState extends State<HomeScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                "Good Morning",
+                               getGreeting(),
                                 style: TextStyle(
                                   fontSize: 18,
                                   color: Colors.black,

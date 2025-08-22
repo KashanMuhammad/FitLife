@@ -273,7 +273,7 @@ class _DietScreenState extends State<DietScreen> {
                     rows:
                         docs.map((doc) {
                           final diet = doc.data() as Map<String, dynamic>;
-
+                         final dietId = doc.id;
                           return DataRow(
                             cells: [
                               DataCell(
@@ -306,6 +306,7 @@ class _DietScreenState extends State<DietScreen> {
                                         MaterialPageRoute(
                                           builder:
                                               (context) => UploadDietScreen(
+                                                dietId: dietId,
                                                 dietData: diet,
                                               ),
                                         ),

@@ -1,14 +1,11 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fitlife_admin_panel/custom_widgets.dart';
-import 'package:fitlife_admin_panel/food_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared/user_0nboarding_data_model_class.dart';
-
 import 'dashboard.dart';
-import 'main.dart';
 
 class UploadFoodScreen extends StatefulWidget {
   final Map<String, dynamic>? foodData;

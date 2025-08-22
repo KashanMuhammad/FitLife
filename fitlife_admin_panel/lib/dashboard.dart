@@ -8,7 +8,6 @@ import 'package:fitlife_admin_panel/upload_food_screen.dart';
 import 'package:fitlife_admin_panel/patient_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
 import 'blog_screen.dart';
 
 class Dashboard extends StatefulWidget {

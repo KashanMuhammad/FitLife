@@ -166,6 +166,7 @@ Future<void> loadUserData()async{
                           "foodQuantity": qty.toString(),
                         };
                         final updatedFood={
+                          "mealType": selectedMealType,
                           "foodName": food.foodName,
                           "caloriesPerServing": food.calories,
                           "consumptions": [consumptionEntry],
@@ -178,7 +179,7 @@ Future<void> loadUserData()async{
     "userSelectedFood": FieldValue.arrayUnion([updatedFood]),
     });
     } catch (e) {
-      print("Error updated");
+      print("Error : not updated");
     }
                       },
                       );

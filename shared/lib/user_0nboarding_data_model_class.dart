@@ -219,6 +219,7 @@ class FoodModel {
   final String foodDescription;
   final List<ConsumptionEntry> consumptions;
   final String? quantity;
+  final String? mealType;
 
   FoodModel({
     required this.foodName,
@@ -226,6 +227,7 @@ class FoodModel {
     required this.foodDescription,
     required this.consumptions,
     required this.quantity,
+    required this.mealType,
   });
 
   factory FoodModel.fromMap(Map<String, dynamic> data) {
@@ -234,6 +236,7 @@ class FoodModel {
       calories: data['caloriesPerServing'] ?? '0',
       foodDescription: data['foodDescription'] ?? '',
       quantity: data['quantity'],
+      mealType: data['mealType'] ?? data['selectedMealType'] ?? '',
       consumptions: (data['consumptions'] as List<dynamic>? ?? [])
           .map((e) => ConsumptionEntry.fromMap(e as Map<String, dynamic>))
           .toList(),
@@ -245,6 +248,7 @@ class FoodModel {
       'foodName': foodName,
       'caloriesPerServing': calories,
       'foodDescription': foodDescription,
+      'mealType': mealType,
       'consumptions': consumptions.map((e) => e.toJson()).toList(),
     };
   }
@@ -252,16 +256,19 @@ class FoodModel {
 class ConsumptionEntry {
   final String date;
   final String foodQuantity;
+  final String mealType;
 
   ConsumptionEntry({
     required this.date,
     required this.foodQuantity,
+    required this.mealType
   });
 
   factory ConsumptionEntry.fromMap(Map<String, dynamic> data) {
     return ConsumptionEntry(
       date: data['date'] ?? '',
       foodQuantity: data['foodQuantity'] ?? '0',
+      mealType: data['mealType'] ?? 'Unknown',
     );
   }
 
@@ -269,6 +276,7 @@ class ConsumptionEntry {
     return {
       'date': date,
       'foodQuantity': foodQuantity,
+      'mealType': mealType,
     };
   }
 }

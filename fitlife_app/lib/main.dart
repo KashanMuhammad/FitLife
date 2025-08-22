@@ -10,6 +10,8 @@ import 'package:fitlife_app/meals_history_screen.dart';
 
 import 'package:flutter/material.dart';
 
+import 'home_screen.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,7 +27,7 @@ void main() async {
  // await FirebaseAuth.instance.setPersistence(Persistence.LOCAL);
   runApp(
     MaterialApp(
-      home:FitlifeSplashScreen() ,
+      home:HomeScreen() ,
       debugShowCheckedModeBanner: false,
     ),
   );

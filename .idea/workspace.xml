@@ -4,22 +4,10 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Admin panel Upload Blog Screen completed and also given functionality to create blog button">
-      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Static Analytics Screen Completed, Blog Screen completed with full functionalities, some concepts updated,">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/analytics_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/analytics_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/blog_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/blog_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/custom_widgets.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/custom_widgets.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/customer_support.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/customer_support.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/dashboard.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/dashboard.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/diet_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/diet_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/food_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/food_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/patient_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/patient_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_blog_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_blog_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_diet_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_diet_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_food_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_food_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -567,7 +555,15 @@
       <option name="project" value="LOCAL" />
       <updated>1755543199996</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="Static Analytics Screen Completed, Blog Screen completed with full functionalities, some concepts updated,">
+      <option name="closed" value="true" />
+      <created>1755906050332</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1755906050332</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -609,7 +605,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Re pulled and merged the code after just deployed the admin panel and now committing it." />
     <MESSAGE value="privacy_policy_screen.dart and help_and_support_screen.dart is completed with firebase functionality." />
     <MESSAGE value="forgot_password_screen.dart completed with firebase functionalty" />
     <MESSAGE value="create_new_password_screen.dart screen completed" />
@@ -634,7 +629,8 @@
     <MESSAGE value="pulling updated project" />
     <MESSAGE value="new file commited" />
     <MESSAGE value="File slightly updated by the developer and some other functionalities were added" />
-    <option name="LAST_COMMIT_MESSAGE" value="File slightly updated by the developer and some other functionalities were added" />
+    <MESSAGE value="Static Analytics Screen Completed, Blog Screen completed with full functionalities, some concepts updated," />
+    <option name="LAST_COMMIT_MESSAGE" value="Static Analytics Screen Completed, Blog Screen completed with full functionalities, some concepts updated," />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

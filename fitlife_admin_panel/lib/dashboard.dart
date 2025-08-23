@@ -77,7 +77,7 @@ class _DashboardState extends State<Dashboard> {
                         });
                       },
                     ),
-                CustomerSupport(),
+                CustomerSupportScreen(),
                 // Center(child: Text("Support")),
                 //Center(child: Text("Blogs")),
                 // BlogScreen(),

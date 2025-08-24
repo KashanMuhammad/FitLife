@@ -268,9 +268,9 @@ class HomeScreen extends ConsumerWidget {
           builder: (context, constraints) {
             return Column(
               children: [
-                Spacer(flex: 1), // pushes the gauge down
+                Spacer(flex: 2), // pushes the gauge down
                 Expanded(
-                  flex: 8,
+                  flex: 2,
                   child: SfRadialGauge(
                     axes: [
                       RadialAxis(
@@ -280,7 +280,7 @@ class HomeScreen extends ConsumerWidget {
                         showTicks: false,
                         startAngle: 180,
                         endAngle: 0,
-                        radiusFactor: 0.9,
+                        radiusFactor: 2.5,
                         ranges: [
                           GaugeRange(
                             startValue: 0,

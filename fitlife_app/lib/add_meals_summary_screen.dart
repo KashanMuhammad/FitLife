@@ -120,40 +120,12 @@ class _AddMealsScreenState extends State<AddMealsSummaryScreen> {
                   spacing: 10,
                   runSpacing: 10,
                   children: [
-                    SummaryMealsTile(
-                      itemName: "Bred",
-                      kcal: "250",
-                      width: (screenWidth - 34) / 2,
-                    ),
-                    SummaryMealsTile(
-                      itemName: "Bred",
-                      kcal: "250",
-                      width: (screenWidth - 34) / 2,
-                    ),
+
 
 
                   ],
                 ),
-                SummaryMealsTile(
-                  itemName: "Bred",
-                  kcal: "250",
-                  width: (screenWidth - 34) / 2,
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                const Divider( thickness: 2),
-                SizedBox(
-                  height: 14,
-                ),
-                const Text(
-                  'Items',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
+
                 SizedBox(
                   height: 10,
                 ),

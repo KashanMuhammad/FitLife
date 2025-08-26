@@ -112,144 +112,16 @@ class _MealsHistoryScreenState extends State<MealsHistoryScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       // All Button
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            selectedIndex = 0;
-                          });
-                        },
-                        child: Container(
-                          height: 35,
-                          width: 50,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            gradient: selectedIndex == 0
-                                ? const LinearGradient(
-                              colors: [
-                                Color(0xFF5AFF15),
-                                Color(0xFF00B712),
-                              ],
-                            )
-                                : null,
-                            color: selectedIndex == 0 ? null : Colors.white,
-                          ),
-                          child: Text(
-                            "All",
-                            style: TextStyle(
-                              color: selectedIndex == 0
-                                  ? Colors.white
-                                  : Colors.black,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      ),
+                      AllToggleButton(),
 
                       // Breakfast Button
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            selectedIndex = 1;
-                          });
-                        },
-                        child: Container(
-                          height: 35,
-                          width: 75,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            gradient: selectedIndex == 1
-                                ? const LinearGradient(
-                              colors: [
-                                Color(0xFF5AFF15),
-                                Color(0xFF00B712),
-                              ],
-                            )
-                                : null,
-                            color: selectedIndex == 1 ? null : Colors.white,
-                          ),
-                          child: Text(
-                            "Breakfast",
-                            style: TextStyle(
-                              color: selectedIndex == 1
-                                  ? Colors.white
-                                  : Colors.black,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      ),
+                      BreakfastToggleButton(),
 
                       // Lunch Button
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            selectedIndex = 2;
-                          });
-                        },
-                        child: Container(
-                          height: 35,
-                          width: 60,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            gradient: selectedIndex == 2
-                                ? const LinearGradient(
-                              colors: [
-                                Color(0xFF5AFF15),
-                                Color(0xFF00B712),
-                              ],
-                            )
-                                : null,
-                            color: selectedIndex == 2 ? null : Colors.white,
-                          ),
-                          child: Text(
-                            "Lunch",
-                            style: TextStyle(
-                              color: selectedIndex == 2
-                                  ? Colors.white
-                                  : Colors.black,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      ),
+                      LunchToggleButton(),
 
                       // Dinner Button
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            selectedIndex = 3;
-                          });
-                        },
-                        child: Container(
-                          height: 35,
-                          width: 70,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            gradient: selectedIndex == 3
-                                ? const LinearGradient(
-                              colors: [
-                                Color(0xFF5AFF15),
-                                Color(0xFF00B712),
-                              ],
-                            )
-                                : null,
-                            color: selectedIndex == 3 ? null : Colors.white,
-                          ),
-                          child: Text(
-                            "Dinner",
-                            style: TextStyle(
-                              color: selectedIndex == 3
-                                  ? Colors.white
-                                  : Colors.black,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      ),
+                      DinnerToggleButton(),
                     ],
                   ),
                 ),
@@ -264,56 +136,7 @@ class _MealsHistoryScreenState extends State<MealsHistoryScreen> {
                 ),
 
                 // 🔹 Today Meals
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: filteredFoods.length,
-                    itemBuilder: (context, index) {
-                      final food = filteredFoods[index];
-
-                      // Filter consumptions only from today
-                      final today = DateTime.now();
-                      final filteredConsumptions =
-                      food.consumptions.where((c) {
-                        DateTime consumptionDate =
-                            DateTime.tryParse(c.date) ?? DateTime.now();
-                        return consumptionDate.year == today.year &&
-                            consumptionDate.month == today.month &&
-                            consumptionDate.day == today.day;
-                      }).toList();
-
-                      if (filteredConsumptions.isEmpty) {
-                        return const SizedBox.shrink(); // skip foods not eaten today
-                      }
-
-                      // Build subtitle text
-                      String consumptionText =
-                      filteredConsumptions.map((c) {
-                        double foodCalories =
-                            double.tryParse(food.calories) ?? 0;
-                        double quantity =
-                            double.tryParse(c.foodQuantity) ?? 1;
-                        double totalCalories = foodCalories * quantity;
-                        return "${c.foodQuantity} Foods    ${totalCalories.toStringAsFixed(0)} kcal";
-                      }).join("\n");
-
-                      return CustomListTile(
-                        title: food.foodName,
-                        leading: Image.asset("assets/images/rectangle.png"),
-                        subtitle: consumptionText.isEmpty
-                            ? "No consumption entries • ${food.calories} kcal"
-                            : consumptionText,
-                        trailing: IconButton(
-                          onPressed: () {},
-                          icon: Icon(Icons.arrow_forward_ios),
-                        ),
-                        tileColor: Color(0xFFFAFAFA),
-                      );
-                    },
-                  ),
-                ),
+                TodaysMeals(filteredFoods),
                 SizedBox(height: 15),
                 Text(
                   "Yesterday's Meals",
@@ -325,59 +148,7 @@ class _MealsHistoryScreenState extends State<MealsHistoryScreen> {
                 ),
 
                 // 🔹 Yesterday Meals
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: filteredFoods.length,
-                    itemBuilder: (context, index) {
-                      final food = filteredFoods[index];
-
-                      // Filter consumptions only from yesterday
-                      final yesterday =
-                      DateTime.now().subtract(const Duration(days: 1));
-                      final filteredConsumptions =
-                      food.consumptions.where((c) {
-                        DateTime consumptionDate =
-                            DateTime.tryParse(c.date) ?? DateTime.now();
-                        return consumptionDate.year == yesterday.year &&
-                            consumptionDate.month == yesterday.month &&
-                            consumptionDate.day == yesterday.day;
-                      }).toList();
-
-                      if (filteredConsumptions.isEmpty) {
-                        return const SizedBox.shrink(
-                          child: Text("No meals yesterday",style: TextStyle(fontSize: 16,color: Colors.black),),
-                        ); // skip if no meals yesterday
-                      }
-
-                      // Build text for yesterday’s consumptions
-                      String consumptionText =
-                      filteredConsumptions.map((c) {
-                        double foodCalories =
-                            double.tryParse(food.calories) ?? 0;
-                        double quantity =
-                            double.tryParse(c.foodQuantity) ?? 1;
-                        double totalCalories = foodCalories * quantity;
-                        return "${c.foodQuantity} Foods    ${totalCalories.toStringAsFixed(0)} kcal";
-                      }).join("\n");
-
-                      return CustomListTile(
-                        title: food.foodName,
-                        leading: Image.asset("assets/images/rectangle.png"),
-                        subtitle: consumptionText.isEmpty
-                            ? "No consumption entries • ${food.calories} kcal"
-                            : consumptionText,
-                        trailing: IconButton(
-                          onPressed: () {},
-                          icon: Icon(Icons.arrow_forward_ios),
-                        ),
-                        tileColor: Color(0xFFFAFAFA),
-                      );
-                    },
-                  ),
-                ),
+                YesterdayMeals(filteredFoods),
                 SizedBox(height: 15),
 
                 // 🔹 Before Yesterday
@@ -390,63 +161,320 @@ class _MealsHistoryScreenState extends State<MealsHistoryScreen> {
                   ),
                 ),
 
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: filteredFoods.length,
-                    itemBuilder: (context, index) {
-                      final food = filteredFoods[index];
-
-                      // Date before yesterday
-                      final beforeYesterday =
-                      DateTime.now().subtract(const Duration(days: 2));
-
-                      final filteredConsumptions =
-                      food.consumptions.where((c) {
-                        DateTime consumptionDate =
-                            DateTime.tryParse(c.date) ?? DateTime.now();
-                        return consumptionDate.year == beforeYesterday.year &&
-                            consumptionDate.month == beforeYesterday.month &&
-                            consumptionDate.day == beforeYesterday.day;
-                      }).toList();
-
-                      if (filteredConsumptions.isEmpty) {
-                        return const SizedBox.shrink(); // Skip foods with no entries
-                      }
-
-                      // Build subtitle text
-                      String consumptionText =
-                      filteredConsumptions.map((c) {
-                        double foodCalories =
-                            double.tryParse(food.calories) ?? 0;
-                        double quantity =
-                            double.tryParse(c.foodQuantity) ?? 1;
-                        double totalCalories = foodCalories * quantity;
-                        return "${c.foodQuantity} Foods   (${totalCalories.toStringAsFixed(0)} kcal)";
-                      }).join("\n");
-
-                      return CustomListTile(
-                        title: food.foodName,
-                        leading: Image.asset("assets/images/rectangle.png"),
-                        subtitle: consumptionText.isEmpty
-                            ? "No consumption entries • ${food.calories} kcal"
-                            : consumptionText,
-                        trailing: IconButton(
-                          onPressed: () {},
-                          icon: Icon(Icons.arrow_forward_ios),
-                        ),
-                        tileColor: Color(0xFFFAFAFA),
-                      );
-                    },
-                  ),
-                ),
+                BeforeYesterdayMeals(filteredFoods),
               ],
             ),
           ),
         ),
       ),
     );
+  }
+
+  Padding BeforeYesterdayMeals(List<FoodModel> filteredFoods) {
+    return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: filteredFoods.length,
+                  itemBuilder: (context, index) {
+                    final food = filteredFoods[index];
+
+                    // Date before yesterday
+                    final beforeYesterday =
+                    DateTime.now().subtract(const Duration(days: 2));
+
+                    final filteredConsumptions =
+                    food.consumptions.where((c) {
+                      DateTime consumptionDate =
+                          DateTime.tryParse(c.date) ?? DateTime.now();
+                      return consumptionDate.year == beforeYesterday.year &&
+                          consumptionDate.month == beforeYesterday.month &&
+                          consumptionDate.day == beforeYesterday.day;
+                    }).toList();
+
+                    if (filteredConsumptions.isEmpty) {
+                      return const SizedBox.shrink(); // Skip foods with no entries
+                    }
+
+                    // Build subtitle text
+                    String consumptionText =
+                    filteredConsumptions.map((c) {
+                      double foodCalories =
+                          double.tryParse(food.calories) ?? 0;
+                      double quantity =
+                          double.tryParse(c.foodQuantity) ?? 1;
+                      double totalCalories = foodCalories * quantity;
+                      return "${c.foodQuantity} Foods   (${totalCalories.toStringAsFixed(0)} kcal)";
+                    }).join("\n");
+
+                    return CustomListTile(
+                      title: food.foodName,
+                      leading: Image.asset("assets/images/rectangle.png"),
+                      subtitle: consumptionText.isEmpty
+                          ? "No consumption entries • ${food.calories} kcal"
+                          : consumptionText,
+                      trailing: IconButton(
+                        onPressed: () {},
+                        icon: Icon(Icons.arrow_forward_ios),
+                      ),
+                      tileColor: Color(0xFFFAFAFA),
+                    );
+                  },
+                ),
+              );
+  }
+
+  Padding YesterdayMeals(List<FoodModel> filteredFoods) {
+    return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: filteredFoods.length,
+                  itemBuilder: (context, index) {
+                    final food = filteredFoods[index];
+
+                    // Filter consumptions only from yesterday
+                    final yesterday =
+                    DateTime.now().subtract(const Duration(days: 1));
+                    final filteredConsumptions =
+                    food.consumptions.where((c) {
+                      DateTime consumptionDate =
+                          DateTime.tryParse(c.date) ?? DateTime.now();
+                      return consumptionDate.year == yesterday.year &&
+                          consumptionDate.month == yesterday.month &&
+                          consumptionDate.day == yesterday.day;
+                    }).toList();
+
+                    if (filteredConsumptions.isEmpty) {
+                      return const SizedBox.shrink(
+                        child: Text("No meals yesterday",style: TextStyle(fontSize: 16,color: Colors.black),),
+                      ); // skip if no meals yesterday
+                    }
+
+                    // Build text for yesterday’s consumptions
+                    String consumptionText =
+                    filteredConsumptions.map((c) {
+                      double foodCalories =
+                          double.tryParse(food.calories) ?? 0;
+                      double quantity =
+                          double.tryParse(c.foodQuantity) ?? 1;
+                      double totalCalories = foodCalories * quantity;
+                      return "${c.foodQuantity} Foods    ${totalCalories.toStringAsFixed(0)} kcal";
+                    }).join("\n");
+
+                    return CustomListTile(
+                      title: food.foodName,
+                      leading: Image.asset("assets/images/rectangle.png"),
+                      subtitle: consumptionText.isEmpty
+                          ? "No consumption entries • ${food.calories} kcal"
+                          : consumptionText,
+                      trailing: IconButton(
+                        onPressed: () {},
+                        icon: Icon(Icons.arrow_forward_ios),
+                      ),
+                      tileColor: Color(0xFFFAFAFA),
+                    );
+                  },
+                ),
+              );
+  }
+
+  Padding TodaysMeals(List<FoodModel> filteredFoods) {
+    return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: filteredFoods.length,
+                  itemBuilder: (context, index) {
+                    final food = filteredFoods[index];
+
+                    // Filter consumptions only from today
+                    final today = DateTime.now();
+                    final filteredConsumptions =
+                    food.consumptions.where((c) {
+                      DateTime consumptionDate =
+                          DateTime.tryParse(c.date) ?? DateTime.now();
+                      return consumptionDate.year == today.year &&
+                          consumptionDate.month == today.month &&
+                          consumptionDate.day == today.day;
+                    }).toList();
+
+                    if (filteredConsumptions.isEmpty) {
+                      return const SizedBox.shrink(); // skip foods not eaten today
+                    }
+
+                    // Build subtitle text
+                    String consumptionText =
+                    filteredConsumptions.map((c) {
+                      double foodCalories =
+                          double.tryParse(food.calories) ?? 0;
+                      double quantity =
+                          double.tryParse(c.foodQuantity) ?? 1;
+                      double totalCalories = foodCalories * quantity;
+                      return "${c.foodQuantity} Foods    ${totalCalories.toStringAsFixed(0)} kcal";
+                    }).join("\n");
+
+                    return CustomListTile(
+                      title: food.foodName,
+                      leading: Image.asset("assets/images/rectangle.png"),
+                      subtitle: consumptionText.isEmpty
+                          ? "No consumption entries • ${food.calories} kcal"
+                          : consumptionText,
+                      trailing: IconButton(
+                        onPressed: () {},
+                        icon: Icon(Icons.arrow_forward_ios),
+                      ),
+                      tileColor: Color(0xFFFAFAFA),
+                    );
+                  },
+                ),
+              );
+  }
+
+  GestureDetector DinnerToggleButton() {
+    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          selectedIndex = 3;
+                        });
+                      },
+                      child: Container(
+                        height: 35,
+                        width: 70,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          gradient: selectedIndex == 3
+                              ? const LinearGradient(
+                            colors: [
+                              Color(0xFF5AFF15),
+                              Color(0xFF00B712),
+                            ],
+                          )
+                              : null,
+                          color: selectedIndex == 3 ? null : Colors.white,
+                        ),
+                        child: Text(
+                          "Dinner",
+                          style: TextStyle(
+                            color: selectedIndex == 3
+                                ? Colors.white
+                                : Colors.black,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    );
+  }
+
+  GestureDetector LunchToggleButton() {
+    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          selectedIndex = 2;
+                        });
+                      },
+                      child: Container(
+                        height: 35,
+                        width: 60,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          gradient: selectedIndex == 2
+                              ? const LinearGradient(
+                            colors: [
+                              Color(0xFF5AFF15),
+                              Color(0xFF00B712),
+                            ],
+                          )
+                              : null,
+                          color: selectedIndex == 2 ? null : Colors.white,
+                        ),
+                        child: Text(
+                          "Lunch",
+                          style: TextStyle(
+                            color: selectedIndex == 2
+                                ? Colors.white
+                                : Colors.black,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    );
+  }
+
+  GestureDetector BreakfastToggleButton() {
+    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          selectedIndex = 1;
+                        });
+                      },
+                      child: Container(
+                        height: 35,
+                        width: 75,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          gradient: selectedIndex == 1
+                              ? const LinearGradient(
+                            colors: [
+                              Color(0xFF5AFF15),
+                              Color(0xFF00B712),
+                            ],
+                          )
+                              : null,
+                          color: selectedIndex == 1 ? null : Colors.white,
+                        ),
+                        child: Text(
+                          "Breakfast",
+                          style: TextStyle(
+                            color: selectedIndex == 1
+                                ? Colors.white
+                                : Colors.black,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    );
+  }
+
+  GestureDetector AllToggleButton() {
+    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          selectedIndex = 0;
+                        });
+                      },
+                      child: Container(
+                        height: 35,
+                        width: 50,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          gradient: selectedIndex == 0
+                              ? const LinearGradient(
+                            colors: [
+                              Color(0xFF5AFF15),
+                              Color(0xFF00B712),
+                            ],
+                          )
+                              : null,
+                          color: selectedIndex == 0 ? null : Colors.white,
+                        ),
+                        child: Text(
+                          "All",
+                          style: TextStyle(
+                            color: selectedIndex == 0
+                                ? Colors.white
+                                : Colors.black,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    );
   }
 }

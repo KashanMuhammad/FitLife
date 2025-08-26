@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fitlife_app/custom%20widgets/add_meals_tile.dart';
+import 'package:fitlife_app/custom widgets/add_meals_tile.dart';
 import 'package:fitlife_app/meals_history_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:shared/user_0nboarding_data_model_class.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitlife_app/custom widgets/summary_meals_tile.dart';
 
 class AddMealsScreen extends StatefulWidget {
   const AddMealsScreen({super.key});
@@ -20,14 +20,12 @@ class _AddMealsScreenState extends State<AddMealsScreen> {
   FirebaseDataModelClass? userData;
   bool _isloading = true;
 
-  // ✅ Local map to store added foods by meal type
-  Map<String, List<Map<String, dynamic>>> selectedFoodsByMeal = {
+  Map<String, List<FoodModel>> selectedFoodsByMeal = {
     "Breakfast": [],
     "Lunch": [],
     "Dinner": [],
   };
 
-  // ✅ Search query
   String searchQuery = "";
 
   @override
@@ -37,7 +35,7 @@ class _AddMealsScreenState extends State<AddMealsScreen> {
   }
 
   Future<void> loadUserData() async {
-    final userId = FirebaseAuth.instance.currentUser?.uid;
+    final userId = "3UCi7hE0jHNl79r7dIzA3wl0D083";
     try {
       final doc =
       await FirebaseFirestore.instance.collection("Users").doc(userId).get();
@@ -45,12 +43,9 @@ class _AddMealsScreenState extends State<AddMealsScreen> {
         setState(() {
           userData = FirebaseDataModelClass.fromJson(doc.data()!);
 
-          // ✅ Load previously saved foods from Firestore
-          if (doc.data()!.containsKey("userSelectedFood")) {
-            List<dynamic> savedFoods = doc["userSelectedFood"];
-            for (var food in savedFoods) {
-              selectedFoodsByMeal[food["mealType"]]
-                  ?.add(Map<String, dynamic>.from(food));
+          if (userData?.userSelectedFood != null) {
+            for (var food in userData!.userSelectedFood!) {
+              selectedFoodsByMeal[food.mealType ?? "Breakfast"]?.add(food);
             }
           }
 
@@ -62,8 +57,67 @@ class _AddMealsScreenState extends State<AddMealsScreen> {
         });
       }
     } catch (e) {
-      print("Error fetching user data: $e");
-      setState(() => _isloading = true);
+      debugPrint("Error fetching user data: $e");
+    }
+  }
+
+  Future<void> _addFood(FoodModel food) async {
+    final userId = "3UCi7hE0jHNl79r7dIzA3wl0D083";
+    if (userId == null) return;
+
+    try {
+      final docRef = FirebaseFirestore.instance.collection("Users").doc(userId);
+      final snapshot = await docRef.get();
+
+      List<FoodModel> updatedFoods = [];
+      if (snapshot.exists && snapshot.data()!.containsKey("userSelectedFood")) {
+        updatedFoods = (snapshot["userSelectedFood"] as List<dynamic>)
+            .map((f) => FoodModel.fromMap(f))
+            .toList();
+      }
+
+      updatedFoods.add(food);
+
+      await docRef.update({
+        "userSelectedFood": updatedFoods.map((f) => f.toJson()).toList(),
+      });
+
+      setState(() {
+        selectedFoodsByMeal[food.mealType ?? "Breakfast"]?.add(food);
+      });
+    } catch (e) {
+      debugPrint("Error adding food: $e");
+    }
+  }
+
+  Future<void> _deleteFood(FoodModel food) async {
+    final userId = "3UCi7hE0jHNl79r7dIzA3wl0D083";
+    if (userId == null) return;
+
+    try {
+      final docRef = FirebaseFirestore.instance.collection("Users").doc(userId);
+      final snapshot = await docRef.get();
+
+      if (!snapshot.exists) return;
+
+      List<FoodModel> updatedFoods = (snapshot["userSelectedFood"] as List<dynamic>)
+          .map((f) => FoodModel.fromMap(f))
+          .toList();
+
+      updatedFoods.removeWhere((f) =>
+      f.foodName == food.foodName &&
+          f.mealType == food.mealType &&
+          f.consumptions.first.date == food.consumptions.first.date);
+
+      await docRef.update({
+        "userSelectedFood": updatedFoods.map((f) => f.toJson()).toList(),
+      });
+
+      setState(() {
+        selectedFoodsByMeal[food.mealType ?? "Breakfast"]?.remove(food);
+      });
+    } catch (e) {
+      debugPrint("Error deleting food: $e");
     }
   }
 
@@ -83,7 +137,6 @@ class _AddMealsScreenState extends State<AddMealsScreen> {
 
     final foods = userData!.assignedFoods ?? [];
 
-    // ✅ Filter foods by search query
     final filteredFoods = foods
         .where((food) =>
         food.foodName.toLowerCase().contains(searchQuery.toLowerCase()))
@@ -102,10 +155,10 @@ class _AddMealsScreenState extends State<AddMealsScreen> {
               Row(
                 children: [
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () => Navigator.pop(context),
                     icon: const Icon(Icons.arrow_back_ios),
                   ),
-                  const SizedBox(width: 100),
+                  const Spacer(),
                   const Text(
                     "Add Meals",
                     style: TextStyle(
@@ -114,19 +167,16 @@ class _AddMealsScreenState extends State<AddMealsScreen> {
                       color: Colors.black,
                     ),
                   ),
+                  const Spacer(),
                 ],
               ),
               const SizedBox(height: 20),
               Row(
                 children: [
-                  // 🔍 Search field
                   Expanded(
                     child: TextField(
-                      onChanged: (value) {
-                        setState(() {
-                          searchQuery = value;
-                        });
-                      },
+                      onChanged: (value) =>
+                          setState(() => searchQuery = value),
                       decoration: InputDecoration(
                         prefixIcon: const Icon(
                           Icons.search,
@@ -145,7 +195,6 @@ class _AddMealsScreenState extends State<AddMealsScreen> {
                     ),
                   ),
                   const SizedBox(width: 20),
-                  // 🍽️ Dropdown container
                   Container(
                     width: 145,
                     padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -187,7 +236,6 @@ class _AddMealsScreenState extends State<AddMealsScreen> {
               ),
               const SizedBox(height: 30),
 
-              // ✅ Summary section for selected meal
               if (selectedFoodsByMeal[selectedMealType]!.isNotEmpty) ...[
                 Text(
                   selectedMealType,
@@ -199,169 +247,68 @@ class _AddMealsScreenState extends State<AddMealsScreen> {
                 ),
                 const SizedBox(height: 10),
 
-                SizedBox(
-                  child: GridView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: selectedFoodsByMeal[selectedMealType]!
+                GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: selectedFoodsByMeal[selectedMealType]!
+                      .where((food) {
+                    final entryDate =
+                        DateTime.tryParse(food.consumptions.first.date) ??
+                            DateTime.now();
+                    final now = DateTime.now();
+                    return entryDate.year == now.year &&
+                        entryDate.month == now.month &&
+                        entryDate.day == now.day;
+                  }).length,
+                  gridDelegate:
+                  const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                    childAspectRatio: 3,
+                  ),
+                  itemBuilder: (context, index) {
+                    final todayFoods =
+                    selectedFoodsByMeal[selectedMealType]!
                         .where((food) {
-                      // ✅ Filter by today's date
-                      if (food["consumptions"] == null ||
-                          food["consumptions"].isEmpty) {
-                        return false;
-                      }
-                      DateTime entryDate =
-                          DateTime.tryParse(food["consumptions"][0]
-                          ["date"]) ??
-                              DateTime.now();
-                      DateTime now = DateTime.now();
-
+                      final entryDate = DateTime.tryParse(
+                          food.consumptions.first.date) ??
+                          DateTime.now();
+                      final now = DateTime.now();
                       return entryDate.year == now.year &&
                           entryDate.month == now.month &&
                           entryDate.day == now.day;
-                    }).length,
-                    gridDelegate:
-                    const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2, // ✅ 2 per row
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10,
-                      childAspectRatio: 3, // ✅ Adjust height/width ratio
-                    ),
-                    itemBuilder: (context, index) {
-                      final todayFoods =
-                      selectedFoodsByMeal[selectedMealType]!
-                          .where((food) {
-                        if (food["consumptions"] == null ||
-                            food["consumptions"].isEmpty) {
-                          return false;
-                        }
-                        DateTime entryDate = DateTime.tryParse(
-                            food["consumptions"][0]["date"]) ??
-                            DateTime.now();
-                        DateTime now = DateTime.now();
+                    }).toList();
 
-                        return entryDate.year == now.year &&
-                            entryDate.month == now.month &&
-                            entryDate.day == now.day;
-                      }).toList();
+                    final food = todayFoods[index];
+                    final qty =
+                        int.tryParse(food.consumptions.first.foodQuantity) ??
+                            1;
+                    final kcal = int.tryParse(food.calories) ?? 0;
+                    final totalKcal = qty * kcal;
 
-                      final food = todayFoods[index];
-
-                      int qty = int.tryParse(food["consumptions"][0]
-                      ["foodQuantity"]
-                          .toString()) ??
-                          1;
-                      int kcal =
-                          int.tryParse(food["caloriesPerServing"].toString()) ??
-                              0;
-                      int totalKcal = qty * kcal;
-
-                      return Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: Color(0xFFF5F5F5),
-                          borderRadius: BorderRadius.circular(16),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.1),
-                              blurRadius: 5,
-                              spreadRadius: 1,
-                            )
-                          ],
-                        ),
-                        child: Row(
-                          children: [
-                            SvgPicture.asset(
-                              'assets/images/Rectangleimage.svg',
-                              width: 35,
-                              height: 35,
-                            ),
-                            SizedBox(width: 5),
-                            // Food info
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment:
-                                CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    food["foodName"],
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 14),
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                  Text(
-                                    "$totalKcal Kcal",
-                                    style: const TextStyle(
-                                        fontSize: 12,
-                                        color: Colors.black54),
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                            // 🔴 Quantity circle
-                            Container(
-                              padding: const EdgeInsets.all(6),
-                              decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.red,
-                              ),
-                              child: Text(
-                                qty.toString(),
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-
-                            const SizedBox(width: 6),
-
-                            // ❌ Delete button
-                            InkWell(
-                              onTap: () async {
-                                try {
-                                  await FirebaseFirestore.instance
-                                      .collection("Users")
-                                      .doc(
-                                      FirebaseAuth.instance.currentUser?.uid)
-                                      .update({
-                                    "userSelectedFood":
-                                    FieldValue.arrayRemove([food]),
-                                  });
-
-                                  setState(() {
-                                    selectedFoodsByMeal[selectedMealType]!
-                                        .remove(food);
-                                  });
-                                } catch (e) {
-                                  print("Error deleting food: $e");
-                                }
-                              },
-                              child: const Icon(Icons.close,
-                                  color: Colors.red, size: 18),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
+                    return SummaryMealsTile(
+                      itemName: food.foodName,
+                      kcal: totalKcal.toString(),
+                      qty: qty,
+                      width: MediaQuery.of(context).size.width * 0.45,
+                      onDelete: () => _deleteFood(food),
+                    );
+                  },
                 ),
                 const SizedBox(height: 20),
               ],
 
-              Text(
+              const Text(
                 "Items",
                 style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
               ),
               const SizedBox(height: 20),
 
-              // ✅ Assigned foods list (filtered by search)
               ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
@@ -369,52 +316,39 @@ class _AddMealsScreenState extends State<AddMealsScreen> {
                 itemBuilder: (context, index) {
                   final food = filteredFoods[index];
                   return AddMealsTile(
-                    itemName: food.foodName.isNotEmpty
-                        ? food.foodName
-                        : "Unknown",
+                    itemName:
+                    food.foodName.isNotEmpty ? food.foodName : "Unknown",
                     subtitle: food.quantity ?? "No quantity",
                     kcal: food.calories,
-                    onAdd: (qty) async {
-                      final consumptionEntry = {
-                        "date": DateTime.now().toIso8601String(),
-                        "foodQuantity": qty.toString(),
-                      };
-                      final updatedFood = {
-                        "mealType": selectedMealType,
-                        "foodName": food.foodName,
-                        "caloriesPerServing": food.calories,
-                        "consumptions": [consumptionEntry],
-                      };
-
-                      try {
-                        await FirebaseFirestore.instance
-                            .collection("Users")
-                            .doc( FirebaseAuth.instance.currentUser?.uid)
-                            .update({
-                          "userSelectedFood":
-                          FieldValue.arrayUnion([updatedFood]),
-                        });
-
-                        setState(() {
-                          selectedFoodsByMeal[selectedMealType]!
-                              .add(updatedFood);
-                        });
-                      } catch (e) {
-                        print("Error : not updated");
-                      }
+                    onAdd: (qty) {
+                      final consumptionEntry = ConsumptionEntry(
+                        date: DateTime.now().toIso8601String(),
+                        foodQuantity: qty.toString(),
+                        mealType: selectedMealType,
+                      );
+                      final updatedFood = FoodModel(
+                        foodName: food.foodName,
+                        calories: food.calories,
+                        foodDescription: food.foodDescription,
+                        mealType: selectedMealType,
+                        quantity: food.quantity,
+                        consumptions: [consumptionEntry],
+                      );
+                      _addFood(updatedFood);
                     },
                   );
                 },
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               InkWell(
                 onTap: () {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => MealsHistoryScreen()));
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => MealsHistoryScreen()),
+                  );
                 },
-                child: Center(child: const Text("Meals History")),
+                child: const Center(child: Text("Meals History")),
               ),
             ],
           ),

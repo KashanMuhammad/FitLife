@@ -29,7 +29,7 @@ class _FitlifeSplashScreenState extends State<FitlifeSplashScreen> with SingleTi
     );
     _controller.forward();
     Future.delayed(Duration(seconds: 5), (){
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> MainScreen())  );
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> LoginScreen())  );
     });
   }
   @override

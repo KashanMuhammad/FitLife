@@ -1,4 +1,5 @@
 
+import 'package:fitlife_app/add_meals_screen.dart';
 import 'package:fitlife_app/custom%20widgets/custom_list_tile.dart';
 import 'package:fitlife_app/custom%20widgets/custom_text.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 class HomeScreen extends ConsumerWidget {
-   HomeScreen({super.key});
+  HomeScreen({super.key});
 
   final List<String> todaysMeal = ['Bred', 'Lunch', 'Dinner'];
 
@@ -18,7 +19,9 @@ class HomeScreen extends ConsumerWidget {
   final List<String> fasting = ['Fasting'];
 
   String getGreeting() {
-    final hour = DateTime.now().hour;
+    final hour = DateTime
+        .now()
+        .hour;
 
     if (hour >= 5 && hour < 12) {
       return 'Good Morning';
@@ -33,8 +36,10 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-   // final userAsync= ref.watch();
-    final screenSize = MediaQuery.of(context).size;
+    // final userAsync= ref.watch();
+    final screenSize = MediaQuery
+        .of(context)
+        .size;
 
     return Scaffold(
       floatingActionButton: Container(
@@ -49,7 +54,10 @@ class HomeScreen extends ConsumerWidget {
           ),
         ),
         child: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => AddMealsScreen()));
+          },
           backgroundColor: Colors.transparent,
           elevation: 0,
           child: Icon(Icons.add),
@@ -90,7 +98,7 @@ class HomeScreen extends ConsumerWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                               getGreeting(),
+                                getGreeting(),
                                 style: TextStyle(
                                   fontSize: 18,
                                   color: Colors.black,
@@ -243,71 +251,87 @@ class HomeScreen extends ConsumerWidget {
   }
 
   Padding buildCaloriesGraph(Size screenSize) {
+    // Proportional height with max cap
+    double containerHeight = screenSize.height * 0.32;
+    if (containerHeight > 320) containerHeight = 320;
+
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
       child: Container(
-        height: screenSize.height * 0.30,
-        width: screenSize.width,
+        height: containerHeight,
+        width: double.infinity,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
           color: Color(0xFFE9FDE3),
         ),
-        child: Column(
-          children: [
-            SizedBox(height: 100),
-            Expanded(
-              child: SfRadialGauge(
-                axes: <RadialAxis>[
-                  RadialAxis(
-                    axisLineStyle: AxisLineStyle(
-                      cornerStyle: CornerStyle.bothCurve,
-                      thickness: 12,
-                    ),
-                    minimum: 0,
-                    maximum: 4000,
-                    showLabels: false,
-                    showTicks: false,
-                    startAngle: 180,
-                    endAngle: 0,
-                    radiusFactor:  2.5,
-
-                    ranges: <GaugeRange>[
-                      GaugeRange(
-                        startValue: 0,
-                        endValue: 2000,
-                        gradient: SweepGradient(
-                          colors: [Color(0xFF5AFF15), Color(0xFF00B712)],
-                        ),
-                        startWidth: 12,
-                        endWidth: 12,
-                      ),
-                    ],
-                    annotations: <GaugeAnnotation>[
-                      GaugeAnnotation(
-                        widget: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Image.asset(
-                              "assets/images/Fire.png",
-                              height: 65,
-                              width: 65,
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            return Column(
+              children: [
+                Spacer(flex: 2), // pushes the gauge down
+                Expanded(
+                  flex: 2,
+                  child: SfRadialGauge(
+                    axes: [
+                      RadialAxis(
+                        minimum: 0,
+                        maximum: 4000,
+                        showLabels: false,
+                        showTicks: false,
+                        startAngle: 180,
+                        endAngle: 0,
+                        radiusFactor: 2.5,
+                        ranges: [
+                          GaugeRange(
+                            startValue: 0,
+                            endValue: 2000,
+                            gradient: SweepGradient(
+                              colors: [Color(0xFF5AFF15), Color(0xFF00B712)],
                             ),
-                            SizedBox(height: 8),
-                            Text("Calories"),
-                            Text('1200 kcal'),
-                          ],
-                        ),
-                        angle: 90,
-                        positionFactor: 0,
+                            startWidth: 12,
+                            endWidth: 12,
+                          ),
+                        ],
+                        annotations: [
+                          GaugeAnnotation(
+                            widget: FittedBox(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Image.asset(
+                                    "assets/images/Fire.png",
+                                    height: constraints.maxHeight * 0.17,
+                                    width: constraints.maxHeight * 0.17,
+                                  ),
+                                  SizedBox(height: 4),
+                                  Text(
+                                    "Calories",
+                                    style: TextStyle(
+                                      fontSize: constraints.maxHeight * 0.07,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    "1200 kcal",
+                                    style: TextStyle(
+                                      fontSize: constraints.maxHeight * 0.07,
+                                      color: Colors.black54,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            angle: 90,
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ],
-              ),
-            ),
-          ],
+                ),
+                 // optional, adds a little space below
+              ],
+            );
+          },
         ),
       ),
     );

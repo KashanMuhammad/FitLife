@@ -27,7 +27,7 @@ void main() async {
  // await FirebaseAuth.instance.setPersistence(Persistence.LOCAL);
   runApp(
     MaterialApp(
-      home:AddMealsScreen() ,
+      home:FitlifeSplashScreen() ,
       debugShowCheckedModeBanner: false,
     ),
   );

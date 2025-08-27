@@ -5,14 +5,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared/user_0nboarding_data_model_class.dart';
-
 import 'dashboard.dart';
-import 'main.dart';
+
 
 class UploadDietScreen extends StatefulWidget {
+  final String? dietId;
   final Map<String, dynamic>? dietData;
 
-  const UploadDietScreen({super.key, this.dietData});
+  const UploadDietScreen({super.key, this.dietData, this.dietId});
 
   @override
   State<UploadDietScreen> createState() => _UploadDietScreenState();
@@ -53,33 +53,37 @@ class _UploadDietScreenState extends State<UploadDietScreen> {
   void initState() {
     super.initState();
     loadFoodNames();
+
     if (widget.dietData != null) {
       final data = widget.dietData!;
+
       dietTitleController.text = data['dietTitle'] ?? '';
       dietDescription.text = data['dietDescription'] ?? '';
-      selectedMealType = data['mealType'] ?? '';
       dayController.text = data['day'] ?? '';
       timeController.text = data['timeToEat'] ?? '';
-      selectedFood = data['foodList'] ?? '';
       durationController.text = data['duration'] ?? '';
-      selectedMealSuitability = data['mealSuitability'] ?? '';
-      selectedMealTags = data['mealTag'] ?? '';
-      if (data['image'] != null && data['image'] != '') {
-        _image = XFile(data['image']);
-      }
       nameController.text = data['createdBy'] ?? '';
-      timeStampController.text = data['createdTime'] ?? '';
-      if (mealType.contains(data['mealType'])) {
-        selectedMealType = data['mealType'];
+      timeStampController.text = data['createdAt'] ?? ''; // 🔹 check key spelling!
+
+      // ✅ Fix: Match keys exactly as stored in Firestore
+      selectedMealType = data['selectedMealType'];
+      selectedMealSuitability = data['suitableFor'];
+      selectedMealTags = data['tag'];
+
+      // ✅ Restore selected food list
+      if (data['listOfFood'] != null) {
+        selectedFoods = List<String>.from(data['listOfFood']);
       }
-      if (mealSuitability.contains(data['mealSuitability'])) {
-        selectedMealSuitability = data['mealSuitability'];
-      }
-      if (mealTags.contains(data['mealTag'])) {
-        selectedMealTags = data['mealTag'];
+
+      // ⚠️ Image handling (if URL saved in Firestore)
+      if (data['image'] != null && data['image'].toString().isNotEmpty) {
+        _image = XFile(data['image']);
       }
     }
   }
+
+
+
 
   // Future<void> loadFoodNames() async {
   //   final names = await fetchFoodNames();
@@ -97,11 +101,11 @@ class _UploadDietScreenState extends State<UploadDietScreen> {
   Future<void> loadFoodNames() async {
     final snapshot = await FirebaseFirestore.instance.collection('food').get();
     final foodList =
-        snapshot.docs.map((doc) {
-          final data = doc.data();
-          data['id'] = doc.id;
-          return data;
-        }).toList();
+    snapshot.docs.map((doc) {
+      final data = doc.data();
+      data['id'] = doc.id;
+      return data;
+    }).toList();
 
     setState(() {
       allFoods = foodList;
@@ -151,6 +155,7 @@ class _UploadDietScreenState extends State<UploadDietScreen> {
                   onChanged: (value) {
                     setState(() {
                       selectedMealType = value;
+
                     });
                   },
                 ),
@@ -316,16 +321,16 @@ class _UploadDietScreenState extends State<UploadDietScreen> {
                     if (_image != null)
                       kIsWeb
                           ? Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black, width: 3),
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            child: Image.network(
-                              _image!.path,
-                              height: 300,
-                              width: 500,
-                            ),
-                          )
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black, width: 3),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: Image.network(
+                          _image!.path,
+                          height: 300,
+                          width: 500,
+                        ),
+                      )
                           : Image.file(File(_image!.path)),
                   ],
                 ),

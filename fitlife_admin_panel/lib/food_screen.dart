@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fitlife_admin_panel/upload_food_screen.dart';
 import 'package:flutter/material.dart';
-
 import 'main.dart';
 
 class FoodScreen extends StatefulWidget {

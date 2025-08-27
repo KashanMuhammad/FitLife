@@ -6,9 +6,10 @@ import 'package:image_picker/image_picker.dart';
 import 'package:shared/user_0nboarding_data_model_class.dart';
 
 class BlogFormScreen extends StatefulWidget {
+  final String? blogId;
   final Map<String, dynamic>? blogData;
 
-  const BlogFormScreen({super.key, this.blogData});
+  const BlogFormScreen({super.key, this.blogData, this.blogId});
 
   @override
   State<BlogFormScreen> createState() => _BlogFormScreenState();
@@ -35,6 +36,16 @@ class _BlogFormScreenState extends State<BlogFormScreen> {
   @override
   void initState() {
     super.initState();
+    if (widget.blogData != null) {
+      blogTitleController.text = widget.blogData!['blogTitle'] ?? '';
+      blogShortDescriptionController.text =
+          widget.blogData!['blogShortDescription'] ?? '';
+      blogFullContentController.text =
+          widget.blogData!['blogFullContent'] ?? '';
+      blogAuthorNameController.text =
+          widget.blogData!['blogAuthorName'] ?? '';
+      category = widget.blogData!['blogCategory'];
+    }
   }
 
   Future<void> _pickImage() async {
@@ -61,8 +72,8 @@ class _BlogFormScreenState extends State<BlogFormScreen> {
               TextFormField(
                 controller: blogTitleController,
                 decoration: InputDecoration(labelText: 'Blog Title'),
-                validator:
-                    (value) => value!.isEmpty ? 'Enter a blog title' : null,
+                validator: (value) =>
+                value!.isEmpty ? 'Enter a blog title' : null,
               ),
               SizedBox(height: 12),
 
@@ -81,101 +92,84 @@ class _BlogFormScreenState extends State<BlogFormScreen> {
               ),
               SizedBox(height: 12),
 
-              // Category
-              SizedBox(height: 12),
-
               // Author
               TextFormField(
                 controller: blogAuthorNameController,
                 decoration: InputDecoration(labelText: 'Author Name'),
               ),
               SizedBox(height: 12),
+
+              // Category
               DropdownButtonFormField<String>(
                 value: category,
                 decoration: InputDecoration(labelText: 'Category'),
-                items:
-                    categories
-                        .map(
-                          (cat) =>
-                              DropdownMenuItem(value: cat, child: Text(cat)),
-                        )
-                        .toList(),
+                items: categories
+                    .map((cat) =>
+                    DropdownMenuItem(value: cat, child: Text(cat)))
+                    .toList(),
                 onChanged: (value) {
                   setState(() {
                     category = value;
                   });
                 },
-                validator:
-                    (value) =>
-                        value == null ? 'Please select a category' : null,
+                validator: (value) =>
+                value == null ? 'Please select a category' : null,
               ),
               SizedBox(height: 12),
+
               // Image picker
               Row(
                 children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [Color(0xFF5AFF15), Color(0xFF00B712)],
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.transparent,
-                        shadowColor: Colors.transparent,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                      onPressed: _pickImage,
-                      child: Text('Pick Image'),
-                    ),
+                  ElevatedButton(
+                    onPressed: _pickImage,
+                    child: Text('Pick Image'),
                   ),
-                  SizedBox(width: 45),
+                  SizedBox(width: 20),
                   if (_image != null)
                     kIsWeb
-                        ? Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(width: 3),
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Image.network(
-                            _image!.path,
-                            height: 300,
-                            width: 500,
-                          ),
-                        )
-                        : Image.file(File(_image!.path)),
+                        ? Image.network(_image!.path,
+                        height: 150, width: 150, fit: BoxFit.cover)
+                        : Image.file(File(_image!.path),
+                        height: 150, width: 150, fit: BoxFit.cover),
                 ],
               ),
-              Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Color(0xFF5AFF15), Color(0xFF00B712)],
-                  ),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.transparent,
-                    shadowColor: Colors.transparent,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  onPressed: () {
-                    final blog = FirebaseDataModelClass(
-                      blogTitle: blogTitleController.text,
-                      blogShortDescription: blogShortDescriptionController.text,
-                      blogFullContent: blogFullContentController.text,
-                      blogAuthorName: blogAuthorNameController.text,
-                      blogCategory: category,
-                    );
-                    FirebaseFirestore.instance.collection('blogs').doc().set(blog.toJson());
-                  },
-                  child: Text("ADD BLOG"),
-                ),
+
+              SizedBox(height: 20),
+
+              ElevatedButton(
+                onPressed: () async {
+                  if (!_formKey.currentState!.validate()) return;
+
+                  final blog = FirebaseDataModelClass(
+                    blogTitle: blogTitleController.text,
+                    blogShortDescription: blogShortDescriptionController.text,
+                    blogFullContent: blogFullContentController.text,
+                    blogAuthorName: blogAuthorNameController.text,
+                    blogCategory: category,
+                  );
+
+                  final blogData = blog.toJson();
+
+                  if (widget.blogId == null) {
+                    // Create new blog
+                    await FirebaseFirestore.instance
+                        .collection('blogs')
+                        .add(blogData);
+                  } else {
+                    // Update existing blog
+                    await FirebaseFirestore.instance
+                        .collection('blogs')
+                        .doc(widget.blogId)
+                        .update(blogData);
+                  }
+
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("Blog Saved Successfully")),
+                  );
+
+                  // Navigator.pop(context);
+                },
+                child: Text(widget.blogId == null ? "ADD BLOG" : "UPDATE BLOG"),
               ),
             ],
           ),

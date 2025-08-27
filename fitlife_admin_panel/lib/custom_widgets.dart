@@ -39,11 +39,10 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
 
 
 
-class CustomDropdown extends StatefulWidget {
+class CustomDropdown extends StatelessWidget {
   final List<String> items;
   final String hintText;
   final Function(String?) onChanged;
-  final String? initialValue;
   final String? value;
 
   const CustomDropdown({
@@ -51,52 +50,33 @@ class CustomDropdown extends StatefulWidget {
     required this.items,
     required this.hintText,
     required this.onChanged,
-    this.initialValue,
-    this.value
+    this.value,
   });
 
   @override
-  State<CustomDropdown> createState() => _CustomDropdownState();
-}
-
-class _CustomDropdownState extends State<CustomDropdown> {
-  String? selectedValue;
-
-  @override
-  void initState() {
-    super.initState();
-    selectedValue = widget.initialValue;
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return DropdownButtonFormField2<String>(
-      value: selectedValue,
+    return DropdownButtonFormField<String>(
+      value: value, // 👈 directly uses the passed-in value
       isExpanded: true,
-      hint: Text(widget.hintText, style: const TextStyle(fontSize: 14)),
       decoration: InputDecoration(
-        contentPadding: const EdgeInsets.symmetric(vertical: 16),
+        contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(12),
         ),
       ),
-      items: widget.items.map((item) {
+      hint: Text(
+        hintText,
+        style: const TextStyle(fontSize: 14),
+      ),
+      items: items.map((item) {
         return DropdownMenuItem<String>(
           value: item,
           child: Text(item),
         );
       }).toList(),
-      onChanged: (value) {
-        setState(() {
-          selectedValue = value;
-        });
-        widget.onChanged(value);
-      },
-      dropdownStyleData: DropdownStyleData(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-        ),
-      ),
+      onChanged: onChanged,
     );
   }
 }
+
+

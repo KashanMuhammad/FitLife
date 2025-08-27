@@ -180,14 +180,13 @@ validator: (value) {
       final userId = credential.user?.uid ?? '';
 
       final userData = FirebaseDataModelClass(
-        userId: userId,
         email: email,
         password: password,
         username: name,
       );
 
       try {
-        await FirebaseFirestore.instance.collection('Users').doc(userId).set(userData.toJson());
+        await FirebaseFirestore.instance.collection('Khan').doc(userId).set(userData.toJson());
       } catch (e) {
         print('Firestore error: $e');
         showSnackbar(context, 'Failed to save data to Firestore.');

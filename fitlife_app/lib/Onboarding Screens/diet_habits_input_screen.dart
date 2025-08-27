@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shared/user_0nboarding_data_model_class.dart';
 
 import '../custom widgets/custom_inkwell.dart';
 import 'health_issues_input_screen.dart';
@@ -124,15 +125,19 @@ class _DietHabitsInputScreenState extends State<DietHabitsInputScreen> {
     return Center(
       child: InkWell(
         onTap: () async {
-          final user = FirebaseAuth.instance.currentUser;
-          if (user != null) {
+          final userId = FirebaseAuth.instance.currentUser;
+          if (userId != null) {
             String selectedDietHabit = options[selectedIndex];
 
             try {
+              final userModel=FirebaseDataModelClass(
+
+                selectedDietHabits: [selectedDietHabit]
+              );
               await FirebaseFirestore.instance
-                  .collection('Users')
-                  .doc(user.uid)
-                  .update({'selectedDietHabits': selectedDietHabit});
+                  .collection('Khan')
+                  .doc(userId.uid)
+                  .update(userModel.toJson());
 
               Navigator.push(
                 context,

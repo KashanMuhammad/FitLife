@@ -26,13 +26,14 @@ class _UserAndProfileScreenState extends State<UserAndProfileScreen> {
 
   Future<void> _fetchUserName() async {
     try {
-      final currentUser = FirebaseAuth.instance.currentUser;
-      if (currentUser != null) {
+      final currentUser = FirebaseAuth.instance.currentUser!.uid;
+      if (currentUser.isNotEmpty) {
         final doc = await FirebaseFirestore.instance
-            .collection('users')
-            .doc(currentUser.uid)
+            .collection('Users')
+            .doc(currentUser)
             .get();
-
+        print("Document exists: ${doc.exists}");
+        print("Document data: ${doc.data()}");
         if (doc.exists) {
           setState(() {
             userModel = FirebaseDataModelClass.fromJson(doc.data()!);

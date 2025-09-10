@@ -102,10 +102,11 @@ class FirebaseDataModelClass {
     data['password'] = password;
     data['username'] = username;
     data['gender'] = gender;
-    data['height'] = height;
+    data['heightValue'] = height;
     data['heightUnit'] = heightUnit;
-    data['weight'] = weight;
+    data['weightValue'] = weight;
     data['weightUnit'] = weightUnit;
+
     if (dateOfBirth != null) {
       data['dateOfBirth'] = dateOfBirth!.toIso8601String();
     }
@@ -165,10 +166,18 @@ class FirebaseDataModelClass {
       password: json['password'] as String?,
       username: json['username'] as String?,
       gender: json['gender'] as String?,
-      height: (json['height'] as num?)?.toDouble(),
+      height: json['height'] != null
+          ? double.tryParse(json['height'].toString())
+          : (json['heightValue'] != null ? double.tryParse(json['heightValue'].toString()) : null),
+
       heightUnit: json['heightUnit'] as String?,
-      weight: (json['weight'] as num?)?.toDouble(),
+
+      weight: json['weight'] != null
+          ? double.tryParse(json['weight'].toString())
+          : (json['weightValue'] != null ? double.tryParse(json['weightValue'].toString()) : null),
+
       weightUnit: json['weightUnit'] as String?,
+
       dateOfBirth: json['dateOfBirth'] != null
           ? DateTime.tryParse(json['dateOfBirth'])
           : null,

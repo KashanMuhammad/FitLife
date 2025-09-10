@@ -4,10 +4,12 @@ class FirebaseDataModelClass {
   final String? email;
   final String? password;
   final String? gender;
-  final double? height;
-  final String? heightUnit;
-  final double? weight;
-  final String? weightUnit;
+
+  final double? height;     // numeric value
+  final String? heightUnit; // cm, ft_in
+  final double? weight;     // numeric value
+  final String? weightUnit; // kg, lbs
+
   final DateTime? dateOfBirth;
   final List<String>? selectedDietHabits;
   final List<String>? selectedHealthIssues;
@@ -144,8 +146,7 @@ class FirebaseDataModelClass {
     data['blogAuthorName'] = blogAuthorName;
 
     if (assignedFoods != null) {
-      data['assignedFoods'] =
-          assignedFoods!.map((f) => f.toJson()).toList();
+      data['assignedFoods'] = assignedFoods!.map((f) => f.toJson()).toList();
     }
 
     return data;
@@ -166,16 +167,15 @@ class FirebaseDataModelClass {
       password: json['password'] as String?,
       username: json['username'] as String?,
       gender: json['gender'] as String?,
-      height: json['height'] != null
-          ? double.tryParse(json['height'].toString())
-          : (json['heightValue'] != null ? double.tryParse(json['heightValue'].toString()) : null),
 
+      height: json['heightValue'] != null
+          ? (json['heightValue'] as num).toDouble()
+          : (json['height'] != null ? (json['height'] as num).toDouble() : null),
       heightUnit: json['heightUnit'] as String?,
 
-      weight: json['weight'] != null
-          ? double.tryParse(json['weight'].toString())
-          : (json['weightValue'] != null ? double.tryParse(json['weightValue'].toString()) : null),
-
+      weight: json['weightValue'] != null
+          ? (json['weightValue'] as num).toDouble()
+          : (json['weight'] != null ? (json['weight'] as num).toDouble() : null),
       weightUnit: json['weightUnit'] as String?,
 
       dateOfBirth: json['dateOfBirth'] != null
@@ -218,7 +218,15 @@ class FirebaseDataModelClass {
           .toList(),
     );
   }
+
+  // ✅ Helpers for UI
+  String get formattedHeight =>
+      height != null && heightUnit != null ? "$height $heightUnit" : "";
+
+  String get formattedWeight =>
+      weight != null && weightUnit != null ? "$weight $weightUnit" : "";
 }
+
 
 
 

@@ -52,8 +52,7 @@ String? emailValidator(String? value) {
 // Username validator
 String? usernameValidator(String? value) {
   if (value == null || value.isEmpty) return 'Username is required';
-  final regex = RegExp(r'^[a-zA-Z0-9_]{3,20}$');
-  if (!regex.hasMatch(value)) return 'Enter a valid username (3-20 chars)';
+
   return null;
 }
 

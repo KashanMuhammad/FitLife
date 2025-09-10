@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared/user_0nboarding_data_model_class.dart';
 
 import 'custom widgets/build_textformfield.dart';
 
@@ -12,6 +12,8 @@ class UpdateProfileScreen extends StatefulWidget {
 }
 
 class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
+  FirebaseDataModelClass? userModel;
+
   TextEditingController usernameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController dateofbirthController = TextEditingController();
@@ -22,52 +24,112 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  static const String uid = "3UCi7hE0jHNl79r7dIzA3wl0D083";
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUserData();
+  }
+
+  /// 🔹 Fetch user data and fill controllers
+  Future<void> fetchUserData() async {
+    final doc =
+    await FirebaseFirestore.instance.collection('Users').doc(uid).get();
+
+    if (doc.exists) {
+      userModel = FirebaseDataModelClass.fromJson(doc.data()!);
+
+      setState(() {
+        usernameController.text = userModel?.username ?? '';
+        emailController.text = userModel?.email ?? '';
+        genderController.text = userModel?.gender ?? '';
+        dateofbirthController.text = userModel?.dateOfBirth != null
+            ? userModel!.dateOfBirth!.toIso8601String().split("T")[0]
+            : '';
+
+        /// ✅ Show current weight with unit
+        if (userModel?.weight != null) {
+          currentWeightController.text = userModel!.weightUnit != null
+              ? "${userModel!.weight} ${userModel!.weightUnit}"
+              : "${userModel!.weight}";
+        }
+
+
+
+        /// ✅ Show height with unit
+        if (userModel?.height != null) {
+          heightController.text = userModel!.heightUnit != null
+              ? "${userModel!.height} ${userModel!.heightUnit}"
+              : "${userModel!.height}";
+        }
+      });
+    }
+  }
+
+  /// 🔹 Update user data (all fields)
   Future<void> updateUserData() async {
     if (!_formKey.currentState!.validate()) return;
 
-    final uid = FirebaseAuth.instance.currentUser?.uid;
-    if (uid != null) {
-      final dataToUpdate = <String, dynamic>{};
+    /// Split safely: [value, unit?]
+    List<String> heightParts = heightController.text.trim().split(" ");
+    List<String> weightParts = currentWeightController.text.trim().split(" ");
 
-      if (usernameController.text.trim().isNotEmpty) {
-        dataToUpdate['username'] = usernameController.text.trim();
-      }
-      if (emailController.text.trim().isNotEmpty) {
-        dataToUpdate['email'] = emailController.text.trim();
-      }
-      if (genderController.text.trim().isNotEmpty) {
-        dataToUpdate['gender'] = genderController.text.trim();
-      }
-      if (dateofbirthController.text.trim().isNotEmpty) {
-        dataToUpdate['dateOfBirth'] = dateofbirthController.text.trim();
-      }
-      if (currentWeightController.text.trim().isNotEmpty) {
-        dataToUpdate['weight'] =
-            double.tryParse(currentWeightController.text.trim()) ?? 0.0;
-      }
-      if (goalWeightController.text.trim().isNotEmpty) {
-        dataToUpdate['goalWeight'] =
-            double.tryParse(goalWeightController.text.trim()) ?? 0.0;
-      }
-      if (heightController.text.trim().isNotEmpty) {
-        dataToUpdate['height'] =
-            double.tryParse(heightController.text.trim()) ?? 0.0;
-      }
+    final updatedUser = FirebaseDataModelClass(
+      username: usernameController.text.trim().isNotEmpty
+          ? usernameController.text.trim()
+          : null,
+      email: emailController.text.trim().isNotEmpty
+          ? emailController.text.trim()
+          : null,
+      gender: genderController.text.trim().isNotEmpty
+          ? genderController.text.trim()
+          : null,
+      dateOfBirth: dateofbirthController.text.trim().isNotEmpty
+          ? DateTime.tryParse(dateofbirthController.text.trim())
+          : null,
 
-      if (dataToUpdate.isNotEmpty) {
-        await FirebaseFirestore.instance
-            .collection('users')
-            .doc(uid)
-            .update(dataToUpdate);
+      /// ✅ Current Weight
+      weight: weightParts.isNotEmpty ? double.tryParse(weightParts.first) : null,
+      weightUnit: weightParts.length > 1
+          ? weightParts.last
+          : userModel?.weightUnit, // keep old unit if missing
 
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Profile updated successfully')),
-        );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('No changes to update')),
-        );
+
+
+      /// ✅ Height
+      height: heightParts.isNotEmpty ? double.tryParse(heightParts.first) : null,
+      heightUnit: heightParts.length > 1
+          ? heightParts.last
+          : userModel?.heightUnit, // keep old unit if missing
+    );
+
+    final fullData = updatedUser.toJson();
+
+    // 🔹 remove nulls
+    final dataToUpdate = <String, dynamic>{};
+    fullData.forEach((key, value) {
+      if (value != null && value.toString().trim().isNotEmpty) {
+        dataToUpdate[key] = value;
       }
+    });
+
+    if (dataToUpdate.isNotEmpty) {
+      await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(uid)
+          .update(dataToUpdate);
+
+      /// ✅ Refresh controllers with latest updated values
+      await fetchUserData();
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Profile updated successfully')),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('No changes to update')),
+      );
     }
   }
 
@@ -119,26 +181,18 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                Text(
-                  "     Full Name",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
+                Text("     Full Name",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.black)),
                 BuildTextformfield(
                   controller: usernameController,
                   svgIconPath: 'assets/images/person.svg',
                   readOnly: false,
                   validator: usernameValidator,
                 ),
-                Text(
-                  "     Email",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
+                Text("     Email",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.black)),
                 BuildTextformfield(
                   controller: emailController,
                   svgIconPath: 'assets/images/mail.svg',
@@ -153,13 +207,10 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              "      Date of Birth",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                              ),
-                            ),
+                            Text("      Date of Birth",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black)),
                             BuildTextformfield(
                               controller: dateofbirthController,
                               svgIconPath: 'assets/images/Calender.svg',
@@ -173,13 +224,10 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              "     Gender",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                              ),
-                            ),
+                            Text("     Gender",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black)),
                             BuildTextformfield(
                               controller: genderController,
                               svgIconPath: 'assets/images/Gender.svg',
@@ -199,13 +247,10 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              "      Current Weight",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                              ),
-                            ),
+                            Text("      Current Weight",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black)),
                             BuildTextformfield(
                               controller: currentWeightController,
                               svgIconPath: 'assets/images/Weight.svg',
@@ -219,13 +264,10 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              "     Goal Weight",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                              ),
-                            ),
+                            Text("     Goal Weight",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black)),
                             BuildTextformfield(
                               controller: goalWeightController,
                               svgIconPath: 'assets/images/Weight.svg',
@@ -238,13 +280,9 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                     ],
                   ),
                 ),
-                Text(
-                  "       Height",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
+                Text("       Height",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.black)),
                 BuildTextformfield(
                   controller: heightController,
                   svgIconPath: 'assets/images/Height.svg',

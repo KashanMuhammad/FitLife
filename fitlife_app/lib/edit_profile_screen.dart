@@ -32,7 +32,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 
   Future<void> fetchUserData() async {
-    final uid = "3UCi7hE0jHNl79r7dIzA3wl0D083";
+    final uid = FirebaseAuth.instance.currentUser!.uid;
     print("Fetching user data for UID: $uid");
 
     if (uid.isNotEmpty) {

@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitlife_app/login_screen.dart';
 import 'package:fitlife_app/privacy_policy_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared/user_0nboarding_data_model_class.dart';
+import 'Onboarding Screens/SkipScreens.dart';
 import 'Onboarding Screens/user_name_screen.dart';
 import 'custom widgets/custom_textformfield.dart';
 
@@ -126,7 +128,9 @@ validator: (value) {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text("Already have an account?"),
-                    InkWell(onTap: () {}, child: const Text("Login", style: TextStyle(color: Colors.green))),
+                    InkWell(onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> LoginScreen()));
+                    }, child: const Text("Login", style: TextStyle(color: Colors.green))),
                   ],
                 ),
               ],
@@ -186,7 +190,7 @@ validator: (value) {
       );
 
       try {
-        await FirebaseFirestore.instance.collection('Khan').doc(userId).set(userData.toJson());
+        await FirebaseFirestore.instance.collection('Users').doc(userId).set(userData.toJson());
       } catch (e) {
         print('Firestore error: $e');
         showSnackbar(context, 'Failed to save data to Firestore.');
@@ -194,7 +198,7 @@ validator: (value) {
 
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const PrivacyPolicyScreen()),
+        MaterialPageRoute(builder: (context) => const SkipScreens()),
       );
     } on FirebaseAuthException catch (e) {
       String errorMessage;

@@ -1,4 +1,5 @@
 import 'package:fitlife_app/home_screen.dart';
+import 'package:fitlife_app/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -134,13 +135,13 @@ class _HealtIssuesInputScreenState extends State<HealthIssuesInputScreen> {
               selectedHealthIssues: [selectedHealthIssues]
             );
             await FirebaseFirestore.instance
-                .collection('Khan') // Make sure this matches your other screens
+                .collection('Users') // Make sure this matches your other screens
                 .doc(userId.uid)
                 .update(userModel.toJson());
 
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => MainScreen()),
+              MaterialPageRoute(builder: (context) => LoginScreen()),
             );
           } catch (e) {
             ScaffoldMessenger.of(context).showSnackBar(

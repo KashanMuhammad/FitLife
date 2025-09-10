@@ -28,7 +28,7 @@ void main() async {
  // await FirebaseAuth.instance.setPersistence(Persistence.LOCAL);
   runApp(
     MaterialApp(
-      home:EditProfileScreen() ,
+      home:FitlifeSplashScreen() ,
       debugShowCheckedModeBanner: false,
     ),
   );

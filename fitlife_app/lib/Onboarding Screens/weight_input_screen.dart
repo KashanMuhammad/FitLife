@@ -188,7 +188,7 @@ class _WeightInputScreenState extends State<WeightInputScreen> {
           weightUnit:weightUnit,
 
         );
-        await FirebaseFirestore.instance.collection('Khan').doc(userId).update(
+        await FirebaseFirestore.instance.collection('Users').doc(userId).update(
           userModel.toJson()
         );
       } catch (e) {

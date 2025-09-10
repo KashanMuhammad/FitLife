@@ -18,7 +18,7 @@ class OptionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox( // ✅ Constrains the height
-      height: 156, // You can adjust this height as needed
+      height: 150, // You can adjust this height as needed
         child: Card(
           color: backgroundColor,
           elevation: 3,
@@ -34,7 +34,7 @@ class OptionCard extends StatelessWidget {
                 children: [
                   Image.asset(imageAssetPath, height: 26, width: 26),
                   SizedBox(
-                    height: 40,
+                    height: 20,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -42,7 +42,7 @@ class OptionCard extends StatelessWidget {
                       Text(
                         title,
                         style: const TextStyle(
-                          fontSize: 18,
+                          fontSize: 15,
                           fontWeight: FontWeight.w500,
                           color: Colors.black, // You can adjust text color
                         ),

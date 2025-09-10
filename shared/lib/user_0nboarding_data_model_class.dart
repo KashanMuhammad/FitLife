@@ -95,58 +95,68 @@ class FirebaseDataModelClass {
     this.userSelectedFood,
   });
 
-  // ✅ Convert object to JSON
+  // ✅ Convert object to JSON (ignores nulls)
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = {};
 
-    data['userId'] = userId;
-    data['email'] = email;
-    data['password'] = password;
-    data['username'] = username;
-    data['gender'] = gender;
-    data['heightValue'] = height;
-    data['heightUnit'] = heightUnit;
-    data['weightValue'] = weight;
-    data['weightUnit'] = weightUnit;
+    void put(String key, dynamic value) {
+      if (value != null) data[key] = value;
+    }
+
+    put('userId', userId);
+    put('email', email);
+    put('password', password);
+    put('username', username);
+    put('gender', gender);
+
+    put('heightValue', height);
+    put('heightUnit', heightUnit);
+    put('weightValue', weight);
+    put('weightUnit', weightUnit);
 
     if (dateOfBirth != null) {
       data['dateOfBirth'] = dateOfBirth!.toIso8601String();
     }
-    data['selectedDietHabits'] = selectedDietHabits;
-    data['selectedHealthIssues'] = selectedHealthIssues;
-    data['privacyPolicyAccepted'] = privacyPolicyAccepted;
 
-    data['foodName'] = foodName;
-    data['foodDescription'] = foodDescription;
-    data['quantity'] = quantity;
-    data['selectedUnits'] = selectedUnits;
-    data['caloriesPerServing'] = caloriesPerServing;
-    data['protein'] = protein;
-    data['carbohydrates'] = carbohydrates;
-    data['fats'] = fats;
-    data['tag'] = tag;
-    data['selectedTag'] = selectedTag;
+    put('selectedDietHabits', selectedDietHabits);
+    put('selectedHealthIssues', selectedHealthIssues);
+    put('privacyPolicyAccepted', privacyPolicyAccepted);
 
-    data['dietTitle'] = dietTitle;
-    data['dietDescription'] = dietDescription;
-    data['selectedMealType'] = selectedMealType;
-    data['day'] = day;
-    data['timeToEat'] = timeToEat;
-    data['listOfFood'] = listOfFood;
-    data['duration'] = duration;
-    data['suitableFor'] = suitableFor;
-    data['dietTag'] = dietTag;
-    data['createdBy'] = createdBy;
-    data['createdAt'] = createdAt;
+    put('foodName', foodName);
+    put('foodDescription', foodDescription);
+    put('quantity', quantity);
+    put('selectedUnits', selectedUnits);
+    put('caloriesPerServing', caloriesPerServing);
+    put('protein', protein);
+    put('carbohydrates', carbohydrates);
+    put('fats', fats);
+    put('tag', tag);
+    put('selectedTag', selectedTag);
 
-    data['blogTitle'] = blogTitle;
-    data['blogShortDescription'] = blogShortDescription;
-    data['blogFullContent'] = blogFullContent;
-    data['blogCategory'] = blogCategory;
-    data['blogAuthorName'] = blogAuthorName;
+    put('dietTitle', dietTitle);
+    put('dietDescription', dietDescription);
+    put('selectedMealType', selectedMealType);
+    put('day', day);
+    put('timeToEat', timeToEat);
+    put('listOfFood', listOfFood);
+    put('duration', duration);
+    put('suitableFor', suitableFor);
+    put('dietTag', dietTag);
+    put('createdBy', createdBy);
+    put('createdAt', createdAt);
+
+    put('blogTitle', blogTitle);
+    put('blogShortDescription', blogShortDescription);
+    put('blogFullContent', blogFullContent);
+    put('blogCategory', blogCategory);
+    put('blogAuthorName', blogAuthorName);
 
     if (assignedFoods != null) {
       data['assignedFoods'] = assignedFoods!.map((f) => f.toJson()).toList();
+    }
+
+    if (userSelectedFood != null) {
+      data['userSelectedFood'] = userSelectedFood!.map((f) => f.toJson()).toList();
     }
 
     return data;
@@ -227,9 +237,6 @@ class FirebaseDataModelClass {
       weight != null && weightUnit != null ? "$weight $weightUnit" : "";
 }
 
-
-
-
 class FoodModel {
   final String foodName;
   final String calories;
@@ -265,11 +272,13 @@ class FoodModel {
       'foodName': foodName,
       'caloriesPerServing': calories,
       'foodDescription': foodDescription,
-      'mealType': mealType,
+      if (mealType != null) 'mealType': mealType,
+      if (quantity != null) 'quantity': quantity,
       'consumptions': consumptions.map((e) => e.toJson()).toList(),
     };
   }
 }
+
 class ConsumptionEntry {
   final String date;
   final String foodQuantity;
@@ -278,7 +287,7 @@ class ConsumptionEntry {
   ConsumptionEntry({
     required this.date,
     required this.foodQuantity,
-    required this.mealType
+    required this.mealType,
   });
 
   factory ConsumptionEntry.fromMap(Map<String, dynamic> data) {
@@ -297,4 +306,3 @@ class ConsumptionEntry {
     };
   }
 }
-

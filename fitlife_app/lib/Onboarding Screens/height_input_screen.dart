@@ -204,7 +204,7 @@ class _HeightInputScreenState extends State<HeightInputScreen> {
           height: heightValue.toDouble(),
           heightUnit: heightUnit
         );
-        await FirebaseFirestore.instance.collection('Khan').doc(userId).update(
+        await FirebaseFirestore.instance.collection('Users').doc(userId).update(
          userModel.toJson()
         );
         return true;

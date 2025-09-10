@@ -135,7 +135,7 @@ class _DietHabitsInputScreenState extends State<DietHabitsInputScreen> {
                 selectedDietHabits: [selectedDietHabit]
               );
               await FirebaseFirestore.instance
-                  .collection('Khan')
+                  .collection('Users')
                   .doc(userId.uid)
                   .update(userModel.toJson());
 

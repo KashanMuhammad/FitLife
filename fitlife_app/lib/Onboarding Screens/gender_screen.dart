@@ -101,7 +101,7 @@ class _GenderScreenState extends State<GenderScreen> {
             gender: selectedGender,
           );
           await FirebaseFirestore.instance
-              .collection('Khan')
+              .collection('Users')
               .doc(userId)
               .set(userModel.toJson(), SetOptions(merge: true));
 

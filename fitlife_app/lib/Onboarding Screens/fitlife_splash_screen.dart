@@ -1,6 +1,7 @@
 import 'package:fitlife_app/Onboarding%20Screens/SkipScreens.dart';
 import 'package:fitlife_app/login_screen.dart';
 import 'package:fitlife_app/main_screen.dart';
+import 'package:fitlife_app/sign_up.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 

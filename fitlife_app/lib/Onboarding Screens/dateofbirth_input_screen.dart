@@ -200,7 +200,7 @@ class _DateofbirthInputScreenState extends State<DateofbirthInputScreen> {
                           dateOfBirth: dob,
                         );
                           await FirebaseFirestore.instance
-                              .collection('Khan')
+                              .collection('Users')
                               .doc(userId.uid)
                               .update(userModel.toJson());
 

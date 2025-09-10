@@ -1,5 +1,6 @@
 import 'package:fitlife_app/login_screen.dart';
 import 'package:fitlife_app/main_screen.dart';
+import 'package:fitlife_app/privacy_policy_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:fitlife_app/home_screen.dart';
 import 'package:fitlife_app/custom widgets/skip_screens_template.dart';
@@ -43,12 +44,12 @@ class _OnboardingScreenState extends State<SkipScreens> {
     if (_currentPage < pages.length - 1) {
       _controller.nextPage(duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
     } else {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => PrivacyPolicyScreen()));
     }
   }
 
   void _onSkip() {
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => PrivacyPolicyScreen()));
   }
 
   @override

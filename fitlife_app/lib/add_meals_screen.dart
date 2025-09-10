@@ -35,10 +35,10 @@ class _AddMealsScreenState extends State<AddMealsScreen> {
   }
 
   Future<void> loadUserData() async {
-    final userId = "3UCi7hE0jHNl79r7dIzA3wl0D083";
+    final userId = FirebaseAuth.instance.currentUser!.uid;
     try {
       final doc =
-      await FirebaseFirestore.instance.collection("Users").doc(userId).get();
+      await FirebaseFirestore.instance.collection('Users').doc(userId).get();
       if (doc.exists) {
         setState(() {
           userData = FirebaseDataModelClass.fromJson(doc.data()!);
@@ -62,11 +62,11 @@ class _AddMealsScreenState extends State<AddMealsScreen> {
   }
 
   Future<void> _addFood(FoodModel food) async {
-    final userId = "3UCi7hE0jHNl79r7dIzA3wl0D083";
+    final userId = FirebaseAuth.instance.currentUser!.uid;
     if (userId == null) return;
 
     try {
-      final docRef = FirebaseFirestore.instance.collection("Users").doc(userId);
+      final docRef = FirebaseFirestore.instance.collection('Users').doc(userId);
       final snapshot = await docRef.get();
 
       List<FoodModel> updatedFoods = [];
@@ -91,11 +91,11 @@ class _AddMealsScreenState extends State<AddMealsScreen> {
   }
 
   Future<void> _deleteFood(FoodModel food) async {
-    final userId = "3UCi7hE0jHNl79r7dIzA3wl0D083";
+    final userId = FirebaseAuth.instance.currentUser!.uid;
     if (userId == null) return;
 
     try {
-      final docRef = FirebaseFirestore.instance.collection("Users").doc(userId);
+      final docRef = FirebaseFirestore.instance.collection('Users').doc(userId);
       final snapshot = await docRef.get();
 
       if (!snapshot.exists) return;

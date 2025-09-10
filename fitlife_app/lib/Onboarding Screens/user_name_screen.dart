@@ -136,7 +136,7 @@ class _UserNameScreenState extends State<UserNameScreen> {
         username: username,
       );
       await FirebaseFirestore.instance
-          .collection('Khan')
+          .collection('Users')
           .doc(userId)
           .set(userModel.toJson(), SetOptions(merge: true));
 

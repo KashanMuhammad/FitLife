@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitlife_app/custom%20widgets/custom_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:shared/user_0nboarding_data_model_class.dart';
@@ -22,10 +23,10 @@ class _MealsHistoryScreenState extends State<MealsHistoryScreen> {
   }
 
   Future<void> loadUserData() async {
-    const userId = "3UCi7hE0jHNl79r7dIzA3wl0D083";
+    var userId = FirebaseAuth.instance.currentUser!.uid;
     try {
       final doc =
-      await FirebaseFirestore.instance.collection("Users").doc(userId).get();
+      await FirebaseFirestore.instance.collection('Users').doc(userId).get();
 
       if (doc.exists) {
         setState(() {

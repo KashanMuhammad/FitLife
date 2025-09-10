@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared/user_0nboarding_data_model_class.dart';
 
@@ -24,7 +25,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  static const String uid = "3UCi7hE0jHNl79r7dIzA3wl0D083";
+  static String uid = FirebaseAuth.instance.currentUser!.uid;
 
   @override
   void initState() {
@@ -35,7 +36,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   /// 🔹 Fetch user data and fill controllers
   Future<void> fetchUserData() async {
     final doc =
-    await FirebaseFirestore.instance.collection('Users').doc(uid).get();
+    await FirebaseFirestore.instance.collection('Khan').doc(uid).get();
 
     if (doc.exists) {
       userModel = FirebaseDataModelClass.fromJson(doc.data()!);

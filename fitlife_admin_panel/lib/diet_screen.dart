@@ -337,24 +337,26 @@ class _DietScreenState extends State<DietScreen> {
     );
   }
 
-  Widget _buildToggleButton(String text, bool selected) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 18, vertical: 10),
-      decoration: BoxDecoration(
-        gradient:
-            selected
-                ? LinearGradient(colors: [Color(0xFF5AFF15), Color(0xFF00B712)])
-                : null,
-        color: selected ? null : Colors.grey.shade100,
-        borderRadius: BorderRadius.circular(8),
+
+}
+
+Widget _buildToggleButton(String text, bool selected) {
+  return Container(
+    padding: EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+    decoration: BoxDecoration(
+      gradient:
+      selected
+          ? LinearGradient(colors: [Color(0xFF5AFF15), Color(0xFF00B712)])
+          : null,
+      color: selected ? null : Colors.grey.shade100,
+      borderRadius: BorderRadius.circular(8),
+    ),
+    child: Text(
+      text,
+      style: TextStyle(
+        fontWeight: FontWeight.bold,
+        color: selected ? Colors.white : Colors.black,
       ),
-      child: Text(
-        text,
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          color: selected ? Colors.white : Colors.black,
-        ),
-      ),
-    );
-  }
+    ),
+  );
 }

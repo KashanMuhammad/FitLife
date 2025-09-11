@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fitlife_admin_panel/upload_diet_screen.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class UserScreen extends StatefulWidget {
@@ -19,7 +23,7 @@ class _UserScreenState extends State<UserScreen> {
 
   Future<List<Map<String, dynamic>>> _getAllUsers() async {
     QuerySnapshot snapshot =
-    await FirebaseFirestore.instance.collection('Users').get();
+        await FirebaseFirestore.instance.collection('Users').get();
 
     return snapshot.docs.map((doc) {
       final data = doc.data() as Map<String, dynamic>;
@@ -33,11 +37,12 @@ class _UserScreenState extends State<UserScreen> {
     final firestore = FirebaseFirestore.instance;
 
     // 1. Get diet document
-    final dietSnapshot = await firestore
-        .collection('diet')
-        .where('dietTitle', isEqualTo: selectedPlanTitle)
-        .limit(1)
-        .get();
+    final dietSnapshot =
+        await firestore
+            .collection('diet')
+            .where('dietTitle', isEqualTo: selectedPlanTitle)
+            .limit(1)
+            .get();
 
     if (dietSnapshot.docs.isEmpty) return;
     final dietDoc = dietSnapshot.docs.first;
@@ -57,11 +62,12 @@ class _UserScreenState extends State<UserScreen> {
     List<Map<String, dynamic>> foods = [];
     if (dietData.containsKey('listOfFood')) {
       for (var foodName in List.from(dietData['listOfFood'])) {
-        final foodSnap = await firestore
-            .collection('food')
-            .where('foodName', isEqualTo: foodName.toString())
-            .limit(1)
-            .get();
+        final foodSnap =
+            await firestore
+                .collection('food')
+                .where('foodName', isEqualTo: foodName.toString())
+                .limit(1)
+                .get();
 
         if (foodSnap.docs.isNotEmpty) {
           final foodDoc = foodSnap.docs.first;
@@ -82,12 +88,25 @@ class _UserScreenState extends State<UserScreen> {
     });
   }
 
+  Future<void> fetchAllUserDietTitles() async {
+    final snapshot = await FirebaseFirestore.instance.collection('Users').get();
+
+    for (var doc in snapshot.docs) {
+      final data = doc.data();
+      final dietPlan = data['assignedDietPlan'] as Map<String, dynamic>?;
+
+      final dietTitle = dietPlan?['dietTitle'] ?? 'No diet assigned';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(12),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Header
             Row(
@@ -117,196 +136,510 @@ class _UserScreenState extends State<UserScreen> {
             ),
 
             const SizedBox(height: 20),
+            Card(
+              elevation: 2,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: StreamBuilder<QuerySnapshot>(
+                stream:
+                    FirebaseFirestore.instance.collection('Users').snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  }
 
-            // User Grid
-            FutureBuilder<List<Map<String, dynamic>>>(
-              future: _userFuture,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Padding(
-                    padding: EdgeInsets.only(top: 50),
-                    child: Center(child: CircularProgressIndicator()),
-                  );
-                }
+                  if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                    return Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text("No patient data found."),
+                    );
+                  }
 
-                if (snapshot.hasError) {
-                  return const Text("Error loading users");
-                }
+                  final docs = snapshot.data!.docs;
 
-                final users = snapshot.data;
-
-                if (users == null || users.isEmpty) {
-                  return const Text("No users found.");
-                }
-
-                return GridView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  padding: const EdgeInsets.only(top: 20),
-                  itemCount: users.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 6,
-                    crossAxisSpacing: 12,
-                    mainAxisSpacing: 12,
-                    childAspectRatio: 0.8,
-                  ),
-                  itemBuilder: (context, index) {
-                    final user = users[index];
-
-                    return Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                  return SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: DataTable(
+                      headingRowColor: WidgetStateProperty.all(
+                        Colors.grey[200],
                       ),
-                      elevation: 3,
-                      child: Padding(
-                        padding: const EdgeInsets.all(6.0),
-                        child: Column(
-                          children: [
-                            // Popup menu
-                            Align(
-                              alignment: Alignment.topRight,
-                              child: PopupMenuButton<String>(
-                                icon: const Icon(Icons.more_vert, size: 20),
-                                onSelected: (value) async {
-                                  if (value == 'dietPlan') {
-                                    final snapshot =
-                                    await FirebaseFirestore.instance
-                                        .collection('diet')
-                                        .get();
+                      headingTextStyle: TextStyle(fontWeight: FontWeight.bold),
+                      border: TableBorder.all(color: Colors.grey.shade300),
+                      columns: const [
+                        DataColumn(label: Text("Patient Image")),
+                        DataColumn(label: Text("Patient Name")),
+                        DataColumn(label: Text("Patient Weight")),
+                        DataColumn(label: Text("Patient Height")),
+                        DataColumn(label: Text('Plan Suitability')),
+                        DataColumn(label: Text("Assigned Diet Plan")),
+                        DataColumn(label: Text("Actions")),
+                      ],
+                      rows:
+                          docs.map((doc) {
+                            final patient = doc.data() as Map<String, dynamic>;
+                            final patientId = doc.id;
+                            return DataRow(
+                              cells: [
+                                DataCell(
+                                  patient['image'] != null &&
+                                          patient['image'] != ''
+                                      ? (kIsWeb
+                                          ? Center(
+                                            child: Image.network(
+                                              patient['image'],
+                                              width: 60,
+                                              height: 60,
+                                            ),
+                                          )
+                                          : Center(
+                                            child: Image.file(
+                                              File(patient['image']),
+                                              width: 60,
+                                              height: 60,
+                                            ),
+                                          ))
+                                      : Center(child: Icon(Icons.image)),
+                                ),
+                                DataCell(
+                                  Center(child: Text(patient['username'] ?? 'No User Name')),
+                                ),
+                                DataCell(
+                                  Center(
+                                    child: Text(
+                                      "${patient['weightValue'] ?? ''} ${patient['weightUnit'] ?? 'No User Weight'}",
+                                    ),
+                                  ),
+                                ),
+                                DataCell(
+                                  Center(
+                                    child: Text(
+                                      "${patient['heightValue'] ?? ''} ${patient['heightUnit'] ?? 'No User Height'}",
+                                    ),
+                                  ),
+                                ),
+                                DataCell(
+                                  Center(
+                                    child: Text(
+                                      (patient['assignedDietPlan'] != null &&
+                                              patient['assignedDietPlan']['suitableFor'] !=
+                                                  null)
+                                          ? patient['assignedDietPlan']['suitableFor']
+                                          : 'No Suitability Entered',
+                                    ),
+                                  ),
+                                ),
+                                DataCell(
+                                  Center(
+                                    child: Text(
+                                      (patient['assignedDietPlan'] != null &&
+                                              patient['assignedDietPlan']['dietTitle'] !=
+                                                  null)
+                                          ? patient['assignedDietPlan']['dietTitle']
+                                          : 'No Diet Assigned',
+                                    ),
+                                  ),
+                                ),
+                                DataCell(
+                                  Center(
+                                    child: PopupMenuButton<String>(
+                                      icon: const Icon(Icons.more_vert_outlined),
+                                      offset: const Offset(100, 0),
+                                      onSelected: (value) async {
+                                        if (value == 'edit') {
+                                          // 🔹 Edit user (open UploadDietScreen)
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder:
+                                                  (context) => UploadDietScreen(
+                                                    dietId: patientId,
+                                                    dietData: patient,
+                                                  ),
+                                            ),
+                                          );
+                                        } else if (value == 'delete') {
+                                          // 🔹 Delete user from Firestore
+                                          await FirebaseFirestore.instance
+                                              .collection('Users')
+                                              .doc(patientId)
+                                              .delete();
 
-                                    final List<String> dietPlans = snapshot.docs
-                                        .map((doc) =>
-                                        doc['dietTitle'].toString())
-                                        .toSet()
-                                        .toList();
+                                          ScaffoldMessenger.of(
+                                            context,
+                                          ).showSnackBar(
+                                            const SnackBar(
+                                              content: Text(
+                                                "User deleted successfully",
+                                              ),
+                                            ),
+                                          );
+                                        } else if (value == 'dietPlan') {
+                                          // 🔹 Fetch all diet plans
+                                          final snapshot =
+                                              await FirebaseFirestore.instance
+                                                  .collection('diet')
+                                                  .get();
 
-                                    String? selectedPlan;
+                                          final List<String> dietPlans =
+                                              snapshot.docs
+                                                  .map(
+                                                    (doc) =>
+                                                        doc['dietTitle']
+                                                            .toString(),
+                                                  )
+                                                  .toSet()
+                                                  .toList();
 
-                                    showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          title: const Text('Assign Diet Plan'),
-                                          content: StatefulBuilder(
-                                            builder: (context, setState) {
-                                              return DropdownButton<String>(
-                                                isExpanded: true,
-                                                value: selectedPlan,
-                                                hint: const Text(
-                                                  'Choose a diet plan',
-                                                ),
-                                                items: dietPlans.map((plan) {
-                                                  return DropdownMenuItem<
-                                                      String>(
-                                                    value: plan,
-                                                    child: Text(plan),
+                                          String? selectedPlan;
+                                          bool isLoading = false;
+
+                                          // 🔹 Show dialog to pick diet plan
+                                          showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              String? selectedPlan;
+                                              bool isLoading = false;
+
+                                              return StatefulBuilder(
+                                                builder: (context, setState) {
+                                                  return AlertDialog(
+                                                    title: const Text(
+                                                      'Assign Diet Plan',
+                                                    ),
+                                                    content: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      children: [
+                                                        DropdownButton<String>(
+                                                          isExpanded: true,
+                                                          value: selectedPlan,
+                                                          hint: const Text(
+                                                            'Choose a diet plan',
+                                                          ),
+                                                          items:
+                                                              dietPlans.map((
+                                                                plan,
+                                                              ) {
+                                                                return DropdownMenuItem<
+                                                                  String
+                                                                >(
+                                                                  value: plan,
+                                                                  child: Text(
+                                                                    plan,
+                                                                  ),
+                                                                );
+                                                              }).toList(),
+                                                          onChanged: (value) {
+                                                            setState(() {
+                                                              selectedPlan =
+                                                                  value;
+                                                            });
+                                                          },
+                                                        ),
+                                                        if (isLoading)
+                                                          const Padding(
+                                                            padding:
+                                                                EdgeInsets.only(
+                                                                  top: 20,
+                                                                ),
+                                                            child:
+                                                                CircularProgressIndicator(),
+                                                          ),
+                                                      ],
+                                                    ),
+                                                    actions: [
+                                                      TextButton(
+                                                        onPressed: () async {
+                                                          if (selectedPlan !=
+                                                              null) {
+                                                            setState(() {
+                                                              isLoading = true;
+                                                            });
+
+                                                            await _assignDietPlan(
+                                                              patientId,
+                                                              selectedPlan!,
+                                                            );
+
+                                                            setState(() {
+                                                              isLoading = false;
+                                                            });
+
+                                                            Navigator.of(
+                                                              context,
+                                                            ).pop();
+
+                                                            ScaffoldMessenger.of(
+                                                              context,
+                                                            ).showSnackBar(
+                                                              const SnackBar(
+                                                                content: Text(
+                                                                  'Diet plan assigned successfully',
+                                                                ),
+                                                              ),
+                                                            );
+                                                          } else {
+                                                            Navigator.of(
+                                                              context,
+                                                            ).pop();
+                                                          }
+                                                        },
+                                                        child: const Text(
+                                                          'Assign',
+                                                        ),
+                                                      ),
+                                                    ],
                                                   );
-                                                }).toList(),
-                                                onChanged: (value) {
-                                                  setState(() {
-                                                    selectedPlan = value;
-                                                  });
                                                 },
                                               );
                                             },
-                                          ),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () async {
-                                                if (selectedPlan != null) {
-                                                  await _assignDietPlan(
-                                                      user['id'], selectedPlan!);
-
-                                                  Navigator.of(context).pop();
-
-                                                  ScaffoldMessenger.of(
-                                                    context,
-                                                  ).showSnackBar(
-                                                    const SnackBar(
-                                                      content: Text(
-                                                        'Diet plan assigned successfully',
-                                                      ),
-                                                    ),
-                                                  );
-
-                                                  setState(() {
-                                                    _userFuture =
-                                                        _getAllUsers();
-                                                  });
-                                                } else {
-                                                  Navigator.of(context).pop();
-                                                }
-                                              },
-                                              child: const Text('Assign'),
+                                          );
+                                        }
+                                      },
+                                      itemBuilder:
+                                          (context) => const [
+                                            PopupMenuItem(
+                                              value: 'edit',
+                                              child: Text('Edit'),
+                                            ),
+                                            PopupMenuItem(
+                                              value: 'delete',
+                                              child: Text('Delete'),
+                                            ),
+                                            PopupMenuItem(
+                                              value: 'dietPlan',
+                                              child: Text('Add Diet Plan'),
                                             ),
                                           ],
-                                        );
-                                      },
-                                    );
-                                  }
-                                },
-                                itemBuilder: (context) => const [
-                                  PopupMenuItem(
-                                    value: 'deleteUser',
-                                    child: Text('Delete User'),
+                                    ),
                                   ),
-                                  PopupMenuItem(
-                                    value: 'blockUser',
-                                    child: Text('Block User'),
-                                  ),
-                                  PopupMenuItem(
-                                    value: 'dietPlan',
-                                    child: Text('Diet Plan'),
-                                  ),
-                                ],
-                              ),
-                            ),
+                                ),
 
-                            // User image
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(12),
-                              child: Image.asset(
-                                'assets/male avatar.png',
-                                height: 40,
-                                width: 40,
-                              ),
-                            ),
-
-                            const SizedBox(height: 6),
-
-                            // Username
-                            Text(
-                              user['username']?.toString() ?? 'No Name',
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14,
-                              ),
-                            ),
-
-                            const SizedBox(height: 4),
-
-                            // Diet info (show diet title if assigned)
-                            Text(
-                              (user['assignedDietPlan'] != null &&
-                                  user['assignedDietPlan']['dietTitle'] !=
-                                      null)
-                                  ? 'Plan: ${user['assignedDietPlan']['dietTitle']}'
-                                  : 'No Diet Plan Assigned',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.grey[700],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                );
-              },
+                                // DataCell(
+                                //   PopupMenuButton<String>(
+                                //     icon: Icon(Icons.more_vert_outlined),
+                                //     offset: Offset(100, 0),
+                                //     onSelected: (value) {
+                                //       if (value == 'form') {
+                                //         Navigator.push(
+                                //           context,
+                                //           MaterialPageRoute(
+                                //             builder:
+                                //                 (context) => UploadDietScreen(
+                                //               dietId: patientId,
+                                //               dietData: patient,
+                                //             ),
+                                //           ),
+                                //         );
+                                //       }
+                                //     },
+                                //     itemBuilder:
+                                //         (context) => const [
+                                //       PopupMenuItem(
+                                //         value: 'form',
+                                //         child: Text('Form'),
+                                //       ),
+                                //     ],
+                                //   ),
+                                // ),
+                              ],
+                            );
+                          }).toList(),
+                    ),
+                  );
+                },
+              ),
             ),
+            // User Grid
+            // FutureBuilder<List<Map<String, dynamic>>>(
+            //   future: _userFuture,
+            //   builder: (context, snapshot) {
+            //     if (snapshot.connectionState == ConnectionState.waiting) {
+            //       return const Padding(
+            //         padding: EdgeInsets.only(top: 50),
+            //         child: Center(child: CircularProgressIndicator()),
+            //       );
+            //     }
+            //
+            //     if (snapshot.hasError) {
+            //       return const Text("Error loading users");
+            //     }
+            //
+            //     final users = snapshot.data;
+            //
+            //     if (users == null || users.isEmpty) {
+            //       return const Text("No users found.");
+            //     }
+            //
+            //     return GridView.builder(
+            //       shrinkWrap: true,
+            //       physics: const NeverScrollableScrollPhysics(),
+            //       padding: const EdgeInsets.only(top: 20),
+            //       itemCount: users.length,
+            //       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            //         crossAxisCount: 6,
+            //         crossAxisSpacing: 12,
+            //         mainAxisSpacing: 12,
+            //         childAspectRatio: 0.8,
+            //       ),
+            //       itemBuilder: (context, index) {
+            //         final user = users[index];
+            //
+            //         return Card(
+            //           shape: RoundedRectangleBorder(
+            //             borderRadius: BorderRadius.circular(12),
+            //           ),
+            //           elevation: 3,
+            //           child: Padding(
+            //             padding: const EdgeInsets.all(6.0),
+            //             child: Column(
+            //               children: [
+            //                 // Popup menu
+            //                 Align(
+            //                   alignment: Alignment.topRight,
+            //                   child: PopupMenuButton<String>(
+            //                     icon: const Icon(Icons.more_vert, size: 20),
+            //                     onSelected: (value) async {
+            //                       if (value == 'dietPlan') {
+            //                         final snapshot =
+            //                         await FirebaseFirestore.instance
+            //                             .collection('diet')
+            //                             .get();
+            //
+            //                         final List<String> dietPlans = snapshot.docs
+            //                             .map((doc) =>
+            //                             doc['dietTitle'].toString())
+            //                             .toSet()
+            //                             .toList();
+            //
+            //                         String? selectedPlan;
+            //
+            //                         showDialog(
+            //                           context: context,
+            //                           builder: (context) {
+            //                             return AlertDialog(
+            //                               title: const Text('Assign Diet Plan'),
+            //                               content: StatefulBuilder(
+            //                                 builder: (context, setState) {
+            //                                   return DropdownButton<String>(
+            //                                     isExpanded: true,
+            //                                     value: selectedPlan,
+            //                                     hint: const Text(
+            //                                       'Choose a diet plan',
+            //                                     ),
+            //                                     items: dietPlans.map((plan) {
+            //                                       return DropdownMenuItem<
+            //                                           String>(
+            //                                         value: plan,
+            //                                         child: Text(plan),
+            //                                       );
+            //                                     }).toList(),
+            //                                     onChanged: (value) {
+            //                                       setState(() {
+            //                                         selectedPlan = value;
+            //                                       });
+            //                                     },
+            //                                   );
+            //                                 },
+            //                               ),
+            //                               actions: [
+            //                                 TextButton(
+            //                                   onPressed: () async {
+            //                                     if (selectedPlan != null) {
+            //                                       await _assignDietPlan(
+            //                                           user['id'], selectedPlan!);
+            //
+            //                                       Navigator.of(context).pop();
+            //
+            //                                       ScaffoldMessenger.of(
+            //                                         context,
+            //                                       ).showSnackBar(
+            //                                         const SnackBar(
+            //                                           content: Text(
+            //                                             'Diet plan assigned successfully',
+            //                                           ),
+            //                                         ),
+            //                                       );
+            //
+            //                                       setState(() {
+            //                                         _userFuture =
+            //                                             _getAllUsers();
+            //                                       });
+            //                                     } else {
+            //                                       Navigator.of(context).pop();
+            //                                     }
+            //                                   },
+            //                                   child: const Text('Assign'),
+            //                                 ),
+            //                               ],
+            //                             );
+            //                           },
+            //                         );
+            //                       }
+            //                     },
+            //                     itemBuilder: (context) => const [
+            //                       PopupMenuItem(
+            //                         value: 'deleteUser',
+            //                         child: Text('Delete User'),
+            //                       ),
+            //                       PopupMenuItem(
+            //                         value: 'blockUser',
+            //                         child: Text('Block User'),
+            //                       ),
+            //                       PopupMenuItem(
+            //                         value: 'dietPlan',
+            //                         child: Text('Diet Plan'),
+            //                       ),
+            //                     ],
+            //                   ),
+            //                 ),
+            //
+            //                 // User image
+            //                 ClipRRect(
+            //                   borderRadius: BorderRadius.circular(12),
+            //                   child: Image.asset(
+            //                     'assets/male avatar.png',
+            //                     height: 40,
+            //                     width: 40,
+            //                   ),
+            //                 ),
+            //
+            //                 const SizedBox(height: 6),
+            //
+            //                 // Username
+            //                 Text(
+            //                   user['username']?.toString() ?? 'No Name',
+            //                   textAlign: TextAlign.center,
+            //                   style: const TextStyle(
+            //                     fontWeight: FontWeight.bold,
+            //                     fontSize: 14,
+            //                   ),
+            //                 ),
+            //
+            //                 const SizedBox(height: 4),
+            //
+            //                 // Diet info (show diet title if assigned)
+            //                 Text(
+            //                   (user['assignedDietPlan'] != null &&
+            //                       user['assignedDietPlan']['dietTitle'] !=
+            //                           null)
+            //                       ? 'Plan: ${user['assignedDietPlan']['dietTitle']}'
+            //                       : 'No Diet Plan Assigned',
+            //                   textAlign: TextAlign.center,
+            //                   style: TextStyle(
+            //                     fontSize: 12,
+            //                     color: Colors.grey[700],
+            //                   ),
+            //                 ),
+            //               ],
+            //             ),
+            //           ),
+            //         );
+            //       },
+            //     );
+            //   },
+            // ),
           ],
         ),
       ),

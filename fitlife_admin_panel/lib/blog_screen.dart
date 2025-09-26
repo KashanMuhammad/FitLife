@@ -175,10 +175,10 @@ class _BlogScreenState extends State<BlogScreen> {
                       // Blog Image
                       ClipRRect(
                         borderRadius: BorderRadius.circular(8),
-                        child: blog['featureImage'] != null &&
-                            blog['featureImage'].toString().isNotEmpty
+                        child: blog['blogImageUrl'] != null &&
+                            blog['blogImageUrl'].toString().isNotEmpty
                             ? Image.network(
-                          blog['featureImage'],
+                          blog['blogImageUrl'],
                           height: 100,
                           width: double.infinity,
                           fit: BoxFit.cover,
@@ -255,12 +255,12 @@ class _BlogScreenState extends State<BlogScreen> {
             ),
 
             // Blog Image
-            if (blog['featureImage'] != null &&
-                blog['featureImage'].toString().isNotEmpty)
+            if (blog['blogImageUrl'] != null &&
+                blog['blogImageUrl'].toString().isNotEmpty)
               ClipRRect(
                 borderRadius: BorderRadius.circular(12),
                 child: Image.network(
-                  blog['featureImage'],
+                  blog['blogImageUrl'],
                   height: 220,
                   width: double.infinity,
                   fit: BoxFit.cover,

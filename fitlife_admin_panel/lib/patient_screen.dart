@@ -1,7 +1,5 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fitlife_admin_panel/upload_diet_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +11,7 @@ class UserScreen extends StatefulWidget {
 }
 
 class _UserScreenState extends State<UserScreen> {
+  int selectedToggleIndex = 0;
   late Future<List<Map<String, dynamic>>> _userFuture;
 
   @override
@@ -75,7 +74,7 @@ class _UserScreenState extends State<UserScreen> {
 
           foods.add({
             'foodId': foodDoc.id,
-            ...foodData, // ⬅️ keep Firestore types
+            ...foodData, 
           });
         }
       }
@@ -134,7 +133,85 @@ class _UserScreenState extends State<UserScreen> {
                 ),
               ],
             ),
-
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: ToggleButtons(
+                    isSelected: [
+                      selectedToggleIndex == 0,
+                      selectedToggleIndex == 1,
+                      selectedToggleIndex == 2,
+                      selectedToggleIndex == 3,
+                    ],
+                    onPressed: (index) {
+                      setState(() {
+                        selectedToggleIndex = index;
+                      });
+                    },
+                    fillColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    borderColor: Colors.transparent,
+                    selectedColor: Colors.white,
+                    color: Colors.green.shade900,
+                    borderRadius: BorderRadius.circular(8),
+                    renderBorder: false,
+                    children: [
+                      _buildToggleButton(
+                        "All Status",
+                        selectedToggleIndex == 0,
+                      ),
+                      _buildToggleButton("Active", selectedToggleIndex == 1),
+                      _buildToggleButton(
+                        "Non Active",
+                        selectedToggleIndex == 2,
+                      ),
+                      _buildToggleButton("Blocked", selectedToggleIndex == 3),
+                    ],
+                  ),
+                ),
+                Spacer(),
+                SizedBox(
+                  width: 250,
+                  child: TextField(
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.search),
+                      hintText: "Search",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.all(8),
+                  child: Material(
+                    elevation: 1,
+                    borderRadius: BorderRadius.circular(12),
+                    color: Colors.white,
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(12),
+                      onTap: () {
+                        
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Icon(
+                          Icons.filter_alt_outlined,
+                          color: Colors.green,
+                          size: 28,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
             const SizedBox(height: 20),
             Card(
               elevation: 2,
@@ -202,7 +279,11 @@ class _UserScreenState extends State<UserScreen> {
                                       : Center(child: Icon(Icons.image)),
                                 ),
                                 DataCell(
-                                  Center(child: Text(patient['username'] ?? 'No User Name')),
+                                  Center(
+                                    child: Text(
+                                      patient['username'] ?? 'No User Name',
+                                    ),
+                                  ),
                                 ),
                                 DataCell(
                                   Center(
@@ -243,21 +324,13 @@ class _UserScreenState extends State<UserScreen> {
                                 DataCell(
                                   Center(
                                     child: PopupMenuButton<String>(
-                                      icon: const Icon(Icons.more_vert_outlined),
+                                      icon: const Icon(
+                                        Icons.more_vert_outlined,
+                                      ),
                                       offset: const Offset(100, 0),
                                       onSelected: (value) async {
-                                        if (value == 'edit') {
-                                          // 🔹 Edit user (open UploadDietScreen)
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder:
-                                                  (context) => UploadDietScreen(
-                                                    dietId: patientId,
-                                                    dietData: patient,
-                                                  ),
-                                            ),
-                                          );
+                                        if (value == 'block') {
+
                                         } else if (value == 'delete') {
                                           // 🔹 Delete user from Firestore
                                           await FirebaseFirestore.instance
@@ -400,8 +473,8 @@ class _UserScreenState extends State<UserScreen> {
                                       itemBuilder:
                                           (context) => const [
                                             PopupMenuItem(
-                                              value: 'edit',
-                                              child: Text('Edit'),
+                                              value: 'block',
+                                              child: Text('Block'),
                                             ),
                                             PopupMenuItem(
                                               value: 'delete',
@@ -645,4 +718,25 @@ class _UserScreenState extends State<UserScreen> {
       ),
     );
   }
+}
+
+Widget _buildToggleButton(String text, bool selected) {
+  return Container(
+    padding: EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+    decoration: BoxDecoration(
+      gradient:
+          selected
+              ? LinearGradient(colors: [Color(0xFF5AFF15), Color(0xFF00B712)])
+              : null,
+      color: selected ? null : Colors.grey.shade100,
+      borderRadius: BorderRadius.circular(8),
+    ),
+    child: Text(
+      text,
+      style: TextStyle(
+        fontWeight: FontWeight.bold,
+        color: selected ? Colors.white : Colors.black,
+      ),
+    ),
+  );
 }

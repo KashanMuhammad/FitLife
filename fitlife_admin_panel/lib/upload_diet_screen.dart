@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared/user_0nboarding_data_model_class.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'dashboard.dart';
 
 
@@ -38,6 +39,7 @@ class _UploadDietScreenState extends State<UploadDietScreen> {
   TextEditingController nameController = TextEditingController();
   TextEditingController timeStampController = TextEditingController();
   XFile? _image;
+  String? _imageUrl;
 
   Future<void> _pickImage() async {
     final ImagePicker picker = ImagePicker();
@@ -63,22 +65,28 @@ class _UploadDietScreenState extends State<UploadDietScreen> {
       timeController.text = data['timeToEat'] ?? '';
       durationController.text = data['duration'] ?? '';
       nameController.text = data['createdBy'] ?? '';
-      timeStampController.text = data['createdAt'] ?? ''; // 🔹 check key spelling!
+      timeStampController.text = data['createdAt'] ?? '';
 
-      // ✅ Fix: Match keys exactly as stored in Firestore
+
       selectedMealType = data['selectedMealType'];
       selectedMealSuitability = data['suitableFor'];
       selectedMealTags = data['tag'];
 
-      // ✅ Restore selected food list
+
       if (data['listOfFood'] != null) {
         selectedFoods = List<String>.from(data['listOfFood']);
       }
 
-      // ⚠️ Image handling (if URL saved in Firestore)
+
       if (data['image'] != null && data['image'].toString().isNotEmpty) {
         _image = XFile(data['image']);
       }
+
+      if (widget.dietData?['dietImageUrl'] != null &&
+          widget.dietData!['dietImageUrl'].toString().isNotEmpty) {
+        _imageUrl = widget.dietData?['dietImageUrl'];
+      }
+
     }
   }
 
@@ -318,20 +326,41 @@ class _UploadDietScreenState extends State<UploadDietScreen> {
                       ),
                     ),
                     SizedBox(width: 45),
+                    // if (_image != null)
+                    //   kIsWeb
+                    //       ? Container(
+                    //     decoration: BoxDecoration(
+                    //       border: Border.all(color: Colors.black, width: 3),
+                    //       borderRadius: BorderRadius.circular(15),
+                    //     ),
+                    //     child: Image.network(
+                    //       _image!.path,
+                    //       height: 300,
+                    //       width: 500,
+                    //     ),
+                    //   )
+                    //       : Image.file(File(_image!.path)),
                     if (_image != null)
                       kIsWeb
-                          ? Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black, width: 3),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Image.network(
-                          _image!.path,
-                          height: 300,
-                          width: 500,
-                        ),
+                          ? FutureBuilder<Uint8List>(
+                        future: _image!.readAsBytes(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState == ConnectionState.waiting) {
+                            return const CircularProgressIndicator();
+                          }
+                          if (!snapshot.hasData) {
+                            return const Text("Failed to load image");
+                          }
+                          return Image.memory(snapshot.data!, height: 300, width: 500, fit: BoxFit.cover);
+                        },
                       )
-                          : Image.file(File(_image!.path)),
+                          : Image.file(File(_image!.path), height: 300, width: 500, fit: BoxFit.cover)
+                    else if (_imageUrl != null)
+                      Image.network(_imageUrl!, height: 300, width: 500, fit: BoxFit.cover)
+                    else
+                      const Text("No image selected"),
+
+
                   ],
                 ),
 
@@ -361,6 +390,134 @@ class _UploadDietScreenState extends State<UploadDietScreen> {
     );
   }
 
+  // ElevatedButton buildCustomElevatedButton() {
+  //   return ElevatedButton(
+  //     style: ElevatedButton.styleFrom(
+  //       backgroundColor: Colors.transparent,
+  //       shadowColor: Colors.transparent,
+  //       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+  //     ),
+  //     onPressed: () {
+  //       timeStampController.text = DateTime.now().toIso8601String();
+  //       // if (diettitleController.text.trim().isEmpty) {
+  //       //   return;
+  //       // }
+  //       //
+  //       // String id = DateTime.now().millisecondsSinceEpoch.toString();
+  //       //
+  //       // Map<String, dynamic> dietData = {
+  //       //   'dietTitle': diettitleController.text.trim(),
+  //       //   'dietDescription': dietDescription.text.trim(),
+  //       //   'mealType': selectedMealType ?? '',
+  //       //   'day': dayController.text.trim(),
+  //       //   'timeToEat': timeController.text.trim(),
+  //       //   'foodList': selectedFood ?? '',
+  //       //   'duration': durationController.text.trim(),
+  //       //   'mealSuitability': selectedMealSuitability ?? '',
+  //       //   'mealTag': selectedMealTags ?? '',
+  //       //   'image': _image?.path ?? '',
+  //       //   'createdBy': nameController.text.trim(),
+  //       //   'createdTime': timeStampController.text.trim(),
+  //       // };
+  //       //
+  //       // setState(() {
+  //       //   globalDietMap[id] = dietData;
+  //       // });
+  //       //
+  //       // // Clearing controllers
+  //       // diettitleController.clear();
+  //       // dayController.clear();
+  //       // timeController.clear();
+  //       // durationController.clear();
+  //       // nameController.clear();
+  //       // timeStampController.clear();
+  //       //
+  //       // // Reset dropdown selections here
+  //       // selectedMealType = null;
+  //       // selectedFood = null;
+  //       // selectedMealSuitability = null;
+  //       // selectedMealTags = null;
+  //       //
+  //       // _image = null;
+  //       //
+  //       // setState(() {});
+  //
+  //       final user = FirebaseDataModelClass(
+  //         dietTitle: dietTitleController.text,
+  //         dietDescription: dietDescription.text,
+  //         selectedMealType: selectedMealType,
+  //         timeToEat: timeController.text,
+  //         listOfFood: selectedFoods,
+  //         duration: durationController.text,
+  //         suitableFor: selectedMealSuitability,
+  //         tag: selectedMealTags,
+  //         createdBy: nameController.text,
+  //         createdAt: timeStampController.text,
+  //       );
+  //
+  //       FirebaseFirestore.instance.collection('diet').doc().set(user.toJson());
+  //     },
+  //     child: Text("Submit"),
+  //   );
+  // }
+
+  // ElevatedButton buildCustomElevatedButton() {
+  //   return ElevatedButton(
+  //     style: ElevatedButton.styleFrom(
+  //       backgroundColor: Colors.transparent,
+  //       shadowColor: Colors.transparent,
+  //       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+  //     ),
+  //     onPressed: () {
+  //       timeStampController.text = DateTime.now().toIso8601String();
+  //
+  //       final user = FirebaseDataModelClass(
+  //         dietTitle: dietTitleController.text.trim(),
+  //         dietDescription: dietDescription.text.trim(),
+  //         selectedMealType: selectedMealType,
+  //         timeToEat: timeController.text.trim(),
+  //         listOfFood: selectedFoods,
+  //         duration: durationController.text.trim(),
+  //         suitableFor: selectedMealSuitability,
+  //         tag: selectedMealTags,
+  //         createdBy: nameController.text.trim(),
+  //         createdAt: timeStampController.text.trim(),
+  //       );
+  //
+  //       // Convert to JSON
+  //       final dietData = user.toJson();
+  //
+  //       // 🔹 Remove null or empty values
+  //       dietData.removeWhere((key, value) => value == null || value == "");
+  //
+  //       FirebaseFirestore.instance.collection('diet').doc().set(dietData);
+  //
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         const SnackBar(content: Text("Diet uploaded ✅")),
+  //       );
+  //
+  //       // Optionally clear the form
+  //       dietTitleController.clear();
+  //       dietDescription.clear();
+  //       dayController.clear();
+  //       timeController.clear();
+  //       durationController.clear();
+  //       nameController.clear();
+  //       timeStampController.clear();
+  //       selectedMealType = null;
+  //       selectedMealSuitability = null;
+  //       selectedMealTags = null;
+  //       selectedFoods = [];
+  //       _image = null;
+  //
+  //       setState(() {});
+  //     },
+  //     child: const Text("Submit"),
+  //   );
+  // }
+
+
+
   ElevatedButton buildCustomElevatedButton() {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
@@ -368,69 +525,86 @@ class _UploadDietScreenState extends State<UploadDietScreen> {
         shadowColor: Colors.transparent,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
-      onPressed: () {
+      onPressed: () async {
         timeStampController.text = DateTime.now().toIso8601String();
-        // if (diettitleController.text.trim().isEmpty) {
-        //   return;
-        // }
-        //
-        // String id = DateTime.now().millisecondsSinceEpoch.toString();
-        //
-        // Map<String, dynamic> dietData = {
-        //   'dietTitle': diettitleController.text.trim(),
-        //   'dietDescription': dietDescription.text.trim(),
-        //   'mealType': selectedMealType ?? '',
-        //   'day': dayController.text.trim(),
-        //   'timeToEat': timeController.text.trim(),
-        //   'foodList': selectedFood ?? '',
-        //   'duration': durationController.text.trim(),
-        //   'mealSuitability': selectedMealSuitability ?? '',
-        //   'mealTag': selectedMealTags ?? '',
-        //   'image': _image?.path ?? '',
-        //   'createdBy': nameController.text.trim(),
-        //   'createdTime': timeStampController.text.trim(),
-        // };
-        //
-        // setState(() {
-        //   globalDietMap[id] = dietData;
-        // });
-        //
-        // // Clearing controllers
-        // diettitleController.clear();
-        // dayController.clear();
-        // timeController.clear();
-        // durationController.clear();
-        // nameController.clear();
-        // timeStampController.clear();
-        //
-        // // Reset dropdown selections here
-        // selectedMealType = null;
-        // selectedFood = null;
-        // selectedMealSuitability = null;
-        // selectedMealTags = null;
-        //
-        // _image = null;
-        //
-        // setState(() {});
 
+        // 🔹 Step 1: Upload image to Supabase (if picked)
+        String? imageUrl;
+        if (_image != null) {
+          try {
+            final fileBytes = await _image!.readAsBytes();
+            final fileName =
+                "diet_${DateTime.now().millisecondsSinceEpoch}_${_image!.name}";
+
+            final response = await Supabase.instance.client.storage
+                .from('diet_images')
+                .uploadBinary(fileName, fileBytes);
+
+            if (response.isEmpty) {
+              throw Exception("Upload failed");
+            }
+
+            // ✅ get public URL
+            imageUrl = Supabase.instance.client.storage
+                .from('diet_images')
+                .getPublicUrl(fileName);
+
+          } catch (e) {
+            print("❌ Supabase upload failed: $e");
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text("Image upload failed ❌")),
+            );
+            return; // stop if upload fails
+          }
+        }
+
+        // 🔹 Step 2: Save text data + Supabase imageUrl to Firestore
         final user = FirebaseDataModelClass(
-          dietTitle: dietTitleController.text,
-          dietDescription: dietDescription.text,
+          dietTitle: dietTitleController.text.trim(),
+          dietDescription: dietDescription.text.trim(),
           selectedMealType: selectedMealType,
-          timeToEat: timeController.text,
+          timeToEat: timeController.text.trim(),
           listOfFood: selectedFoods,
-          duration: durationController.text,
+          duration: durationController.text.trim(),
           suitableFor: selectedMealSuitability,
           tag: selectedMealTags,
-          createdBy: nameController.text,
-          createdAt: timeStampController.text,
+          createdBy: nameController.text.trim(),
+          createdAt: timeStampController.text.trim(),
+          dietImageUrl: imageUrl, // ✅ add Supabase image url here
         );
 
-        FirebaseFirestore.instance.collection('diet').doc().set(user.toJson());
+        final dietData = user.toJson();
+        dietData.removeWhere((key, value) => value == null || value == "");
+
+        await FirebaseFirestore.instance.collection('diet').doc().set(dietData);
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Diet uploaded ✅")),
+        );
+
+        // 🔹 Step 3: Reset form
+        dietTitleController.clear();
+        dietDescription.clear();
+        dayController.clear();
+        timeController.clear();
+        durationController.clear();
+        nameController.clear();
+        timeStampController.clear();
+        selectedMealType = null;
+        selectedMealSuitability = null;
+        selectedMealTags = null;
+        selectedFoods = [];
+        _image = null;
+
+        setState(() {});
       },
-      child: Text("Submit"),
+      child: const Text("Submit"),
     );
   }
+
+
+
+
 }
 
 Future<List<String>> fetchFoodNames() async {

@@ -12,7 +12,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
   int selectedToggleIndex = 0;
   String selectedFilter = "All Date";
 
-  final filters = ["All Date", "24 Hour", "7 Days", "30 Days", "12 Months"];
+ // final filters = ["All Date", "24 Hour", "7 Days", "30 Days", "12 Months"];
 
   @override
   Widget build(BuildContext context) {
@@ -32,15 +32,16 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                 ),
                 Row(
                   children: const [
-                    CircleAvatar(
-                      backgroundImage: NetworkImage(
-                          "https://i.pravatar.cc/150?img=3"), // demo profile
-                      radius: 20,
-                    ),
-                    SizedBox(width: 10),
+
                     Text("Cody Fisher\nDashboard Manager",
                         textAlign: TextAlign.right,
                         style: TextStyle(fontSize: 14)),
+                    SizedBox(width: 10),
+                    CircleAvatar(
+                      radius: 24,
+                      backgroundImage: AssetImage("assets/male avatar.png"),
+                    ),
+                    // SizedBox(width: 10),
                   ],
                 ),
               ],

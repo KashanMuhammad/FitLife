@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared/user_0nboarding_data_model_class.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'dashboard.dart';
 
 class UploadFoodScreen extends StatefulWidget {
@@ -203,6 +204,118 @@ class _FoodScreenState extends State<UploadFoodScreen> {
     );
   }
 
+  // ElevatedButton buildCustomElevatedButton() {
+  //   return ElevatedButton(
+  //     style: ElevatedButton.styleFrom(
+  //       backgroundColor: Colors.transparent,
+  //       shadowColor: Colors.transparent,
+  //       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+  //     ),
+  //     onPressed: () {
+  //       // if (foodName.text.trim().isEmpty) {
+  //       //   return;
+  //       // }
+  //       //
+  //       // String id = DateTime.now().millisecondsSinceEpoch.toString();
+  //       //
+  //       // Map<String, dynamic> foodData = {
+  //       //   'foodName': foodName.text.trim(),
+  //       //   'foodDescription': foodDescription.text.trim(),
+  //       //   'quantity': quantityController.text.trim(),
+  //       //   'unit': selectedUnit ?? '',
+  //       //   'calories': caloriesPerServing.text.trim(),
+  //       //   'protein': proteinController.text.trim(),
+  //       //   'carbohydrates': carbohydratesController.text.trim(),
+  //       //   'fats': fatsController.text.trim(),
+  //       //   'tag': selectedTag ?? '',
+  //       //   'image': _image?.path ?? '',
+  //       // };
+  //       //
+  //       // setState(() {
+  //       //   globalFoodMap[id] = foodData;
+  //       // });
+  //       //
+  //       // foodName.clear();
+  //       // foodDescription.clear();
+  //       // quantityController.clear();
+  //       // caloriesPerServing.clear();
+  //       // proteinController.clear();
+  //       // carbohydratesController.clear();
+  //       // fatsController.clear();
+  //       // selectedUnit = null;
+  //       // selectedTag = null;
+  //       // _image = null;
+  //
+  //       final user = FirebaseDataModelClass(
+  //         foodName: foodName.text,
+  //         foodDescription: foodDescription.text,
+  //         quantity: quantityController.text,
+  //         caloriesPerServing: caloriesPerServing.text,
+  //         protein: proteinController.text,
+  //         carbohydrates: carbohydratesController.text,
+  //         fats: fatsController.text,
+  //         selectedTag: selectedTag,
+  //         selectedUnits: selectedUnit,
+  //       );
+  //
+  //     FirebaseFirestore.instance.collection('food').doc().set(user.toJson());
+  //
+  //     },
+  //     child: Text("ADD FOOD"),
+  //   );
+  // }
+
+
+  // ElevatedButton buildCustomElevatedButton() {
+  //   return ElevatedButton(
+  //     style: ElevatedButton.styleFrom(
+  //       backgroundColor: Colors.transparent,
+  //       shadowColor: Colors.transparent,
+  //       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+  //     ),
+  //     onPressed: () {
+  //       final user = FirebaseDataModelClass(
+  //         foodName: foodName.text.trim(),
+  //         foodDescription: foodDescription.text.trim(),
+  //         quantity: quantityController.text.trim(),
+  //         caloriesPerServing: caloriesPerServing.text.trim(),
+  //         protein: proteinController.text.trim(),
+  //         carbohydrates: carbohydratesController.text.trim(),
+  //         fats: fatsController.text.trim(),
+  //         selectedTag: selectedTag,
+  //         selectedUnits: selectedUnit,
+  //         // 🔹 add image later once you connect Supabase
+  //       );
+  //
+  //       // Convert to JSON
+  //       final foodData = user.toJson();
+  //
+  //       // 🔹 Remove null or empty values
+  //       foodData.removeWhere((key, value) => value == null || value == "");
+  //
+  //       FirebaseFirestore.instance.collection('food').doc().set(foodData);
+  //
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         const SnackBar(content: Text("Food uploaded ✅")),
+  //       );
+  //
+  //       // 🔹 Clear fields after upload
+  //       foodName.clear();
+  //       foodDescription.clear();
+  //       quantityController.clear();
+  //       caloriesPerServing.clear();
+  //       proteinController.clear();
+  //       carbohydratesController.clear();
+  //       fatsController.clear();
+  //       selectedUnit = null;
+  //       selectedTag = null;
+  //       _image = null;
+  //       setState(() {});
+  //     },
+  //     child: const Text("ADD FOOD"),
+  //   );
+  // }
+
   ElevatedButton buildCustomElevatedButton() {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
@@ -210,57 +323,83 @@ class _FoodScreenState extends State<UploadFoodScreen> {
         shadowColor: Colors.transparent,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
-      onPressed: () {
-        // if (foodName.text.trim().isEmpty) {
-        //   return;
-        // }
-        //
-        // String id = DateTime.now().millisecondsSinceEpoch.toString();
-        //
-        // Map<String, dynamic> foodData = {
-        //   'foodName': foodName.text.trim(),
-        //   'foodDescription': foodDescription.text.trim(),
-        //   'quantity': quantityController.text.trim(),
-        //   'unit': selectedUnit ?? '',
-        //   'calories': caloriesPerServing.text.trim(),
-        //   'protein': proteinController.text.trim(),
-        //   'carbohydrates': carbohydratesController.text.trim(),
-        //   'fats': fatsController.text.trim(),
-        //   'tag': selectedTag ?? '',
-        //   'image': _image?.path ?? '',
-        // };
-        //
-        // setState(() {
-        //   globalFoodMap[id] = foodData;
-        // });
-        //
-        // foodName.clear();
-        // foodDescription.clear();
-        // quantityController.clear();
-        // caloriesPerServing.clear();
-        // proteinController.clear();
-        // carbohydratesController.clear();
-        // fatsController.clear();
-        // selectedUnit = null;
-        // selectedTag = null;
-        // _image = null;
+      onPressed: () async {
+        // 🔹 Step 1: Upload image to Supabase (if picked)
+        String? imageUrl;
+        if (_image != null) {
+          try {
+            final fileBytes = await _image!.readAsBytes();
+            final fileName =
+                "food_${DateTime.now().millisecondsSinceEpoch}_${_image!.name}";
 
+            // upload to Supabase storage (bucket: food_images)
+            final response = await Supabase.instance.client.storage
+                .from('food_images')
+                .uploadBinary(fileName, fileBytes);
+
+            if (response.isEmpty) {
+              throw Exception("Upload failed");
+            }
+
+            // ✅ Get public URL of uploaded image
+            imageUrl = Supabase.instance.client.storage
+                .from('food_images')
+                .getPublicUrl(fileName);
+
+          } catch (e) {
+            print("❌ Supabase upload failed: $e");
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text("Image upload failed ❌")),
+            );
+            return; // stop if upload fails
+          }
+        }
+
+        // 🔹 Step 2: Create Firestore model including imageUrl
         final user = FirebaseDataModelClass(
-          foodName: foodName.text,
-          foodDescription: foodDescription.text,
-          quantity: quantityController.text,
-          caloriesPerServing: caloriesPerServing.text,
-          protein: proteinController.text,
-          carbohydrates: carbohydratesController.text,
-          fats: fatsController.text,
+          foodName: foodName.text.trim(),
+          foodDescription: foodDescription.text.trim(),
+          quantity: quantityController.text.trim(),
+          caloriesPerServing: caloriesPerServing.text.trim(),
+          protein: proteinController.text.trim(),
+          carbohydrates: carbohydratesController.text.trim(),
+          fats: fatsController.text.trim(),
           selectedTag: selectedTag,
           selectedUnits: selectedUnit,
+          foodImageUrl: imageUrl, // ✅ Add Supabase image URL here
         );
 
-      FirebaseFirestore.instance.collection('food').doc().set(user.toJson());
+        // Convert to JSON
+        final foodData = user.toJson();
 
+        // 🔹 Remove null or empty values
+        foodData.removeWhere((key, value) => value == null || value == "");
+
+        // Save in Firestore (food collection)
+        await FirebaseFirestore.instance.collection('food').doc().set(foodData);
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Food uploaded ✅")),
+        );
+
+        // 🔹 Clear fields after upload
+        foodName.clear();
+        foodDescription.clear();
+        quantityController.clear();
+        caloriesPerServing.clear();
+        proteinController.clear();
+        carbohydratesController.clear();
+        fatsController.clear();
+        selectedUnit = null;
+        selectedTag = null;
+        _image = null;
+
+        setState(() {});
       },
-      child: Text("ADD FOOD"),
+      child: const Text("ADD FOOD"),
     );
   }
+
+
+
 }

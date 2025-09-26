@@ -241,10 +241,24 @@ class _FoodScreenState extends State<FoodScreen> {
                       final food = doc.data() as Map<String, dynamic>;
 
                       return DataRow(cells: [
+                        // DataCell(
+                        //   food['image'] != null && food['image'] != ''
+                        //       ? Image.network(food['image'], width: 60, height: 60)
+                        //       : Icon(Icons.image),
+                        // ),
                         DataCell(
-                          food['image'] != null && food['image'] != ''
-                              ? Image.network(food['image'], width: 60, height: 60)
-                              : Icon(Icons.image),
+                          food['foodImageUrl'] != null && food['foodImageUrl'] != ''
+                              ? Image.network(
+                            food['foodImageUrl'],
+                            width: 60,
+                            height: 60,
+                            fit: BoxFit.cover,
+                          )
+                              : const Text(
+                            "No image found",
+                            style: TextStyle(color: Colors.red, fontSize: 12),
+                          ),
+                          //   : const Icon(Icons.image),
                         ),
                         DataCell(Text(food['foodName'] ?? '')),
                         DataCell(Text(food['quantity'] ?? '')),

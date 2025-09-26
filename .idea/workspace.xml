@@ -4,13 +4,21 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Code slightly updated but blog screen is fully updated and the UI is completely changed">
-      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Patient screen UI updated and also analytics screen toggle button updated">
+      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/analytics_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/analytics_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/blog_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/blog_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/diet_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/diet_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/food_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/food_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/patient_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/patient_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_blog_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_blog_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_diet_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_diet_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_food_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_food_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/lib/user_0nboarding_data_model_class.dart" beforeDir="false" afterPath="$PROJECT_DIR$/shared/lib/user_0nboarding_data_model_class.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +84,7 @@
     &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;E:/practice_flutter&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;AndroidSdkUpdater&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;instant.run&quot;,
     &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   }
 }</component>
@@ -169,14 +177,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1747854831066</updated>
-    </task>
-    <task id="LOCAL-00003" summary="admin panel side navigation bar created">
-      <option name="closed" value="true" />
-      <created>1748286340347</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1748286340347</updated>
     </task>
     <task id="LOCAL-00004" summary="admin panel Diet Screen finalized">
       <option name="closed" value="true" />
@@ -562,7 +562,15 @@
       <option name="project" value="LOCAL" />
       <updated>1756337669526</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="Patient screen UI updated and also analytics screen toggle button updated">
+      <option name="closed" value="true" />
+      <created>1757605519667</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1757605519667</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -604,7 +612,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="create_new_password_screen.dart screen completed" />
     <MESSAGE value="Done with the splash screen, skip screens , forgot password screen and the create new password screen in the forgot_password_branch." />
     <MESSAGE value="Created blogs_screen.dart and Dleteted the separate screens skipscreen 1 2 and 3 and apply the functionality of these in only one page directly by using SkipScreenTemplate." />
     <MESSAGE value="Added blog_model.dart Class for working in blogs_screen.dart" />
@@ -629,7 +636,8 @@
     <MESSAGE value="Static Analytics Screen Completed, Blog Screen completed with full functionalities, some concepts updated," />
     <MESSAGE value="Customer Support Static UI Completed, some code updated in the whole project" />
     <MESSAGE value="Code slightly updated but blog screen is fully updated and the UI is completely changed" />
-    <option name="LAST_COMMIT_MESSAGE" value="Code slightly updated but blog screen is fully updated and the UI is completely changed" />
+    <MESSAGE value="Patient screen UI updated and also analytics screen toggle button updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="Patient screen UI updated and also analytics screen toggle button updated" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -173,6 +173,87 @@ class _BlogFormScreenState extends State<BlogFormScreen> {
               //   child: Text(widget.blogId == null ? "ADD BLOG" : "UPDATE BLOG"),
               // ),
 
+              // ElevatedButton(
+              //   onPressed: () async {
+              //     if (!_formKey.currentState!.validate()) return;
+              //
+              //     String? imageUrl;
+              //
+              //     // 🔹 Step 1: Upload blog image to Supabase (if picked)
+              //     if (_image != null) {
+              //       try {
+              //         final fileBytes = await _image!.readAsBytes();
+              //         final fileName =
+              //             "blog_${DateTime.now().millisecondsSinceEpoch}_${_image!.name}";
+              //
+              //         // Upload to Supabase bucket "blog_images"
+              //         final response = await Supabase.instance.client.storage
+              //             .from('blog_images')
+              //             .uploadBinary(fileName, fileBytes);
+              //
+              //         if (response.isEmpty) {
+              //           throw Exception("Image upload failed");
+              //         }
+              //
+              //         // ✅ Get public URL
+              //         imageUrl = Supabase.instance.client.storage
+              //             .from('blog_images')
+              //             .getPublicUrl(fileName);
+              //
+              //       } catch (e) {
+              //         print("❌ Blog image upload failed: $e");
+              //         ScaffoldMessenger.of(context).showSnackBar(
+              //           SnackBar(content: Text("Image upload failed ❌")),
+              //         );
+              //         return;
+              //       }
+              //     }
+              //
+              //     // 🔹 Step 2: Prepare blog data
+              //     final blog = FirebaseDataModelClass(
+              //       blogTitle: blogTitleController.text.trim(),
+              //       blogShortDescription: blogShortDescriptionController.text.trim(),
+              //       blogFullContent: blogFullContentController.text.trim(),
+              //       blogAuthorName: blogAuthorNameController.text.trim(),
+              //       blogCategory: category,
+              //     );
+              //
+              //     final blogData = blog.toJson();
+              //
+              //     // ✅ Add Supabase image url if available
+              //     if (imageUrl != null) {
+              //       blogData['blogImageUrl'] = imageUrl;
+              //     }
+              //
+              //     // 🔹 Step 3: Save to Firestore
+              //     if (widget.blogId == null) {
+              //       // Create new blog
+              //       await FirebaseFirestore.instance.collection('blogs').add(blogData);
+              //     } else {
+              //       // Update existing blog
+              //       await FirebaseFirestore.instance
+              //           .collection('blogs')
+              //           .doc(widget.blogId)
+              //           .update(blogData);
+              //     }
+              //
+              //     ScaffoldMessenger.of(context).showSnackBar(
+              //       SnackBar(content: Text("Blog Saved ✅")),
+              //     );
+              //
+              //     // Clear fields if it's a new blog
+              //     if (widget.blogId == null) {
+              //       blogTitleController.clear();
+              //       blogShortDescriptionController.clear();
+              //       blogFullContentController.clear();
+              //       blogAuthorNameController.clear();
+              //       category = null;
+              //       _image = null;
+              //       setState(() {});
+              //     }
+              //   },
+              //   child: Text(widget.blogId == null ? "ADD BLOG" : "UPDATE BLOG"),
+              // )
               ElevatedButton(
                 onPressed: () async {
                   if (!_formKey.currentState!.validate()) return;
@@ -224,6 +305,9 @@ class _BlogFormScreenState extends State<BlogFormScreen> {
                   if (imageUrl != null) {
                     blogData['blogImageUrl'] = imageUrl;
                   }
+
+                  // ✅ Remove null and empty string values
+                  blogData.removeWhere((key, value) => value == null || value == "");
 
                   // 🔹 Step 3: Save to Firestore
                   if (widget.blogId == null) {

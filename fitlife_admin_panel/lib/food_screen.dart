@@ -239,6 +239,7 @@ class _FoodScreenState extends State<FoodScreen> {
                     ],
                     rows: docs.map((doc) {
                       final food = doc.data() as Map<String, dynamic>;
+                     // final foodId = doc.id;
 
                       return DataRow(cells: [
                         // DataCell(
@@ -275,7 +276,7 @@ class _FoodScreenState extends State<FoodScreen> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) =>
-                                        UploadFoodScreen(foodData: food),
+                                        UploadFoodScreen(foodData: food , foodId: doc.id,),
                                   ),
                                 );
                               }

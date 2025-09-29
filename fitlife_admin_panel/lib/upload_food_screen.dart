@@ -10,8 +10,9 @@ import 'dashboard.dart';
 
 class UploadFoodScreen extends StatefulWidget {
   final Map<String, dynamic>? foodData;
+  final String? foodId;
 
-  const UploadFoodScreen({super.key, this.foodData});
+  const UploadFoodScreen({super.key, this.foodData , this.foodId});
 
   @override
   State<UploadFoodScreen> createState() => _FoodScreenState();
@@ -33,6 +34,8 @@ class _FoodScreenState extends State<UploadFoodScreen> {
   List<String> tagsOptions = ['Vegan', 'Low Carb', 'High Fiber'];
   String? selectedUnit, selectedTag;
   XFile? _image;
+  String? imageUrl; // this will store the existing image URL if editing
+
 
   Future<void> _pickImage() async {
     final ImagePicker picker = ImagePicker();
@@ -58,6 +61,9 @@ class _FoodScreenState extends State<UploadFoodScreen> {
       carbohydratesController.text = data['carbohydrates'] ?? '';
       fatsController.text = data['fats'] ?? '';
       selectedTag = data['tag'];
+      if (data['foodImageUrl'] != null && data['foodImageUrl'] != '') {
+        imageUrl = data['foodImageUrl']; // store the URL
+      }
       if (data['image'] != null && data['image'] != '') {
         _image = XFile(data['image']);
       }
@@ -170,18 +176,12 @@ class _FoodScreenState extends State<UploadFoodScreen> {
                     SizedBox(width: 45),
                     if (_image != null)
                       kIsWeb
-                          ? Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(width: 3),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Image.network(
-                          _image!.path,
-                          height: 300,
-                          width: 500,
-                        ),
-                      )
-                          : Image.file(File(_image!.path)),
+                          ? Image.network(_image!.path, height: 150, width: 150)
+                          : Image.file(File(_image!.path), height: 150, width: 150)
+                    else if (imageUrl != null)
+                      Image.network(imageUrl!, height: 150, width: 150) // show existing image
+                    else
+                      Text("No image selected"),
                   ],
                 ),
                 // SizedBox(height: 15),

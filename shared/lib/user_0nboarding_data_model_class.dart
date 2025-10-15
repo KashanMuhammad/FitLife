@@ -109,8 +109,11 @@ class FirebaseDataModelClass {
     put('username', username);
     put('gender', gender);
 
-    put('heightValue', height);
+    // ✅ store height & weight consistently
+    put('height', height);
+    put('heightValue', height); // backward compatibility
     put('heightUnit', heightUnit);
+    put('weight', weight);
     put('weightValue', weight);
     put('weightUnit', weightUnit);
 
@@ -178,14 +181,19 @@ class FirebaseDataModelClass {
       username: json['username'] as String?,
       gender: json['gender'] as String?,
 
-      height: json['heightValue'] != null
+      // ✅ consistent height loading (supports both field names)
+      height: json['height'] != null
+          ? (json['height'] as num).toDouble()
+          : (json['heightValue'] != null
           ? (json['heightValue'] as num).toDouble()
-          : (json['height'] != null ? (json['height'] as num).toDouble() : null),
+          : null),
       heightUnit: json['heightUnit'] as String?,
 
-      weight: json['weightValue'] != null
+      weight: json['weight'] != null
+          ? (json['weight'] as num).toDouble()
+          : (json['weightValue'] != null
           ? (json['weightValue'] as num).toDouble()
-          : (json['weight'] != null ? (json['weight'] as num).toDouble() : null),
+          : null),
       weightUnit: json['weightUnit'] as String?,
 
       dateOfBirth: json['dateOfBirth'] != null

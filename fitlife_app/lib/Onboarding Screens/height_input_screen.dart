@@ -25,9 +25,12 @@ class _HeightInputScreenState extends State<HeightInputScreen> {
   final Color selectedBackgroundColor = const Color(0xFFE9FDE3);
   final Color selectedTextColor = Colors.green;
 
-  final FixedExtentScrollController cmController = FixedExtentScrollController(initialItem: 70);
-  final FixedExtentScrollController ftController = FixedExtentScrollController(initialItem: 1);
-  final FixedExtentScrollController inchController = FixedExtentScrollController(initialItem: 8);
+  final FixedExtentScrollController cmController =
+  FixedExtentScrollController(initialItem: 70);
+  final FixedExtentScrollController ftController =
+  FixedExtentScrollController(initialItem: 1);
+  final FixedExtentScrollController inchController =
+  FixedExtentScrollController(initialItem: 8);
 
   int _feetInchToCm(int ft, int inch) => (((ft * 12) + inch) * 2.54).round();
 
@@ -50,7 +53,8 @@ class _HeightInputScreenState extends State<HeightInputScreen> {
           padding: const EdgeInsets.all(15.0),
           child: ConstrainedBox(
             constraints: BoxConstraints(
-              minHeight: screenHeight - screenPadding.top - screenPadding.bottom,
+              minHeight:
+              screenHeight - screenPadding.top - screenPadding.bottom,
             ),
             child: IntrinsicHeight(
               child: Column(
@@ -105,12 +109,14 @@ class _HeightInputScreenState extends State<HeightInputScreen> {
                     ),
                   ),
                   const SizedBox(height: 12),
-                  const Text("      Provide details about your health, dietary    "),
+                  const Text(
+                      "      Provide details about your health, dietary    "),
                   const Text(
                     "habit and goals to receive a personalized diet",
                     style: TextStyle(fontStyle: FontStyle.normal),
                   ),
-                  const Text("         recommendation from your doctor         "),
+                  const Text(
+                      "         recommendation from your doctor         "),
                   const SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -126,9 +132,7 @@ class _HeightInputScreenState extends State<HeightInputScreen> {
                   ),
                   const SizedBox(height: 30),
                   isCmSelected ? _buildCmPicker() : _buildFeetInchPicker(),
-                  SizedBox(
-                    height: 225,
-                  ),
+                  const SizedBox(height: 225),
                   buildNextButton(context),
                   const SizedBox(height: 20),
                 ],
@@ -148,7 +152,8 @@ class _HeightInputScreenState extends State<HeightInputScreen> {
           if (success) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const WeightInputScreen()),
+              MaterialPageRoute(
+                  builder: (context) => const WeightInputScreen()),
             );
           }
         },
@@ -176,50 +181,53 @@ class _HeightInputScreenState extends State<HeightInputScreen> {
     );
   }
 
-  Future<bool> handleHeightInput() async {
+  Future<dynamic> handleHeightInput() async {
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       final userId = user.uid;
 
-      int? heightValue;
+      double? heightValue;
       String heightUnit;
 
       if (isCmSelected) {
         if (selectedCmIndex < 0 || selectedCmIndex >= cmList.length) {
-          return _showError("Invalid height selection.");
+          return Text("Invalid height selection.");
         }
-        heightValue = cmList[selectedCmIndex];
+        heightValue = cmList[selectedCmIndex].toDouble();
         heightUnit = 'cm';
       } else {
-        if (selectedFtIndex < 0 || selectedFtIndex >= feetList.length || selectedInIndex < 0 || selectedInIndex >= inchList.length) {
-          return _showError("Invalid height selection.");
+        if (selectedFtIndex < 0 ||
+            selectedFtIndex >= feetList.length ||
+            selectedInIndex < 0 ||
+            selectedInIndex >= inchList.length) {
+          return Text("Invalid height selection.");
         }
-        heightValue = _feetInchToCm(feetList[selectedFtIndex], inchList[selectedInIndex]);
+
+        double ft = feetList[selectedFtIndex].toDouble();
+        double inch = inchList[selectedInIndex].toDouble();
+
+        // ✅ Fixed precise conversion: store accurate ft.in (e.g. 5.5 = 5 ft 6 in)
+        heightValue = double.parse((ft + (inch / 12)).toStringAsFixed(2));
         heightUnit = 'ft_in';
       }
 
       try {
-        final userModel= FirebaseDataModelClass(
+        final userModel = FirebaseDataModelClass(
+          height: heightValue,
+          heightUnit: heightUnit,
+        );
 
-          height: heightValue.toDouble(),
-          heightUnit: heightUnit
-        );
-        await FirebaseFirestore.instance.collection('Users').doc(userId).update(
-         userModel.toJson()
-        );
+        await FirebaseFirestore.instance
+            .collection('Users')
+            .doc(userId)
+            .update(userModel.toJson());
+
         return true;
       } catch (e) {
-        return _showError("Failed to save height.");
+        return Text("Failed to save height.");
       }
     }
-    return _showError("User not logged in.");
-  }
-
-  bool _showError(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message), backgroundColor: Colors.redAccent),
-    );
-    return false;
+    return Text("User not logged in.");
   }
 
   Widget _buildCmPicker() {
@@ -238,7 +246,8 @@ class _HeightInputScreenState extends State<HeightInputScreen> {
           builder: (context, index) {
             final isSelected = index == selectedCmIndex;
             return _scrollItem(
-              value: isSelected ? "${cmList[index]} cm" : "${cmList[index]}",
+              value:
+              isSelected ? "${cmList[index]} cm" : "${cmList[index]}",
               isSelected: isSelected,
             );
           },
@@ -268,7 +277,9 @@ class _HeightInputScreenState extends State<HeightInputScreen> {
               builder: (context, index) {
                 final isSelected = index == selectedFtIndex;
                 return _scrollItem(
-                  value: isSelected ? "${feetList[index]} ft" : "${feetList[index]}",
+                  value: isSelected
+                      ? "${feetList[index]} ft"
+                      : "${feetList[index]}",
                   isSelected: isSelected,
                 );
               },
@@ -293,7 +304,9 @@ class _HeightInputScreenState extends State<HeightInputScreen> {
               builder: (context, index) {
                 final isSelected = index == selectedInIndex;
                 return _scrollItem(
-                  value: isSelected ? "${inchList[index]} inch" : "${inchList[index]}",
+                  value: isSelected
+                      ? "${inchList[index]} inch"
+                      : "${inchList[index]}",
                   isSelected: isSelected,
                 );
               },
@@ -331,17 +344,22 @@ class _HeightInputScreenState extends State<HeightInputScreen> {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+        padding:
+        const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
         decoration: BoxDecoration(
           color: isSelected ? selectedBackgroundColor : Colors.transparent,
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: isSelected ? selectedTextColor : Colors.grey.shade300),
+          border: Border.all(
+              color: isSelected
+                  ? selectedTextColor
+                  : Colors.grey.shade300),
         ),
         child: Text(
           label,
           style: TextStyle(
             color: isSelected ? selectedTextColor : Colors.black54,
-            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+            fontWeight:
+            isSelected ? FontWeight.bold : FontWeight.normal,
             fontSize: 16,
           ),
         ),

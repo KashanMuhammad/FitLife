@@ -37,24 +37,35 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
     if (uid.isNotEmpty) {
       final docSnapshot =
-          await FirebaseFirestore.instance.collection('Users').doc(uid).get();
+      await FirebaseFirestore.instance.collection('Users').doc(uid).get();
 
       if (docSnapshot.exists) {
         final data = docSnapshot.data()!;
         print("User data fetched: $data");
-        userModel= FirebaseDataModelClass.fromJson(data);
+        userModel = FirebaseDataModelClass.fromJson(data);
+
         setState(() {
           usernameController.text = userModel!.username ?? '';
           emailController.text = userModel!.email ?? '';
           genderController.text = userModel!.gender ?? '';
-          dateofbirthController.text =
-          userModel!.dateOfBirth != null
-              ? userModel!.dateOfBirth!.toIso8601String().split('T')[0]  // → 2004-07-21
+          dateofbirthController.text = userModel!.dateOfBirth != null
+              ? userModel!.dateOfBirth!.toIso8601String().split('T')[0]
               : '';
-          heightController.text =
-          (userModel!.height != null && userModel!.heightUnit != null)
-              ? '${userModel!.height!.toStringAsFixed(0)} ${userModel!.heightUnit}'
-              : '';
+
+          // ✅ FIXED HEIGHT DISPLAY
+          if (userModel!.height != null && userModel!.heightUnit != null) {
+            if (userModel!.heightUnit == 'ft_in') {
+              double heightVal = userModel!.height!;
+              int feet = heightVal.floor();
+              int inches = ((heightVal - feet) * 12).round();
+              heightController.text = "$feet feet $inches inches";
+            } else {
+              heightController.text =
+              "${userModel!.height!.toStringAsFixed(0)} cm";
+            }
+          } else {
+            heightController.text = '';
+          }
 
           currentWeightController.text =
           (userModel!.weight != null && userModel!.weightUnit != null)
@@ -266,14 +277,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       ),
     );
   }
-
-
 }
 
 Widget buildNextButton(BuildContext context) {
   return InkWell(
     onTap: () {
-      Navigator.push(context, MaterialPageRoute(builder: (context)=> UpdateProfileScreen()));
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => UpdateProfileScreen()));
     },
     child: Container(
       height: 50,

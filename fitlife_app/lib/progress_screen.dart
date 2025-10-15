@@ -230,7 +230,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
                 ),
                 SizedBox(height: 4),
                 Text(
-                  "05 july 2025",
+                  "05 Dec 2025",
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,

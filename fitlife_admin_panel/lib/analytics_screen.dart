@@ -9,9 +9,10 @@ class AnalyticsScreen extends StatefulWidget {
 }
 
 class _AnalyticsScreenState extends State<AnalyticsScreen> {
+  int selectedToggleIndex = 0;
   String selectedFilter = "All Date";
 
-  final filters = ["All Date", "24 Hour", "7 Days", "30 Days", "12 Months"];
+ // final filters = ["All Date", "24 Hour", "7 Days", "30 Days", "12 Months"];
 
   @override
   Widget build(BuildContext context) {
@@ -31,15 +32,16 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                 ),
                 Row(
                   children: const [
-                    CircleAvatar(
-                      backgroundImage: NetworkImage(
-                          "https://i.pravatar.cc/150?img=3"), // demo profile
-                      radius: 20,
-                    ),
-                    SizedBox(width: 10),
+
                     Text("Cody Fisher\nDashboard Manager",
                         textAlign: TextAlign.right,
                         style: TextStyle(fontSize: 14)),
+                    SizedBox(width: 10),
+                    CircleAvatar(
+                      radius: 24,
+                      backgroundImage: AssetImage("assets/male avatar.png"),
+                    ),
+                    // SizedBox(width: 10),
                   ],
                 ),
               ],
@@ -59,23 +61,74 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                     Text("Lorem ipsum dolor sit amet welcome back Johny"),
                   ],
                 ),
+                // Row(
+                //   children: filters.map((f) {
+                //     return Padding(
+                //       padding: const EdgeInsets.symmetric(horizontal: 5),
+                //       child: ChoiceChip(
+                //         label: Text(f),
+                //         selected: selectedFilter == f,
+                //         onSelected: (_) {
+                //           setState(() {
+                //             selectedFilter = f;
+                //           });
+                //         },
+                //         selectedColor: Colors.green,
+                //       ),
+                //     );
+                //   }).toList(),
+                // ),
                 Row(
-                  children: filters.map((f) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5),
-                      child: ChoiceChip(
-                        label: Text(f),
-                        selected: selectedFilter == f,
-                        onSelected: (_) {
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: ToggleButtons(
+                        isSelected: [
+                          selectedToggleIndex == 0,
+                          selectedToggleIndex == 1,
+                          selectedToggleIndex == 2,
+                          selectedToggleIndex == 3,
+                          selectedToggleIndex == 4,
+                        ],
+                        onPressed: (index) {
                           setState(() {
-                            selectedFilter = f;
+                            selectedToggleIndex = index;
                           });
                         },
-                        selectedColor: Colors.green,
+                        fillColor: Colors.transparent,
+                        splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        borderColor: Colors.transparent,
+                        selectedColor: Colors.white,
+                        color: Colors.green.shade900,
+                        borderRadius: BorderRadius.circular(8),
+                        renderBorder: false,
+                        children: [
+                          _buildToggleButton("All Date", selectedToggleIndex == 0),
+                          _buildToggleButton(
+                            "24 Hour",
+                            selectedToggleIndex == 1,
+                          ),
+                          _buildToggleButton(
+                            "7 Days",
+                            selectedToggleIndex == 2,
+                          ),
+                          _buildToggleButton(
+                            "30 Days",
+                            selectedToggleIndex == 3,
+                          ),
+                          _buildToggleButton(
+                            "12 Months",
+                            selectedToggleIndex == 4,
+                          ),
+                        ],
                       ),
-                    );
-                  }).toList(),
-                ),
+                    ),
+                  ],
+                )
               ],
             ),
             const SizedBox(height: 20),
@@ -260,4 +313,25 @@ class UserLineChart extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget _buildToggleButton(String text, bool selected) {
+  return Container(
+    padding: EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+    decoration: BoxDecoration(
+      gradient:
+      selected
+          ? LinearGradient(colors: [Color(0xFF5AFF15), Color(0xFF00B712)])
+          : null,
+      color: selected ? null : Colors.grey.shade100,
+      borderRadius: BorderRadius.circular(8),
+    ),
+    child: Text(
+      text,
+      style: TextStyle(
+        fontWeight: FontWeight.bold,
+        color: selected ? Colors.white : Colors.black,
+      ),
+    ),
+  );
 }

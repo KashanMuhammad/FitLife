@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Customer Support Static UI Completed, some code updated in the whole project">
+    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Supabse successfully connected , diet, food, blog images are successfully storing in the supabse storage and also updated upload blog button so not to upload null values to the firebase firestore">
+      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/blog_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/blog_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_blog_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_blog_screen.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,11 +69,11 @@
     &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;kashan/admin-panel/feature/firebase-integration-shared-class&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;kashan/admin-panel/patient-screen&quot;,
     &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;E:/practice_flutter&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;AndroidSdkUpdater&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.android.studio.ml.bot.mainConfigurable&quot;,
     &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   }
 }</component>
@@ -148,16 +149,12 @@
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Unnamed" type="FlutterRunConfigurationType" factoryName="Flutter" nameIsGenerated="true">
-      <method v="2" />
-    </configuration>
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
       <option name="filePath" value="$PROJECT_DIR$/fitlife_admin_panel/lib/main.dart" />
       <method v="2" />
     </configuration>
     <list>
       <item itemvalue="Android App.android.app" />
-      <item itemvalue="Flutter.Unnamed" />
       <item itemvalue="Flutter.main.dart" />
     </list>
   </component>
@@ -169,38 +166,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1747854831066</updated>
-    </task>
-    <task id="LOCAL-00002" summary="firebase initialization in both app and admin">
-      <option name="closed" value="true" />
-      <created>1747946755159</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1747946755159</updated>
-    </task>
-    <task id="LOCAL-00003" summary="admin panel side navigation bar created">
-      <option name="closed" value="true" />
-      <created>1748286340347</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1748286340347</updated>
-    </task>
-    <task id="LOCAL-00004" summary="admin panel Diet Screen finalized">
-      <option name="closed" value="true" />
-      <created>1748559889374</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1748559889374</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Food Screen Completed">
-      <option name="closed" value="true" />
-      <created>1748865063803</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1748865063803</updated>
     </task>
     <task id="LOCAL-00006" summary="Custom Widgets Created For Programmer Ease">
       <option name="closed" value="true" />
@@ -562,7 +527,39 @@
       <option name="project" value="LOCAL" />
       <updated>1755923728692</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="Code slightly updated but blog screen is fully updated and the UI is completely changed">
+      <option name="closed" value="true" />
+      <created>1756337669526</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1756337669526</updated>
+    </task>
+    <task id="LOCAL-00052" summary="Patient screen UI updated and also analytics screen toggle button updated">
+      <option name="closed" value="true" />
+      <created>1757605519667</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1757605519667</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Upload Diet Screnn ,Upload Blog Screen,Upload Food Screen are updated to store images in the supabase storage and also diet screen, food screen , blog screen updated to retrieve the images stored in the supabse. Yet more work to be done">
+      <option name="closed" value="true" />
+      <created>1758903004807</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1758903004807</updated>
+    </task>
+    <task id="LOCAL-00054" summary="Supabse successfully connected , diet, food, blog images are successfully storing in the supabse storage and also updated upload blog button so not to upload null values to the firebase firestore">
+      <option name="closed" value="true" />
+      <created>1759186622349</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1759186622349</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -604,10 +601,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="forgot_password_screen.dart completed with firebase functionalty" />
-    <MESSAGE value="create_new_password_screen.dart screen completed" />
-    <MESSAGE value="Done with the splash screen, skip screens , forgot password screen and the create new password screen in the forgot_password_branch." />
-    <MESSAGE value="Created blogs_screen.dart and Dleteted the separate screens skipscreen 1 2 and 3 and apply the functionality of these in only one page directly by using SkipScreenTemplate." />
     <MESSAGE value="Added blog_model.dart Class for working in blogs_screen.dart" />
     <MESSAGE value="Added blog_card.dart and blog_details_screen.dart still to do works with these screens" />
     <MESSAGE value="Working with blogs screen completed but the picture be imported" />
@@ -629,7 +622,11 @@
     <MESSAGE value="File slightly updated by the developer and some other functionalities were added" />
     <MESSAGE value="Static Analytics Screen Completed, Blog Screen completed with full functionalities, some concepts updated," />
     <MESSAGE value="Customer Support Static UI Completed, some code updated in the whole project" />
-    <option name="LAST_COMMIT_MESSAGE" value="Customer Support Static UI Completed, some code updated in the whole project" />
+    <MESSAGE value="Code slightly updated but blog screen is fully updated and the UI is completely changed" />
+    <MESSAGE value="Patient screen UI updated and also analytics screen toggle button updated" />
+    <MESSAGE value="Upload Diet Screnn ,Upload Blog Screen,Upload Food Screen are updated to store images in the supabase storage and also diet screen, food screen , blog screen updated to retrieve the images stored in the supabse. Yet more work to be done" />
+    <MESSAGE value="Supabse successfully connected , diet, food, blog images are successfully storing in the supabse storage and also updated upload blog button so not to upload null values to the firebase firestore" />
+    <option name="LAST_COMMIT_MESSAGE" value="Supabse successfully connected , diet, food, blog images are successfully storing in the supabse storage and also updated upload blog button so not to upload null values to the firebase firestore" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

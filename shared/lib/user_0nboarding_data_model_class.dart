@@ -24,6 +24,7 @@ class FirebaseDataModelClass {
   final String? tag;
   final String? selectedUnits;
   final String? selectedTag;
+  final String? foodImageUrl;
 
   // Diet fields
   final String? dietTitle;
@@ -37,6 +38,8 @@ class FirebaseDataModelClass {
   final String? dietTag;
   final String? createdBy;
   final String? createdAt;
+  final String? dietImageUrl;
+
 
   // Blog fields
   final String? blogTitle;
@@ -44,6 +47,7 @@ class FirebaseDataModelClass {
   final String? blogFullContent;
   final String? blogAuthorName;
   final String? blogCategory;
+  final String? blogImageUrl;
 
   // ✅ Assigned foods list
   final List<FoodModel>? assignedFoods;
@@ -91,6 +95,9 @@ class FirebaseDataModelClass {
     this.blogCategory,
     this.assignedFoods,
     this.userSelectedFood,
+    this.dietImageUrl,
+    this.blogImageUrl,
+    this.foodImageUrl,
   });
 
   // ✅ Convert object to JSON
@@ -122,6 +129,7 @@ class FirebaseDataModelClass {
     data['carbohydrates'] = carbohydrates;
     data['fats'] = fats;
     data['tag'] = tag;
+    data['foodImageUrl'] = foodImageUrl;
     data['selectedTag'] = selectedTag;
 
     data['dietTitle'] = dietTitle;
@@ -135,12 +143,14 @@ class FirebaseDataModelClass {
     data['dietTag'] = dietTag;
     data['createdBy'] = createdBy;
     data['createdAt'] = createdAt;
+    data['dietImageUrl'] = dietImageUrl;
 
     data['blogTitle'] = blogTitle;
     data['blogShortDescription'] = blogShortDescription;
     data['blogFullContent'] = blogFullContent;
     data['blogCategory'] = blogCategory;
     data['blogAuthorName'] = blogAuthorName;
+    data['blogImageUrl'] = blogImageUrl;
 
     if (assignedFoods != null) {
       data['assignedFoods'] =
@@ -177,6 +187,7 @@ class FirebaseDataModelClass {
       privacyPolicyAccepted: json['privacyPolicyAccepted'] as bool?,
       foodName: json['foodName'] as String?,
       foodDescription: json['foodDescription'] as String?,
+      foodImageUrl: json['foodImageUrl'] as String?,
       quantity: json['quantity'] as String?,
       caloriesPerServing: json['caloriesPerServing'] as String?,
       selectedUnits: json['selectedUnits'] as String?,
@@ -186,6 +197,7 @@ class FirebaseDataModelClass {
       tag: json['tag'] as String?,
       selectedTag: json['selectedTag'] as String?,
       dietTitle: json['dietTitle'] as String?,
+      dietImageUrl: json['dietImageUrl'] as String?,
       dietDescription: json['dietDescription'] as String?,
       selectedMealType: json['selectedMealType'] as String?,
       day: json['day'] as String?,
@@ -198,6 +210,7 @@ class FirebaseDataModelClass {
       createdAt: json['createdAt'] as String?,
       blogTitle: json['blogTitle'] as String?,
       blogShortDescription: json['blogShortDescription'] as String?,
+      blogImageUrl: json['blogImageUrl'] as String?,
       blogFullContent: json['blogFullContent'] as String?,
       blogCategory: json['blogCategory'] as String?,
       blogAuthorName: json['blogAuthorName'] as String?,

@@ -4,23 +4,28 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-
-    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Admin panel Patient Screen completed and also given functionality to assigned diet plan to the users or patients">
-      <change afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_blog_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/blog_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/blog_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/dashboard.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/dashboard.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/food_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/food_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_diet_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_diet_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/lib/user_0nboarding_data_model_class.dart" beforeDir="false" afterPath="$PROJECT_DIR$/shared/lib/user_0nboarding_data_model_class.dart" afterDir="false" />
-
-    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Removed the conflicts now pushing">
+    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="created a new branch">
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fitlife_admin_panel/assets/man.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/home_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/user_and_profile_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/user_and_profile_screen.dart" afterDir="false" />
-
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/analytics_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/analytics_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/blog_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/blog_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/custom_widgets.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/custom_widgets.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/customer_support.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/customer_support.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/dashboard.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/dashboard.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/diet_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/diet_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/food_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/food_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/patient_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/patient_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_blog_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_blog_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_diet_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_diet_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_food_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_food_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/lib/user_0nboarding_data_model_class.dart" beforeDir="false" afterPath="$PROJECT_DIR$/shared/lib/user_0nboarding_data_model_class.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,7 +35,6 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$/fitlife_app/android">
       <ProjectState />
@@ -70,26 +74,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Flutter.main.dart.executor&quot;: &quot;Run&quot;,
-    &quot;Flutter.main.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;kashan/admin-panel/feature/firebase-integration-shared-class&quot;,
-    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/practice_flutter&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
-    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Flutter.main.dart.executor": "Run",
+    "Flutter.main.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "Merging fawadalishan__backend__firebase__and__supabase",
+    "io.flutter.reload.alreadyRun": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "E:/practice_flutter",
+    "settings.editor.selected.configurable": "com.android.studio.ml.bot.mainConfigurable",
+    "show.migrate.to.gradle.popup": "false"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Flutter.main.dart">
     <configuration name="android.app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
       <option name="ANDROID_RUN_CONFIGURATION_SCHEMA_VERSION" value="1" />
@@ -162,16 +166,12 @@
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Unnamed" type="FlutterRunConfigurationType" factoryName="Flutter" nameIsGenerated="true">
-      <method v="2" />
-    </configuration>
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
       <option name="filePath" value="$PROJECT_DIR$/fitlife_admin_panel/lib/main.dart" />
       <method v="2" />
     </configuration>
     <list>
       <item itemvalue="Android App.android.app" />
-      <item itemvalue="Flutter.Unnamed" />
       <item itemvalue="Flutter.main.dart" />
     </list>
   </component>
@@ -183,46 +183,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1747854831066</updated>
-    </task>
-    <task id="LOCAL-00001" summary="firebase configured with app and admin both">
-      <option name="closed" value="true" />
-      <created>1747941131657</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1747941131657</updated>
-    </task>
-    <task id="LOCAL-00002" summary="firebase initialization in both app and admin">
-      <option name="closed" value="true" />
-      <created>1747946755159</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1747946755159</updated>
-    </task>
-    <task id="LOCAL-00003" summary="admin panel side navigation bar created">
-      <option name="closed" value="true" />
-      <created>1748286340347</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1748286340347</updated>
-    </task>
-    <task id="LOCAL-00004" summary="admin panel Diet Screen finalized">
-      <option name="closed" value="true" />
-      <created>1748559889374</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1748559889374</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Food Screen Completed">
-      <option name="closed" value="true" />
-      <created>1748865063803</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1748865063803</updated>
     </task>
     <task id="LOCAL-00006" summary="Custom Widgets Created For Programmer Ease">
       <option name="closed" value="true" />
@@ -536,7 +496,6 @@
       <option name="project" value="LOCAL" />
       <updated>1753780911165</updated>
     </task>
-
     <task id="LOCAL-00045" summary="Added Firebase FireStore Functionality to the upload food button in the upload diet screen and successfully working">
       <option name="closed" value="true" />
       <created>1754334432347</created>
@@ -561,18 +520,63 @@
       <option name="project" value="LOCAL" />
       <updated>1755121498352</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
-
-    <task id="LOCAL-00045" summary="Removed the conflicts now pushing">
+    <task id="LOCAL-00048" summary="Admin panel Upload Blog Screen completed and also given functionality to create blog button">
       <option name="closed" value="true" />
-      <created>1753788988962</created>
-      <option name="number" value="00045" />
-      <option name="presentableId" value="LOCAL-00045" />
+      <created>1755543199996</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
       <option name="project" value="LOCAL" />
-      <updated>1753788988962</updated>
+      <updated>1755543199996</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
-
+    <task id="LOCAL-00049" summary="Static Analytics Screen Completed, Blog Screen completed with full functionalities, some concepts updated,">
+      <option name="closed" value="true" />
+      <created>1755906050332</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1755906050332</updated>
+    </task>
+    <task id="LOCAL-00050" summary="Customer Support Static UI Completed, some code updated in the whole project">
+      <option name="closed" value="true" />
+      <created>1755923728692</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1755923728692</updated>
+    </task>
+    <task id="LOCAL-00051" summary="Code slightly updated but blog screen is fully updated and the UI is completely changed">
+      <option name="closed" value="true" />
+      <created>1756337669526</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1756337669526</updated>
+    </task>
+    <task id="LOCAL-00052" summary="Patient screen UI updated and also analytics screen toggle button updated">
+      <option name="closed" value="true" />
+      <created>1757605519667</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1757605519667</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Upload Diet Screnn ,Upload Blog Screen,Upload Food Screen are updated to store images in the supabase storage and also diet screen, food screen , blog screen updated to retrieve the images stored in the supabse. Yet more work to be done">
+      <option name="closed" value="true" />
+      <created>1758903004807</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1758903004807</updated>
+    </task>
+    <task id="LOCAL-00054" summary="Supabse successfully connected , diet, food, blog images are successfully storing in the supabse storage and also updated upload blog button so not to upload null values to the firebase firestore">
+      <option name="closed" value="true" />
+      <created>1759186622349</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1759186622349</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -614,21 +618,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-
-    <MESSAGE value="Dependencies Updated" />
-    <MESSAGE value="Project Slightly Updated" />
-
-    <MESSAGE value="Pulled Slightly Updated Project" />
-    <MESSAGE value="Major Updates (New FireBase Project with three platforms &amp; Many corrections &amp; Modifications)" />
-    <MESSAGE value="Major Updates (New FireBase Project with three platforms &amp; Many corrections &amp; Modifications) some files added" />
-    <MESSAGE value="Slightly uodates the files and now going to pull the code again" />
-    <MESSAGE value="Re pulled and merged the code after just deployed the admin panel and now committing it." />
-    <MESSAGE value="privacy_policy_screen.dart and help_and_support_screen.dart is completed with firebase functionality." />
-    <MESSAGE value="forgot_password_screen.dart completed with firebase functionalty" />
-    <MESSAGE value="create_new_password_screen.dart screen completed" />
-    <MESSAGE value="Done with the splash screen, skip screens , forgot password screen and the create new password screen in the forgot_password_branch." />
-    <MESSAGE value="Created blogs_screen.dart and Dleteted the separate screens skipscreen 1 2 and 3 and apply the functionality of these in only one page directly by using SkipScreenTemplate." />
-    <MESSAGE value="Added blog_model.dart Class for working in blogs_screen.dart" />
     <MESSAGE value="Added blog_card.dart and blog_details_screen.dart still to do works with these screens" />
     <MESSAGE value="Working with blogs screen completed but the picture be imported" />
     <MESSAGE value="Working with blogs screen and blog detail screen completed" />
@@ -639,12 +628,22 @@
     <MESSAGE value="edit_profile_screen.dart and update_profile_screen.dart completed but still needs maintenance" />
     <MESSAGE value="Checked the UI on mobile and customize the ui if needed and now its coming perfect on the mobile." />
     <MESSAGE value="add_meals screens UI completed but some functionality still remaining" />
-
     <MESSAGE value="Pulled Updated Application code" />
     <MESSAGE value="Added Firebase FireStore Functionality to the upload food button in the upload diet screen and successfully working" />
     <MESSAGE value="Added Firebase FireStore Functionality to the upload diet button in the upload diet screen and successfully working and also updated diet and food table to fench real time data from the firebase firestore" />
     <MESSAGE value="Admin panel Patient Screen completed and also given functionality to assigned diet plan to the users or patients" />
-    <option name="LAST_COMMIT_MESSAGE" value="Admin panel Patient Screen completed and also given functionality to assigned diet plan to the users or patients" />
+    <MESSAGE value="Admin panel Upload Blog Screen completed and also given functionality to create blog button" />
+    <MESSAGE value="pulling updated project" />
+    <MESSAGE value="new file commited" />
+    <MESSAGE value="File slightly updated by the developer and some other functionalities were added" />
+    <MESSAGE value="Static Analytics Screen Completed, Blog Screen completed with full functionalities, some concepts updated," />
+    <MESSAGE value="Customer Support Static UI Completed, some code updated in the whole project" />
+    <MESSAGE value="Code slightly updated but blog screen is fully updated and the UI is completely changed" />
+    <MESSAGE value="Patient screen UI updated and also analytics screen toggle button updated" />
+    <MESSAGE value="Upload Diet Screnn ,Upload Blog Screen,Upload Food Screen are updated to store images in the supabase storage and also diet screen, food screen , blog screen updated to retrieve the images stored in the supabse. Yet more work to be done" />
+    <MESSAGE value="Supabse successfully connected , diet, food, blog images are successfully storing in the supabse storage and also updated upload blog button so not to upload null values to the firebase firestore" />
+    <MESSAGE value="created a new branch" />
+    <option name="LAST_COMMIT_MESSAGE" value="created a new branch" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -655,10 +654,5 @@
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
-
-    <MESSAGE value="Full UI of the app completed with firebase functionalities in some pages and for other the firebase and backend functionalities still remaining." />
-    <MESSAGE value="Removed the conflicts now pushing" />
-    <option name="LAST_COMMIT_MESSAGE" value="Removed the conflicts now pushing" />
-
   </component>
 </project>

@@ -4,12 +4,10 @@ class FirebaseDataModelClass {
   final String? email;
   final String? password;
   final String? gender;
-
-  final double? height;     // numeric value
-  final String? heightUnit; // cm, ft_in
-  final double? weight;     // numeric value
-  final String? weightUnit; // kg, lbs
-
+  final double? height;
+  final String? heightUnit;
+  final double? weight;
+  final String? weightUnit;
   final DateTime? dateOfBirth;
   final List<String>? selectedDietHabits;
   final List<String>? selectedHealthIssues;
@@ -26,6 +24,7 @@ class FirebaseDataModelClass {
   final String? tag;
   final String? selectedUnits;
   final String? selectedTag;
+  final String? foodImageUrl;
 
   // Diet fields
   final String? dietTitle;
@@ -39,6 +38,8 @@ class FirebaseDataModelClass {
   final String? dietTag;
   final String? createdBy;
   final String? createdAt;
+  final String? dietImageUrl;
+
 
   // Blog fields
   final String? blogTitle;
@@ -46,6 +47,7 @@ class FirebaseDataModelClass {
   final String? blogFullContent;
   final String? blogAuthorName;
   final String? blogCategory;
+  final String? blogImageUrl;
 
   // ✅ Assigned foods list
   final List<FoodModel>? assignedFoods;
@@ -93,73 +95,66 @@ class FirebaseDataModelClass {
     this.blogCategory,
     this.assignedFoods,
     this.userSelectedFood,
+    this.dietImageUrl,
+    this.blogImageUrl,
+    this.foodImageUrl,
   });
 
-  // ✅ Convert object to JSON (ignores nulls)
+  // ✅ Convert object to JSON
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = {};
 
-    void put(String key, dynamic value) {
-      if (value != null) data[key] = value;
-    }
-
-    put('userId', userId);
-    put('email', email);
-    put('password', password);
-    put('username', username);
-    put('gender', gender);
-
-    // ✅ store height & weight consistently
-    put('height', height);
-    put('heightValue', height); // backward compatibility
-    put('heightUnit', heightUnit);
-    put('weight', weight);
-    put('weightValue', weight);
-    put('weightUnit', weightUnit);
-
+    data['userId'] = userId;
+    data['email'] = email;
+    data['password'] = password;
+    data['username'] = username;
+    data['gender'] = gender;
+    data['height'] = height;
+    data['heightUnit'] = heightUnit;
+    data['weight'] = weight;
+    data['weightUnit'] = weightUnit;
     if (dateOfBirth != null) {
       data['dateOfBirth'] = dateOfBirth!.toIso8601String();
     }
+    data['selectedDietHabits'] = selectedDietHabits;
+    data['selectedHealthIssues'] = selectedHealthIssues;
+    data['privacyPolicyAccepted'] = privacyPolicyAccepted;
 
-    put('selectedDietHabits', selectedDietHabits);
-    put('selectedHealthIssues', selectedHealthIssues);
-    put('privacyPolicyAccepted', privacyPolicyAccepted);
+    data['foodName'] = foodName;
+    data['foodDescription'] = foodDescription;
+    data['quantity'] = quantity;
+    data['selectedUnits'] = selectedUnits;
+    data['caloriesPerServing'] = caloriesPerServing;
+    data['protein'] = protein;
+    data['carbohydrates'] = carbohydrates;
+    data['fats'] = fats;
+    data['tag'] = tag;
+    data['foodImageUrl'] = foodImageUrl;
+    data['selectedTag'] = selectedTag;
 
-    put('foodName', foodName);
-    put('foodDescription', foodDescription);
-    put('quantity', quantity);
-    put('selectedUnits', selectedUnits);
-    put('caloriesPerServing', caloriesPerServing);
-    put('protein', protein);
-    put('carbohydrates', carbohydrates);
-    put('fats', fats);
-    put('tag', tag);
-    put('selectedTag', selectedTag);
+    data['dietTitle'] = dietTitle;
+    data['dietDescription'] = dietDescription;
+    data['selectedMealType'] = selectedMealType;
+    data['day'] = day;
+    data['timeToEat'] = timeToEat;
+    data['listOfFood'] = listOfFood;
+    data['duration'] = duration;
+    data['suitableFor'] = suitableFor;
+    data['dietTag'] = dietTag;
+    data['createdBy'] = createdBy;
+    data['createdAt'] = createdAt;
+    data['dietImageUrl'] = dietImageUrl;
 
-    put('dietTitle', dietTitle);
-    put('dietDescription', dietDescription);
-    put('selectedMealType', selectedMealType);
-    put('day', day);
-    put('timeToEat', timeToEat);
-    put('listOfFood', listOfFood);
-    put('duration', duration);
-    put('suitableFor', suitableFor);
-    put('dietTag', dietTag);
-    put('createdBy', createdBy);
-    put('createdAt', createdAt);
-
-    put('blogTitle', blogTitle);
-    put('blogShortDescription', blogShortDescription);
-    put('blogFullContent', blogFullContent);
-    put('blogCategory', blogCategory);
-    put('blogAuthorName', blogAuthorName);
+    data['blogTitle'] = blogTitle;
+    data['blogShortDescription'] = blogShortDescription;
+    data['blogFullContent'] = blogFullContent;
+    data['blogCategory'] = blogCategory;
+    data['blogAuthorName'] = blogAuthorName;
+    data['blogImageUrl'] = blogImageUrl;
 
     if (assignedFoods != null) {
-      data['assignedFoods'] = assignedFoods!.map((f) => f.toJson()).toList();
-    }
-
-    if (userSelectedFood != null) {
-      data['userSelectedFood'] = userSelectedFood!.map((f) => f.toJson()).toList();
+      data['assignedFoods'] =
+          assignedFoods!.map((f) => f.toJson()).toList();
     }
 
     return data;
@@ -180,22 +175,10 @@ class FirebaseDataModelClass {
       password: json['password'] as String?,
       username: json['username'] as String?,
       gender: json['gender'] as String?,
-
-      // ✅ consistent height loading (supports both field names)
-      height: json['height'] != null
-          ? (json['height'] as num).toDouble()
-          : (json['heightValue'] != null
-          ? (json['heightValue'] as num).toDouble()
-          : null),
+      height: (json['height'] as num?)?.toDouble(),
       heightUnit: json['heightUnit'] as String?,
-
-      weight: json['weight'] != null
-          ? (json['weight'] as num).toDouble()
-          : (json['weightValue'] != null
-          ? (json['weightValue'] as num).toDouble()
-          : null),
+      weight: (json['weight'] as num?)?.toDouble(),
       weightUnit: json['weightUnit'] as String?,
-
       dateOfBirth: json['dateOfBirth'] != null
           ? DateTime.tryParse(json['dateOfBirth'])
           : null,
@@ -204,6 +187,7 @@ class FirebaseDataModelClass {
       privacyPolicyAccepted: json['privacyPolicyAccepted'] as bool?,
       foodName: json['foodName'] as String?,
       foodDescription: json['foodDescription'] as String?,
+      foodImageUrl: json['foodImageUrl'] as String?,
       quantity: json['quantity'] as String?,
       caloriesPerServing: json['caloriesPerServing'] as String?,
       selectedUnits: json['selectedUnits'] as String?,
@@ -213,6 +197,7 @@ class FirebaseDataModelClass {
       tag: json['tag'] as String?,
       selectedTag: json['selectedTag'] as String?,
       dietTitle: json['dietTitle'] as String?,
+      dietImageUrl: json['dietImageUrl'] as String?,
       dietDescription: json['dietDescription'] as String?,
       selectedMealType: json['selectedMealType'] as String?,
       day: json['day'] as String?,
@@ -225,6 +210,7 @@ class FirebaseDataModelClass {
       createdAt: json['createdAt'] as String?,
       blogTitle: json['blogTitle'] as String?,
       blogShortDescription: json['blogShortDescription'] as String?,
+      blogImageUrl: json['blogImageUrl'] as String?,
       blogFullContent: json['blogFullContent'] as String?,
       blogCategory: json['blogCategory'] as String?,
       blogAuthorName: json['blogAuthorName'] as String?,
@@ -236,14 +222,9 @@ class FirebaseDataModelClass {
           .toList(),
     );
   }
-
-  // ✅ Helpers for UI
-  String get formattedHeight =>
-      height != null && heightUnit != null ? "$height $heightUnit" : "";
-
-  String get formattedWeight =>
-      weight != null && weightUnit != null ? "$weight $weightUnit" : "";
 }
+
+
 
 class FoodModel {
   final String foodName;
@@ -280,13 +261,11 @@ class FoodModel {
       'foodName': foodName,
       'caloriesPerServing': calories,
       'foodDescription': foodDescription,
-      if (mealType != null) 'mealType': mealType,
-      if (quantity != null) 'quantity': quantity,
+      'mealType': mealType,
       'consumptions': consumptions.map((e) => e.toJson()).toList(),
     };
   }
 }
-
 class ConsumptionEntry {
   final String date;
   final String foodQuantity;
@@ -295,7 +274,7 @@ class ConsumptionEntry {
   ConsumptionEntry({
     required this.date,
     required this.foodQuantity,
-    required this.mealType,
+    required this.mealType
   });
 
   factory ConsumptionEntry.fromMap(Map<String, dynamic> data) {
@@ -314,3 +293,4 @@ class ConsumptionEntry {
     };
   }
 }
+

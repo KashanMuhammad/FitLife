@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fitlife_admin_panel/dashboard.dart';
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 Map<String, Map<String, dynamic>> globalFoodMap = {};
 Map<String, Map<String, dynamic>> globalDietMap = {};
 void main() async{
@@ -12,10 +13,15 @@ void main() async{
         projectId: "fitlife-a042d",
         storageBucket: "fitlife-a042d.firebasestorage.app",
         messagingSenderId: "984332560461",
-        appId: "1:984332560461:web:9b4f49a7427c9531c01404"
+        appId: "1:984332560461:web:9b4f49a7427c9531c01404",
     )
 
   );
+  await Supabase.initialize(
+    url: "https://pmapautgzuzzdkrjjxzk.supabase.co",       // replace with your Supabase project URL
+    anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBtYXBhdXRnenV6emRrcmpqeHprIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgyMDAxMDcsImV4cCI6MjA3Mzc3NjEwN30.hmp9X9LWqsyeeFZeN8RpvBCmyc8ZsSZL_WHDctq6hr0",                         // replace with your Supabase anon key
+  );
+
   runApp(MaterialApp(
     home: Dashboard(),
     debugShowCheckedModeBanner: false,

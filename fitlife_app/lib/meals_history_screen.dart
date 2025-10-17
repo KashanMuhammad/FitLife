@@ -4,6 +4,8 @@ import 'package:fitlife_app/custom%20widgets/custom_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:shared/user_0nboarding_data_model_class.dart';
 
+import 'assignedfood_detail_screen.dart';
+
 class MealsHistoryScreen extends StatefulWidget {
   const MealsHistoryScreen({super.key});
 
@@ -234,9 +236,22 @@ class _MealsHistoryScreenState extends State<MealsHistoryScreen> {
                           ? "No consumption entries • ${food.calories} kcal"
                           : consumptionText,
                       trailing: IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          if (userData != null && userData!.assignedFoods != null && userData!.assignedFoods!.isNotEmpty) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => AssignedFoodDetailScreen(
+                                  assignedFoods: [food], // <-- only the tapped food
+                                  initialIndex: 0,
+                                ),
+                              ),
+                            );
+                          }
+                        },
                         icon: Icon(Icons.arrow_forward_ios),
                       ),
+
                       tileColor: Color(0xFFFAFAFA),
                     );
                   },
@@ -308,9 +323,22 @@ class _MealsHistoryScreenState extends State<MealsHistoryScreen> {
                           ? "No consumption entries • ${food.calories} kcal"
                           : consumptionText,
                       trailing: IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          if (userData != null && userData!.assignedFoods != null && userData!.assignedFoods!.isNotEmpty) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => AssignedFoodDetailScreen(
+                                  assignedFoods: [food], // <-- only the tapped food
+                                  initialIndex: 0,
+                                ),
+                              ),
+                            );
+                          }
+                        },
                         icon: Icon(Icons.arrow_forward_ios),
                       ),
+
                       tileColor: Color(0xFFFAFAFA),
                     );
                   },
@@ -379,9 +407,22 @@ class _MealsHistoryScreenState extends State<MealsHistoryScreen> {
                           ? "No consumption entries • ${food.calories} kcal"
                           : consumptionText,
                       trailing: IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          if (userData != null && userData!.assignedFoods != null && userData!.assignedFoods!.isNotEmpty) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => AssignedFoodDetailScreen(
+                                  assignedFoods: [food], // <-- only the tapped food
+                                  initialIndex: 0,
+                                ),
+                              ),
+                            );
+                          }
+                        },
                         icon: Icon(Icons.arrow_forward_ios),
                       ),
+
                       tileColor: Color(0xFFFAFAFA),
                     );
                   },

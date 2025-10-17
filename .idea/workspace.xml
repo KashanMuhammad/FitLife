@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Added the functionality of getting the today meals and cheat meal to the home screen">
+    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Completed Firebase functionality of getting the data of blogs_screen.dart and blog_details_screen.dart from admin panel">
+      <change afterPath="$PROJECT_DIR$/fitlife_app/lib/assignedfood_detail_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/blog_details_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/blog_details_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/blogs_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/blogs_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/custom widgets/blog_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/custom widgets/blog_card.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/home_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/meals_history_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/meals_history_screen.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -167,14 +165,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1747854831066</updated>
-    </task>
-    <task id="LOCAL-00011" summary="Global map created for Diet Plan">
-      <option name="closed" value="true" />
-      <created>1749408478199</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1749408478199</updated>
     </task>
     <task id="LOCAL-00012" summary="Method Created to store data in the diet plan map">
       <option name="closed" value="true" />
@@ -560,7 +550,15 @@
       <option name="project" value="LOCAL" />
       <updated>1760683230467</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="Completed Firebase functionality of getting the data of blogs_screen.dart and blog_details_screen.dart from admin panel">
+      <option name="closed" value="true" />
+      <created>1760688256302</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1760688256302</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -602,7 +600,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="completed working with the user_and_profile_screen and edit profile screen" />
     <MESSAGE value="Slightly updated profile Screen" />
     <MESSAGE value="edit_profile_screen.dart and update_profile_screen.dart completed but still needs maintenance" />
     <MESSAGE value="Checked the UI on mobile and customize the ui if needed and now its coming perfect on the mobile." />
@@ -627,7 +624,8 @@
     <MESSAGE value="Reformat the code of meals screen after getting the images" />
     <MESSAGE value="Added the functionality of adding the profile image to the supabase and get a link in the firestore and then get it on the circle avatar on all screens that have profile image" />
     <MESSAGE value="Added the functionality of getting the today meals and cheat meal to the home screen" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added the functionality of getting the today meals and cheat meal to the home screen" />
+    <MESSAGE value="Completed Firebase functionality of getting the data of blogs_screen.dart and blog_details_screen.dart from admin panel" />
+    <option name="LAST_COMMIT_MESSAGE" value="Completed Firebase functionality of getting the data of blogs_screen.dart and blog_details_screen.dart from admin panel" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -35,7 +35,7 @@ class _AddMealsScreenState extends State<AddMealsScreen> {
   }
 
   Future<void> loadUserData() async {
-    final userId = "24pWkz3CU0PUanITZz3LcAIUNIz2";
+    final userId = FirebaseAuth.instance.currentUser!.uid;
     try {
       final doc =
       await FirebaseFirestore.instance.collection('Users').doc(userId).get();
@@ -62,7 +62,7 @@ class _AddMealsScreenState extends State<AddMealsScreen> {
   }
 
   Future<void> _addFood(FoodModel food) async {
-    final userId = "24pWkz3CU0PUanITZz3LcAIUNIz2";
+    final userId = FirebaseAuth.instance.currentUser!.uid;
     if (userId == null) return;
 
     try {
@@ -91,7 +91,7 @@ class _AddMealsScreenState extends State<AddMealsScreen> {
   }
 
   Future<void> _deleteFood(FoodModel food) async {
-    final userId = "24pWkz3CU0PUanITZz3LcAIUNIz2";
+    final userId = FirebaseAuth.instance.currentUser!.uid;
     if (userId == null) return;
 
     try {

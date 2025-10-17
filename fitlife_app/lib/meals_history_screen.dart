@@ -23,7 +23,7 @@ class _MealsHistoryScreenState extends State<MealsHistoryScreen> {
   }
 
   Future<void> loadUserData() async {
-    var userId =  "24pWkz3CU0PUanITZz3LcAIUNIz2";
+    var userId = FirebaseAuth.instance.currentUser!.uid;
     try {
       final doc =
       await FirebaseFirestore.instance.collection('Users').doc(userId).get();

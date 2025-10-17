@@ -7,6 +7,7 @@ import 'package:syncfusion_flutter_gauges/gauges.dart';
 import 'package:fitlife_app/add_meals_screen.dart';
 import 'package:fitlife_app/custom widgets/custom_list_tile.dart';
 import 'package:fitlife_app/custom widgets/custom_text.dart';
+import 'package:shared/user_0nboarding_data_model_class.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -17,11 +18,14 @@ class HomeScreen extends ConsumerStatefulWidget {
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   String? _profileImageUrl;
+  FirebaseDataModelClass? userData;
+  bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
     _loadProfileImage();
+    _loadUserMeals();
   }
 
   Future<void> _loadProfileImage() async {
@@ -44,19 +48,35 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     }
   }
 
+  Future<void> _loadUserMeals() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) return;
+
+    try {
+      final doc =
+      await FirebaseFirestore.instance.collection('Users').doc(user.uid).get();
+
+      if (doc.exists) {
+        setState(() {
+          userData = FirebaseDataModelClass.fromJson(doc.data()!);
+          _isLoading = false;
+        });
+      } else {
+        setState(() => _isLoading = false);
+      }
+    } catch (e) {
+      debugPrint("⚠️ Error loading meals: $e");
+      setState(() => _isLoading = false);
+    }
+  }
+
   String getGreeting() {
     final hour = DateTime.now().hour;
-
     if (hour >= 5 && hour < 12) return 'Good Morning';
     if (hour >= 12 && hour < 17) return 'Good Afternoon';
     if (hour >= 17 && hour < 21) return 'Good Evening';
     return 'Good Night';
   }
-
-  final List<String> todaysMeal = ['Bread', 'Lunch', 'Dinner'];
-  final List<String> cheatMeal = ['Chicken Thigh'];
-  final List<String> activity = ['Football', 'Cricket'];
-  final List<String> fasting = ['Fasting'];
 
   @override
   Widget build(BuildContext context) {
@@ -84,8 +104,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           child: const Icon(Icons.add),
         ),
       ),
-
-      body: SingleChildScrollView(
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : SingleChildScrollView(
         child: Column(
           children: [
             const SizedBox(height: 40),
@@ -94,7 +115,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // ✅ Read-only Supabase avatar from Firestore
                   CircleAvatar(
                     radius: 30,
                     backgroundColor: Colors.grey.shade200,
@@ -104,7 +124,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     as ImageProvider,
                   ),
                   const SizedBox(width: 25),
-
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -138,15 +157,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         const Center(
                           child: Text(
                             "You lost 500 g Today. Reach your goal soon!",
-                            style:
-                            TextStyle(fontSize: 14, color: Colors.black54),
+                            style: TextStyle(
+                                fontSize: 14, color: Colors.black54),
                             textAlign: TextAlign.center,
                           ),
                         ),
                       ],
                     ),
                   ),
-
                   Container(
                     height: 45,
                     width: 45,
@@ -164,12 +182,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 ],
               ),
             ),
-
             buildCaloriesGraph(screenSize),
             const SizedBox(height: 10),
-            const CustomText(text: "Today's Meal"),
+            const CustomText(text: "Today's Meals"),
             buildTodaysMeal(),
-            const CustomText(text: "Cheat Meal"),
+            const CustomText(text: "Cheat Meals"),
             buildCheatMeal(),
             const CustomText(text: "Activity"),
             buildActivity(),
@@ -182,9 +199,160 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 
-  // same list builder methods as before ...
+  // 🔹 Today's Meals (from Firestore)
+  Widget buildTodaysMeal() {
+    if (userData == null || userData!.userSelectedFood == null) {
+      return const Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Text("No meals found today",
+            style: TextStyle(fontSize: 16, color: Colors.black54)),
+      );
+    }
+
+    final List<FoodModel> foods = userData!.userSelectedFood ?? [];
+    final today = DateTime.now();
+
+    final todaysFoods = foods.where((food) {
+      return food.consumptions.any((c) {
+        final date = DateTime.tryParse(c.date) ?? DateTime.now();
+        return date.year == today.year &&
+            date.month == today.month &&
+            date.day == today.day;
+      });
+    }).toList();
+
+    if (todaysFoods.isEmpty) {
+      return const Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Text("No meals consumed today",
+            style: TextStyle(fontSize: 16, color: Colors.black54)),
+      );
+    }
+
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ListView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: todaysFoods.length,
+        itemBuilder: (context, index) {
+          final food = todaysFoods[index];
+          final consumptions = food.consumptions.where((c) {
+            final date = DateTime.tryParse(c.date) ?? DateTime.now();
+            return date.year == today.year &&
+                date.month == today.month &&
+                date.day == today.day;
+          }).toList();
+
+          String subtitle = consumptions.map((c) {
+            double foodCalories = double.tryParse(food.calories) ?? 0;
+            double quantity = double.tryParse(c.foodQuantity) ?? 1;
+            double totalCalories = foodCalories * quantity;
+            return "${c.foodQuantity} Foods  ${totalCalories.toStringAsFixed(0)} kcal";
+          }).join("\n");
+
+          return CustomListTile(
+            title: food.foodName,
+            leading: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Image.network(
+                food.foodImageUrl ?? 'https://via.placeholder.com/60',
+                width: 60,
+                height: 60,
+                fit: BoxFit.cover,
+              ),
+            ),
+            subtitle: subtitle,
+            trailing: IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.arrow_forward_ios),
+            ),
+            tileColor: const Color(0xFFFAFAFA),
+          );
+        },
+      ),
+    );
+  }
+
+  // 🔹 Cheat Meals (foods over 500 kcal)
+  Widget buildCheatMeal() {
+    if (userData == null || userData!.userSelectedFood == null) {
+      return const Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Text("No cheat meals found",
+            style: TextStyle(fontSize: 16, color: Colors.black54)),
+      );
+    }
+
+    final List<FoodModel> foods = userData!.userSelectedFood ?? [];
+    final cheatFoods =
+    foods.where((f) => double.tryParse(f.calories) != null && double.parse(f.calories) > 500).toList();
+
+    if (cheatFoods.isEmpty) {
+      return const Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Text("No cheat meals today",
+            style: TextStyle(fontSize: 16, color: Colors.black54)),
+      );
+    }
+
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ListView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: cheatFoods.length,
+        itemBuilder: (context, index) {
+          final food = cheatFoods[index];
+          return CustomListTile(
+            title: food.foodName,
+            leading: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Image.network(
+                food.foodImageUrl ?? 'https://via.placeholder.com/60',
+                width: 60,
+                height: 60,
+                fit: BoxFit.cover,
+              ),
+            ),
+            subtitle: "${food.calories} kcal",
+            trailing: IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.arrow_forward_ios),
+            ),
+            tileColor: const Color(0xFFFAFAFA),
+          );
+        },
+      ),
+    );
+  }
+
+  Padding buildActivity() {
+    final List<String> activity = ['Football', 'Cricket'];
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ListView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: activity.length,
+        itemBuilder: (context, index) {
+          return CustomListTile(
+            title: activity[index],
+            leading: Image.asset("assets/images/rectangle.png"),
+            subtitle: "-250 kcal   20 mins",
+            trailing: IconButton(
+              icon: const Icon(Icons.arrow_forward_ios),
+              onPressed: () {},
+            ),
+            tileColor: const Color(0xFFFAFAFA),
+          );
+        },
+      ),
+    );
+  }
 
   Padding buildFasting() {
+    final List<String> fasting = ['Fasting'];
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ListView.builder(
@@ -200,79 +368,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               icon: const Icon(Icons.arrow_forward_ios),
               onPressed: () {},
             ),
-
-            tileColor: const Color(0xFFFAFAFA),
-          );
-        },
-      ),
-    );
-  }
-
-  Padding buildActivity() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: ListView.builder(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: activity.length,
-        itemBuilder: (context, index) {
-          return CustomListTile(
-            title: activity[index],
-            leading: Image.asset("assets/images/rectangle.png"),
-            subtitle: "-250 kcal   20 mins",
-            trailing:  IconButton(
-          icon: const Icon(Icons.arrow_forward_ios),
-          onPressed: () {},
-          ),
-
-          tileColor: const Color(0xFFFAFAFA),
-          );
-        },
-      ),
-    );
-  }
-
-  Padding buildCheatMeal() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: ListView.builder(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: cheatMeal.length,
-        itemBuilder: (context, index) {
-          return CustomListTile(
-            title: cheatMeal[index],
-            leading: Image.asset("assets/images/rectangle.png"),
-            subtitle: "3 Foods of 365 kcal",
-            trailing: IconButton(
-              icon: const Icon(Icons.arrow_forward_ios),
-              onPressed: () {},
-            ),
-
-            tileColor: const Color(0xFFFAFAFA),
-          );
-        },
-      ),
-    );
-  }
-
-  Padding buildTodaysMeal() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: ListView.builder(
-        itemCount: todaysMeal.length,
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        itemBuilder: (context, index) {
-          return CustomListTile(
-            title: todaysMeal[index],
-            leading: Image.asset("assets/images/rectangle.png"),
-            subtitle: "3 Foods of 365 kcal",
-            trailing: IconButton(
-              icon: const Icon(Icons.arrow_forward_ios),
-              onPressed: () {},
-            ),
-
             tileColor: const Color(0xFFFAFAFA),
           );
         },
@@ -336,14 +431,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                   Text(
                                     "Calories",
                                     style: TextStyle(
-                                      fontSize: constraints.maxHeight * 0.07,
+                                      fontSize:
+                                      constraints.maxHeight * 0.07,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                   Text(
                                     "1200 kcal",
                                     style: TextStyle(
-                                      fontSize: constraints.maxHeight * 0.07,
+                                      fontSize:
+                                      constraints.maxHeight * 0.07,
                                       color: Colors.black54,
                                     ),
                                   ),

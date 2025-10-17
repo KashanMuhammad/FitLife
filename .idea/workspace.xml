@@ -4,15 +4,9 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Reformat the code of meals screen after getting the images">
+    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Added the functionality of adding the profile image to the supabase and get a link in the firestore and then get it on the circle avatar on all screens that have profile image">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/edit_profile_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/edit_profile_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fitlife_app/lib/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/home_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/update_profile_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/update_profile_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/user_and_profile_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/user_and_profile_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/pubspec.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/lib/user_0nboarding_data_model_class.dart" beforeDir="false" afterPath="$PROJECT_DIR$/shared/lib/user_0nboarding_data_model_class.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -170,14 +164,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1747854831066</updated>
-    </task>
-    <task id="LOCAL-00009" summary="Replaced SizedBox Widget with Spacing property of the Column">
-      <option name="closed" value="true" />
-      <created>1748982782275</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1748982782275</updated>
     </task>
     <task id="LOCAL-00010" summary="Replaced SizedBox Widget with Spacing property of the Column">
       <option name="closed" value="true" />
@@ -563,7 +549,15 @@
       <option name="project" value="LOCAL" />
       <updated>1760679519051</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="Added the functionality of adding the profile image to the supabase and get a link in the firestore and then get it on the circle avatar on all screens that have profile image">
+      <option name="closed" value="true" />
+      <created>1760682648721</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1760682648727</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -605,7 +599,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added option_card.dart and started working with the user screen" />
     <MESSAGE value="completed working with the user_and_profile_screen.dart" />
     <MESSAGE value="completed working with the user_and_profile_screen and edit profile screen" />
     <MESSAGE value="Slightly updated profile Screen" />
@@ -630,7 +623,8 @@
     <MESSAGE value="Pulled the supabase integration by the admin panel. so i can access the image url from the model class where the image url variable are added by the admin panel" />
     <MESSAGE value="Successful in getting the food images in add_meals_screen.dart and meals_history_screen.dart" />
     <MESSAGE value="Reformat the code of meals screen after getting the images" />
-    <option name="LAST_COMMIT_MESSAGE" value="Reformat the code of meals screen after getting the images" />
+    <MESSAGE value="Added the functionality of adding the profile image to the supabase and get a link in the firestore and then get it on the circle avatar on all screens that have profile image" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added the functionality of adding the profile image to the supabase and get a link in the firestore and then get it on the circle avatar on all screens that have profile image" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

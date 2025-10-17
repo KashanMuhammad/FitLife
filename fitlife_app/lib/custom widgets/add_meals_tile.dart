@@ -6,13 +6,14 @@ class AddMealsTile extends StatefulWidget {
   final String kcal;
   final String subtitle;
   final Function(int) onAdd;
-
+  final String? foodImageUrl;
   const AddMealsTile({
     super.key,
     required this.itemName,
     required this.kcal,
     required this.subtitle,
     required this.onAdd,
+    required this.foodImageUrl,
   });
 
   @override
@@ -45,11 +46,21 @@ class _AddMealsTileState extends State<AddMealsTile> {
       ),
       child: Row(
         children: [
-          SvgPicture.asset(
-            'assets/images/Rectangleimage.svg',
-            width: 45,
-            height: 45,
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: Image.network(
+              widget.foodImageUrl ?? 'https://via.placeholder.com/45',
+              width: 45,
+              height: 45,
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) => Icon(
+                Icons.fastfood,
+                size: 40,
+                color: Colors.grey[400],
+              ),
+            ),
           ),
+
 
           const SizedBox(width: 12),
           Expanded(

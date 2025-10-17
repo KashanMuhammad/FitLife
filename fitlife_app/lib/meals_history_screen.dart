@@ -23,7 +23,7 @@ class _MealsHistoryScreenState extends State<MealsHistoryScreen> {
   }
 
   Future<void> loadUserData() async {
-    var userId = FirebaseAuth.instance.currentUser!.uid;
+    var userId =  "24pWkz3CU0PUanITZz3LcAIUNIz2";
     try {
       final doc =
       await FirebaseFirestore.instance.collection('Users').doc(userId).get();
@@ -211,7 +211,25 @@ class _MealsHistoryScreenState extends State<MealsHistoryScreen> {
 
                     return CustomListTile(
                       title: food.foodName,
-                      leading: Image.asset("assets/images/rectangle.png"),
+                      leading: ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Image.network(
+                          food.foodImageUrl ?? 'https://via.placeholder.com/60',
+                          width: 60,
+                          height: 60,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) => Container(
+                            width: 60,
+                            height: 60,
+                            decoration: BoxDecoration(
+                              color: Colors.grey[300],
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: const Icon(Icons.fastfood, color: Colors.grey),
+                          ),
+                        ),
+                      ),
+
                       subtitle: consumptionText.isEmpty
                           ? "No consumption entries • ${food.calories} kcal"
                           : consumptionText,
@@ -267,7 +285,25 @@ class _MealsHistoryScreenState extends State<MealsHistoryScreen> {
 
                     return CustomListTile(
                       title: food.foodName,
-                      leading: Image.asset("assets/images/rectangle.png"),
+                      leading: ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Image.network(
+                          food.foodImageUrl ?? 'https://via.placeholder.com/60',
+                          width: 60,
+                          height: 60,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) => Container(
+                            width: 60,
+                            height: 60,
+                            decoration: BoxDecoration(
+                              color: Colors.grey[300],
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: const Icon(Icons.fastfood, color: Colors.grey),
+                          ),
+                        ),
+                      ),
+
                       subtitle: consumptionText.isEmpty
                           ? "No consumption entries • ${food.calories} kcal"
                           : consumptionText,
@@ -320,7 +356,25 @@ class _MealsHistoryScreenState extends State<MealsHistoryScreen> {
 
                     return CustomListTile(
                       title: food.foodName,
-                      leading: Image.asset("assets/images/rectangle.png"),
+                      leading: ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Image.network(
+                          food.foodImageUrl ?? 'https://via.placeholder.com/60',
+                          width: 60,
+                          height: 60,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) => Container(
+                            width: 60,
+                            height: 60,
+                            decoration: BoxDecoration(
+                              color: Colors.grey[300],
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: const Icon(Icons.fastfood, color: Colors.grey),
+                          ),
+                        ),
+                      ),
+
                       subtitle: consumptionText.isEmpty
                           ? "No consumption entries • ${food.calories} kcal"
                           : consumptionText,

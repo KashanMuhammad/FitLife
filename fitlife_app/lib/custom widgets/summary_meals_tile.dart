@@ -6,6 +6,7 @@ class SummaryMealsTile extends StatelessWidget {
   final int qty;
   final double width;
   final VoidCallback onDelete;
+  final String? foodImageUrl;
 
   const SummaryMealsTile({
     super.key,
@@ -14,6 +15,7 @@ class SummaryMealsTile extends StatelessWidget {
     required this.qty,
     required this.width,
     required this.onDelete,
+    required this.foodImageUrl,
   });
 
   @override
@@ -29,22 +31,32 @@ class SummaryMealsTile extends StatelessWidget {
             color: Colors.grey.withOpacity(0.1),
             blurRadius: 5,
             spreadRadius: 1,
-          )
+          ),
         ],
       ),
       child: Row(
         children: [
           // Grey placeholder (or you can keep SvgPicture here if needed)
-          Container(
-            width: 35,
-            height: 35,
-            decoration: BoxDecoration(
-              color: Colors.grey[300],
-              borderRadius: BorderRadius.circular(8),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: Image.network(
+              foodImageUrl ?? 'https://via.placeholder.com/40',
+              width: 40,
+              height: 40,
+              fit: BoxFit.cover,
+              errorBuilder:
+                  (context, error, stackTrace) => Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: const Icon(Icons.fastfood, color: Colors.grey),
+                  ),
             ),
           ),
-          const SizedBox(width: 10),
-
+          SizedBox(width: 20),
           // Food info
           Expanded(
             child: Column(
@@ -61,10 +73,7 @@ class SummaryMealsTile extends StatelessWidget {
                 ),
                 Text(
                   "$kcal Kcal",
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: Colors.black54,
-                  ),
+                  style: const TextStyle(fontSize: 12, color: Colors.black54),
                 ),
               ],
             ),

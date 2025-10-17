@@ -35,7 +35,7 @@ class _AddMealsScreenState extends State<AddMealsScreen> {
   }
 
   Future<void> loadUserData() async {
-    final userId = FirebaseAuth.instance.currentUser!.uid;
+    final userId = "24pWkz3CU0PUanITZz3LcAIUNIz2";
     try {
       final doc =
       await FirebaseFirestore.instance.collection('Users').doc(userId).get();
@@ -62,7 +62,7 @@ class _AddMealsScreenState extends State<AddMealsScreen> {
   }
 
   Future<void> _addFood(FoodModel food) async {
-    final userId = FirebaseAuth.instance.currentUser!.uid;
+    final userId = "24pWkz3CU0PUanITZz3LcAIUNIz2";
     if (userId == null) return;
 
     try {
@@ -91,7 +91,7 @@ class _AddMealsScreenState extends State<AddMealsScreen> {
   }
 
   Future<void> _deleteFood(FoodModel food) async {
-    final userId = FirebaseAuth.instance.currentUser!.uid;
+    final userId = "24pWkz3CU0PUanITZz3LcAIUNIz2";
     if (userId == null) return;
 
     try {
@@ -293,6 +293,7 @@ class _AddMealsScreenState extends State<AddMealsScreen> {
                       qty: qty,
                       width: MediaQuery.of(context).size.width * 0.45,
                       onDelete: () => _deleteFood(food),
+                      foodImageUrl: food.foodImageUrl,
                     );
                   },
                 ),
@@ -316,10 +317,10 @@ class _AddMealsScreenState extends State<AddMealsScreen> {
                 itemBuilder: (context, index) {
                   final food = filteredFoods[index];
                   return AddMealsTile(
-                    itemName:
-                    food.foodName.isNotEmpty ? food.foodName : "Unknown",
+                    itemName: food.foodName.isNotEmpty ? food.foodName : "Unknown",
                     subtitle: food.quantity ?? "No quantity",
                     kcal: food.calories,
+                    foodImageUrl: food.foodImageUrl,
                     onAdd: (qty) {
                       final consumptionEntry = ConsumptionEntry(
                         date: DateTime.now().toIso8601String(),
@@ -333,6 +334,7 @@ class _AddMealsScreenState extends State<AddMealsScreen> {
                         mealType: selectedMealType,
                         quantity: food.quantity,
                         consumptions: [consumptionEntry],
+                        foodImageUrl: food.foodImageUrl,
                       );
                       _addFood(updatedFood);
                     },

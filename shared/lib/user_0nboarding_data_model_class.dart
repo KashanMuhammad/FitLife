@@ -12,6 +12,7 @@ class FirebaseDataModelClass {
   final List<String>? selectedDietHabits;
   final List<String>? selectedHealthIssues;
   final bool? privacyPolicyAccepted;
+  final String? profileImageUrl;
 
   // Food fields
   final String? foodName;
@@ -67,6 +68,7 @@ class FirebaseDataModelClass {
     this.selectedDietHabits,
     this.selectedHealthIssues,
     this.privacyPolicyAccepted,
+    this.profileImageUrl,
     this.foodName,
     this.foodDescription,
     this.quantity,
@@ -119,7 +121,7 @@ class FirebaseDataModelClass {
     data['selectedDietHabits'] = selectedDietHabits;
     data['selectedHealthIssues'] = selectedHealthIssues;
     data['privacyPolicyAccepted'] = privacyPolicyAccepted;
-
+    data['profileImageUrl'] = profileImageUrl;
     data['foodName'] = foodName;
     data['foodDescription'] = foodDescription;
     data['quantity'] = quantity;
@@ -185,6 +187,7 @@ class FirebaseDataModelClass {
       selectedDietHabits: toList(json['selectedDietHabits']),
       selectedHealthIssues: toList(json['selectedHealthIssues']),
       privacyPolicyAccepted: json['privacyPolicyAccepted'] as bool?,
+      profileImageUrl: json['profileImageUrl'] as String?,
       foodName: json['foodName'] as String?,
       foodDescription: json['foodDescription'] as String?,
       foodImageUrl: json['foodImageUrl'] as String?,

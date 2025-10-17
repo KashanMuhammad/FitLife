@@ -135,14 +135,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               Center(
                 child: CircleAvatar(
                   radius: 50,
-                  child: ClipOval(
-                    child: Image.asset(
-                      'assets/images/Male.png',
-                      width: 100,
-                      height: 100,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+                  backgroundColor: Colors.grey.shade200,
+                  backgroundImage: (userModel?.profileImageUrl != null &&
+                      userModel!.profileImageUrl!.isNotEmpty)
+                      ? NetworkImage(userModel!.profileImageUrl!)
+                      : const AssetImage('assets/images/Male.png') as ImageProvider,
                 ),
               ),
 

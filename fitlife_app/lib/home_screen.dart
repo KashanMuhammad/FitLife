@@ -1,45 +1,66 @@
-
-import 'package:fitlife_app/add_meals_screen.dart';
-import 'package:fitlife_app/custom%20widgets/custom_list_tile.dart';
-import 'package:fitlife_app/custom%20widgets/custom_text.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
+import 'package:fitlife_app/add_meals_screen.dart';
+import 'package:fitlife_app/custom widgets/custom_list_tile.dart';
+import 'package:fitlife_app/custom widgets/custom_text.dart';
 
-class HomeScreen extends ConsumerWidget {
-  HomeScreen({super.key});
+class HomeScreen extends ConsumerStatefulWidget {
+  const HomeScreen({super.key});
 
-  final List<String> todaysMeal = ['Bred', 'Lunch', 'Dinner'];
+  @override
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
+}
 
-  final List<String> cheatMeal = ['Checken Thi'];
+class _HomeScreenState extends ConsumerState<HomeScreen> {
+  String? _profileImageUrl;
 
-  final List<String> activity = ['Football', 'Cricket'];
+  @override
+  void initState() {
+    super.initState();
+    _loadProfileImage();
+  }
 
-  final List<String> fasting = ['Fasting'];
+  Future<void> _loadProfileImage() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) return;
 
-  String getGreeting() {
-    final hour = DateTime
-        .now()
-        .hour;
+    try {
+      final doc = await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(user.uid)
+          .get();
 
-    if (hour >= 5 && hour < 12) {
-      return 'Good Morning';
-    } else if (hour >= 12 && hour < 17) {
-      return 'Good Afternoon';
-    } else if (hour >= 17 && hour < 21) {
-      return 'Good Evening';
-    } else {
-      return 'Good Night';
+      if (doc.exists && doc.data()?['profileImageUrl'] != null) {
+        setState(() {
+          _profileImageUrl = doc['profileImageUrl'];
+        });
+      }
+    } catch (e) {
+      debugPrint("⚠️ Failed to load profile image: $e");
     }
   }
 
+  String getGreeting() {
+    final hour = DateTime.now().hour;
+
+    if (hour >= 5 && hour < 12) return 'Good Morning';
+    if (hour >= 12 && hour < 17) return 'Good Afternoon';
+    if (hour >= 17 && hour < 21) return 'Good Evening';
+    return 'Good Night';
+  }
+
+  final List<String> todaysMeal = ['Bread', 'Lunch', 'Dinner'];
+  final List<String> cheatMeal = ['Chicken Thigh'];
+  final List<String> activity = ['Football', 'Cricket'];
+  final List<String> fasting = ['Fasting'];
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    // final userAsync= ref.watch();
-    final screenSize = MediaQuery
-        .of(context)
-        .size;
+  Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
       floatingActionButton: Container(
@@ -47,7 +68,7 @@ class HomeScreen extends ConsumerWidget {
         width: 56,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(14),
-          gradient: LinearGradient(
+          gradient: const LinearGradient(
             colors: [Color(0xFF5AFF15), Color(0xFF00B712)],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -56,31 +77,33 @@ class HomeScreen extends ConsumerWidget {
         child: FloatingActionButton(
           onPressed: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => AddMealsScreen()));
+                MaterialPageRoute(builder: (context) => const AddMealsScreen()));
           },
           backgroundColor: Colors.transparent,
           elevation: 0,
-          child: Icon(Icons.add),
+          child: const Icon(Icons.add),
         ),
       ),
 
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
-              height: 40,
-            ),
+            const SizedBox(height: 40),
             Padding(
               padding: const EdgeInsets.all(27),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Remove this line: SizedBox(height: 35), (It's incorrectly placed)
+                  // ✅ Read-only Supabase avatar from Firestore
                   CircleAvatar(
-                    radius: 24,
-                    child: Image.asset("assets/images/Male.png"),
+                    radius: 30,
+                    backgroundColor: Colors.grey.shade200,
+                    backgroundImage: _profileImageUrl != null
+                        ? NetworkImage(_profileImageUrl!)
+                        : const AssetImage("assets/images/Male.png")
+                    as ImageProvider,
                   ),
-                  SizedBox(width: 25),
+                  const SizedBox(width: 25),
 
                   Expanded(
                     child: Column(
@@ -89,32 +112,34 @@ class HomeScreen extends ConsumerWidget {
                         Center(
                           child: Text(
                             DateTime.now().toString(),
-                            style: TextStyle(fontSize: 16, color: Colors.black),
+                            style: const TextStyle(
+                                fontSize: 16, color: Colors.black),
                           ),
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Center(
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
                                 getGreeting(),
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 18,
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              SizedBox(width: 8),
+                              const SizedBox(width: 8),
                               SvgPicture.asset("assets/images/hand.svg"),
                             ],
                           ),
                         ),
-                        SizedBox(height: 5),
-                        Center(
+                        const SizedBox(height: 5),
+                        const Center(
                           child: Text(
-                            "You lose 500 g Today,Reach Your goal soon!",
-                            style: TextStyle(fontSize: 14, color: Colors.black),
+                            "You lost 500 g Today. Reach your goal soon!",
+                            style:
+                            TextStyle(fontSize: 14, color: Colors.black54),
                             textAlign: TextAlign.center,
                           ),
                         ),
@@ -127,42 +152,44 @@ class HomeScreen extends ConsumerWidget {
                     width: 45,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
-                      gradient: LinearGradient(
+                      gradient: const LinearGradient(
                         colors: [Color(0xFF5AFF15), Color(0xFF00B712)],
                       ),
                     ),
                     child: IconButton(
                       onPressed: () {},
-                      icon: Icon(Icons.notifications_outlined),
+                      icon: const Icon(Icons.notifications_outlined),
                     ),
                   ),
                 ],
               ),
             ),
+
             buildCaloriesGraph(screenSize),
-            SizedBox(height: 10),
-            CustomText(text: "Today's Meal"),
+            const SizedBox(height: 10),
+            const CustomText(text: "Today's Meal"),
             buildTodaysMeal(),
-            CustomText(text: "Cheat Meal"),
+            const CustomText(text: "Cheat Meal"),
             buildCheatMeal(),
-            CustomText(text: "Activity"),
+            const CustomText(text: "Activity"),
             buildActivity(),
-            CustomText(text: "Fasting"),
+            const CustomText(text: "Fasting"),
             buildFasting(),
-            SizedBox(height: 80),
-            // Add spacing so last item isn't hidden behind FAB
+            const SizedBox(height: 80),
           ],
         ),
       ),
     );
   }
 
+  // same list builder methods as before ...
+
   Padding buildFasting() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ListView.builder(
         shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         itemCount: fasting.length,
         itemBuilder: (context, index) {
           return CustomListTile(
@@ -170,10 +197,11 @@ class HomeScreen extends ConsumerWidget {
             leading: Image.asset("assets/images/rectangle.png"),
             subtitle: "12 hrs",
             trailing: IconButton(
+              icon: const Icon(Icons.arrow_forward_ios),
               onPressed: () {},
-              icon: Icon(Icons.arrow_forward_ios),
             ),
-            tileColor: Color(0xFFFAFAFA),
+
+            tileColor: const Color(0xFFFAFAFA),
           );
         },
       ),
@@ -185,18 +213,19 @@ class HomeScreen extends ConsumerWidget {
       padding: const EdgeInsets.all(8.0),
       child: ListView.builder(
         shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         itemCount: activity.length,
         itemBuilder: (context, index) {
           return CustomListTile(
             title: activity[index],
             leading: Image.asset("assets/images/rectangle.png"),
-            subtitle: "-250 kcl   20 mins",
-            trailing: IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.arrow_forward_ios),
-            ),
-            tileColor: Color(0xFFFAFAFA),
+            subtitle: "-250 kcal   20 mins",
+            trailing:  IconButton(
+          icon: const Icon(Icons.arrow_forward_ios),
+          onPressed: () {},
+          ),
+
+          tileColor: const Color(0xFFFAFAFA),
           );
         },
       ),
@@ -208,18 +237,19 @@ class HomeScreen extends ConsumerWidget {
       padding: const EdgeInsets.all(8.0),
       child: ListView.builder(
         shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         itemCount: cheatMeal.length,
         itemBuilder: (context, index) {
           return CustomListTile(
             title: cheatMeal[index],
             leading: Image.asset("assets/images/rectangle.png"),
-            subtitle: "3 Foods of  365 kcl",
+            subtitle: "3 Foods of 365 kcal",
             trailing: IconButton(
+              icon: const Icon(Icons.arrow_forward_ios),
               onPressed: () {},
-              icon: Icon(Icons.arrow_forward_ios),
             ),
-            tileColor: Color(0xFFFAFAFA),
+
+            tileColor: const Color(0xFFFAFAFA),
           );
         },
       ),
@@ -232,18 +262,18 @@ class HomeScreen extends ConsumerWidget {
       child: ListView.builder(
         itemCount: todaysMeal.length,
         shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           return CustomListTile(
             title: todaysMeal[index],
             leading: Image.asset("assets/images/rectangle.png"),
-            subtitle: "3 Foods of  365 kcl",
-            onTap: () {},
+            subtitle: "3 Foods of 365 kcal",
             trailing: IconButton(
+              icon: const Icon(Icons.arrow_forward_ios),
               onPressed: () {},
-              icon: Icon(Icons.arrow_forward_ios),
             ),
-            tileColor: Color(0xFFFAFAFA),
+
+            tileColor: const Color(0xFFFAFAFA),
           );
         },
       ),
@@ -251,7 +281,6 @@ class HomeScreen extends ConsumerWidget {
   }
 
   Padding buildCaloriesGraph(Size screenSize) {
-    // Proportional height with max cap
     double containerHeight = screenSize.height * 0.32;
     if (containerHeight > 320) containerHeight = 320;
 
@@ -262,13 +291,13 @@ class HomeScreen extends ConsumerWidget {
         width: double.infinity,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          color: Color(0xFFE9FDE3),
+          color: const Color(0xFFE9FDE3),
         ),
         child: LayoutBuilder(
           builder: (context, constraints) {
             return Column(
               children: [
-                Spacer(flex: 2), // pushes the gauge down
+                const Spacer(flex: 2),
                 Expanded(
                   flex: 2,
                   child: SfRadialGauge(
@@ -285,7 +314,7 @@ class HomeScreen extends ConsumerWidget {
                           GaugeRange(
                             startValue: 0,
                             endValue: 2000,
-                            gradient: SweepGradient(
+                            gradient: const SweepGradient(
                               colors: [Color(0xFF5AFF15), Color(0xFF00B712)],
                             ),
                             startWidth: 12,
@@ -303,7 +332,7 @@ class HomeScreen extends ConsumerWidget {
                                     height: constraints.maxHeight * 0.17,
                                     width: constraints.maxHeight * 0.17,
                                   ),
-                                  SizedBox(height: 4),
+                                  const SizedBox(height: 4),
                                   Text(
                                     "Calories",
                                     style: TextStyle(
@@ -328,7 +357,6 @@ class HomeScreen extends ConsumerWidget {
                     ],
                   ),
                 ),
-                 // optional, adds a little space below
               ],
             );
           },

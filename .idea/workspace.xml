@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Upload Diet Screnn ,Upload Blog Screen,Upload Food Screen are updated to store images in the supabase storage and also diet screen, food screen , blog screen updated to retrieve the images stored in the supabse. Yet more work to be done">
+    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Supabse successfully connected , diet, food, blog images are successfully storing in the supabse storage and also updated upload blog button so not to upload null values to the firebase firestore">
       <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/diet_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/diet_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/food_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/food_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_blog_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_blog_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_food_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_food_screen.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +73,7 @@
     &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;E:/practice_flutter&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;instant.run&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.android.studio.ml.bot.mainConfigurable&quot;,
     &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   }
 }</component>
@@ -169,14 +166,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1747854831066</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Food Screen Completed">
-      <option name="closed" value="true" />
-      <created>1748865063803</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1748865063803</updated>
     </task>
     <task id="LOCAL-00006" summary="Custom Widgets Created For Programmer Ease">
       <option name="closed" value="true" />
@@ -562,7 +551,15 @@
       <option name="project" value="LOCAL" />
       <updated>1758903004807</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="Supabse successfully connected , diet, food, blog images are successfully storing in the supabse storage and also updated upload blog button so not to upload null values to the firebase firestore">
+      <option name="closed" value="true" />
+      <created>1759186622349</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1759186622349</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -604,7 +601,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Created blogs_screen.dart and Dleteted the separate screens skipscreen 1 2 and 3 and apply the functionality of these in only one page directly by using SkipScreenTemplate." />
     <MESSAGE value="Added blog_model.dart Class for working in blogs_screen.dart" />
     <MESSAGE value="Added blog_card.dart and blog_details_screen.dart still to do works with these screens" />
     <MESSAGE value="Working with blogs screen completed but the picture be imported" />
@@ -629,7 +625,8 @@
     <MESSAGE value="Code slightly updated but blog screen is fully updated and the UI is completely changed" />
     <MESSAGE value="Patient screen UI updated and also analytics screen toggle button updated" />
     <MESSAGE value="Upload Diet Screnn ,Upload Blog Screen,Upload Food Screen are updated to store images in the supabase storage and also diet screen, food screen , blog screen updated to retrieve the images stored in the supabse. Yet more work to be done" />
-    <option name="LAST_COMMIT_MESSAGE" value="Upload Diet Screnn ,Upload Blog Screen,Upload Food Screen are updated to store images in the supabase storage and also diet screen, food screen , blog screen updated to retrieve the images stored in the supabse. Yet more work to be done" />
+    <MESSAGE value="Supabse successfully connected , diet, food, blog images are successfully storing in the supabse storage and also updated upload blog button so not to upload null values to the firebase firestore" />
+    <option name="LAST_COMMIT_MESSAGE" value="Supabse successfully connected , diet, food, blog images are successfully storing in the supabse storage and also updated upload blog button so not to upload null values to the firebase firestore" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

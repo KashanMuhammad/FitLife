@@ -276,7 +276,7 @@ class _BlogFormScreenState extends State<BlogFormScreen> {
                         throw Exception("Image upload failed");
                       }
 
-                      // ✅ Get public URL
+                      //  Get public URL
                       imageUrl = Supabase.instance.client.storage
                           .from('blog_images')
                           .getPublicUrl(fileName);
@@ -301,15 +301,15 @@ class _BlogFormScreenState extends State<BlogFormScreen> {
 
                   final blogData = blog.toJson();
 
-                  // ✅ Add Supabase image url if available
+                  //  Add Supabase image url if available
                   if (imageUrl != null) {
                     blogData['blogImageUrl'] = imageUrl;
                   }
 
-                  // ✅ Remove null and empty string values
+                  //  Remove null and empty string values
                   blogData.removeWhere((key, value) => value == null || value == "");
 
-                  // 🔹 Step 3: Save to Firestore
+                  //  Step 3: Save to Firestore
                   if (widget.blogId == null) {
                     // Create new blog
                     await FirebaseFirestore.instance.collection('blogs').add(blogData);
@@ -346,3 +346,4 @@ class _BlogFormScreenState extends State<BlogFormScreen> {
     );
   }
 }
+

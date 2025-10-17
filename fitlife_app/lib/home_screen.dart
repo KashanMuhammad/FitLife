@@ -96,8 +96,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         ),
         child: FloatingActionButton(
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const AddMealsScreen()));
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => const AddMealsScreen()));
           },
           backgroundColor: Colors.transparent,
           elevation: 0,
@@ -199,7 +199,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 
-  // 🔹 Today's Meals (from Firestore)
+  // ✅ Updated Today's Meals - shows Breakfast, Lunch, Dinner counts
   Widget buildTodaysMeal() {
     if (userData == null || userData!.userSelectedFood == null) {
       return const Padding(
@@ -212,6 +212,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final List<FoodModel> foods = userData!.userSelectedFood ?? [];
     final today = DateTime.now();
 
+    // Filter today's foods
     final todaysFoods = foods.where((food) {
       return food.consumptions.any((c) {
         final date = DateTime.tryParse(c.date) ?? DateTime.now();
@@ -229,47 +230,63 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       );
     }
 
+    // Count by mealType
+    int breakfastCount = 0;
+    int lunchCount = 0;
+    int dinnerCount = 0;
+
+    for (var food in todaysFoods) {
+      for (var c in food.consumptions) {
+        final date = DateTime.tryParse(c.date) ?? DateTime.now();
+        if (date.year == today.year &&
+            date.month == today.month &&
+            date.day == today.day) {
+          switch (c.mealType.toLowerCase()) {
+            case "breakfast":
+              breakfastCount++;
+              break;
+            case "lunch":
+              lunchCount++;
+              break;
+            case "dinner":
+              dinnerCount++;
+              break;
+          }
+        }
+      }
+    }
+
     return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: ListView.builder(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: todaysFoods.length,
-        itemBuilder: (context, index) {
-          final food = todaysFoods[index];
-          final consumptions = food.consumptions.where((c) {
-            final date = DateTime.tryParse(c.date) ?? DateTime.now();
-            return date.year == today.year &&
-                date.month == today.month &&
-                date.day == today.day;
-          }).toList();
-
-          String subtitle = consumptions.map((c) {
-            double foodCalories = double.tryParse(food.calories) ?? 0;
-            double quantity = double.tryParse(c.foodQuantity) ?? 1;
-            double totalCalories = foodCalories * quantity;
-            return "${c.foodQuantity} Foods  ${totalCalories.toStringAsFixed(0)} kcal";
-          }).join("\n");
-
-          return CustomListTile(
-            title: food.foodName,
-            leading: ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Image.network(
-                food.foodImageUrl ?? 'https://via.placeholder.com/60',
-                width: 60,
-                height: 60,
-                fit: BoxFit.cover,
-              ),
-            ),
-            subtitle: subtitle,
-            trailing: IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.arrow_forward_ios),
-            ),
+      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 6),
+      child: Column(
+        children: [
+          CustomListTile(
+            title: "Breakfast",
+            leading: Image.asset("assets/images/rectangle.png",
+                width: 50, height: 50, fit: BoxFit.cover),
+            subtitle: "$breakfastCount foods selected",
+            trailing:  IconButton(onPressed: (){}, icon: Icon( Icons.arrow_forward_ios)),
             tileColor: const Color(0xFFFAFAFA),
-          );
-        },
+          ),
+          const SizedBox(height: 8),
+          CustomListTile(
+            title: "Lunch",
+            leading: Image.asset("assets/images/rectangle.png",
+                width: 50, height: 50, fit: BoxFit.cover),
+            subtitle: "$lunchCount foods selected",
+            trailing: IconButton(onPressed: (){}, icon: Icon( Icons.arrow_forward_ios)),
+            tileColor: const Color(0xFFFAFAFA),
+          ),
+          const SizedBox(height: 8),
+          CustomListTile(
+            title: "Dinner",
+            leading: Image.asset("assets/images/rectangle.png",
+                width: 50, height: 50, fit: BoxFit.cover),
+            subtitle: "$dinnerCount foods selected",
+            trailing: IconButton(onPressed: (){}, icon: Icon( Icons.arrow_forward_ios)),
+            tileColor: const Color(0xFFFAFAFA),
+          ),
+        ],
       ),
     );
   }
@@ -285,8 +302,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     }
 
     final List<FoodModel> foods = userData!.userSelectedFood ?? [];
-    final cheatFoods =
-    foods.where((f) => double.tryParse(f.calories) != null && double.parse(f.calories) > 500).toList();
+    final cheatFoods = foods
+        .where((f) => double.tryParse(f.calories) != null && double.parse(f.calories) > 500)
+        .toList();
 
     if (cheatFoods.isEmpty) {
       return const Padding(
@@ -431,16 +449,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                   Text(
                                     "Calories",
                                     style: TextStyle(
-                                      fontSize:
-                                      constraints.maxHeight * 0.07,
+                                      fontSize: constraints.maxHeight * 0.07,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                   Text(
                                     "1200 kcal",
                                     style: TextStyle(
-                                      fontSize:
-                                      constraints.maxHeight * 0.07,
+                                      fontSize: constraints.maxHeight * 0.07,
                                       color: Colors.black54,
                                     ),
                                   ),

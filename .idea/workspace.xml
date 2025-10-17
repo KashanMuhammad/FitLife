@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Added the functionality of adding the profile image to the supabase and get a link in the firestore and then get it on the circle avatar on all screens that have profile image">
+    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Added the functionality of getting the today meals and cheat meal to the home screen">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/blog_details_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/blog_details_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/blogs_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/blogs_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/custom widgets/blog_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/custom widgets/blog_card.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fitlife_app/lib/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/home_screen.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -45,7 +48,7 @@
   }
 }</component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
@@ -164,14 +167,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1747854831066</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Replaced SizedBox Widget with Spacing property of the Column">
-      <option name="closed" value="true" />
-      <created>1748999515205</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1748999515205</updated>
     </task>
     <task id="LOCAL-00011" summary="Global map created for Diet Plan">
       <option name="closed" value="true" />
@@ -557,7 +552,15 @@
       <option name="project" value="LOCAL" />
       <updated>1760682648727</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="Added the functionality of getting the today meals and cheat meal to the home screen">
+      <option name="closed" value="true" />
+      <created>1760683230467</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1760683230467</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -599,7 +602,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="completed working with the user_and_profile_screen.dart" />
     <MESSAGE value="completed working with the user_and_profile_screen and edit profile screen" />
     <MESSAGE value="Slightly updated profile Screen" />
     <MESSAGE value="edit_profile_screen.dart and update_profile_screen.dart completed but still needs maintenance" />
@@ -624,7 +626,8 @@
     <MESSAGE value="Successful in getting the food images in add_meals_screen.dart and meals_history_screen.dart" />
     <MESSAGE value="Reformat the code of meals screen after getting the images" />
     <MESSAGE value="Added the functionality of adding the profile image to the supabase and get a link in the firestore and then get it on the circle avatar on all screens that have profile image" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added the functionality of adding the profile image to the supabase and get a link in the firestore and then get it on the circle avatar on all screens that have profile image" />
+    <MESSAGE value="Added the functionality of getting the today meals and cheat meal to the home screen" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added the functionality of getting the today meals and cheat meal to the home screen" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

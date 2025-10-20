@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Completed Firebase functionality of getting the data of blogs_screen.dart and blog_details_screen.dart from admin panel">
-      <change afterPath="$PROJECT_DIR$/fitlife_app/lib/assignedfood_detail_screen.dart" afterDir="false" />
+    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Added the functionality to add full diet description meals_history_screen.dart when pressing arrow key in the tile">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/meals_history_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/meals_history_screen.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -165,14 +163,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1747854831066</updated>
-    </task>
-    <task id="LOCAL-00012" summary="Method Created to store data in the diet plan map">
-      <option name="closed" value="true" />
-      <created>1749408588450</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1749408588450</updated>
     </task>
     <task id="LOCAL-00013" summary="Another table created for Diet Plan">
       <option name="closed" value="true" />
@@ -558,7 +548,15 @@
       <option name="project" value="LOCAL" />
       <updated>1760688256302</updated>
     </task>
-    <option name="localTasksCounter" value="61" />
+    <task id="LOCAL-00061" summary="Added the functionality to add full diet description meals_history_screen.dart when pressing arrow key in the tile">
+      <option name="closed" value="true" />
+      <created>1760690389735</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1760690389735</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -600,7 +598,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Slightly updated profile Screen" />
     <MESSAGE value="edit_profile_screen.dart and update_profile_screen.dart completed but still needs maintenance" />
     <MESSAGE value="Checked the UI on mobile and customize the ui if needed and now its coming perfect on the mobile." />
     <MESSAGE value="add_meals screens UI completed but some functionality still remaining" />
@@ -625,16 +622,7 @@
     <MESSAGE value="Added the functionality of adding the profile image to the supabase and get a link in the firestore and then get it on the circle avatar on all screens that have profile image" />
     <MESSAGE value="Added the functionality of getting the today meals and cheat meal to the home screen" />
     <MESSAGE value="Completed Firebase functionality of getting the data of blogs_screen.dart and blog_details_screen.dart from admin panel" />
-    <option name="LAST_COMMIT_MESSAGE" value="Completed Firebase functionality of getting the data of blogs_screen.dart and blog_details_screen.dart from admin panel" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="Dart">
-          <url>file://$PROJECT_DIR$/fitlife_app/lib/login_screen.dart</url>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Added the functionality to add full diet description meals_history_screen.dart when pressing arrow key in the tile" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added the functionality to add full diet description meals_history_screen.dart when pressing arrow key in the tile" />
   </component>
 </project>

@@ -101,15 +101,15 @@ class FirebaseDataModelClass {
     this.foodImageUrl,
   });
 
-  // ✅ Convert object to JSON
+  // ✅ Convert object to JSON (only non-null fields)
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = {};
 
-    // Prevent sending nulls for core fields
     void addIfNotNull(String key, dynamic value) {
       if (value != null) data[key] = value;
     }
 
+    // --- USER INFO ---
     addIfNotNull('userId', userId);
     addIfNotNull('email', email);
     addIfNotNull('password', password);
@@ -125,20 +125,20 @@ class FirebaseDataModelClass {
     addIfNotNull('privacyPolicyAccepted', privacyPolicyAccepted);
     addIfNotNull('profileImageUrl', profileImageUrl);
 
-    // Food
+    // --- FOOD INFO ---
     addIfNotNull('foodName', foodName);
     addIfNotNull('foodDescription', foodDescription);
     addIfNotNull('quantity', quantity);
+    addIfNotNull('selectedUnits', selectedUnits);
     addIfNotNull('caloriesPerServing', caloriesPerServing);
     addIfNotNull('protein', protein);
     addIfNotNull('carbohydrates', carbohydrates);
     addIfNotNull('fats', fats);
     addIfNotNull('tag', tag);
-    addIfNotNull('selectedUnits', selectedUnits);
     addIfNotNull('selectedTag', selectedTag);
     addIfNotNull('foodImageUrl', foodImageUrl);
 
-    // Diet
+    // --- DIET INFO ---
     addIfNotNull('dietTitle', dietTitle);
     addIfNotNull('dietDescription', dietDescription);
     addIfNotNull('selectedMealType', selectedMealType);
@@ -152,7 +152,7 @@ class FirebaseDataModelClass {
     addIfNotNull('createdAt', createdAt);
     addIfNotNull('dietImageUrl', dietImageUrl);
 
-    // Blog
+    // --- BLOG INFO ---
     addIfNotNull('blogTitle', blogTitle);
     addIfNotNull('blogShortDescription', blogShortDescription);
     addIfNotNull('blogFullContent', blogFullContent);
@@ -160,6 +160,7 @@ class FirebaseDataModelClass {
     addIfNotNull('blogCategory', blogCategory);
     addIfNotNull('blogImageUrl', blogImageUrl);
 
+    // --- FOODS ---
     if (assignedFoods != null) {
       addIfNotNull('assignedFoods', assignedFoods!.map((f) => f.toJson()).toList());
     }
@@ -236,6 +237,7 @@ class FirebaseDataModelClass {
   }
 }
 
+// ✅ Food Model
 class FoodModel {
   final String foodName;
   final String calories;
@@ -244,6 +246,7 @@ class FoodModel {
   final String? quantity;
   final String? mealType;
   final String? foodImageUrl;
+
   FoodModel({
     required this.foodName,
     required this.calories,
@@ -280,6 +283,7 @@ class FoodModel {
   }
 }
 
+// ✅ Consumption Entry Model
 class ConsumptionEntry {
   final String date;
   final String foodQuantity;

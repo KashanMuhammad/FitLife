@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Added the functionality to add full diet description meals_history_screen.dart when pressing arrow key in the tile">
+    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Reformated the lib directories and files">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Screens/custom widgets/option_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Screens/custom widgets/option_card.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/main.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -163,22 +165,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1747854831066</updated>
-    </task>
-    <task id="LOCAL-00013" summary="Another table created for Diet Plan">
-      <option name="closed" value="true" />
-      <created>1749408695465</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1749408695465</updated>
-    </task>
-    <task id="LOCAL-00014" summary="Method created for Add Button the store data in the Global Food map">
-      <option name="closed" value="true" />
-      <created>1749408773081</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1749408773081</updated>
     </task>
     <task id="LOCAL-00015" summary="Some logical corrections in the Customs Widgets">
       <option name="closed" value="true" />
@@ -556,12 +542,54 @@
       <option name="project" value="LOCAL" />
       <updated>1760690389735</updated>
     </task>
-    <option name="localTasksCounter" value="62" />
+    <task id="LOCAL-00062" summary="Reformated the lib directories and files">
+      <option name="closed" value="true" />
+      <created>1760972766867</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1760972766867</updated>
+    </task>
+    <task id="LOCAL-00063" summary="Reformated the lib directories and files">
+      <option name="closed" value="true" />
+      <created>1760972820172</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1760972820172</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="RECENT_FILTERS">
       <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="HEAD" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/master" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="main" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/main" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
         <entry key="User">
           <value>
             <list>
@@ -582,10 +610,10 @@
             <State>
               <option name="FILTERS">
                 <map>
-                  <entry key="user">
+                  <entry key="branch">
                     <value>
                       <list>
-                        <option value="*" />
+                        <option value="HEAD" />
                       </list>
                     </value>
                   </entry>
@@ -598,7 +626,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="edit_profile_screen.dart and update_profile_screen.dart completed but still needs maintenance" />
     <MESSAGE value="Checked the UI on mobile and customize the ui if needed and now its coming perfect on the mobile." />
     <MESSAGE value="add_meals screens UI completed but some functionality still remaining" />
     <MESSAGE value="Pulled Updated Application code" />
@@ -623,6 +650,7 @@
     <MESSAGE value="Added the functionality of getting the today meals and cheat meal to the home screen" />
     <MESSAGE value="Completed Firebase functionality of getting the data of blogs_screen.dart and blog_details_screen.dart from admin panel" />
     <MESSAGE value="Added the functionality to add full diet description meals_history_screen.dart when pressing arrow key in the tile" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added the functionality to add full diet description meals_history_screen.dart when pressing arrow key in the tile" />
+    <MESSAGE value="Reformated the lib directories and files" />
+    <option name="LAST_COMMIT_MESSAGE" value="Reformated the lib directories and files" />
   </component>
 </project>

@@ -26,7 +26,7 @@ void main() async {
   // 2️⃣ Initialize Supabase
   await Supabase.initialize(
     url: "https://pmapautgzuzzdkrjjxzk.supabase.co",
-    // 🔸 from your Supabase dashboard
+
     anonKey:
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBtYXBhdXRnenV6emRrcmpqeHprIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgyMDAxMDcsImV4cCI6MjA3Mzc3NjEwN30.hmp9X9LWqsyeeFZeN8RpvBCmyc8ZsSZL_WHDctq6hr0", // 🔸 from Supabase → Settings → API
   );

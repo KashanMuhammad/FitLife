@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Reformated the lib directories and files">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="slightly updated">
       <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Screens/custom widgets/option_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Screens/custom widgets/option_card.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fitlife_app/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/main.dart" afterDir="false" />
     </list>
@@ -165,14 +164,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1747854831066</updated>
-    </task>
-    <task id="LOCAL-00015" summary="Some logical corrections in the Customs Widgets">
-      <option name="closed" value="true" />
-      <created>1749408833224</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1749408833224</updated>
     </task>
     <task id="LOCAL-00016" summary="Modified Code">
       <option name="closed" value="true" />
@@ -558,7 +549,15 @@
       <option name="project" value="LOCAL" />
       <updated>1760972820172</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <task id="LOCAL-00064" summary="slightly updated">
+      <option name="closed" value="true" />
+      <created>1761055837587</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1761055837587</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -626,7 +625,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Checked the UI on mobile and customize the ui if needed and now its coming perfect on the mobile." />
     <MESSAGE value="add_meals screens UI completed but some functionality still remaining" />
     <MESSAGE value="Pulled Updated Application code" />
     <MESSAGE value="Added Firebase FireStore Functionality to the upload food button in the upload diet screen and successfully working" />
@@ -651,6 +649,7 @@
     <MESSAGE value="Completed Firebase functionality of getting the data of blogs_screen.dart and blog_details_screen.dart from admin panel" />
     <MESSAGE value="Added the functionality to add full diet description meals_history_screen.dart when pressing arrow key in the tile" />
     <MESSAGE value="Reformated the lib directories and files" />
-    <option name="LAST_COMMIT_MESSAGE" value="Reformated the lib directories and files" />
+    <MESSAGE value="slightly updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="slightly updated" />
   </component>
 </project>

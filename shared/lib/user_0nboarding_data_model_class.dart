@@ -41,7 +41,6 @@ class FirebaseDataModelClass {
   final String? createdAt;
   final String? dietImageUrl;
 
-
   // Blog fields
   final String? blogTitle;
   final String? blogShortDescription;
@@ -106,57 +105,67 @@ class FirebaseDataModelClass {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = {};
 
-    data['userId'] = userId;
-    data['email'] = email;
-    data['password'] = password;
-    data['username'] = username;
-    data['gender'] = gender;
-    data['height'] = height;
-    data['heightUnit'] = heightUnit;
-    data['weight'] = weight;
-    data['weightUnit'] = weightUnit;
-    if (dateOfBirth != null) {
-      data['dateOfBirth'] = dateOfBirth!.toIso8601String();
+    // Prevent sending nulls for core fields
+    void addIfNotNull(String key, dynamic value) {
+      if (value != null) data[key] = value;
     }
-    data['selectedDietHabits'] = selectedDietHabits;
-    data['selectedHealthIssues'] = selectedHealthIssues;
-    data['privacyPolicyAccepted'] = privacyPolicyAccepted;
-    data['profileImageUrl'] = profileImageUrl;
-    data['foodName'] = foodName;
-    data['foodDescription'] = foodDescription;
-    data['quantity'] = quantity;
-    data['selectedUnits'] = selectedUnits;
-    data['caloriesPerServing'] = caloriesPerServing;
-    data['protein'] = protein;
-    data['carbohydrates'] = carbohydrates;
-    data['fats'] = fats;
-    data['tag'] = tag;
-    data['foodImageUrl'] = foodImageUrl;
-    data['selectedTag'] = selectedTag;
 
-    data['dietTitle'] = dietTitle;
-    data['dietDescription'] = dietDescription;
-    data['selectedMealType'] = selectedMealType;
-    data['day'] = day;
-    data['timeToEat'] = timeToEat;
-    data['listOfFood'] = listOfFood;
-    data['duration'] = duration;
-    data['suitableFor'] = suitableFor;
-    data['dietTag'] = dietTag;
-    data['createdBy'] = createdBy;
-    data['createdAt'] = createdAt;
-    data['dietImageUrl'] = dietImageUrl;
+    addIfNotNull('userId', userId);
+    addIfNotNull('email', email);
+    addIfNotNull('password', password);
+    addIfNotNull('username', username);
+    addIfNotNull('gender', gender);
+    addIfNotNull('height', height);
+    addIfNotNull('heightUnit', heightUnit);
+    addIfNotNull('weight', weight);
+    addIfNotNull('weightUnit', weightUnit);
+    addIfNotNull('dateOfBirth', dateOfBirth?.toIso8601String());
+    addIfNotNull('selectedDietHabits', selectedDietHabits);
+    addIfNotNull('selectedHealthIssues', selectedHealthIssues);
+    addIfNotNull('privacyPolicyAccepted', privacyPolicyAccepted);
+    addIfNotNull('profileImageUrl', profileImageUrl);
 
-    data['blogTitle'] = blogTitle;
-    data['blogShortDescription'] = blogShortDescription;
-    data['blogFullContent'] = blogFullContent;
-    data['blogCategory'] = blogCategory;
-    data['blogAuthorName'] = blogAuthorName;
-    data['blogImageUrl'] = blogImageUrl;
+    // Food
+    addIfNotNull('foodName', foodName);
+    addIfNotNull('foodDescription', foodDescription);
+    addIfNotNull('quantity', quantity);
+    addIfNotNull('caloriesPerServing', caloriesPerServing);
+    addIfNotNull('protein', protein);
+    addIfNotNull('carbohydrates', carbohydrates);
+    addIfNotNull('fats', fats);
+    addIfNotNull('tag', tag);
+    addIfNotNull('selectedUnits', selectedUnits);
+    addIfNotNull('selectedTag', selectedTag);
+    addIfNotNull('foodImageUrl', foodImageUrl);
+
+    // Diet
+    addIfNotNull('dietTitle', dietTitle);
+    addIfNotNull('dietDescription', dietDescription);
+    addIfNotNull('selectedMealType', selectedMealType);
+    addIfNotNull('day', day);
+    addIfNotNull('timeToEat', timeToEat);
+    addIfNotNull('listOfFood', listOfFood);
+    addIfNotNull('duration', duration);
+    addIfNotNull('suitableFor', suitableFor);
+    addIfNotNull('dietTag', dietTag);
+    addIfNotNull('createdBy', createdBy);
+    addIfNotNull('createdAt', createdAt);
+    addIfNotNull('dietImageUrl', dietImageUrl);
+
+    // Blog
+    addIfNotNull('blogTitle', blogTitle);
+    addIfNotNull('blogShortDescription', blogShortDescription);
+    addIfNotNull('blogFullContent', blogFullContent);
+    addIfNotNull('blogAuthorName', blogAuthorName);
+    addIfNotNull('blogCategory', blogCategory);
+    addIfNotNull('blogImageUrl', blogImageUrl);
 
     if (assignedFoods != null) {
-      data['assignedFoods'] =
-          assignedFoods!.map((f) => f.toJson()).toList();
+      addIfNotNull('assignedFoods', assignedFoods!.map((f) => f.toJson()).toList());
+    }
+
+    if (userSelectedFood != null) {
+      addIfNotNull('userSelectedFood', userSelectedFood!.map((f) => f.toJson()).toList());
     }
 
     return data;
@@ -227,8 +236,6 @@ class FirebaseDataModelClass {
   }
 }
 
-
-
 class FoodModel {
   final String foodName;
   final String calories;
@@ -244,7 +251,7 @@ class FoodModel {
     required this.consumptions,
     required this.quantity,
     required this.mealType,
-    this.foodImageUrl
+    this.foodImageUrl,
   });
 
   factory FoodModel.fromMap(Map<String, dynamic> data) {
@@ -272,6 +279,7 @@ class FoodModel {
     };
   }
 }
+
 class ConsumptionEntry {
   final String date;
   final String foodQuantity;
@@ -280,7 +288,7 @@ class ConsumptionEntry {
   ConsumptionEntry({
     required this.date,
     required this.foodQuantity,
-    required this.mealType
+    required this.mealType,
   });
 
   factory ConsumptionEntry.fromMap(Map<String, dynamic> data) {
@@ -299,4 +307,3 @@ class ConsumptionEntry {
     };
   }
 }
-

@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Implemented null safety to firebase data model class" />
+    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Implemented null safety to firebase data model class">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/patient_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/patient_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Screens/custom widgets/add_meals_tile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Screens/custom widgets/add_meals_tile.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Screens/custom widgets/summary_meals_tile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Screens/custom widgets/summary_meals_tile.dart" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -67,8 +72,8 @@
     &quot;git-widget-placeholder&quot;: &quot;fawadalishan__backend__firebase__and__supabase&quot;,
     &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/practice_flutter&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.android.studio.ml.bot.mainConfigurable&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/FitLife&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   }
 }</component>
@@ -161,14 +166,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1747854831066</updated>
-    </task>
-    <task id="LOCAL-00018" summary="commit">
-      <option name="closed" value="true" />
-      <created>1749520073373</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1749520073373</updated>
     </task>
     <task id="LOCAL-00019" summary="modified">
       <option name="closed" value="true" />
@@ -554,7 +551,15 @@
       <option name="project" value="LOCAL" />
       <updated>1761057289736</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="Implemented null safety to firebase data model class">
+      <option name="closed" value="true" />
+      <created>1761057926708</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1761057926708</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

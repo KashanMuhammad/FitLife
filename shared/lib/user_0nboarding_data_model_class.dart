@@ -12,6 +12,7 @@ class FirebaseDataModelClass {
   final List<String>? selectedDietHabits;
   final List<String>? selectedHealthIssues;
   final bool? privacyPolicyAccepted;
+  final String? profileImageUrl;
 
   // Food fields
   final String? foodName;
@@ -67,6 +68,7 @@ class FirebaseDataModelClass {
     this.selectedDietHabits,
     this.selectedHealthIssues,
     this.privacyPolicyAccepted,
+    this.profileImageUrl,
     this.foodName,
     this.foodDescription,
     this.quantity,
@@ -119,7 +121,7 @@ class FirebaseDataModelClass {
     data['selectedDietHabits'] = selectedDietHabits;
     data['selectedHealthIssues'] = selectedHealthIssues;
     data['privacyPolicyAccepted'] = privacyPolicyAccepted;
-
+    data['profileImageUrl'] = profileImageUrl;
     data['foodName'] = foodName;
     data['foodDescription'] = foodDescription;
     data['quantity'] = quantity;
@@ -185,6 +187,7 @@ class FirebaseDataModelClass {
       selectedDietHabits: toList(json['selectedDietHabits']),
       selectedHealthIssues: toList(json['selectedHealthIssues']),
       privacyPolicyAccepted: json['privacyPolicyAccepted'] as bool?,
+      profileImageUrl: json['profileImageUrl'] as String?,
       foodName: json['foodName'] as String?,
       foodDescription: json['foodDescription'] as String?,
       foodImageUrl: json['foodImageUrl'] as String?,
@@ -233,7 +236,7 @@ class FoodModel {
   final List<ConsumptionEntry> consumptions;
   final String? quantity;
   final String? mealType;
-
+  final String? foodImageUrl;
   FoodModel({
     required this.foodName,
     required this.calories,
@@ -241,6 +244,7 @@ class FoodModel {
     required this.consumptions,
     required this.quantity,
     required this.mealType,
+    this.foodImageUrl
   });
 
   factory FoodModel.fromMap(Map<String, dynamic> data) {
@@ -249,6 +253,7 @@ class FoodModel {
       calories: data['caloriesPerServing'] ?? '0',
       foodDescription: data['foodDescription'] ?? '',
       quantity: data['quantity'],
+      foodImageUrl: data['foodImageUrl'],
       mealType: data['mealType'] ?? data['selectedMealType'] ?? '',
       consumptions: (data['consumptions'] as List<dynamic>? ?? [])
           .map((e) => ConsumptionEntry.fromMap(e as Map<String, dynamic>))
@@ -262,6 +267,7 @@ class FoodModel {
       'caloriesPerServing': calories,
       'foodDescription': foodDescription,
       'mealType': mealType,
+      'foodImageUrl': foodImageUrl,
       'consumptions': consumptions.map((e) => e.toJson()).toList(),
     };
   }

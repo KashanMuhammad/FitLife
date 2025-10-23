@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Supabse successfully connected , diet, food, blog images are successfully storing in the supabse storage and also updated upload blog button so not to upload null values to the firebase firestore">
+    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Code Slightly Updated">
       <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_blog_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_blog_screen.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -166,14 +165,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1747854831066</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Custom Widgets Created For Programmer Ease">
-      <option name="closed" value="true" />
-      <created>1748865164206</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1748865164206</updated>
     </task>
     <task id="LOCAL-00007" summary="Upload Diet (Button) Screen Created to upload Diet Plan">
       <option name="closed" value="true" />
@@ -559,7 +550,15 @@
       <option name="project" value="LOCAL" />
       <updated>1759186622349</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="Code Slightly Updated">
+      <option name="closed" value="true" />
+      <created>1760664822906</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1760664822906</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -601,7 +600,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added blog_model.dart Class for working in blogs_screen.dart" />
     <MESSAGE value="Added blog_card.dart and blog_details_screen.dart still to do works with these screens" />
     <MESSAGE value="Working with blogs screen completed but the picture be imported" />
     <MESSAGE value="Working with blogs screen and blog detail screen completed" />
@@ -626,7 +624,8 @@
     <MESSAGE value="Patient screen UI updated and also analytics screen toggle button updated" />
     <MESSAGE value="Upload Diet Screnn ,Upload Blog Screen,Upload Food Screen are updated to store images in the supabase storage and also diet screen, food screen , blog screen updated to retrieve the images stored in the supabse. Yet more work to be done" />
     <MESSAGE value="Supabse successfully connected , diet, food, blog images are successfully storing in the supabse storage and also updated upload blog button so not to upload null values to the firebase firestore" />
-    <option name="LAST_COMMIT_MESSAGE" value="Supabse successfully connected , diet, food, blog images are successfully storing in the supabse storage and also updated upload blog button so not to upload null values to the firebase firestore" />
+    <MESSAGE value="Code Slightly Updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="Code Slightly Updated" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

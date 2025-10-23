@@ -288,14 +288,14 @@ class _UserScreenState extends State<UserScreen> {
                                 DataCell(
                                   Center(
                                     child: Text(
-                                      "${patient['weightValue'] ?? ''} ${patient['weightUnit'] ?? 'No User Weight'}",
+                                      "${patient['weight'] ?? ''} ${patient['weightUnit'] ?? 'No User Weight'}",
                                     ),
                                   ),
                                 ),
                                 DataCell(
                                   Center(
                                     child: Text(
-                                      "${patient['heightValue'] ?? ''} ${patient['heightUnit'] ?? 'No User Height'}",
+                                      "${patient['height'] ?? ''} ${patient['heightUnit'] ?? 'No User Height'}",
                                     ),
                                   ),
                                 ),

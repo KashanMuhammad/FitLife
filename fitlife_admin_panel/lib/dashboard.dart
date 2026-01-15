@@ -78,9 +78,7 @@ class _DashboardState extends State<Dashboard> {
                       },
                     ),
                 CustomerSupportScreen(),
-                // Center(child: Text("Support")),
-                //Center(child: Text("Blogs")),
-                // BlogScreen(),
+
                 showCreateBlogScreen
                     ? BlogFormScreen()
                     : BlogScreen(

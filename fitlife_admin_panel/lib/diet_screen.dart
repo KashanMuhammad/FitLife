@@ -163,78 +163,6 @@ class _DietScreenState extends State<DietScreen> {
             ),
             SizedBox(height: 8),
 
-            // Card(
-            //   elevation: 2,
-            //   shape: RoundedRectangleBorder(
-            //     borderRadius: BorderRadius.circular(12),
-            //   ),
-            //   child: DataTable(
-            //     headingRowColor: WidgetStateProperty.all(Colors.grey[200]),
-            //     headingTextStyle: TextStyle(fontWeight: FontWeight.bold),
-            //     border: TableBorder.all(color: Colors.grey.shade300),
-            //     columns: [
-            //       DataColumn(label: Text("Diet Image")),
-            //       DataColumn(label: Text("Diet Name")),
-            //       DataColumn(label: Text("Suitable For")),
-            //       DataColumn(label: Text("Diet Tag")),
-            //       DataColumn(label: Text("Created By")),
-            //       DataColumn(label: Text("Actions")),
-            //     ],
-            //     rows:
-            //         globalDietMap.entries.map((entry) {
-            //           final diet = entry.value;
-            //
-            //           return DataRow(
-            //             cells: [
-            //               DataCell(
-            //                 diet['image'] != ''
-            //                     ? (kIsWeb
-            //                         ? Image.network(
-            //                           diet['image'],
-            //                           width: 60,
-            //                           height: 60,
-            //                         )
-            //                         : Image.file(
-            //                           File(diet['image']),
-            //                           width: 60,
-            //                           height: 60,
-            //                         ))
-            //                     : Icon(Icons.image),
-            //               ),
-            //               DataCell(Text(diet['dietTitle'] ?? '')),
-            //               DataCell(Text(diet['mealSuitability'] ?? '')),
-            //               DataCell(Text(diet['mealTag'] ?? '')),
-            //               DataCell(Text(diet['createdBy'] ?? '')),
-            //               DataCell(
-            //                 PopupMenuButton<String>(
-            //                   icon: Icon(Icons.more_vert_outlined),
-            //                   offset: Offset(100, 0),
-            //                   onSelected: (value) {
-            //                     if (value == 'form') {
-            //                       Navigator.push(
-            //                         context,
-            //                         MaterialPageRoute(
-            //                           builder:
-            //                               (context) =>
-            //                                   UploadDietScreen(dietData: diet),
-            //                         ),
-            //                       );
-            //                     }
-            //                   },
-            //                   itemBuilder:
-            //                       (context) => [
-            //                         const PopupMenuItem(
-            //                           value: 'form',
-            //                           child: Text('Form'),
-            //                         ),
-            //                       ],
-            //                 ),
-            //               ),
-            //             ],
-            //           );
-            //         }).toList(),
-            //   ),
-            // ),
             Card(
               elevation: 2,
               shape: RoundedRectangleBorder(
@@ -262,8 +190,12 @@ class _DietScreenState extends State<DietScreen> {
                     child: SingleChildScrollView(
                       scrollDirection: Axis.vertical,
                       child: DataTable(
-                        headingRowColor: WidgetStateProperty.all(Colors.grey[200]),
-                        headingTextStyle: TextStyle(fontWeight: FontWeight.bold),
+                        headingRowColor: WidgetStateProperty.all(
+                          Colors.grey[200],
+                        ),
+                        headingTextStyle: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
                         border: TableBorder.all(color: Colors.grey.shade300),
                         columns: const [
                           DataColumn(label: Text("Diet Image")),
@@ -276,37 +208,26 @@ class _DietScreenState extends State<DietScreen> {
                         rows:
                             docs.map((doc) {
                               final diet = doc.data() as Map<String, dynamic>;
-                             final dietId = doc.id;
+                              final dietId = doc.id;
                               return DataRow(
                                 cells: [
-                                  // DataCell(
-                                  //   diet['image'] != null && diet['image'] != ''
-                                  //       ? (kIsWeb
-                                  //           ? Image.network(
-                                  //             diet['image'],
-                                  //             width: 60,
-                                  //             height: 60,
-                                  //           )
-                                  //           : Image.file(
-                                  //             File(diet['image']),
-                                  //             width: 60,
-                                  //             height: 60,
-                                  //           ))
-                                  //       : Icon(Icons.image),
-                                  // ),
                                   DataCell(
-                                    diet['dietImageUrl'] != null && diet['dietImageUrl'] != ''
+                                    diet['dietImageUrl'] != null &&
+                                            diet['dietImageUrl'] != ''
                                         ? Image.network(
-                                      diet['dietImageUrl'],
-                                      width: 60,
-                                      height: 60,
-                                      fit: BoxFit.cover,
-                                    )
-                                  : const Text(
-                              "No image found",
-                              style: TextStyle(color: Colors.red, fontSize: 12),
-                              ),
-                                     //   : const Icon(Icons.image),
+                                          diet['dietImageUrl'],
+                                          width: 60,
+                                          height: 60,
+                                          fit: BoxFit.cover,
+                                        )
+                                        : const Text(
+                                          "No image found",
+                                          style: TextStyle(
+                                            color: Colors.red,
+                                            fontSize: 12,
+                                          ),
+                                        ),
+                                    //   : const Icon(Icons.image),
                                   ),
 
                                   DataCell(Text(diet['dietTitle'] ?? '')),
@@ -356,8 +277,6 @@ class _DietScreenState extends State<DietScreen> {
       ),
     );
   }
-
-
 }
 
 Widget _buildToggleButton(String text, bool selected) {
@@ -365,9 +284,9 @@ Widget _buildToggleButton(String text, bool selected) {
     padding: EdgeInsets.symmetric(horizontal: 18, vertical: 10),
     decoration: BoxDecoration(
       gradient:
-      selected
-          ? LinearGradient(colors: [Color(0xFF5AFF15), Color(0xFF00B712)])
-          : null,
+          selected
+              ? LinearGradient(colors: [Color(0xFF5AFF15), Color(0xFF00B712)])
+              : null,
       color: selected ? null : Colors.grey.shade100,
       borderRadius: BorderRadius.circular(8),
     ),

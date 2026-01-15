@@ -12,14 +12,13 @@ class UploadFoodScreen extends StatefulWidget {
   final Map<String, dynamic>? foodData;
   final String? foodId;
 
-  const UploadFoodScreen({super.key, this.foodData , this.foodId});
+  const UploadFoodScreen({super.key, this.foodData, this.foodId});
 
   @override
-  State<UploadFoodScreen> createState() => _FoodScreenState();
+  State<UploadFoodScreen> createState() => _UploadFoodScreenState();
 }
 
-class _FoodScreenState extends State<UploadFoodScreen> {
-  String dropdownValue = "grams";
+class _UploadFoodScreenState extends State<UploadFoodScreen> {
   TextEditingController foodName = TextEditingController();
   TextEditingController foodDescription = TextEditingController();
   TextEditingController quantityController = TextEditingController();
@@ -27,174 +26,165 @@ class _FoodScreenState extends State<UploadFoodScreen> {
   TextEditingController proteinController = TextEditingController();
   TextEditingController carbohydratesController = TextEditingController();
   TextEditingController fatsController = TextEditingController();
-  TextEditingController tagController = TextEditingController();
-  TextEditingController imageController = TextEditingController();
-  final formKey = GlobalKey<FormState>();
+
   List<String> quantityOptions = ['grams', 'pieces', 'cups'];
-  List<String> tagsOptions = ['Vegan', 'Low Carb', 'High Fiber'];
-  String? selectedUnit, selectedTag;
+
+  /// IMPORTANT:
+  /// Foods to Avoid is NOT a category anymore
+  List<String> tagsOptions = [
+    'Fat',
+    'Protein',
+    // 'Nuts & Seeds',
+    'Fish',
+    // 'SeaFood',
+    'Vegetables',
+    // 'Berries & Fruits',
+    //  'Additional',
+    // 'Vegan Protein',
+    // 'Herbs',
+    'Liquids',
+  ];
+
+  String? selectedUnit;
+  String? selectedTag;
+
+  /// Toggle for Eat / Avoid
+  bool isFoodToAvoid = false;
+
   XFile? _image;
-  String? imageUrl; // this will store the existing image URL if editing
+  String? imageUrl;
 
-
-  Future<void> _pickImage() async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      setState(() {
-        _image = image;
-      });
-    }
-  }
+  final formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
+
     if (widget.foodData != null) {
       final data = widget.foodData!;
       foodName.text = data['foodName'] ?? '';
       foodDescription.text = data['foodDescription'] ?? '';
       quantityController.text = data['quantity'] ?? '';
       selectedUnit = data['unit'];
-      caloriesPerServing.text = data['calories'] ?? '';
+      caloriesPerServing.text = data['caloriesPerServing'] ?? '';
       proteinController.text = data['protein'] ?? '';
       carbohydratesController.text = data['carbohydrates'] ?? '';
       fatsController.text = data['fats'] ?? '';
-      selectedTag = data['tag'];
-      if (data['foodImageUrl'] != null && data['foodImageUrl'] != '') {
-        imageUrl = data['foodImageUrl']; // store the URL
-      }
-      if (data['image'] != null && data['image'] != '') {
-        _image = XFile(data['image']);
-      }
+      selectedTag = data['selectedTag'];
+      imageUrl = data['foodImageUrl'];
     }
+  }
+
+  Future<void> _pickImage() async {
+    final picker = ImagePicker();
+    final image = await picker.pickImage(source: ImageSource.gallery);
+    if (image != null) setState(() => _image = image);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(12.0),
-      child: Scaffold(
-        body: SingleChildScrollView(
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.all(12),
+        child: SingleChildScrollView(
           child: Form(
             key: formKey,
             child: Column(
-
               spacing: 15,
               children: [
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Dashboard()),
-                        );
-                      },
-                      icon: Icon(Icons.arrow_back_rounded),
+                      icon: const Icon(Icons.arrow_back_rounded),
+                      onPressed:
+                          () => Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (_) => Dashboard()),
+                          ),
                     ),
                   ],
                 ),
 
                 CustomTextFormField(controller: foodName, label: "Food Name"),
-                // SizedBox(height: 15),
                 CustomTextFormField(
                   controller: foodDescription,
                   label: "Food Description",
                   maxLines: 3,
                 ),
-                // SizedBox(height: 15),
+
                 CustomTextFormField(
                   controller: quantityController,
                   label: "Quantity",
                 ),
-                // SizedBox(height: 15),
+
                 CustomDropdown(
                   items: quantityOptions,
                   hintText: "Select Units",
                   value: selectedUnit,
-                  onChanged: (value) {
-                    setState(() {
-                      selectedUnit = value;
-                    });
-                  },
+                  onChanged: (value) => setState(() => selectedUnit = value),
                 ),
-                // SizedBox(height: 15),
+
                 CustomTextFormField(
                   controller: caloriesPerServing,
                   label: "Calories Per Serving",
                 ),
-                // SizedBox(height: 15),
                 CustomTextFormField(
                   controller: proteinController,
                   label: "Protein (grams)",
                 ),
-                // SizedBox(height: 15),
                 CustomTextFormField(
                   controller: carbohydratesController,
                   label: "Carbohydrates (grams)",
                 ),
-                // SizedBox(height: 15),
                 CustomTextFormField(
                   controller: fatsController,
                   label: "Fats (grams)",
                 ),
-                // SizedBox(height: 15),
+
                 CustomDropdown(
                   items: tagsOptions,
-                  hintText: "Select Tag",
+                  hintText: "Select Category",
                   value: selectedTag,
-                  onChanged: (value) {
-                    setState(() {
-                      selectedTag = value;
-                    });
-                  },
+                  onChanged: (value) => setState(() => selectedTag = value),
                 ),
-                // SizedBox(height: 15),
+
+                /// Eat / Avoid Toggle (logic only, UI minimal)
+                SwitchListTile(
+                  title: const Text("Mark as Food to Avoid"),
+                  value: isFoodToAvoid,
+                  onChanged: (v) => setState(() => isFoodToAvoid = v),
+                ),
+
                 Row(
                   children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [Color(0xFF5AFF15), Color(0xFF00B712)],
-                        ),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.transparent,
-                          shadowColor: Colors.transparent,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                        onPressed: _pickImage,
-                        child: Text('Pick Image'),
-                      ),
+                    ElevatedButton(
+                      onPressed: _pickImage,
+                      child: const Text("Pick Image"),
                     ),
-                    SizedBox(width: 45),
+                    const SizedBox(width: 20),
                     if (_image != null)
                       kIsWeb
-                          ? Image.network(_image!.path, height: 150, width: 150)
-                          : Image.file(File(_image!.path), height: 150, width: 150)
+                          ? Image.network(_image!.path, height: 120, width: 120)
+                          : Image.file(
+                            File(_image!.path),
+                            height: 120,
+                            width: 120,
+                          )
                     else if (imageUrl != null)
-                      Image.network(imageUrl!, height: 150, width: 150) // show existing image
+                      Image.network(imageUrl!, height: 120, width: 120)
                     else
-                      Text("No image selected"),
+                      const Text("No Image Selected"),
                   ],
                 ),
-                // SizedBox(height: 15),
 
-                // SizedBox(height: 15),
                 Container(
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
+                    gradient: const LinearGradient(
                       colors: [Color(0xFF5AFF15), Color(0xFF00B712)],
                     ),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: buildCustomElevatedButton(),
+                  child: buildAddFoodButton(),
                 ),
               ],
             ),
@@ -204,159 +194,37 @@ class _FoodScreenState extends State<UploadFoodScreen> {
     );
   }
 
-  // ElevatedButton buildCustomElevatedButton() {
-  //   return ElevatedButton(
-  //     style: ElevatedButton.styleFrom(
-  //       backgroundColor: Colors.transparent,
-  //       shadowColor: Colors.transparent,
-  //       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-  //     ),
-  //     onPressed: () {
-  //       // if (foodName.text.trim().isEmpty) {
-  //       //   return;
-  //       // }
-  //       //
-  //       // String id = DateTime.now().millisecondsSinceEpoch.toString();
-  //       //
-  //       // Map<String, dynamic> foodData = {
-  //       //   'foodName': foodName.text.trim(),
-  //       //   'foodDescription': foodDescription.text.trim(),
-  //       //   'quantity': quantityController.text.trim(),
-  //       //   'unit': selectedUnit ?? '',
-  //       //   'calories': caloriesPerServing.text.trim(),
-  //       //   'protein': proteinController.text.trim(),
-  //       //   'carbohydrates': carbohydratesController.text.trim(),
-  //       //   'fats': fatsController.text.trim(),
-  //       //   'tag': selectedTag ?? '',
-  //       //   'image': _image?.path ?? '',
-  //       // };
-  //       //
-  //       // setState(() {
-  //       //   globalFoodMap[id] = foodData;
-  //       // });
-  //       //
-  //       // foodName.clear();
-  //       // foodDescription.clear();
-  //       // quantityController.clear();
-  //       // caloriesPerServing.clear();
-  //       // proteinController.clear();
-  //       // carbohydratesController.clear();
-  //       // fatsController.clear();
-  //       // selectedUnit = null;
-  //       // selectedTag = null;
-  //       // _image = null;
-  //
-  //       final user = FirebaseDataModelClass(
-  //         foodName: foodName.text,
-  //         foodDescription: foodDescription.text,
-  //         quantity: quantityController.text,
-  //         caloriesPerServing: caloriesPerServing.text,
-  //         protein: proteinController.text,
-  //         carbohydrates: carbohydratesController.text,
-  //         fats: fatsController.text,
-  //         selectedTag: selectedTag,
-  //         selectedUnits: selectedUnit,
-  //       );
-  //
-  //     FirebaseFirestore.instance.collection('food').doc().set(user.toJson());
-  //
-  //     },
-  //     child: Text("ADD FOOD"),
-  //   );
-  // }
-
-
-  // ElevatedButton buildCustomElevatedButton() {
-  //   return ElevatedButton(
-  //     style: ElevatedButton.styleFrom(
-  //       backgroundColor: Colors.transparent,
-  //       shadowColor: Colors.transparent,
-  //       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-  //     ),
-  //     onPressed: () {
-  //       final user = FirebaseDataModelClass(
-  //         foodName: foodName.text.trim(),
-  //         foodDescription: foodDescription.text.trim(),
-  //         quantity: quantityController.text.trim(),
-  //         caloriesPerServing: caloriesPerServing.text.trim(),
-  //         protein: proteinController.text.trim(),
-  //         carbohydrates: carbohydratesController.text.trim(),
-  //         fats: fatsController.text.trim(),
-  //         selectedTag: selectedTag,
-  //         selectedUnits: selectedUnit,
-  //         // 🔹 add image later once you connect Supabase
-  //       );
-  //
-  //       // Convert to JSON
-  //       final foodData = user.toJson();
-  //
-  //       // 🔹 Remove null or empty values
-  //       foodData.removeWhere((key, value) => value == null || value == "");
-  //
-  //       FirebaseFirestore.instance.collection('food').doc().set(foodData);
-  //
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         const SnackBar(content: Text("Food uploaded ✅")),
-  //       );
-  //
-  //       // 🔹 Clear fields after upload
-  //       foodName.clear();
-  //       foodDescription.clear();
-  //       quantityController.clear();
-  //       caloriesPerServing.clear();
-  //       proteinController.clear();
-  //       carbohydratesController.clear();
-  //       fatsController.clear();
-  //       selectedUnit = null;
-  //       selectedTag = null;
-  //       _image = null;
-  //       setState(() {});
-  //     },
-  //     child: const Text("ADD FOOD"),
-  //   );
-  // }
-
-  ElevatedButton buildCustomElevatedButton() {
+  ElevatedButton buildAddFoodButton() {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.transparent,
         shadowColor: Colors.transparent,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
       onPressed: () async {
-        // 🔹 Step 1: Upload image to Supabase (if picked)
-        String? imageUrl;
-        if (_image != null) {
-          try {
-            final fileBytes = await _image!.readAsBytes();
-            final fileName =
-                "food_${DateTime.now().millisecondsSinceEpoch}_${_image!.name}";
-
-            // upload to Supabase storage (bucket: food_images)
-            final response = await Supabase.instance.client.storage
-                .from('food_images')
-                .uploadBinary(fileName, fileBytes);
-
-            if (response.isEmpty) {
-              throw Exception("Upload failed");
-            }
-
-            // ✅ Get public URL of uploaded image
-            imageUrl = Supabase.instance.client.storage
-                .from('food_images')
-                .getPublicUrl(fileName);
-
-          } catch (e) {
-            print("❌ Supabase upload failed: $e");
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("Image upload failed ❌")),
-            );
-            return; // stop if upload fails
-          }
+        if (selectedTag == null) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("Please select category")),
+          );
+          return;
         }
 
-        // 🔹 Step 2: Create Firestore model including imageUrl
-        final user = FirebaseDataModelClass(
+        String? uploadedImageUrl;
+
+        if (_image != null) {
+          final bytes = await _image!.readAsBytes();
+          final fileName =
+              "food_${DateTime.now().millisecondsSinceEpoch}_${_image!.name}";
+
+          await Supabase.instance.client.storage
+              .from('food_images')
+              .uploadBinary(fileName, bytes);
+
+          uploadedImageUrl = Supabase.instance.client.storage
+              .from('food_images')
+              .getPublicUrl(fileName);
+        }
+
+        final food = FirebaseDataModelClass(
           foodName: foodName.text.trim(),
           foodDescription: foodDescription.text.trim(),
           quantity: quantityController.text.trim(),
@@ -364,25 +232,28 @@ class _FoodScreenState extends State<UploadFoodScreen> {
           protein: proteinController.text.trim(),
           carbohydrates: carbohydratesController.text.trim(),
           fats: fatsController.text.trim(),
-          selectedTag: selectedTag,
           selectedUnits: selectedUnit,
-          foodImageUrl: imageUrl, // ✅ Add Supabase image URL here
+          selectedTag: selectedTag,
+          foodImageUrl: uploadedImageUrl,
         );
 
-        // Convert to JSON
-        final foodData = user.toJson();
+        final foodData =
+            food.toJson()..removeWhere((k, v) => v == null || v == "");
 
-        // 🔹 Remove null or empty values
-        foodData.removeWhere((key, value) => value == null || value == "");
+        final docRef = FirebaseFirestore.instance
+            .collection('Foods')
+            .doc(selectedTag);
 
-        // Save in Firestore (food collection)
-        await FirebaseFirestore.instance.collection('food').doc().set(foodData);
+        final field = isFoodToAvoid ? 'foods_to_avoid' : 'foods_to_eat';
+
+        await docRef.set({
+          field: FieldValue.arrayUnion([foodData]),
+        }, SetOptions(merge: true));
 
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Food uploaded ✅")),
+          const SnackBar(content: Text("Food saved successfully ✔")),
         );
 
-        // 🔹 Clear fields after upload
         foodName.clear();
         foodDescription.clear();
         quantityController.clear();
@@ -392,6 +263,7 @@ class _FoodScreenState extends State<UploadFoodScreen> {
         fatsController.clear();
         selectedUnit = null;
         selectedTag = null;
+        isFoodToAvoid = false;
         _image = null;
 
         setState(() {});
@@ -399,7 +271,4 @@ class _FoodScreenState extends State<UploadFoodScreen> {
       child: const Text("ADD FOOD"),
     );
   }
-
-
-
 }

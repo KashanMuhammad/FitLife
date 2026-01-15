@@ -1,18 +1,23 @@
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextFormField extends StatefulWidget {
- final TextEditingController controller;
- final String label;
- final String? hint;
- final int? maxLines;
+  final TextEditingController controller;
+  final String label;
+  final String? hintText;
+  final int? maxLines;
+  final String? Function(String?)? validator;
+  final bool obscureText;
+  final TextInputType? keyboardType;
 
   const CustomTextFormField({
     super.key,
     required this.controller,
     required this.label,
-    this.hint,
-    this.maxLines,
+    this.hintText,
+    this.maxLines = 1,
+    this.validator,
+    this.obscureText = false,
+    this.keyboardType,
   });
 
   @override
@@ -24,17 +29,23 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: widget.controller,
-      maxLines: widget.maxLines,
       decoration: InputDecoration(
-        label: Text(widget.label),
-        hintText: widget.hint,
+        labelText: widget.label,
+        hintText: widget.hintText,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
-        )
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       ),
+      maxLines: widget.maxLines,
+      obscureText: widget.obscureText,
+      keyboardType: widget.keyboardType,
+      validator: widget.validator,
     );
   }
 }
+
+
 
 
 

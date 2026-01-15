@@ -4,8 +4,25 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Added the functionality to add full diet description meals_history_screen.dart when pressing arrow key in the tile">
+    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="In patient_screen.dart the height  and weight variables updated">
+      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/.firebaserc" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/.firebaserc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/analytics_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/analytics_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/blog_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/blog_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/custom_widgets.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/custom_widgets.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/customer_support.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/customer_support.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/dashboard.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/dashboard.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/diet_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/diet_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/food_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/food_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/patient_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/patient_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_blog_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_blog_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_diet_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_diet_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_food_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_food_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,6 +32,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$/fitlife_app/android">
       <ProjectState />
@@ -40,7 +58,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/KashanMuhammad/FitLife.git&quot;,
-    &quot;accountId&quot;: &quot;5f640996-ceef-45cc-981f-d0540746f73c&quot;
+    &quot;accountId&quot;: &quot;fdbe591c-7d9b-4c99-9d34-380bd3f1166e&quot;
   }
 }</component>
   <component name="ProblemsViewState">
@@ -66,7 +84,7 @@
     &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;fawadalishan__backend__firebase__and__supabase&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;kashanmuhammad/admin__panel__functionalities&quot;,
     &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;E:/practice_flutter&quot;,
@@ -147,7 +165,7 @@
       </method>
     </configuration>
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
-      <option name="filePath" value="$PROJECT_DIR$/fitlife_app/lib/main.dart" />
+      <option name="filePath" value="$PROJECT_DIR$/fitlife_admin_panel/lib/main.dart" />
       <method v="2" />
     </configuration>
     <list>
@@ -163,22 +181,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1747854831066</updated>
-    </task>
-    <task id="LOCAL-00013" summary="Another table created for Diet Plan">
-      <option name="closed" value="true" />
-      <created>1749408695465</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1749408695465</updated>
-    </task>
-    <task id="LOCAL-00014" summary="Method created for Add Button the store data in the Global Food map">
-      <option name="closed" value="true" />
-      <created>1749408773081</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1749408773081</updated>
     </task>
     <task id="LOCAL-00015" summary="Some logical corrections in the Customs Widgets">
       <option name="closed" value="true" />
@@ -556,7 +558,23 @@
       <option name="project" value="LOCAL" />
       <updated>1760690389735</updated>
     </task>
-    <option name="localTasksCounter" value="62" />
+    <task id="LOCAL-00062" summary="Pulled the code and merged the conflict">
+      <option name="closed" value="true" />
+      <created>1761241065760</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1761241065760</updated>
+    </task>
+    <task id="LOCAL-00063" summary="In patient_screen.dart the height  and weight variables updated">
+      <option name="closed" value="true" />
+      <created>1761241211320</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1761241211320</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -598,9 +616,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="edit_profile_screen.dart and update_profile_screen.dart completed but still needs maintenance" />
-    <MESSAGE value="Checked the UI on mobile and customize the ui if needed and now its coming perfect on the mobile." />
-    <MESSAGE value="add_meals screens UI completed but some functionality still remaining" />
     <MESSAGE value="Pulled Updated Application code" />
     <MESSAGE value="Added Firebase FireStore Functionality to the upload food button in the upload diet screen and successfully working" />
     <MESSAGE value="Added Firebase FireStore Functionality to the upload diet button in the upload diet screen and successfully working and also updated diet and food table to fench real time data from the firebase firestore" />
@@ -623,6 +638,9 @@
     <MESSAGE value="Added the functionality of getting the today meals and cheat meal to the home screen" />
     <MESSAGE value="Completed Firebase functionality of getting the data of blogs_screen.dart and blog_details_screen.dart from admin panel" />
     <MESSAGE value="Added the functionality to add full diet description meals_history_screen.dart when pressing arrow key in the tile" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added the functionality to add full diet description meals_history_screen.dart when pressing arrow key in the tile" />
+    <MESSAGE value="Code Slightly Updated" />
+    <MESSAGE value="Pulled the code and merged the conflict" />
+    <MESSAGE value="In patient_screen.dart the height  and weight variables updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="In patient_screen.dart the height  and weight variables updated" />
   </component>
 </project>

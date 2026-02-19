@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'admin_login_signup_screen.dart';
 import 'dashboard.dart';
-
 
 class AuthGate extends StatelessWidget {
   const AuthGate({super.key});
@@ -14,7 +12,6 @@ class AuthGate extends StatelessWidget {
     return StreamBuilder<User?>(
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, authSnapshot) {
-
         if (authSnapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         }
@@ -28,12 +25,12 @@ class AuthGate extends StatelessWidget {
 
         // Check if admin exists
         return FutureBuilder<DocumentSnapshot>(
-          future: FirebaseFirestore.instance
-              .collection('admins')
-              .doc(user.uid)
-              .get(),
+          future:
+              FirebaseFirestore.instance
+                  .collection('admins')
+                  .doc(user.uid)
+                  .get(),
           builder: (context, adminSnapshot) {
-
             if (adminSnapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             }

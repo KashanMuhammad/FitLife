@@ -32,10 +32,11 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       decoration: InputDecoration(
         labelText: widget.label,
         hintText: widget.hintText,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.0),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 12,
         ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       ),
       maxLines: widget.maxLines,
       obscureText: widget.obscureText,
@@ -44,11 +45,6 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
     );
   }
 }
-
-
-
-
-
 
 class CustomDropdown extends StatelessWidget {
   final List<String> items;
@@ -67,27 +63,22 @@ class CustomDropdown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<String>(
-      value: value, // 👈 directly uses the passed-in value
+      value: value,
+      // 👈 directly uses the passed-in value
       isExpanded: true,
       decoration: InputDecoration(
-        contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
+        contentPadding: const EdgeInsets.symmetric(
+          vertical: 16,
+          horizontal: 12,
         ),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
       ),
-      hint: Text(
-        hintText,
-        style: const TextStyle(fontSize: 14),
-      ),
-      items: items.map((item) {
-        return DropdownMenuItem<String>(
-          value: item,
-          child: Text(item),
-        );
-      }).toList(),
+      hint: Text(hintText, style: const TextStyle(fontSize: 14)),
+      items:
+          items.map((item) {
+            return DropdownMenuItem<String>(value: item, child: Text(item));
+          }).toList(),
       onChanged: onChanged,
     );
   }
 }
-
-

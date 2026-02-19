@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Project fully updated also removed the extra or irrelevant code">
-      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Functionalities assigned to diet screen and food screen toggle buttons and also applied linear gradient to various buttons and toggle buttons.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/auth_gate.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/auth_gate.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/custom_widgets.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/custom_widgets.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/diet_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/diet_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/food_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/food_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_diet_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_diet_screen.dart" afterDir="false" />
@@ -170,14 +170,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1747854831066</updated>
-    </task>
-    <task id="LOCAL-00016" summary="Modified Code">
-      <option name="closed" value="true" />
-      <created>1749408904039</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1749408904039</updated>
     </task>
     <task id="LOCAL-00017" summary="Modified Code">
       <option name="closed" value="true" />
@@ -563,7 +555,15 @@
       <option name="project" value="LOCAL" />
       <updated>1768476231353</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="Functionalities assigned to diet screen and food screen toggle buttons and also applied linear gradient to various buttons and toggle buttons.">
+      <option name="closed" value="true" />
+      <created>1771391026731</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1771391026731</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -605,7 +605,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added Firebase FireStore Functionality to the upload food button in the upload diet screen and successfully working" />
     <MESSAGE value="Added Firebase FireStore Functionality to the upload diet button in the upload diet screen and successfully working and also updated diet and food table to fench real time data from the firebase firestore" />
     <MESSAGE value="Admin panel Patient Screen completed and also given functionality to assigned diet plan to the users or patients" />
     <MESSAGE value="Admin panel Upload Blog Screen completed and also given functionality to create blog button" />
@@ -630,6 +629,7 @@
     <MESSAGE value="Pulled the code and merged the conflict" />
     <MESSAGE value="In patient_screen.dart the height  and weight variables updated" />
     <MESSAGE value="Project fully updated also removed the extra or irrelevant code" />
-    <option name="LAST_COMMIT_MESSAGE" value="Project fully updated also removed the extra or irrelevant code" />
+    <MESSAGE value="Functionalities assigned to diet screen and food screen toggle buttons and also applied linear gradient to various buttons and toggle buttons." />
+    <option name="LAST_COMMIT_MESSAGE" value="Functionalities assigned to diet screen and food screen toggle buttons and also applied linear gradient to various buttons and toggle buttons." />
   </component>
 </project>

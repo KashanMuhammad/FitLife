@@ -13,6 +13,8 @@ class UserScreen extends StatefulWidget {
 class _UserScreenState extends State<UserScreen> {
   int selectedToggleIndex = 0;
   late Future<List<Map<String, dynamic>>> _userFuture;
+  TextEditingController _searchController = TextEditingController();
+  String _searchQuery = '';
 
   @override
   void initState() {
@@ -31,11 +33,9 @@ class _UserScreenState extends State<UserScreen> {
     }).toList();
   }
 
-  /// 🔹 Assign diet plan with full details + foods
   Future<void> _assignDietPlan(String userId, String selectedPlanTitle) async {
     final firestore = FirebaseFirestore.instance;
 
-    // 1. Get diet document
     final dietSnapshot =
         await firestore
             .collection('diet')
@@ -44,47 +44,65 @@ class _UserScreenState extends State<UserScreen> {
             .get();
 
     if (dietSnapshot.docs.isEmpty) return;
+
     final dietDoc = dietSnapshot.docs.first;
     final dietData = dietDoc.data();
 
-    // 2. Extract diet details (KEEP original types)
     final assignedDiet = {
       'dietId': dietDoc.id,
       'dietTitle': dietData['dietTitle'] ?? '',
       'dietDescription': dietData['dietDescription'] ?? '',
-      'duration': dietData['duration'] ?? 0, // can be int or string
+      'duration': dietData['duration'] ?? '',
       'suitableFor': dietData['suitableFor'] ?? '',
       'selectedMealType': dietData['selectedMealType'] ?? '',
     };
 
-    // 3. Fetch all foods with full details
-    List<Map<String, dynamic>> foods = [];
-    if (dietData.containsKey('listOfFood')) {
-      for (var foodName in List.from(dietData['listOfFood'])) {
-        final foodSnap =
-            await firestore
-                .collection('food')
-                .where('foodName', isEqualTo: foodName.toString())
-                .limit(1)
-                .get();
+    final List<Map<String, dynamic>> assignedFoods = [];
+    final Set<String> added = {};
 
-        if (foodSnap.docs.isNotEmpty) {
-          final foodDoc = foodSnap.docs.first;
-          final foodData = foodDoc.data();
+    final weeklyMeals = Map<String, dynamic>.from(dietData['weeklyMeals']);
 
-          foods.add({
-            'foodId': foodDoc.id,
-            ...foodData, 
-          });
+    for (final day in weeklyMeals.entries) {
+      for (final meal in List.from(day.value)) {
+        // Foods to Eat
+        for (final food in List.from(meal['foodsToEat'] ?? [])) {
+          final key = '${day.key}_${meal['mealName']}_eat_$food'.toLowerCase();
+
+          if (!added.contains(key)) {
+            assignedFoods.add({
+              'day': day.key,
+              'meal': meal['mealName'],
+              'foodName': food,
+              'type': 'eat',
+            });
+            added.add(key);
+          }
+        }
+
+        // Foods to Avoid
+        for (final food in List.from(meal['foodsToAvoid'] ?? [])) {
+          final key =
+              '${day.key}_${meal['mealName']}_avoid_$food'.toLowerCase();
+
+          if (!added.contains(key)) {
+            assignedFoods.add({
+              'day': day.key,
+              'meal': meal['mealName'],
+              'foodName': food,
+              'type': 'avoid',
+            });
+            added.add(key);
+          }
         }
       }
     }
 
-    // 4. Save diet + foods in User doc
     await firestore.collection('Users').doc(userId).update({
       'assignedDietPlan': assignedDiet,
-      'assignedFoods': foods,
+      'assignedFoods': assignedFoods,
     });
+
+    debugPrint('✅ Total assigned foods: ${assignedFoods.length}');
   }
 
   Future<void> fetchAllUserDietTitles() async {
@@ -96,6 +114,19 @@ class _UserScreenState extends State<UserScreen> {
 
       final dietTitle = dietPlan?['dietTitle'] ?? 'No diet assigned';
     }
+  }
+
+  // Filter users based on search query
+  List<QueryDocumentSnapshot> _filterUsers(List<QueryDocumentSnapshot> docs) {
+    if (_searchQuery.isEmpty) {
+      return docs;
+    }
+
+    return docs.where((doc) {
+      final patient = doc.data() as Map<String, dynamic>;
+      final username = (patient['username'] ?? '').toString().toLowerCase();
+      return username.contains(_searchQuery.toLowerCase());
+    }).toList();
   }
 
   @override
@@ -179,13 +210,31 @@ class _UserScreenState extends State<UserScreen> {
                 SizedBox(
                   width: 250,
                   child: TextField(
+                    controller: _searchController,
                     decoration: InputDecoration(
                       prefixIcon: Icon(Icons.search),
-                      hintText: "Search",
+                      hintText: "Search by patient name",
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
+                      suffixIcon:
+                          _searchQuery.isNotEmpty
+                              ? IconButton(
+                                icon: Icon(Icons.clear),
+                                onPressed: () {
+                                  setState(() {
+                                    _searchController.clear();
+                                    _searchQuery = '';
+                                  });
+                                },
+                              )
+                              : null,
                     ),
+                    onChanged: (value) {
+                      setState(() {
+                        _searchQuery = value;
+                      });
+                    },
                   ),
                 ),
                 Container(
@@ -196,9 +245,7 @@ class _UserScreenState extends State<UserScreen> {
                     color: Colors.white,
                     child: InkWell(
                       borderRadius: BorderRadius.circular(12),
-                      onTap: () {
-                        
-                      },
+                      onTap: () {},
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Icon(
@@ -234,6 +281,23 @@ class _UserScreenState extends State<UserScreen> {
                   }
 
                   final docs = snapshot.data!.docs;
+                  final filteredDocs = _filterUsers(docs);
+
+                  if (filteredDocs.isEmpty && _searchQuery.isNotEmpty) {
+                    return Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        children: [
+                          Icon(Icons.search_off, size: 50, color: Colors.grey),
+                          SizedBox(height: 10),
+                          Text(
+                            "No patients found for '$_searchQuery'",
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
 
                   return SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
@@ -253,7 +317,7 @@ class _UserScreenState extends State<UserScreen> {
                         DataColumn(label: Text("Actions")),
                       ],
                       rows:
-                          docs.map((doc) {
+                          filteredDocs.map((doc) {
                             final patient = doc.data() as Map<String, dynamic>;
                             final patientId = doc.id;
                             return DataRow(
@@ -288,14 +352,14 @@ class _UserScreenState extends State<UserScreen> {
                                 DataCell(
                                   Center(
                                     child: Text(
-                                      "${patient['weightValue'] ?? ''} ${patient['weightUnit'] ?? 'No User Weight'}",
+                                      "${patient['weight'] ?? ''} ${patient['weightUnit'] ?? 'No User Weight'}",
                                     ),
                                   ),
                                 ),
                                 DataCell(
                                   Center(
                                     child: Text(
-                                      "${patient['heightValue'] ?? ''} ${patient['heightUnit'] ?? 'No User Height'}",
+                                      "${patient['height'] ?? ''} ${patient['heightUnit'] ?? 'No User Height'}",
                                     ),
                                   ),
                                 ),
@@ -330,7 +394,6 @@ class _UserScreenState extends State<UserScreen> {
                                       offset: const Offset(100, 0),
                                       onSelected: (value) async {
                                         if (value == 'block') {
-
                                         } else if (value == 'delete') {
                                           // 🔹 Delete user from Firestore
                                           await FirebaseFirestore.instance
@@ -488,34 +551,6 @@ class _UserScreenState extends State<UserScreen> {
                                     ),
                                   ),
                                 ),
-
-                                // DataCell(
-                                //   PopupMenuButton<String>(
-                                //     icon: Icon(Icons.more_vert_outlined),
-                                //     offset: Offset(100, 0),
-                                //     onSelected: (value) {
-                                //       if (value == 'form') {
-                                //         Navigator.push(
-                                //           context,
-                                //           MaterialPageRoute(
-                                //             builder:
-                                //                 (context) => UploadDietScreen(
-                                //               dietId: patientId,
-                                //               dietData: patient,
-                                //             ),
-                                //           ),
-                                //         );
-                                //       }
-                                //     },
-                                //     itemBuilder:
-                                //         (context) => const [
-                                //       PopupMenuItem(
-                                //         value: 'form',
-                                //         child: Text('Form'),
-                                //       ),
-                                //     ],
-                                //   ),
-                                // ),
                               ],
                             );
                           }).toList(),
@@ -524,195 +559,6 @@ class _UserScreenState extends State<UserScreen> {
                 },
               ),
             ),
-            // User Grid
-            // FutureBuilder<List<Map<String, dynamic>>>(
-            //   future: _userFuture,
-            //   builder: (context, snapshot) {
-            //     if (snapshot.connectionState == ConnectionState.waiting) {
-            //       return const Padding(
-            //         padding: EdgeInsets.only(top: 50),
-            //         child: Center(child: CircularProgressIndicator()),
-            //       );
-            //     }
-            //
-            //     if (snapshot.hasError) {
-            //       return const Text("Error loading users");
-            //     }
-            //
-            //     final users = snapshot.data;
-            //
-            //     if (users == null || users.isEmpty) {
-            //       return const Text("No users found.");
-            //     }
-            //
-            //     return GridView.builder(
-            //       shrinkWrap: true,
-            //       physics: const NeverScrollableScrollPhysics(),
-            //       padding: const EdgeInsets.only(top: 20),
-            //       itemCount: users.length,
-            //       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            //         crossAxisCount: 6,
-            //         crossAxisSpacing: 12,
-            //         mainAxisSpacing: 12,
-            //         childAspectRatio: 0.8,
-            //       ),
-            //       itemBuilder: (context, index) {
-            //         final user = users[index];
-            //
-            //         return Card(
-            //           shape: RoundedRectangleBorder(
-            //             borderRadius: BorderRadius.circular(12),
-            //           ),
-            //           elevation: 3,
-            //           child: Padding(
-            //             padding: const EdgeInsets.all(6.0),
-            //             child: Column(
-            //               children: [
-            //                 // Popup menu
-            //                 Align(
-            //                   alignment: Alignment.topRight,
-            //                   child: PopupMenuButton<String>(
-            //                     icon: const Icon(Icons.more_vert, size: 20),
-            //                     onSelected: (value) async {
-            //                       if (value == 'dietPlan') {
-            //                         final snapshot =
-            //                         await FirebaseFirestore.instance
-            //                             .collection('diet')
-            //                             .get();
-            //
-            //                         final List<String> dietPlans = snapshot.docs
-            //                             .map((doc) =>
-            //                             doc['dietTitle'].toString())
-            //                             .toSet()
-            //                             .toList();
-            //
-            //                         String? selectedPlan;
-            //
-            //                         showDialog(
-            //                           context: context,
-            //                           builder: (context) {
-            //                             return AlertDialog(
-            //                               title: const Text('Assign Diet Plan'),
-            //                               content: StatefulBuilder(
-            //                                 builder: (context, setState) {
-            //                                   return DropdownButton<String>(
-            //                                     isExpanded: true,
-            //                                     value: selectedPlan,
-            //                                     hint: const Text(
-            //                                       'Choose a diet plan',
-            //                                     ),
-            //                                     items: dietPlans.map((plan) {
-            //                                       return DropdownMenuItem<
-            //                                           String>(
-            //                                         value: plan,
-            //                                         child: Text(plan),
-            //                                       );
-            //                                     }).toList(),
-            //                                     onChanged: (value) {
-            //                                       setState(() {
-            //                                         selectedPlan = value;
-            //                                       });
-            //                                     },
-            //                                   );
-            //                                 },
-            //                               ),
-            //                               actions: [
-            //                                 TextButton(
-            //                                   onPressed: () async {
-            //                                     if (selectedPlan != null) {
-            //                                       await _assignDietPlan(
-            //                                           user['id'], selectedPlan!);
-            //
-            //                                       Navigator.of(context).pop();
-            //
-            //                                       ScaffoldMessenger.of(
-            //                                         context,
-            //                                       ).showSnackBar(
-            //                                         const SnackBar(
-            //                                           content: Text(
-            //                                             'Diet plan assigned successfully',
-            //                                           ),
-            //                                         ),
-            //                                       );
-            //
-            //                                       setState(() {
-            //                                         _userFuture =
-            //                                             _getAllUsers();
-            //                                       });
-            //                                     } else {
-            //                                       Navigator.of(context).pop();
-            //                                     }
-            //                                   },
-            //                                   child: const Text('Assign'),
-            //                                 ),
-            //                               ],
-            //                             );
-            //                           },
-            //                         );
-            //                       }
-            //                     },
-            //                     itemBuilder: (context) => const [
-            //                       PopupMenuItem(
-            //                         value: 'deleteUser',
-            //                         child: Text('Delete User'),
-            //                       ),
-            //                       PopupMenuItem(
-            //                         value: 'blockUser',
-            //                         child: Text('Block User'),
-            //                       ),
-            //                       PopupMenuItem(
-            //                         value: 'dietPlan',
-            //                         child: Text('Diet Plan'),
-            //                       ),
-            //                     ],
-            //                   ),
-            //                 ),
-            //
-            //                 // User image
-            //                 ClipRRect(
-            //                   borderRadius: BorderRadius.circular(12),
-            //                   child: Image.asset(
-            //                     'assets/male avatar.png',
-            //                     height: 40,
-            //                     width: 40,
-            //                   ),
-            //                 ),
-            //
-            //                 const SizedBox(height: 6),
-            //
-            //                 // Username
-            //                 Text(
-            //                   user['username']?.toString() ?? 'No Name',
-            //                   textAlign: TextAlign.center,
-            //                   style: const TextStyle(
-            //                     fontWeight: FontWeight.bold,
-            //                     fontSize: 14,
-            //                   ),
-            //                 ),
-            //
-            //                 const SizedBox(height: 4),
-            //
-            //                 // Diet info (show diet title if assigned)
-            //                 Text(
-            //                   (user['assignedDietPlan'] != null &&
-            //                       user['assignedDietPlan']['dietTitle'] !=
-            //                           null)
-            //                       ? 'Plan: ${user['assignedDietPlan']['dietTitle']}'
-            //                       : 'No Diet Plan Assigned',
-            //                   textAlign: TextAlign.center,
-            //                   style: TextStyle(
-            //                     fontSize: 12,
-            //                     color: Colors.grey[700],
-            //                   ),
-            //                 ),
-            //               ],
-            //             ),
-            //           ),
-            //         );
-            //       },
-            //     );
-            //   },
-            // ),
           ],
         ),
       ),

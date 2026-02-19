@@ -1,7 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:fitlife_admin_panel/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+
+import 'auth_gate.dart';
 Map<String, Map<String, dynamic>> globalFoodMap = {};
 Map<String, Map<String, dynamic>> globalDietMap = {};
 void main() async{
@@ -23,7 +24,7 @@ void main() async{
   );
 
   runApp(MaterialApp(
-    home: Dashboard(),
+    home: AuthGate(),
     debugShowCheckedModeBanner: false,
   ));
 }

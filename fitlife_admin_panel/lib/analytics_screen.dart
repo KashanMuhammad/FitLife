@@ -12,7 +12,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
   int selectedToggleIndex = 0;
   String selectedFilter = "All Date";
 
- // final filters = ["All Date", "24 Hour", "7 Days", "30 Days", "12 Months"];
+  // final filters = ["All Date", "24 Hour", "7 Days", "30 Days", "12 Months"];
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +32,11 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                 ),
                 Row(
                   children: const [
-
-                    Text("Cody Fisher\nDashboard Manager",
-                        textAlign: TextAlign.right,
-                        style: TextStyle(fontSize: 14)),
+                    Text(
+                      "Cody Fisher\nDashboard Manager",
+                      textAlign: TextAlign.right,
+                      style: TextStyle(fontSize: 14),
+                    ),
                     SizedBox(width: 10),
                     CircleAvatar(
                       radius: 24,
@@ -55,29 +56,17 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                 const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Welcome Cody Fisher",
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold)),
+                    Text(
+                      "Welcome Cody Fisher",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     Text("Lorem ipsum dolor sit amet welcome back Johny"),
                   ],
                 ),
-                // Row(
-                //   children: filters.map((f) {
-                //     return Padding(
-                //       padding: const EdgeInsets.symmetric(horizontal: 5),
-                //       child: ChoiceChip(
-                //         label: Text(f),
-                //         selected: selectedFilter == f,
-                //         onSelected: (_) {
-                //           setState(() {
-                //             selectedFilter = f;
-                //           });
-                //         },
-                //         selectedColor: Colors.green,
-                //       ),
-                //     );
-                //   }).toList(),
-                // ),
+
                 Row(
                   children: [
                     Container(
@@ -107,7 +96,10 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                         borderRadius: BorderRadius.circular(8),
                         renderBorder: false,
                         children: [
-                          _buildToggleButton("All Date", selectedToggleIndex == 0),
+                          _buildToggleButton(
+                            "All Date",
+                            selectedToggleIndex == 0,
+                          ),
                           _buildToggleButton(
                             "24 Hour",
                             selectedToggleIndex == 1,
@@ -128,7 +120,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                       ),
                     ),
                   ],
-                )
+                ),
               ],
             ),
             const SizedBox(height: 20),
@@ -178,9 +170,13 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Total Users",
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold)),
+                      Text(
+                        "Total Users",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       SizedBox(height: 20),
                       Expanded(child: UserLineChart()),
                     ],
@@ -220,13 +216,21 @@ class StatCard extends StatelessWidget {
           padding: const EdgeInsets.all(15),
           child: Column(
             children: [
-              Text(title,
-                  style: const TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.w500)),
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
               const SizedBox(height: 10),
-              Text(value,
-                  style: const TextStyle(
-                      fontSize: 22, fontWeight: FontWeight.bold)),
+              Text(
+                value,
+                style: const TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -239,12 +243,13 @@ class StatCard extends StatelessWidget {
                   Text(
                     percent,
                     style: TextStyle(
-                        color: isIncrease ? Colors.green : Colors.red),
+                      color: isIncrease ? Colors.green : Colors.red,
+                    ),
                   ),
                   const SizedBox(width: 5),
                   Text(change, style: const TextStyle(color: Colors.grey)),
                 ],
-              )
+              ),
             ],
           ),
         ),
@@ -299,7 +304,15 @@ class UserLineChart extends StatelessWidget {
             sideTitles: SideTitles(
               showTitles: true,
               getTitlesWidget: (value, meta) {
-                final months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"];
+                final months = [
+                  "Jan",
+                  "Feb",
+                  "Mar",
+                  "Apr",
+                  "May",
+                  "Jun",
+                  "Jul",
+                ];
                 if (value.toInt() < months.length) {
                   return Text(months[value.toInt()]);
                 }
@@ -320,9 +333,9 @@ Widget _buildToggleButton(String text, bool selected) {
     padding: EdgeInsets.symmetric(horizontal: 18, vertical: 10),
     decoration: BoxDecoration(
       gradient:
-      selected
-          ? LinearGradient(colors: [Color(0xFF5AFF15), Color(0xFF00B712)])
-          : null,
+          selected
+              ? LinearGradient(colors: [Color(0xFF5AFF15), Color(0xFF00B712)])
+              : null,
       color: selected ? null : Colors.grey.shade100,
       borderRadius: BorderRadius.circular(8),
     ),

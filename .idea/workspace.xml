@@ -4,10 +4,14 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Checked the code on physcal device now going to genrate the first apk">
-      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
+    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Functionalities assigned to diet screen and food screen toggle buttons and also applied linear gradient to various buttons and toggle buttons.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/auth_gate.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/auth_gate.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/custom_widgets.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/custom_widgets.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/diet_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/diet_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/food_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/food_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_diet_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_diet_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_food_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_food_screen.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,6 +21,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$/fitlife_app/android">
       <ProjectState />
@@ -42,7 +47,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/KashanMuhammad/FitLife.git&quot;,
-    &quot;accountId&quot;: &quot;5f640996-ceef-45cc-981f-d0540746f73c&quot;
+    &quot;accountId&quot;: &quot;fdbe591c-7d9b-4c99-9d34-380bd3f1166e&quot;
   }
 }</component>
   <component name="ProblemsViewState">
@@ -58,7 +63,6 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;Flutter.Unnamed.executor&quot;: &quot;Run&quot;,
     &quot;Flutter.main.dart.executor&quot;: &quot;Run&quot;,
     &quot;Flutter.main.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
@@ -69,11 +73,11 @@
     &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;fawadalishan__backend__firebase__and__supabase&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;kashanmuhammad/admin__panel__functionalities&quot;,
     &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/FitLife&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/practice_flutter&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.android.studio.ml.bot.mainConfigurable&quot;,
     &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   }
 }</component>
@@ -149,17 +153,12 @@
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Unnamed" type="FlutterRunConfigurationType" factoryName="Flutter" nameIsGenerated="true">
-      <option name="filePath" value="$PROJECT_DIR$/fitlife_admin_panel/lib/main.dart" />
-      <method v="2" />
-    </configuration>
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
-      <option name="filePath" value="$PROJECT_DIR$/fitlife_app/lib/main.dart" />
+      <option name="filePath" value="$PROJECT_DIR$/fitlife_admin_panel/lib/main.dart" />
       <method v="2" />
     </configuration>
     <list>
       <item itemvalue="Android App.android.app" />
-      <item itemvalue="Flutter.Unnamed" />
       <item itemvalue="Flutter.main.dart" />
     </list>
   </component>
@@ -171,6 +170,30 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1747854831066</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Modified Code">
+      <option name="closed" value="true" />
+      <created>1749518418575</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1749518418575</updated>
+    </task>
+    <task id="LOCAL-00018" summary="commit">
+      <option name="closed" value="true" />
+      <created>1749520073373</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1749520073373</updated>
+    </task>
+    <task id="LOCAL-00019" summary="modified">
+      <option name="closed" value="true" />
+      <created>1749520290410</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1749520290410</updated>
     </task>
     <task id="LOCAL-00020" summary="Dependencies Updated">
       <option name="closed" value="true" />
@@ -508,94 +531,44 @@
       <option name="project" value="LOCAL" />
       <updated>1760690389735</updated>
     </task>
-    <task id="LOCAL-00062" summary="Reformated the lib directories and files">
+    <task id="LOCAL-00062" summary="Pulled the code and merged the conflict">
       <option name="closed" value="true" />
-      <created>1760972766867</created>
+      <created>1761241065760</created>
       <option name="number" value="00062" />
       <option name="presentableId" value="LOCAL-00062" />
       <option name="project" value="LOCAL" />
-      <updated>1760972766867</updated>
+      <updated>1761241065760</updated>
     </task>
-    <task id="LOCAL-00063" summary="Reformated the lib directories and files">
+    <task id="LOCAL-00063" summary="In patient_screen.dart the height  and weight variables updated">
       <option name="closed" value="true" />
-      <created>1760972820172</created>
+      <created>1761241211320</created>
       <option name="number" value="00063" />
       <option name="presentableId" value="LOCAL-00063" />
       <option name="project" value="LOCAL" />
-      <updated>1760972820172</updated>
+      <updated>1761241211320</updated>
     </task>
-    <task id="LOCAL-00064" summary="slightly updated">
+    <task id="LOCAL-00064" summary="Project fully updated also removed the extra or irrelevant code">
       <option name="closed" value="true" />
-      <created>1761055837587</created>
+      <created>1768476231353</created>
       <option name="number" value="00064" />
       <option name="presentableId" value="LOCAL-00064" />
       <option name="project" value="LOCAL" />
-      <updated>1761055837587</updated>
+      <updated>1768476231353</updated>
     </task>
-    <task id="LOCAL-00065" summary="slightly updated">
+    <task id="LOCAL-00065" summary="Functionalities assigned to diet screen and food screen toggle buttons and also applied linear gradient to various buttons and toggle buttons.">
       <option name="closed" value="true" />
-      <created>1761055924236</created>
+      <created>1771391026731</created>
       <option name="number" value="00065" />
       <option name="presentableId" value="LOCAL-00065" />
       <option name="project" value="LOCAL" />
-      <updated>1761055924236</updated>
+      <updated>1771391026731</updated>
     </task>
-    <task id="LOCAL-00066" summary="Implemented null safety to firebase data model class">
-      <option name="closed" value="true" />
-      <created>1761057289736</created>
-      <option name="number" value="00066" />
-      <option name="presentableId" value="LOCAL-00066" />
-      <option name="project" value="LOCAL" />
-      <updated>1761057289736</updated>
-    </task>
-    <task id="LOCAL-00067" summary="Implemented null safety to firebase data model class">
-      <option name="closed" value="true" />
-      <created>1761057926708</created>
-      <option name="number" value="00067" />
-      <option name="presentableId" value="LOCAL-00067" />
-      <option name="project" value="LOCAL" />
-      <updated>1761057926708</updated>
-    </task>
-    <task id="LOCAL-00068" summary="Checked the code on physcal device now going to genrate the first apk">
-      <option name="closed" value="true" />
-      <created>1761133183097</created>
-      <option name="number" value="00068" />
-      <option name="presentableId" value="LOCAL-00068" />
-      <option name="project" value="LOCAL" />
-      <updated>1761133183097</updated>
-    </task>
-    <option name="localTasksCounter" value="69" />
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="RECENT_FILTERS">
       <map>
-        <entry key="Branch">
-          <value>
-            <list>
-              <RecentGroup>
-                <option name="FILTER_VALUES">
-                  <option value="HEAD" />
-                </option>
-              </RecentGroup>
-              <RecentGroup>
-                <option name="FILTER_VALUES">
-                  <option value="origin/master" />
-                </option>
-              </RecentGroup>
-              <RecentGroup>
-                <option name="FILTER_VALUES">
-                  <option value="main" />
-                </option>
-              </RecentGroup>
-              <RecentGroup>
-                <option name="FILTER_VALUES">
-                  <option value="origin/main" />
-                </option>
-              </RecentGroup>
-            </list>
-          </value>
-        </entry>
         <entry key="User">
           <value>
             <list>
@@ -616,10 +589,10 @@
             <State>
               <option name="FILTERS">
                 <map>
-                  <entry key="branch">
+                  <entry key="user">
                     <value>
                       <list>
-                        <option value="HEAD" />
+                        <option value="*" />
                       </list>
                     </value>
                   </entry>
@@ -632,7 +605,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added Firebase FireStore Functionality to the upload food button in the upload diet screen and successfully working" />
     <MESSAGE value="Added Firebase FireStore Functionality to the upload diet button in the upload diet screen and successfully working and also updated diet and food table to fench real time data from the firebase firestore" />
     <MESSAGE value="Admin panel Patient Screen completed and also given functionality to assigned diet plan to the users or patients" />
     <MESSAGE value="Admin panel Upload Blog Screen completed and also given functionality to create blog button" />
@@ -653,10 +625,11 @@
     <MESSAGE value="Added the functionality of getting the today meals and cheat meal to the home screen" />
     <MESSAGE value="Completed Firebase functionality of getting the data of blogs_screen.dart and blog_details_screen.dart from admin panel" />
     <MESSAGE value="Added the functionality to add full diet description meals_history_screen.dart when pressing arrow key in the tile" />
-    <MESSAGE value="Reformated the lib directories and files" />
-    <MESSAGE value="slightly updated" />
-    <MESSAGE value="Implemented null safety to firebase data model class" />
-    <MESSAGE value="Checked the code on physcal device now going to genrate the first apk" />
-    <option name="LAST_COMMIT_MESSAGE" value="Checked the code on physcal device now going to genrate the first apk" />
+    <MESSAGE value="Code Slightly Updated" />
+    <MESSAGE value="Pulled the code and merged the conflict" />
+    <MESSAGE value="In patient_screen.dart the height  and weight variables updated" />
+    <MESSAGE value="Project fully updated also removed the extra or irrelevant code" />
+    <MESSAGE value="Functionalities assigned to diet screen and food screen toggle buttons and also applied linear gradient to various buttons and toggle buttons." />
+    <option name="LAST_COMMIT_MESSAGE" value="Functionalities assigned to diet screen and food screen toggle buttons and also applied linear gradient to various buttons and toggle buttons." />
   </component>
 </project>

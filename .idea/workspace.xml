@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Implemented null safety to firebase data model class">
+    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Checked the code on physcal device now going to genrate the first apk">
+      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/patient_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/patient_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Screens/custom widgets/add_meals_tile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Screens/custom widgets/add_meals_tile.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Screens/custom widgets/summary_meals_tile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Screens/custom widgets/summary_meals_tile.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/diet_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/diet_screen.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,6 +58,7 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;Flutter.Unnamed.executor&quot;: &quot;Run&quot;,
     &quot;Flutter.main.dart.executor&quot;: &quot;Run&quot;,
     &quot;Flutter.main.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
@@ -149,12 +149,17 @@
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Unnamed" type="FlutterRunConfigurationType" factoryName="Flutter" nameIsGenerated="true">
+      <option name="filePath" value="$PROJECT_DIR$/fitlife_admin_panel/lib/main.dart" />
+      <method v="2" />
+    </configuration>
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
       <option name="filePath" value="$PROJECT_DIR$/fitlife_app/lib/main.dart" />
       <method v="2" />
     </configuration>
     <list>
       <item itemvalue="Android App.android.app" />
+      <item itemvalue="Flutter.Unnamed" />
       <item itemvalue="Flutter.main.dart" />
     </list>
   </component>
@@ -166,14 +171,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1747854831066</updated>
-    </task>
-    <task id="LOCAL-00019" summary="modified">
-      <option name="closed" value="true" />
-      <created>1749520290410</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1749520290410</updated>
     </task>
     <task id="LOCAL-00020" summary="Dependencies Updated">
       <option name="closed" value="true" />
@@ -559,7 +556,15 @@
       <option name="project" value="LOCAL" />
       <updated>1761057926708</updated>
     </task>
-    <option name="localTasksCounter" value="68" />
+    <task id="LOCAL-00068" summary="Checked the code on physcal device now going to genrate the first apk">
+      <option name="closed" value="true" />
+      <created>1761133183097</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1761133183097</updated>
+    </task>
+    <option name="localTasksCounter" value="69" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -627,7 +632,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Pulled Updated Application code" />
     <MESSAGE value="Added Firebase FireStore Functionality to the upload food button in the upload diet screen and successfully working" />
     <MESSAGE value="Added Firebase FireStore Functionality to the upload diet button in the upload diet screen and successfully working and also updated diet and food table to fench real time data from the firebase firestore" />
     <MESSAGE value="Admin panel Patient Screen completed and also given functionality to assigned diet plan to the users or patients" />
@@ -652,6 +656,7 @@
     <MESSAGE value="Reformated the lib directories and files" />
     <MESSAGE value="slightly updated" />
     <MESSAGE value="Implemented null safety to firebase data model class" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented null safety to firebase data model class" />
+    <MESSAGE value="Checked the code on physcal device now going to genrate the first apk" />
+    <option name="LAST_COMMIT_MESSAGE" value="Checked the code on physcal device now going to genrate the first apk" />
   </component>
 </project>

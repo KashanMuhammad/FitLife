@@ -262,8 +262,12 @@ class _DietScreenState extends State<DietScreen> {
                     child: SingleChildScrollView(
                       scrollDirection: Axis.vertical,
                       child: DataTable(
-                        headingRowColor: WidgetStateProperty.all(Colors.grey[200]),
-                        headingTextStyle: TextStyle(fontWeight: FontWeight.bold),
+                        headingRowColor: WidgetStateProperty.all(
+                          Colors.grey[200],
+                        ),
+                        headingTextStyle: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
                         border: TableBorder.all(color: Colors.grey.shade300),
                         columns: const [
                           DataColumn(label: Text("Diet Image")),
@@ -276,7 +280,7 @@ class _DietScreenState extends State<DietScreen> {
                         rows:
                             docs.map((doc) {
                               final diet = doc.data() as Map<String, dynamic>;
-                             final dietId = doc.id;
+                              final dietId = doc.id;
                               return DataRow(
                                 cells: [
                                   // DataCell(
@@ -295,18 +299,22 @@ class _DietScreenState extends State<DietScreen> {
                                   //       : Icon(Icons.image),
                                   // ),
                                   DataCell(
-                                    diet['dietImageUrl'] != null && diet['dietImageUrl'] != ''
+                                    diet['dietImageUrl'] != null &&
+                                            diet['dietImageUrl'] != ''
                                         ? Image.network(
-                                      diet['dietImageUrl'],
-                                      width: 60,
-                                      height: 60,
-                                      fit: BoxFit.cover,
-                                    )
-                                  : const Text(
-                              "No image found",
-                              style: TextStyle(color: Colors.red, fontSize: 12),
-                              ),
-                                     //   : const Icon(Icons.image),
+                                          diet['dietImageUrl'],
+                                          width: 60,
+                                          height: 60,
+                                          fit: BoxFit.cover,
+                                        )
+                                        : const Text(
+                                          "No image found",
+                                          style: TextStyle(
+                                            color: Colors.red,
+                                            fontSize: 12,
+                                          ),
+                                        ),
+                                    //   : const Icon(Icons.image),
                                   ),
 
                                   DataCell(Text(diet['dietTitle'] ?? '')),
@@ -356,8 +364,6 @@ class _DietScreenState extends State<DietScreen> {
       ),
     );
   }
-
-
 }
 
 Widget _buildToggleButton(String text, bool selected) {
@@ -365,9 +371,9 @@ Widget _buildToggleButton(String text, bool selected) {
     padding: EdgeInsets.symmetric(horizontal: 18, vertical: 10),
     decoration: BoxDecoration(
       gradient:
-      selected
-          ? LinearGradient(colors: [Color(0xFF5AFF15), Color(0xFF00B712)])
-          : null,
+          selected
+              ? LinearGradient(colors: [Color(0xFF5AFF15), Color(0xFF00B712)])
+              : null,
       color: selected ? null : Colors.grey.shade100,
       borderRadius: BorderRadius.circular(8),
     ),

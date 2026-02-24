@@ -252,7 +252,10 @@ class _FoodScreenState extends State<FoodScreen> {
               cells: [
                 DataCell(
                   food["foodImageUrl"] != null
-                      ? Image.network(food["foodImageUrl"], width: 50)
+                      ? Padding(
+                        padding: const EdgeInsets.all(6.0),
+                        child: Image.network(food["foodImageUrl"], width: 50),
+                      )
                       : const Icon(Icons.image),
                 ),
                 DataCell(Text(food["foodName"] ?? "")),

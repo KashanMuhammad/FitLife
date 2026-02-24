@@ -280,11 +280,14 @@ class _DietScreenState extends State<DietScreen> {
                                 DataCell(
                                   diet['dietImageUrl'] != null &&
                                           diet['dietImageUrl'] != ''
-                                      ? Image.network(
-                                        diet['dietImageUrl'],
-                                        width: 60,
-                                        height: 60,
-                                        fit: BoxFit.cover,
+                                      ? Padding(
+                                        padding: const EdgeInsets.all(6.0),
+                                        child: Image.network(
+                                          diet['dietImageUrl'],
+                                          width: 60,
+                                          height: 60,
+                                          fit: BoxFit.cover,
+                                        ),
                                       )
                                       : const Text(
                                         "No image",

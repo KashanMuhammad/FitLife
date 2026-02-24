@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'forgot_pasword_screen.dart';
+
 class AdminLoginSignupScreen extends StatefulWidget {
   const AdminLoginSignupScreen({super.key});
 
@@ -37,8 +39,9 @@ class _AdminLoginSignupScreenState extends State<AdminLoginSignupScreen> {
     final regex = RegExp(
       r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#]).{8,}$',
     );
-    if (!regex.hasMatch(value))
+    if (!regex.hasMatch(value)) {
       return "Min 8 chars, upper, lower, number & symbol";
+    }
     return null;
   }
 
@@ -304,6 +307,21 @@ class _AdminLoginSignupScreenState extends State<AdminLoginSignupScreen> {
                 ),
               ),
               if (isSignup) const SizedBox(height: 16),
+              if (!isSignup)
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const AdminForgotPasswordScreen(),
+                        ),
+                      );
+                    },
+                    child: const Text("Forgot Password?"),
+                  ),
+                ),
 
               if (isSignup)
                 TextFormField(

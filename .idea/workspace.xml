@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Completed Meals Module">
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Screens/main screens/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Screens/main screens/home_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Screens/meals/add_meals_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Screens/meals/add_meals_screen.dart" afterDir="false" />
+    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Completed Meals Module And updated the User id logic">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Screens/main screens/progress_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Screens/main screens/progress_screen.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -164,14 +164,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1747854831066</updated>
-    </task>
-    <task id="LOCAL-00020" summary="Dependencies Updated">
-      <option name="closed" value="true" />
-      <created>1749945982712</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1749945982712</updated>
     </task>
     <task id="LOCAL-00021" summary="Project Slightly Updated">
       <option name="closed" value="true" />
@@ -557,7 +549,15 @@
       <option name="project" value="LOCAL" />
       <updated>1777185406648</updated>
     </task>
-    <option name="localTasksCounter" value="69" />
+    <task id="LOCAL-00069" summary="Completed Meals Module And updated the User id logic">
+      <option name="closed" value="true" />
+      <created>1777185878606</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1777185878606</updated>
+    </task>
+    <option name="localTasksCounter" value="70" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -599,7 +599,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="new file commited" />
     <MESSAGE value="File slightly updated by the developer and some other functionalities were added" />
     <MESSAGE value="Static Analytics Screen Completed, Blog Screen completed with full functionalities, some concepts updated," />
     <MESSAGE value="Customer Support Static UI Completed, some code updated in the whole project" />
@@ -624,6 +623,7 @@
     <MESSAGE value="Pulled the new and updated code of admin panel" />
     <MESSAGE value="Created a new branch of name fawadalishan/final_work and pulled the work from main branch and committed it" />
     <MESSAGE value="Completed Meals Module" />
-    <option name="LAST_COMMIT_MESSAGE" value="Completed Meals Module" />
+    <MESSAGE value="Completed Meals Module And updated the User id logic" />
+    <option name="LAST_COMMIT_MESSAGE" value="Completed Meals Module And updated the User id logic" />
   </component>
 </project>

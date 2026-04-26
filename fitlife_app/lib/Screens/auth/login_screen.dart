@@ -2,11 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitlife_app/Screens/auth/sign_up.dart';
 import 'package:fitlife_app/Screens/custom%20widgets/custom_textformfield.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shared/user_0nboarding_data_model_class.dart';
-
 import '../main screens/main_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -36,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                SizedBox(height: 40),
+                const SizedBox(height: 40),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -163,14 +161,13 @@ class _LoginScreenState extends State<LoginScreen> {
   Center buildNextButton(BuildContext context) {
     return Center(
       child: InkWell(
-        onTap:
-            isLoading
-                ? null
-                : () {
-                  if (_formKey.currentState!.validate()) {
-                    handleLogin();
-                  }
-                },
+        onTap: isLoading
+            ? null
+            : () {
+          if (_formKey.currentState!.validate()) {
+            handleLogin();
+          }
+        },
         borderRadius: BorderRadius.circular(12),
         child: Container(
           height: 50,
@@ -182,20 +179,39 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
           alignment: Alignment.center,
-          child:
-              isLoading
-                  ? const CircularProgressIndicator(color: Colors.white)
-                  : const Text(
-                    "Login",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      fontSize: 18,
-                    ),
-                  ),
+          child: isLoading
+              ? const CircularProgressIndicator(color: Colors.white)
+              : const Text(
+            "Login",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+              fontSize: 18,
+            ),
+          ),
         ),
       ),
     );
+  }
+
+  // ✅ Helper to recursively convert nested LinkedMaps to Map<String, dynamic>
+  Map<String, dynamic> convertNestedMap(Map<String, dynamic> map) {
+    final result = <String, dynamic>{};
+    map.forEach((key, value) {
+      if (value is Map) {
+        result[key] = convertNestedMap(Map<String, dynamic>.from(value));
+      } else if (value is List) {
+        result[key] = value.map((e) {
+          if (e is Map) {
+            return convertNestedMap(Map<String, dynamic>.from(e));
+          }
+          return e;
+        }).toList();
+      } else {
+        result[key] = value;
+      }
+    });
+    return result;
   }
 
   Future<void> handleLogin() async {
@@ -212,14 +228,16 @@ class _LoginScreenState extends State<LoginScreen> {
 
       final userId = credential.user?.uid ?? '';
 
-      final doc =
-          await FirebaseFirestore.instance
-              .collection('Users')
-              .doc(userId)
-              .get();
+      final doc = await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(userId)
+          .get();
 
       if (doc.exists) {
-        final userData = FirebaseDataModelClass.fromJson(doc.data()!);
+        final rawData = doc.data()!;
+        final safeData = convertNestedMap(Map<String, dynamic>.from(rawData));
+        final userData = FirebaseDataModelClass.fromJson(safeData);
+
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => const MainScreen()),

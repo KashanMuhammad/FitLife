@@ -1,3 +1,4 @@
+// ✅ Firebase Data Model
 class FirebaseDataModelClass {
   final String? userId;
   final String? username;
@@ -49,7 +50,7 @@ class FirebaseDataModelClass {
   final String? blogCategory;
   final String? blogImageUrl;
 
-  // ✅ Assigned foods list
+  // Assigned foods
   final List<FoodModel>? assignedFoods;
   final List<FoodModel>? userSelectedFood;
 
@@ -101,15 +102,75 @@ class FirebaseDataModelClass {
     this.foodImageUrl,
   });
 
-  // ✅ Convert object to JSON (only non-null fields)
+  factory FirebaseDataModelClass.fromJson(Map<String, dynamic> json) {
+    List<String>? toList(dynamic value) {
+      if (value == null) return null;
+      if (value is String) return [value];
+      if (value is Iterable) return value.map((e) => e.toString()).toList();
+      return null;
+    }
+
+    return FirebaseDataModelClass(
+      userId: json['userId']?.toString(),
+      email: json['email']?.toString(),
+      password: json['password']?.toString(),
+      username: json['username']?.toString(),
+      gender: json['gender']?.toString(),
+      height: (json['height'] as num?)?.toDouble(),
+      heightUnit: json['heightUnit']?.toString(),
+      weight: (json['weight'] as num?)?.toDouble(),
+      weightUnit: json['weightUnit']?.toString(),
+      dateOfBirth: json['dateOfBirth'] != null
+          ? DateTime.tryParse(json['dateOfBirth'])
+          : null,
+      selectedDietHabits: toList(json['selectedDietHabits']),
+      selectedHealthIssues: toList(json['selectedHealthIssues']),
+      privacyPolicyAccepted: json['privacyPolicyAccepted'] as bool?,
+      profileImageUrl: json['profileImageUrl']?.toString(),
+      foodName: json['foodName']?.toString(),
+      foodDescription: json['foodDescription']?.toString(),
+      foodImageUrl: json['foodImageUrl']?.toString(),
+      quantity: json['quantity']?.toString(),
+      caloriesPerServing: json['caloriesPerServing']?.toString(),
+      selectedUnits: json['selectedUnits']?.toString(),
+      protein: json['protein']?.toString(),
+      carbohydrates: json['carbohydrates']?.toString(),
+      fats: json['fats']?.toString(),
+      tag: json['tag']?.toString(),
+      selectedTag: json['selectedTag']?.toString(),
+      dietTitle: json['dietTitle']?.toString(),
+      dietImageUrl: json['dietImageUrl']?.toString(),
+      dietDescription: json['dietDescription']?.toString(),
+      selectedMealType: json['selectedMealType']?.toString(),
+      day: json['day']?.toString(),
+      timeToEat: json['timeToEat']?.toString(),
+      listOfFood: toList(json['listOfFood']),
+      duration: json['duration']?.toString(),
+      suitableFor: json['suitableFor']?.toString(),
+      dietTag: json['dietTag']?.toString(),
+      createdBy: json['createdBy']?.toString(),
+      createdAt: json['createdAt']?.toString(),
+      blogTitle: json['blogTitle']?.toString(),
+      blogShortDescription: json['blogShortDescription']?.toString(),
+      blogImageUrl: json['blogImageUrl']?.toString(),
+      blogFullContent: json['blogFullContent']?.toString(),
+      blogCategory: json['blogCategory']?.toString(),
+      blogAuthorName: json['blogAuthorName']?.toString(),
+      assignedFoods: (json['assignedFoods'] as List<dynamic>?)
+          ?.map((item) => FoodModel.fromMap(Map<String, dynamic>.from(item)))
+          .toList(),
+      userSelectedFood: (json['userSelectedFood'] as List<dynamic>?)
+          ?.map((item) => FoodModel.fromMap(Map<String, dynamic>.from(item)))
+          .toList(),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = {};
-
     void addIfNotNull(String key, dynamic value) {
       if (value != null) data[key] = value;
     }
 
-    // --- USER INFO ---
     addIfNotNull('userId', userId);
     addIfNotNull('email', email);
     addIfNotNull('password', password);
@@ -124,8 +185,6 @@ class FirebaseDataModelClass {
     addIfNotNull('selectedHealthIssues', selectedHealthIssues);
     addIfNotNull('privacyPolicyAccepted', privacyPolicyAccepted);
     addIfNotNull('profileImageUrl', profileImageUrl);
-
-    // --- FOOD INFO ---
     addIfNotNull('foodName', foodName);
     addIfNotNull('foodDescription', foodDescription);
     addIfNotNull('quantity', quantity);
@@ -137,12 +196,10 @@ class FirebaseDataModelClass {
     addIfNotNull('tag', tag);
     addIfNotNull('selectedTag', selectedTag);
     addIfNotNull('foodImageUrl', foodImageUrl);
-
-    // --- DIET INFO ---
     addIfNotNull('dietTitle', dietTitle);
     addIfNotNull('dietDescription', dietDescription);
     addIfNotNull('selectedMealType', selectedMealType);
-    addIfNotNull('day', day);
+    addIfNotNull('day', day); // ← included
     addIfNotNull('timeToEat', timeToEat);
     addIfNotNull('listOfFood', listOfFood);
     addIfNotNull('duration', duration);
@@ -151,89 +208,20 @@ class FirebaseDataModelClass {
     addIfNotNull('createdBy', createdBy);
     addIfNotNull('createdAt', createdAt);
     addIfNotNull('dietImageUrl', dietImageUrl);
-
-    // --- BLOG INFO ---
     addIfNotNull('blogTitle', blogTitle);
     addIfNotNull('blogShortDescription', blogShortDescription);
     addIfNotNull('blogFullContent', blogFullContent);
     addIfNotNull('blogAuthorName', blogAuthorName);
     addIfNotNull('blogCategory', blogCategory);
     addIfNotNull('blogImageUrl', blogImageUrl);
-
-    // --- FOODS ---
     if (assignedFoods != null) {
       addIfNotNull('assignedFoods', assignedFoods!.map((f) => f.toJson()).toList());
     }
-
     if (userSelectedFood != null) {
       addIfNotNull('userSelectedFood', userSelectedFood!.map((f) => f.toJson()).toList());
     }
 
     return data;
-  }
-
-  // ✅ Factory to create from JSON
-  factory FirebaseDataModelClass.fromJson(Map<String, dynamic> json) {
-    List<String>? toList(dynamic value) {
-      if (value == null) return null;
-      if (value is String) return [value];
-      if (value is Iterable) return List<String>.from(value);
-      return null;
-    }
-
-    return FirebaseDataModelClass(
-      userId: json['userId'] as String?,
-      email: json['email'] as String?,
-      password: json['password'] as String?,
-      username: json['username'] as String?,
-      gender: json['gender'] as String?,
-      height: (json['height'] as num?)?.toDouble(),
-      heightUnit: json['heightUnit'] as String?,
-      weight: (json['weight'] as num?)?.toDouble(),
-      weightUnit: json['weightUnit'] as String?,
-      dateOfBirth: json['dateOfBirth'] != null
-          ? DateTime.tryParse(json['dateOfBirth'])
-          : null,
-      selectedDietHabits: toList(json['selectedDietHabits']),
-      selectedHealthIssues: toList(json['selectedHealthIssues']),
-      privacyPolicyAccepted: json['privacyPolicyAccepted'] as bool?,
-      profileImageUrl: json['profileImageUrl'] as String?,
-      foodName: json['foodName'] as String?,
-      foodDescription: json['foodDescription'] as String?,
-      foodImageUrl: json['foodImageUrl'] as String?,
-      quantity: json['quantity'] as String?,
-      caloriesPerServing: json['caloriesPerServing'] as String?,
-      selectedUnits: json['selectedUnits'] as String?,
-      protein: json['protein'] as String?,
-      carbohydrates: json['carbohydrates'] as String?,
-      fats: json['fats'] as String?,
-      tag: json['tag'] as String?,
-      selectedTag: json['selectedTag'] as String?,
-      dietTitle: json['dietTitle'] as String?,
-      dietImageUrl: json['dietImageUrl'] as String?,
-      dietDescription: json['dietDescription'] as String?,
-      selectedMealType: json['selectedMealType'] as String?,
-      day: json['day'] as String?,
-      timeToEat: json['timeToEat'] as String?,
-      listOfFood: toList(json['listOfFood']),
-      duration: json['duration'] as String?,
-      suitableFor: json['suitableFor'] as String?,
-      dietTag: json['dietTag'] as String?,
-      createdBy: json['createdBy'] as String?,
-      createdAt: json['createdAt'] as String?,
-      blogTitle: json['blogTitle'] as String?,
-      blogShortDescription: json['blogShortDescription'] as String?,
-      blogImageUrl: json['blogImageUrl'] as String?,
-      blogFullContent: json['blogFullContent'] as String?,
-      blogCategory: json['blogCategory'] as String?,
-      blogAuthorName: json['blogAuthorName'] as String?,
-      assignedFoods: (json['assignedFoods'] as List<dynamic>?)
-          ?.map((item) => FoodModel.fromMap(item))
-          .toList(),
-      userSelectedFood: (json['userSelectedFood'] as List<dynamic>?)
-          ?.map((item) => FoodModel.fromMap(item))
-          .toList(),
-    );
   }
 }
 
@@ -246,6 +234,7 @@ class FoodModel {
   final String? quantity;
   final String? mealType;
   final String? foodImageUrl;
+  final String? day; // ← added
 
   FoodModel({
     required this.foodName,
@@ -255,16 +244,45 @@ class FoodModel {
     required this.quantity,
     required this.mealType,
     this.foodImageUrl,
+    this.day, // ← added
   });
 
   factory FoodModel.fromMap(Map<String, dynamic> data) {
+    String name = '';
+    String calories = '0';
+    String description = '';
+    String? imageUrl;
+    String? mealType;
+    String? quantity;
+    String? day;
+
+    if (data['foodName'] is Map) {
+      final nested = Map<String, dynamic>.from(data['foodName']);
+      name = nested['foodName'] ?? '';
+      calories = nested['caloriesPerServing'] ?? '0';
+      description = nested['foodDescription'] ?? '';
+      imageUrl = nested['imageUrl'];
+      mealType = data['mealType'] ?? data['selectedMealType'] ?? nested['meal'];
+      quantity = data['quantity'] ?? nested['servingSize'];
+      day = data['day'] ?? nested['day'] ?? "Day 1";
+    } else {
+      name = data['foodName'] ?? '';
+      calories = data['caloriesPerServing'] ?? '0';
+      description = data['foodDescription'] ?? '';
+      imageUrl = data['foodImageUrl'] ?? data['imageUrl'];
+      mealType = data['mealType'] ?? data['selectedMealType'] ?? '';
+      quantity = data['quantity']?.toString();
+      day = data['day'] ?? "Day 1";
+    }
+
     return FoodModel(
-      foodName: data['foodName'] ?? '',
-      calories: data['caloriesPerServing'] ?? '0',
-      foodDescription: data['foodDescription'] ?? '',
-      quantity: data['quantity'],
-      foodImageUrl: data['foodImageUrl'],
-      mealType: data['mealType'] ?? data['selectedMealType'] ?? '',
+      foodName: name,
+      calories: calories,
+      foodDescription: description,
+      quantity: quantity,
+      mealType: mealType,
+      foodImageUrl: imageUrl,
+      day: day, // ← added
       consumptions: (data['consumptions'] as List<dynamic>? ?? [])
           .map((e) => ConsumptionEntry.fromMap(e as Map<String, dynamic>))
           .toList(),
@@ -278,18 +296,22 @@ class FoodModel {
       'foodDescription': foodDescription,
       'mealType': mealType,
       'foodImageUrl': foodImageUrl,
+      'day': day, // ← included
       'consumptions': consumptions.map((e) => e.toJson()).toList(),
+      'quantity': quantity,
     };
   }
 }
 
-// ✅ Consumption Entry Model
+// ✅ Consumption Entry
 class ConsumptionEntry {
+  final String day; // ← already exists
   final String date;
   final String foodQuantity;
   final String mealType;
 
   ConsumptionEntry({
+    required this.day,
     required this.date,
     required this.foodQuantity,
     required this.mealType,
@@ -297,6 +319,7 @@ class ConsumptionEntry {
 
   factory ConsumptionEntry.fromMap(Map<String, dynamic> data) {
     return ConsumptionEntry(
+      day: data['day'] ?? "Day 1",
       date: data['date'] ?? '',
       foodQuantity: data['foodQuantity'] ?? '0',
       mealType: data['mealType'] ?? 'Unknown',
@@ -305,6 +328,7 @@ class ConsumptionEntry {
 
   Map<String, dynamic> toJson() {
     return {
+      "day": day,
       'date': date,
       'foodQuantity': foodQuantity,
       'mealType': mealType,

@@ -5,11 +5,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
-import 'package:shared/user_0nboarding_data_model_class.dart';
-
 import '../custom widgets/custom_list_tile.dart';
 import '../custom widgets/custom_text.dart';
 import '../meals/add_meals_screen.dart';
+import '../meals/meal_detail_screen.dart';
+ // Import the new detail screen
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -20,60 +20,148 @@ class HomeScreen extends ConsumerStatefulWidget {
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   String? _profileImageUrl;
-  FirebaseDataModelClass? userData;
+  String userId = '';
+
+  // Store user data directly as Maps
+  Map<String, dynamic>? userData;
+  List<Map<String, dynamic>> userSelectedFoods = [];
   bool _isLoading = true;
+
+  // Today's statistics
+  int todayTotalCalories = 0;
+  int todayGoalCalories = 7000; // Daily goal
+  Map<String, int> todayMealsCount = {};
+  Map<String, List<Map<String, dynamic>>> todayMealsDetails = {};
 
   @override
   void initState() {
     super.initState();
-    _loadProfileImage();
-    _loadUserMeals();
+    _loadUserData();
   }
 
-  Future<void> _loadProfileImage() async {
+  Future<void> _loadUserData() async {
     final user = FirebaseAuth.instance.currentUser;
     if (user == null) return;
 
-    try {
-      final doc =
-          await FirebaseFirestore.instance
-              .collection('Users')
-              .doc(user.uid)
-              .get();
-
-      if (doc.exists && doc.data()?['profileImageUrl'] != null) {
-        setState(() {
-          _profileImageUrl = doc['profileImageUrl'];
-        });
-      }
-    } catch (e) {
-      debugPrint("⚠️ Failed to load profile image: $e");
-    }
-  }
-
-  Future<void> _loadUserMeals() async {
-    final user = FirebaseAuth.instance.currentUser;
-    if (user == null) return;
+    userId = user.uid;
 
     try {
-      final doc =
-          await FirebaseFirestore.instance
-              .collection('Users')
-              .doc(user.uid)
-              .get();
+      final doc = await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(userId)
+          .get();
 
       if (doc.exists) {
+        final data = doc.data()!;
+
         setState(() {
-          userData = FirebaseDataModelClass.fromJson(doc.data()!);
+          userData = data;
+          _profileImageUrl = data['profileImageUrl'];
+
+          // Load user selected foods
+          if (data.containsKey('userSelectedFood') && data['userSelectedFood'] != null) {
+            userSelectedFoods = List<Map<String, dynamic>>.from(data['userSelectedFood']);
+          }
+
           _isLoading = false;
+          _calculateTodayStatistics();
         });
       } else {
         setState(() => _isLoading = false);
       }
     } catch (e) {
-      debugPrint("⚠️ Error loading meals: $e");
+      debugPrint("⚠️ Error loading user data: $e");
       setState(() => _isLoading = false);
     }
+  }
+
+  void _calculateTodayStatistics() {
+    if (userSelectedFoods.isEmpty) {
+      todayTotalCalories = 0;
+      todayMealsCount = {};
+      todayMealsDetails = {};
+      return;
+    }
+
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+
+    todayTotalCalories = 0;
+    todayMealsCount = {
+      'Meal 1': 0,
+      'Meal 2': 0,
+      'Meal 3': 0,
+    };
+    todayMealsDetails = {
+      'Meal 1': [],
+      'Meal 2': [],
+      'Meal 3': [],
+    };
+
+    for (var food in userSelectedFoods) {
+      // Check if food has consumptions array
+      if (food.containsKey('consumptions') && food['consumptions'] != null && food['consumptions'].isNotEmpty) {
+        List<dynamic> consumptions = food['consumptions'];
+
+        for (var consumption in consumptions) {
+          Map<String, dynamic> consMap = Map<String, dynamic>.from(consumption);
+
+          // Get the date from consumption
+          String dateStr = consMap['date'] ?? '';
+          DateTime consumptionDate = DateTime.tryParse(dateStr) ?? DateTime.now();
+          DateTime consumptionDateOnly = DateTime(consumptionDate.year, consumptionDate.month, consumptionDate.day);
+
+          // Check if it's today
+          if (consumptionDateOnly == today) {
+            // Get quantity
+            int qty = 1;
+            if (consMap.containsKey('foodQuantity')) {
+              qty = int.tryParse(consMap['foodQuantity'].toString()) ?? 1;
+            }
+
+            // Get calories
+            int caloriesPerServing = 0;
+            if (food.containsKey('calories')) {
+              caloriesPerServing = int.tryParse(food['calories'].toString()) ?? 0;
+            }
+
+            int totalCalories = qty * caloriesPerServing;
+            todayTotalCalories += totalCalories;
+
+            // Get meal type
+            String mealType = consMap['mealType'] ?? food['mealType'] ?? 'Meal 1';
+
+            // Count meals
+            if (todayMealsCount.containsKey(mealType)) {
+              todayMealsCount[mealType] = todayMealsCount[mealType]! + 1;
+            } else {
+              todayMealsCount[mealType] = 1;
+            }
+
+            // Store meal details
+            Map<String, dynamic> mealDetail = {
+              'foodName': food['foodName'] ?? 'Unknown',
+              'calories': caloriesPerServing,
+              'totalCalories': totalCalories,
+              'quantity': qty,
+              'foodImageUrl': food['foodImageUrl'] ?? '',
+              'foodDescription': food['foodDescription'] ?? '',
+              'quantity': food['quantity'] ?? '',
+              'consumptionTime': consMap['date'] ?? '',
+            };
+
+            if (todayMealsDetails.containsKey(mealType)) {
+              todayMealsDetails[mealType]!.add(mealDetail);
+            } else {
+              todayMealsDetails[mealType] = [mealDetail];
+            }
+          }
+        }
+      }
+    }
+
+    // Force UI update
+    setState(() {});
   }
 
   String getGreeting() {
@@ -105,7 +193,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const AddMealsScreen()),
-            );
+            ).then((_) {
+              // Refresh data when coming back from AddMealsScreen
+              _loadUserData();
+            });
           },
           backgroundColor: Colors.transparent,
           elevation: 0,
@@ -113,111 +204,116 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         ),
       ),
       body:
-          _isLoading
-              ? const Center(child: CircularProgressIndicator())
-              : SingleChildScrollView(
-                child: Column(
-                  children: [
-                    const SizedBox(height: 40),
-                    Padding(
-                      padding: const EdgeInsets.all(27),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CircleAvatar(
-                            radius: 30,
-                            backgroundColor: Colors.grey.shade200,
-                            backgroundImage:
-                                _profileImageUrl != null
-                                    ? NetworkImage(_profileImageUrl!)
-                                    : const AssetImage("assets/images/Male.png")
-                                        as ImageProvider,
-                          ),
-                          const SizedBox(width: 25),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Center(
-                                  child: Text(
-                                    DateTime.now().toString(),
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(height: 10),
-                                Center(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        getGreeting(),
-                                        style: const TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      const SizedBox(width: 8),
-                                      SvgPicture.asset(
-                                        "assets/images/hand.svg",
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                const SizedBox(height: 5),
-                                const Center(
-                                  child: Text(
-                                    "You lost 500 g Today. Reach your goal soon!",
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.black54,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ],
+      _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(height: 40),
+            Padding(
+              padding: const EdgeInsets.all(27),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CircleAvatar(
+                    radius: 30,
+                    backgroundColor: Colors.grey.shade200,
+                    backgroundImage:
+                    _profileImageUrl != null
+                        ? NetworkImage(_profileImageUrl!)
+                        : const AssetImage("assets/images/Male.png")
+                    as ImageProvider,
+                  ),
+                  const SizedBox(width: 25),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Center(
+                          child: Text(
+                            _getFormattedDateTime(),
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: Colors.black,
                             ),
                           ),
-                          Container(
-                            height: 45,
-                            width: 45,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              gradient: const LinearGradient(
-                                colors: [Color(0xFF5AFF15), Color(0xFF00B712)],
+                        ),
+                        const SizedBox(height: 10),
+                        Center(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                getGreeting(),
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                            child: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.notifications_outlined),
-                            ),
+                              const SizedBox(width: 8),
+                              SvgPicture.asset(
+                                "assets/images/hand.svg",
+                              ),
+                            ],
                           ),
-                        ],
+                        ),
+                        const SizedBox(height: 5),
+                        const Center(
+                          child: Text(
+                            "Track your meals and stay healthy!",
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.black54,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    height: 45,
+                    width: 45,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      gradient: const LinearGradient(
+                        colors: [Color(0xFF5AFF15), Color(0xFF00B712)],
                       ),
                     ),
-                    buildCaloriesGraph(screenSize),
-                    const SizedBox(height: 10),
-                    const CustomText(text: "Today's Meals"),
-                    buildTodaysMeal(),
-                    const CustomText(text: "Cheat Meals"),
-                    buildCheatMeal(),
-                    const CustomText(text: "Activity"),
-                    buildActivity(),
-                    const CustomText(text: "Fasting"),
-                    buildFasting(),
-                    const SizedBox(height: 80),
-                  ],
-                ),
+                    child: IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.notifications_outlined),
+                    ),
+                  ),
+                ],
               ),
+            ),
+            buildCaloriesGraph(screenSize),
+            const SizedBox(height: 10),
+            const CustomText(text: "Today's Meals"),
+            buildTodaysMeal(),
+            const CustomText(text: "Cheat Meals"),
+            buildCheatMeal(),
+            const CustomText(text: "Activity"),
+            buildActivity(),
+            const CustomText(text: "Fasting"),
+            buildFasting(),
+            const SizedBox(height: 80),
+          ],
+        ),
+      ),
     );
   }
 
-  // ✅ Updated Today's Meals - shows Breakfast, Lunch, Dinner counts
+  String _getFormattedDateTime() {
+    final now = DateTime.now();
+    return "${now.day}/${now.month}/${now.year}";
+  }
+
+  // Today's Meals - with navigation to detail screen
   Widget buildTodaysMeal() {
-    if (userData == null || userData!.userSelectedFood == null) {
+    if (userSelectedFoods.isEmpty) {
       return const Padding(
         padding: EdgeInsets.all(8.0),
         child: Text(
@@ -227,115 +323,92 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       );
     }
 
-    final List<FoodModel> foods = userData!.userSelectedFood ?? [];
-    final today = DateTime.now();
-
-    // Filter today's foods
-    final todaysFoods =
-        foods.where((food) {
-          return food.consumptions.any((c) {
-            final date = DateTime.tryParse(c.date) ?? DateTime.now();
-            return date.year == today.year &&
-                date.month == today.month &&
-                date.day == today.day;
-          });
-        }).toList();
-
-    if (todaysFoods.isEmpty) {
-      return const Padding(
-        padding: EdgeInsets.all(8.0),
-        child: Text(
-          "No meals consumed today",
-          style: TextStyle(fontSize: 16, color: Colors.black54),
-        ),
-      );
-    }
-
-    // Count by mealType
-    int breakfastCount = 0;
-    int lunchCount = 0;
-    int dinnerCount = 0;
-
-    for (var food in todaysFoods) {
-      for (var c in food.consumptions) {
-        final date = DateTime.tryParse(c.date) ?? DateTime.now();
-        if (date.year == today.year &&
-            date.month == today.month &&
-            date.day == today.day) {
-          switch (c.mealType.toLowerCase()) {
-            case "breakfast":
-              breakfastCount++;
-              break;
-            case "lunch":
-              lunchCount++;
-              break;
-            case "dinner":
-              dinnerCount++;
-              break;
-          }
-        }
-      }
-    }
+    int meal1Count = todayMealsCount['Meal 1'] ?? 0;
+    int meal2Count = todayMealsCount['Meal 2'] ?? 0;
+    int meal3Count = todayMealsCount['Meal 3'] ?? 0;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 6),
       child: Column(
         children: [
           CustomListTile(
-            title: "Breakfast",
+            title: "Meal 1",
             leading: Image.asset(
               "assets/images/rectangle.png",
               width: 50,
               height: 50,
               fit: BoxFit.cover,
             ),
-            subtitle: "$breakfastCount foods selected",
+            subtitle: "$meal1Count food${meal1Count != 1 ? 's' : ''} selected",
             trailing: IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.arrow_forward_ios),
+              onPressed: () {
+                _navigateToMealDetail("Meal 1");
+              },
+              icon: const Icon(Icons.arrow_forward_ios),
             ),
             tileColor: const Color(0xFFFAFAFA),
           ),
           const SizedBox(height: 8),
           CustomListTile(
-            title: "Lunch",
+            title: "Meal 2",
             leading: Image.asset(
               "assets/images/rectangle.png",
               width: 50,
               height: 50,
               fit: BoxFit.cover,
             ),
-            subtitle: "$lunchCount foods selected",
+            subtitle: "$meal2Count food${meal2Count != 1 ? 's' : ''} selected",
             trailing: IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.arrow_forward_ios),
+              onPressed: () {
+                _navigateToMealDetail("Meal 2");
+              },
+              icon: const Icon(Icons.arrow_forward_ios),
             ),
             tileColor: const Color(0xFFFAFAFA),
           ),
           const SizedBox(height: 8),
-          CustomListTile(
-            title: "Dinner",
-            leading: Image.asset(
-              "assets/images/rectangle.png",
-              width: 50,
-              height: 50,
-              fit: BoxFit.cover,
+          if (meal3Count > 0)
+            CustomListTile(
+              title: "Meal 3",
+              leading: Image.asset(
+                "assets/images/rectangle.png",
+                width: 50,
+                height: 50,
+                fit: BoxFit.cover,
+              ),
+              subtitle: "$meal3Count food${meal3Count != 1 ? 's' : ''} selected",
+              trailing: IconButton(
+                onPressed: () {
+                  _navigateToMealDetail("Meal 3");
+                },
+                icon: const Icon(Icons.arrow_forward_ios),
+              ),
+              tileColor: const Color(0xFFFAFAFA),
             ),
-            subtitle: "$dinnerCount foods selected",
-            trailing: IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.arrow_forward_ios),
-            ),
-            tileColor: const Color(0xFFFAFAFA),
-          ),
         ],
       ),
     );
   }
 
-  // 🔹 Cheat Meals (foods over 500 kcal)
+  void _navigateToMealDetail(String mealType) {
+    List<Map<String, dynamic>> meals = todayMealsDetails[mealType] ?? [];
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => MealDetailScreen(
+          mealType: mealType,
+          meals: meals,
+          totalCalories: meals.fold(0, (sum, meal) => sum + (meal['totalCalories'] as int)),
+          totalItems: meals.length,
+        ),
+      ),
+    );
+  }
+
+  // Cheat Meals - foods with calories > 500 per serving consumed today
   Widget buildCheatMeal() {
-    if (userData == null || userData!.userSelectedFood == null) {
+    if (userSelectedFoods.isEmpty) {
       return const Padding(
         padding: EdgeInsets.all(8.0),
         child: Text(
@@ -345,15 +418,43 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       );
     }
 
-    final List<FoodModel> foods = userData!.userSelectedFood ?? [];
-    final cheatFoods =
-        foods
-            .where(
-              (f) =>
-                  double.tryParse(f.calories) != null &&
-                  double.parse(f.calories) > 500,
-            )
-            .toList();
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+
+    // Get today's cheat meals
+    List<Map<String, dynamic>> cheatFoods = [];
+
+    for (var food in userSelectedFoods) {
+      bool isToday = false;
+
+      if (food.containsKey('consumptions') && food['consumptions'] != null && food['consumptions'].isNotEmpty) {
+        List<dynamic> consumptions = food['consumptions'];
+
+        for (var consumption in consumptions) {
+          Map<String, dynamic> consMap = Map<String, dynamic>.from(consumption);
+
+          // Get the date from consumption
+          String dateStr = consMap['date'] ?? '';
+          DateTime consumptionDate = DateTime.tryParse(dateStr) ?? DateTime.now();
+          DateTime consumptionDateOnly = DateTime(consumptionDate.year, consumptionDate.month, consumptionDate.day);
+
+          if (consumptionDateOnly == today) {
+            isToday = true;
+            break;
+          }
+        }
+      }
+
+      // Check if it's a high calorie food (> 500 kcal)
+      int calories = 0;
+      if (food.containsKey('calories')) {
+        calories = int.tryParse(food['calories'].toString()) ?? 0;
+      }
+
+      if (isToday && calories > 500) {
+        cheatFoods.add(food);
+      }
+    }
 
     if (cheatFoods.isEmpty) {
       return const Padding(
@@ -373,18 +474,37 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         itemCount: cheatFoods.length,
         itemBuilder: (context, index) {
           final food = cheatFoods[index];
+          String foodName = food['foodName'] ?? 'Unknown';
+          String calories = food['calories'] ?? '0';
+          String foodImageUrl = food['foodImageUrl'] ?? '';
+
           return CustomListTile(
-            title: food.foodName,
+            title: foodName,
             leading: ClipRRect(
               borderRadius: BorderRadius.circular(8),
-              child: Image.network(
-                food.foodImageUrl ?? 'https://via.placeholder.com/60',
+              child: foodImageUrl.isNotEmpty
+                  ? Image.network(
+                foodImageUrl,
                 width: 60,
                 height: 60,
                 fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    width: 60,
+                    height: 60,
+                    color: Colors.grey[200],
+                    child: const Icon(Icons.food_bank),
+                  );
+                },
+              )
+                  : Container(
+                width: 60,
+                height: 60,
+                color: Colors.grey[200],
+                child: const Icon(Icons.food_bank),
               ),
             ),
-            subtitle: "${food.calories} kcal",
+            subtitle: "$calories kcal per serving",
             trailing: IconButton(
               onPressed: () {},
               icon: const Icon(Icons.arrow_forward_ios),
@@ -444,9 +564,23 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 
+  // Calories Graph - Shows today's actual calorie consumption
   Padding buildCaloriesGraph(Size screenSize) {
     double containerHeight = screenSize.height * 0.32;
     if (containerHeight > 320) containerHeight = 320;
+
+    // Calculate percentage of daily goal
+    double percentage = (todayTotalCalories / todayGoalCalories) * 100;
+    if (percentage > 100) percentage = 100;
+
+    // Determine color based on percentage
+    Color gaugeColor = const Color(0xFF00B712);
+    if (percentage > 80) {
+      gaugeColor = Colors.orange;
+    }
+    if (todayTotalCalories > todayGoalCalories) {
+      gaugeColor = Colors.red;
+    }
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
@@ -468,7 +602,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     axes: [
                       RadialAxis(
                         minimum: 0,
-                        maximum: 4000,
+                        maximum: todayGoalCalories.toDouble(),
                         showLabels: false,
                         showTicks: false,
                         startAngle: 180,
@@ -477,9 +611,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         ranges: [
                           GaugeRange(
                             startValue: 0,
-                            endValue: 2000,
-                            gradient: const SweepGradient(
-                              colors: [Color(0xFF5AFF15), Color(0xFF00B712)],
+                            endValue: todayTotalCalories.toDouble(),
+                            gradient: SweepGradient(
+                              colors: [const Color(0xFF5AFF15), gaugeColor],
                             ),
                             startWidth: 12,
                             endWidth: 12,
@@ -505,12 +639,25 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                     ),
                                   ),
                                   Text(
-                                    "1200 kcal",
+                                    "$todayTotalCalories / $todayGoalCalories",
                                     style: TextStyle(
-                                      fontSize: constraints.maxHeight * 0.07,
+                                      fontSize: constraints.maxHeight * 0.06,
                                       color: Colors.black54,
+                                      fontWeight: FontWeight.w500,
                                     ),
                                   ),
+                                  if (todayTotalCalories > todayGoalCalories)
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 4),
+                                      child: Text(
+                                        "⚠️ Exceeded limit!",
+                                        style: TextStyle(
+                                          fontSize: constraints.maxHeight * 0.05,
+                                          color: Colors.red,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ),
                                 ],
                               ),
                             ),

@@ -56,7 +56,7 @@ class SummaryMealsTile extends StatelessWidget {
                   ),
             ),
           ),
-          SizedBox(width: 20),
+          SizedBox(width: 15),
           // Food info
           Expanded(
             child: Column(

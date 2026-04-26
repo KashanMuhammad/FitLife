@@ -4,14 +4,9 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Functionalities assigned to diet screen and food screen toggle buttons and also applied linear gradient to various buttons and toggle buttons.">
+    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Completed Meals Module And updated the User id logic">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/auth_gate.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/auth_gate.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/custom_widgets.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/custom_widgets.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/diet_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/diet_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/food_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/food_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_diet_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_diet_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_food_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_food_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Screens/main screens/progress_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Screens/main screens/progress_screen.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,7 +16,6 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$/fitlife_app/android">
       <ProjectState />
@@ -47,7 +41,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/KashanMuhammad/FitLife.git&quot;,
-    &quot;accountId&quot;: &quot;fdbe591c-7d9b-4c99-9d34-380bd3f1166e&quot;
+    &quot;accountId&quot;: &quot;5f640996-ceef-45cc-981f-d0540746f73c&quot;
   }
 }</component>
   <component name="ProblemsViewState">
@@ -73,7 +67,7 @@
     &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;kashanmuhammad/admin__panel__functionalities&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;fawadalishan/final__work&quot;,
     &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;E:/practice_flutter&quot;,
@@ -154,7 +148,7 @@
       </method>
     </configuration>
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
-      <option name="filePath" value="$PROJECT_DIR$/fitlife_admin_panel/lib/main.dart" />
+      <option name="filePath" value="$PROJECT_DIR$/fitlife_app/lib/main.dart" />
       <method v="2" />
     </configuration>
     <list>
@@ -170,38 +164,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1747854831066</updated>
-    </task>
-    <task id="LOCAL-00017" summary="Modified Code">
-      <option name="closed" value="true" />
-      <created>1749518418575</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1749518418575</updated>
-    </task>
-    <task id="LOCAL-00018" summary="commit">
-      <option name="closed" value="true" />
-      <created>1749520073373</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1749520073373</updated>
-    </task>
-    <task id="LOCAL-00019" summary="modified">
-      <option name="closed" value="true" />
-      <created>1749520290410</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1749520290410</updated>
-    </task>
-    <task id="LOCAL-00020" summary="Dependencies Updated">
-      <option name="closed" value="true" />
-      <created>1749945982712</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1749945982712</updated>
     </task>
     <task id="LOCAL-00021" summary="Project Slightly Updated">
       <option name="closed" value="true" />
@@ -563,7 +525,39 @@
       <option name="project" value="LOCAL" />
       <updated>1771391026731</updated>
     </task>
-    <option name="localTasksCounter" value="66" />
+    <task id="LOCAL-00066" summary="Pulled the new and updated code of admin panel">
+      <option name="closed" value="true" />
+      <created>1771744506598</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1771744506598</updated>
+    </task>
+    <task id="LOCAL-00067" summary="Created a new branch of name fawadalishan/final_work and pulled the work from main branch and committed it">
+      <option name="closed" value="true" />
+      <created>1771744752341</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1771744752341</updated>
+    </task>
+    <task id="LOCAL-00068" summary="Completed Meals Module">
+      <option name="closed" value="true" />
+      <created>1777185406648</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1777185406648</updated>
+    </task>
+    <task id="LOCAL-00069" summary="Completed Meals Module And updated the User id logic">
+      <option name="closed" value="true" />
+      <created>1777185878606</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1777185878606</updated>
+    </task>
+    <option name="localTasksCounter" value="70" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -605,11 +599,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added Firebase FireStore Functionality to the upload diet button in the upload diet screen and successfully working and also updated diet and food table to fench real time data from the firebase firestore" />
-    <MESSAGE value="Admin panel Patient Screen completed and also given functionality to assigned diet plan to the users or patients" />
-    <MESSAGE value="Admin panel Upload Blog Screen completed and also given functionality to create blog button" />
-    <MESSAGE value="pulling updated project" />
-    <MESSAGE value="new file commited" />
     <MESSAGE value="File slightly updated by the developer and some other functionalities were added" />
     <MESSAGE value="Static Analytics Screen Completed, Blog Screen completed with full functionalities, some concepts updated," />
     <MESSAGE value="Customer Support Static UI Completed, some code updated in the whole project" />
@@ -630,6 +619,11 @@
     <MESSAGE value="In patient_screen.dart the height  and weight variables updated" />
     <MESSAGE value="Project fully updated also removed the extra or irrelevant code" />
     <MESSAGE value="Functionalities assigned to diet screen and food screen toggle buttons and also applied linear gradient to various buttons and toggle buttons." />
-    <option name="LAST_COMMIT_MESSAGE" value="Functionalities assigned to diet screen and food screen toggle buttons and also applied linear gradient to various buttons and toggle buttons." />
+    <MESSAGE value="time to resume" />
+    <MESSAGE value="Pulled the new and updated code of admin panel" />
+    <MESSAGE value="Created a new branch of name fawadalishan/final_work and pulled the work from main branch and committed it" />
+    <MESSAGE value="Completed Meals Module" />
+    <MESSAGE value="Completed Meals Module And updated the User id logic" />
+    <option name="LAST_COMMIT_MESSAGE" value="Completed Meals Module And updated the User id logic" />
   </component>
 </project>

@@ -4,17 +4,9 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Created a new branch of name fawadalishan/final_work and pulled the work from main branch and committed it">
-      <change afterPath="$PROJECT_DIR$/fitlife_app/lib/Screens/meals/meal_detail_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Screens/auth/login_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Screens/auth/login_screen.dart" afterDir="false" />
+    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Completed Meals Module">
       <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Screens/main screens/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Screens/main screens/home_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Screens/meals/add_meals_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Screens/meals/add_meals_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Screens/meals/meals_history_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Screens/meals/meals_history_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/lib/user_0nboarding_data_model_class.dart" beforeDir="false" afterPath="$PROJECT_DIR$/shared/lib/user_0nboarding_data_model_class.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -172,14 +164,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1747854831066</updated>
-    </task>
-    <task id="LOCAL-00019" summary="modified">
-      <option name="closed" value="true" />
-      <created>1749520290410</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1749520290410</updated>
     </task>
     <task id="LOCAL-00020" summary="Dependencies Updated">
       <option name="closed" value="true" />
@@ -565,7 +549,15 @@
       <option name="project" value="LOCAL" />
       <updated>1771744752341</updated>
     </task>
-    <option name="localTasksCounter" value="68" />
+    <task id="LOCAL-00068" summary="Completed Meals Module">
+      <option name="closed" value="true" />
+      <created>1777185406648</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1777185406648</updated>
+    </task>
+    <option name="localTasksCounter" value="69" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -607,7 +599,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="pulling updated project" />
     <MESSAGE value="new file commited" />
     <MESSAGE value="File slightly updated by the developer and some other functionalities were added" />
     <MESSAGE value="Static Analytics Screen Completed, Blog Screen completed with full functionalities, some concepts updated," />
@@ -632,6 +623,7 @@
     <MESSAGE value="time to resume" />
     <MESSAGE value="Pulled the new and updated code of admin panel" />
     <MESSAGE value="Created a new branch of name fawadalishan/final_work and pulled the work from main branch and committed it" />
-    <option name="LAST_COMMIT_MESSAGE" value="Created a new branch of name fawadalishan/final_work and pulled the work from main branch and committed it" />
+    <MESSAGE value="Completed Meals Module" />
+    <option name="LAST_COMMIT_MESSAGE" value="Completed Meals Module" />
   </component>
 </project>

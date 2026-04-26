@@ -31,7 +31,7 @@ class _AddMealsScreenState extends State<AddMealsScreen> {
   }
 
   Future<void> loadUserData() async {
-    userId = "ItVI3JhcWnQmTFekpCzCcYhYpHQ2";
+    userId = FirebaseAuth.instance.currentUser?.uid ?? '';
     if (userId.isEmpty) return;
 
     try {

@@ -40,10 +40,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   }
 
   Future<void> _loadUserData() async {
-    final user = "ItVI3JhcWnQmTFekpCzCcYhYpHQ2";
+    final user = FirebaseAuth.instance.currentUser;
     if (user == null) return;
 
-    userId = user;
+    userId = user.uid;
 
     try {
       final doc = await FirebaseFirestore.instance

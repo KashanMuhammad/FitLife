@@ -4,9 +4,15 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Completed Meals Module And updated the User id logic">
+    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Slightly updated progress_screen.dart">
+      <change afterPath="$PROJECT_DIR$/fitlife_app/lib/Screens/customer support/customer_support.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Screens/main screens/progress_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Screens/main screens/progress_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Screens/auth/login_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Screens/auth/login_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Screens/main screens/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Screens/main screens/home_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fitlife_app/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -164,22 +170,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1747854831066</updated>
-    </task>
-    <task id="LOCAL-00021" summary="Project Slightly Updated">
-      <option name="closed" value="true" />
-      <created>1750184264084</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1750184264084</updated>
-    </task>
-    <task id="LOCAL-00022" summary="Project Slightly Updated">
-      <option name="closed" value="true" />
-      <created>1750184867537</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1750184867537</updated>
     </task>
     <task id="LOCAL-00023" summary="Project Slightly Updated">
       <option name="closed" value="true" />
@@ -557,7 +547,23 @@
       <option name="project" value="LOCAL" />
       <updated>1777185878606</updated>
     </task>
-    <option name="localTasksCounter" value="70" />
+    <task id="LOCAL-00070" summary="Slightly updated progress_screen.dart">
+      <option name="closed" value="true" />
+      <created>1777198285919</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1777198285919</updated>
+    </task>
+    <task id="LOCAL-00071" summary="Slightly updated progress_screen.dart">
+      <option name="closed" value="true" />
+      <created>1777198448975</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1777198448975</updated>
+    </task>
+    <option name="localTasksCounter" value="72" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -599,7 +605,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="File slightly updated by the developer and some other functionalities were added" />
     <MESSAGE value="Static Analytics Screen Completed, Blog Screen completed with full functionalities, some concepts updated," />
     <MESSAGE value="Customer Support Static UI Completed, some code updated in the whole project" />
     <MESSAGE value="Code slightly updated but blog screen is fully updated and the UI is completely changed" />
@@ -624,6 +629,7 @@
     <MESSAGE value="Created a new branch of name fawadalishan/final_work and pulled the work from main branch and committed it" />
     <MESSAGE value="Completed Meals Module" />
     <MESSAGE value="Completed Meals Module And updated the User id logic" />
-    <option name="LAST_COMMIT_MESSAGE" value="Completed Meals Module And updated the User id logic" />
+    <MESSAGE value="Slightly updated progress_screen.dart" />
+    <option name="LAST_COMMIT_MESSAGE" value="Slightly updated progress_screen.dart" />
   </component>
 </project>

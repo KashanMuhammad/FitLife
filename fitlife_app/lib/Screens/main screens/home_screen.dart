@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../custom widgets/custom_list_tile.dart';
 import '../custom widgets/custom_text.dart';
+import '../customer support/customer_support.dart';
 import '../meals/add_meals_screen.dart';
 import '../meals/meal_detail_screen.dart';
- // Import the new detail screen
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -21,6 +23,7 @@ class HomeScreen extends ConsumerStatefulWidget {
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   String? _profileImageUrl;
   String userId = '';
+  final supabase = Supabase.instance.client;
 
   // Store user data directly as Maps
   Map<String, dynamic>? userData;
@@ -72,6 +75,95 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     } catch (e) {
       debugPrint("⚠️ Error loading user data: $e");
       setState(() => _isLoading = false);
+    }
+  }
+
+  /// Upload profile image to Supabase and update Firestore
+  Future<void> _uploadProfileImage() async {
+    try {
+      // Show loading indicator
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => const Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+
+      // Pick image from gallery
+      final picker = ImagePicker();
+      final image = await picker.pickImage(source: ImageSource.gallery);
+      if (image == null) {
+        if (mounted) Navigator.pop(context);
+        return;
+      }
+
+      // Read image bytes
+      final bytes = await image.readAsBytes();
+
+      // Generate unique file name
+      final fileName = "${DateTime.now().millisecondsSinceEpoch}.jpg";
+      final filePath = "$userId/$fileName";
+
+      // Upload to Supabase storage using PROFILE_IMAGES bucket (uppercase)
+      await supabase.storage.from("profile_images").uploadBinary(
+        filePath,
+        bytes,
+        fileOptions: const FileOptions(cacheControl: '3600', upsert: true),
+      );
+
+      // Get public URL
+      final imageUrl = supabase.storage.from("PROFILE_IMAGES").getPublicUrl(filePath);
+
+      // Update Firestore user document
+      await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(userId)
+          .update({
+        'profileImageUrl': imageUrl,
+        'profileImageUpdatedAt': FieldValue.serverTimestamp(),
+      });
+
+      // Update local state
+      if (mounted) {
+        setState(() {
+          _profileImageUrl = imageUrl;
+          if (userData != null) {
+            userData!['profileImageUrl'] = imageUrl;
+          }
+        });
+      }
+
+      // Close loading dialog
+      if (mounted) Navigator.pop(context);
+
+      // Show success message
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Profile image updated successfully!"),
+            backgroundColor: Colors.green,
+            duration: Duration(seconds: 2),
+          ),
+        );
+      }
+
+    } catch (e) {
+      // Close loading dialog if still open
+      if (mounted && Navigator.canPop(context)) {
+        Navigator.pop(context);
+      }
+
+      debugPrint("Error uploading profile image: $e");
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Failed to upload image: ${e.toString()}"),
+            backgroundColor: Colors.red,
+            duration: const Duration(seconds: 3),
+          ),
+        );
+      }
     }
   }
 
@@ -146,7 +238,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               'quantity': qty,
               'foodImageUrl': food['foodImageUrl'] ?? '',
               'foodDescription': food['foodDescription'] ?? '',
-              'quantity': food['quantity'] ?? '',
               'consumptionTime': consMap['date'] ?? '',
             };
 
@@ -177,34 +268,77 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
-      floatingActionButton: Container(
-        height: 56,
-        width: 56,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(14),
-          gradient: const LinearGradient(
-            colors: [Color(0xFF5AFF15), Color(0xFF00B712)],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+      floatingActionButton: Stack(
+        children: [
+          // Position the chat button on the LEFT side
+          Positioned(
+            left: 20,
+            bottom: 0,
+            child: Container(
+              height: 56,
+              width: 56,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(14),
+                gradient: const LinearGradient(
+                  colors: [Color(0xFF5AFF15), Color(0xFF00B712)],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+              ),
+              child: FloatingActionButton(
+                heroTag: "chat_button",
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => UserCustomerSupportScreen(
+                        userId: userId,
+                        userName: userData?['name'] ?? 'User',
+                      ),
+                    ),
+                  );
+                },
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                child: const Icon(Icons.chat),
+              ),
+            ),
           ),
-        ),
-        child: FloatingActionButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const AddMealsScreen()),
-            ).then((_) {
-              // Refresh data when coming back from AddMealsScreen
-              _loadUserData();
-            });
-          },
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          child: const Icon(Icons.add),
-        ),
+          // Position the add button on the RIGHT side
+          Positioned(
+            right: 20,
+            bottom: 0,
+            child: Container(
+              height: 56,
+              width: 56,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(14),
+                gradient: const LinearGradient(
+                  colors: [Color(0xFF5AFF15), Color(0xFF00B712)],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+              ),
+              child: FloatingActionButton(
+                heroTag: "add_button",
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const AddMealsScreen()),
+                  ).then((_) {
+                    _loadUserData();
+                  });
+                },
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                child: const Icon(Icons.add),
+              ),
+            ),
+          ),
+        ],
       ),
-      body:
-      _isLoading
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
         child: Column(
@@ -215,14 +349,38 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CircleAvatar(
-                    radius: 30,
-                    backgroundColor: Colors.grey.shade200,
-                    backgroundImage:
-                    _profileImageUrl != null
-                        ? NetworkImage(_profileImageUrl!)
-                        : const AssetImage("assets/images/Male.png")
-                    as ImageProvider,
+                  GestureDetector(
+                    onTap: _uploadProfileImage,
+                    child: Stack(
+                      children: [
+                        CircleAvatar(
+                          radius: 30,
+                          backgroundColor: Colors.grey.shade200,
+                          backgroundImage:
+                          _profileImageUrl != null
+                              ? NetworkImage(_profileImageUrl!)
+                              : const AssetImage("assets/images/Male.png")
+                          as ImageProvider,
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child: Container(
+                            padding: const EdgeInsets.all(4),
+                            decoration: BoxDecoration(
+                              color: Colors.green,
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(color: Colors.white, width: 2),
+                            ),
+                            child: const Icon(
+                              Icons.camera_alt,
+                              size: 12,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   const SizedBox(width: 25),
                   Expanded(

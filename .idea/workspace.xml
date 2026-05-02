@@ -162,14 +162,6 @@
       <option name="presentableId" value="Default" />
       <updated>1747854831066</updated>
     </task>
-    <task id="LOCAL-00024" summary="Pulled Slightly Updated Project">
-      <option name="closed" value="true" />
-      <created>1750211060615</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1750211060615</updated>
-    </task>
     <task id="LOCAL-00025" summary="Pulled Slightly Updated Project">
       <option name="closed" value="true" />
       <created>1750275924645</created>
@@ -554,7 +546,15 @@
       <option name="project" value="LOCAL" />
       <updated>1777690844542</updated>
     </task>
-    <option name="localTasksCounter" value="73" />
+    <task id="LOCAL-00073" summary="Added the customer and admin chating screen to the home screen and the timestamp to login screen.">
+      <option name="closed" value="true" />
+      <created>1777691609223</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1777691609223</updated>
+    </task>
+    <option name="localTasksCounter" value="74" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

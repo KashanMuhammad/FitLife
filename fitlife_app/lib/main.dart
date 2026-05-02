@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'Screens/Onboarding Screens/fitlife_splash_screen.dart';
+import 'Screens/auth/login_screen.dart';
 
 
 
@@ -28,14 +29,14 @@ void main() async {
   // 2️⃣ Initialize Supabase
   await Supabase.initialize(
     url: "https://pmapautgzuzzdkrjjxzk.supabase.co",
-    anonKey: "YOUR_ANON_KEY",
+    anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBtYXBhdXRnenV6emRrcmpqeHprIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgyMDAxMDcsImV4cCI6MjA3Mzc3NjEwN30.hmp9X9LWqsyeeFZeN8RpvBCmyc8ZsSZL_WHDctq6hr0",
     authOptions: const FlutterAuthClientOptions(
       detectSessionInUri: false,
     ),
   );
 
   runApp(
-    MaterialApp(home: FitlifeSplashScreen(), debugShowCheckedModeBanner: false),
+    MaterialApp( home: LoginScreen(), debugShowCheckedModeBanner: false),
   );
 }
 

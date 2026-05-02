@@ -4,16 +4,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Slightly updated progress_screen.dart">
-      <change afterPath="$PROJECT_DIR$/fitlife_app/lib/Screens/customer support/customer_support.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Screens/auth/login_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Screens/auth/login_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Screens/main screens/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Screens/main screens/home_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/pubspec.yaml" afterDir="false" />
-    </list>
+    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Added the customer and admin chating screen to the home screen and the timestamp to login screen." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -170,14 +161,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1747854831066</updated>
-    </task>
-    <task id="LOCAL-00023" summary="Project Slightly Updated">
-      <option name="closed" value="true" />
-      <created>1750210515455</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1750210515455</updated>
     </task>
     <task id="LOCAL-00024" summary="Pulled Slightly Updated Project">
       <option name="closed" value="true" />
@@ -563,7 +546,15 @@
       <option name="project" value="LOCAL" />
       <updated>1777198448975</updated>
     </task>
-    <option name="localTasksCounter" value="72" />
+    <task id="LOCAL-00072" summary="Added the customer and admin chating screen to the home screen and the timestamp to login screen.">
+      <option name="closed" value="true" />
+      <created>1777690844542</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1777690844542</updated>
+    </task>
+    <option name="localTasksCounter" value="73" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -605,7 +596,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Static Analytics Screen Completed, Blog Screen completed with full functionalities, some concepts updated," />
     <MESSAGE value="Customer Support Static UI Completed, some code updated in the whole project" />
     <MESSAGE value="Code slightly updated but blog screen is fully updated and the UI is completely changed" />
     <MESSAGE value="Patient screen UI updated and also analytics screen toggle button updated" />
@@ -630,6 +620,7 @@
     <MESSAGE value="Completed Meals Module" />
     <MESSAGE value="Completed Meals Module And updated the User id logic" />
     <MESSAGE value="Slightly updated progress_screen.dart" />
-    <option name="LAST_COMMIT_MESSAGE" value="Slightly updated progress_screen.dart" />
+    <MESSAGE value="Added the customer and admin chating screen to the home screen and the timestamp to login screen." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added the customer and admin chating screen to the home screen and the timestamp to login screen." />
   </component>
 </project>

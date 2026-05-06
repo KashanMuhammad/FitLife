@@ -8,6 +8,8 @@ import 'package:fitlife_admin_panel/upload_food_screen.dart';
 import 'package:fitlife_admin_panel/patient_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
+import 'admin_provider.dart';
 import 'blog_screen.dart';
 
 class Dashboard extends StatefulWidget {
@@ -31,9 +33,18 @@ class _DashboardState extends State<Dashboard> {
       showFoodUploadScreen = true;
     });
   }
-
+@override
+@override
+  void initState() {
+  super.initState();
+  // Reload admin name when dashboard opens
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    Provider.of<AdminProvider>(context, listen: false).getAdminName();
+  });
+  }
   @override
   Widget build(BuildContext context) {
+    String adminName = Provider.of<AdminProvider>(context).adminName;
     return Scaffold(
       body: Row(
         children: [

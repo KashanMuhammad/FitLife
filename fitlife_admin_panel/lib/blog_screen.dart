@@ -1,5 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'admin_provider.dart';
 
 class BlogScreen extends StatefulWidget {
   final VoidCallback? onUploadPressed;
@@ -20,6 +23,7 @@ class _BlogScreenState extends State<BlogScreen> {
 
   @override
   Widget build(BuildContext context) {
+    String adminName = Provider.of<AdminProvider>(context).adminName;
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(12),
@@ -38,8 +42,8 @@ class _BlogScreenState extends State<BlogScreen> {
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
-                      children: const [
-                        Text("Cody Fisher"),
+                      children:  [
+                        Text(adminName),
                         Text("Dashboard Manager"),
                       ],
                     ),

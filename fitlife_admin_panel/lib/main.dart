@@ -1,7 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import 'admin_provider.dart';
 import 'auth_gate.dart';
 Map<String, Map<String, dynamic>> globalFoodMap = {};
 Map<String, Map<String, dynamic>> globalDietMap = {};
@@ -23,10 +25,19 @@ void main() async{
     anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBtYXBhdXRnenV6emRrcmpqeHprIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgyMDAxMDcsImV4cCI6MjA3Mzc3NjEwN30.hmp9X9LWqsyeeFZeN8RpvBCmyc8ZsSZL_WHDctq6hr0",                         // replace with your Supabase anon key
   );
 
-  runApp(MaterialApp(
-    home: AuthGate(),
-    debugShowCheckedModeBanner: false,
-  ));
+  // runApp(MaterialApp(
+  //   home: AuthGate(),
+  //   debugShowCheckedModeBanner: false,
+  // ));
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => AdminProvider(),
+      child: const MaterialApp(
+        home: AuthGate(),
+        debugShowCheckedModeBanner: false,
+      ),
+    ),
+  );
 }
 
 class MainScreen extends StatefulWidget {

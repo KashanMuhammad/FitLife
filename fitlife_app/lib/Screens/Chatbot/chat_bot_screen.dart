@@ -24,7 +24,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
 
   // IMPORTANT: Replace this with your actual Gemini API key
   // Get it from: https://aistudio.google.com/app/apikey
-  static const String _apiKey = "AIzaSyCSZcEblHf_jsP_CMuw1ug_3j3n_6K0ZUY";
+  static const String _apiKey = "AIzaSyCeABxgASMwzjZZACtkmeMFfEiaNM6L7Dc";
   late GenerativeModel _model;
   late ChatSession _chatSession;
 
@@ -37,7 +37,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
 
   void _initializeGemini() {
     _model = GenerativeModel(
-      model: 'gemini-1.5-flash',
+      model:'gemini-1.5-flash',
       apiKey: _apiKey,
     );
     _chatSession = _model.startChat();

@@ -36,7 +36,7 @@ void main() async {
   );
 
   runApp(
-    MaterialApp( home: LoginScreen(), debugShowCheckedModeBanner: false),
+    MaterialApp( home: FitlifeSplashScreen(), debugShowCheckedModeBanner: false),
   );
 }
 

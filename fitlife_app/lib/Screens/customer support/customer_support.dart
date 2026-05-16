@@ -36,7 +36,6 @@ class _UserCustomerSupportScreenState extends State<UserCustomerSupportScreen> {
 
   @override
   void dispose() {
-    // Update user offline status when leaving
     if (chatDocumentId != null) {
       firestore.collection("support_chats").doc(chatDocumentId).update({
         "userOnline": false,
@@ -48,10 +47,8 @@ class _UserCustomerSupportScreenState extends State<UserCustomerSupportScreen> {
     super.dispose();
   }
 
-  /// Initialize or get existing chat document
   Future<void> initializeChat() async {
     try {
-      // Check if chat document already exists for this user
       QuerySnapshot existingChat = await firestore
           .collection("support_chats")
           .where("userId", isEqualTo: widget.userId)
@@ -59,16 +56,12 @@ class _UserCustomerSupportScreenState extends State<UserCustomerSupportScreen> {
           .get();
 
       if (existingChat.docs.isNotEmpty) {
-        // Use existing chat
         chatDocumentId = existingChat.docs.first.id;
-
-        // Update user online status
         await firestore.collection("support_chats").doc(chatDocumentId).update({
           "userOnline": true,
           "lastSeen": FieldValue.serverTimestamp(),
         });
       } else {
-        // Create new chat document
         DocumentReference newChat = await firestore.collection("support_chats").add({
           "userId": widget.userId,
           "userName": widget.userName,
@@ -86,7 +79,6 @@ class _UserCustomerSupportScreenState extends State<UserCustomerSupportScreen> {
         _isLoading = false;
       });
 
-      // Listen to admin typing status
       listenToAdminTyping();
 
     } catch (e) {
@@ -97,7 +89,6 @@ class _UserCustomerSupportScreenState extends State<UserCustomerSupportScreen> {
     }
   }
 
-  /// Listen to admin typing status
   void listenToAdminTyping() {
     if (chatDocumentId == null) return;
 
@@ -113,7 +104,6 @@ class _UserCustomerSupportScreenState extends State<UserCustomerSupportScreen> {
     });
   }
 
-  /// Send text message
   Future<void> sendMessage() async {
     if (messageController.text.trim().isEmpty || chatDocumentId == null) return;
 
@@ -141,8 +131,6 @@ class _UserCustomerSupportScreenState extends State<UserCustomerSupportScreen> {
       });
 
       messageController.clear();
-
-      // Update typing status to false after sending
       await updateTyping(false);
       scrollToBottom();
 
@@ -156,7 +144,6 @@ class _UserCustomerSupportScreenState extends State<UserCustomerSupportScreen> {
     }
   }
 
-  /// Send image
   Future<void> sendImage() async {
     if (chatDocumentId == null) return;
 
@@ -197,12 +184,11 @@ class _UserCustomerSupportScreenState extends State<UserCustomerSupportScreen> {
     }
   }
 
-  /// Send file
   Future<void> sendFile() async {
     if (chatDocumentId == null) return;
 
     try {
-      FilePickerResult? result = await FilePicker.platform.pickFiles(withData: true);
+      FilePickerResult? result = await FilePicker.pickFiles(withData: true);
       if (result == null) return;
 
       final file = result.files.first;
@@ -238,7 +224,6 @@ class _UserCustomerSupportScreenState extends State<UserCustomerSupportScreen> {
     }
   }
 
-  /// Update typing status
   Future<void> updateTyping(bool typing) async {
     if (chatDocumentId == null) return;
 
@@ -251,7 +236,6 @@ class _UserCustomerSupportScreenState extends State<UserCustomerSupportScreen> {
     }
   }
 
-  /// Scroll to bottom
   void scrollToBottom() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (scrollController.hasClients) {
@@ -264,7 +248,6 @@ class _UserCustomerSupportScreenState extends State<UserCustomerSupportScreen> {
     });
   }
 
-  /// Format timestamp
   String formatTimestamp(Timestamp? timestamp) {
     if (timestamp == null) return "";
     final DateTime dateTime = timestamp.toDate();
@@ -278,7 +261,6 @@ class _UserCustomerSupportScreenState extends State<UserCustomerSupportScreen> {
     }
   }
 
-  /// Message bubble widget
   Widget messageBubble(QueryDocumentSnapshot doc) {
     final bool isUser = doc["senderId"] == widget.userId;
     final Map<String, dynamic> reactions = Map<String, dynamic>.from(doc["reactions"] ?? {});
@@ -289,14 +271,28 @@ class _UserCustomerSupportScreenState extends State<UserCustomerSupportScreen> {
       child: GestureDetector(
         onLongPress: () => showReactions(doc),
         child: Container(
-          margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+          margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
           padding: const EdgeInsets.all(12),
           constraints: BoxConstraints(
             maxWidth: MediaQuery.of(context).size.width * 0.75,
           ),
           decoration: BoxDecoration(
-            color: isUser ? Colors.green : Colors.grey.shade300,
-            borderRadius: BorderRadius.circular(12),
+            gradient: isUser
+                ? const LinearGradient(
+              colors: [Color(0xFF5AFF15), Color(0xFF00B712)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            )
+                : null,
+            color: isUser ? null : Colors.grey.shade200,
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.05),
+                blurRadius: 4,
+                offset: const Offset(0, 2),
+              ),
+            ],
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -305,13 +301,14 @@ class _UserCustomerSupportScreenState extends State<UserCustomerSupportScreen> {
                 Text(
                   doc["text"],
                   style: TextStyle(
-                    color: isUser ? Colors.white : Colors.black,
-                    fontSize: 16,
+                    color: isUser ? Colors.white : Colors.black87,
+                    fontSize: 15,
+                    height: 1.3,
                   ),
                 ),
               if (doc["imageUrl"] != null)
                 ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(12),
                   child: Image.network(
                     doc["imageUrl"],
                     height: 200,
@@ -330,23 +327,22 @@ class _UserCustomerSupportScreenState extends State<UserCustomerSupportScreen> {
               if (doc["fileUrl"] != null)
                 InkWell(
                   onTap: () {
-                    // You can implement file download/view here
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text("File: ${doc['fileName'] ?? 'Attachment'}")),
                     );
                   },
                   child: Container(
-                    padding: const EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.2),
-                      borderRadius: BorderRadius.circular(8),
+                      color: isUser ? Colors.white.withOpacity(0.2) : Colors.grey.shade300,
+                      borderRadius: BorderRadius.circular(10),
                     ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Icon(
                           Icons.attach_file,
-                          color: isUser ? Colors.white : Colors.black,
+                          color: isUser ? Colors.white : Colors.black87,
                           size: 20,
                         ),
                         const SizedBox(width: 8),
@@ -354,8 +350,8 @@ class _UserCustomerSupportScreenState extends State<UserCustomerSupportScreen> {
                           child: Text(
                             doc['fileName'] ?? "Attachment",
                             style: TextStyle(
-                              color: isUser ? Colors.white : Colors.black,
-                              fontSize: 14,
+                              color: isUser ? Colors.white : Colors.black87,
+                              fontSize: 13,
                             ),
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -366,15 +362,15 @@ class _UserCustomerSupportScreenState extends State<UserCustomerSupportScreen> {
                 ),
               if (reactions.isNotEmpty)
                 Padding(
-                  padding: const EdgeInsets.only(top: 4),
+                  padding: const EdgeInsets.only(top: 6),
                   child: Wrap(
                     spacing: 4,
                     children: reactions.entries.map((entry) {
                       return Container(
                         padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.3),
-                          borderRadius: BorderRadius.circular(12),
+                          color: isUser ? Colors.white.withOpacity(0.3) : Colors.white,
+                          borderRadius: BorderRadius.circular(16),
                         ),
                         child: Text(
                           entry.value.toString(),
@@ -384,7 +380,7 @@ class _UserCustomerSupportScreenState extends State<UserCustomerSupportScreen> {
                     }).toList(),
                   ),
                 ),
-              const SizedBox(height: 5),
+              const SizedBox(height: 4),
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -392,15 +388,15 @@ class _UserCustomerSupportScreenState extends State<UserCustomerSupportScreen> {
                     formatTimestamp(doc["timestamp"]),
                     style: TextStyle(
                       fontSize: 10,
-                      color: isUser ? Colors.white70 : Colors.black54,
+                      color: isUser ? Colors.white70 : Colors.grey.shade500,
                     ),
                   ),
-                  if (isUser) ...[
-                    const SizedBox(width: 4),
+                  if (isUser && isRead) ...[
+                    const SizedBox(width: 6),
                     Icon(
-                      isRead ? Icons.done_all : Icons.done,
+                      Icons.done_all,
                       size: 12,
-                      color: isRead ? Colors.white70 : Colors.white38,
+                      color: Colors.white70,
                     ),
                   ],
                 ],
@@ -412,20 +408,22 @@ class _UserCustomerSupportScreenState extends State<UserCustomerSupportScreen> {
     );
   }
 
-  /// Show reactions popup
   void showReactions(QueryDocumentSnapshot doc) {
     showModalBottomSheet(
       context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
       builder: (context) => Container(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(20),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             const Text(
               "Add Reaction",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: ["👍", "❤️", "😂", "😮", "😢", "😡"].map((emoji) {
@@ -446,23 +444,23 @@ class _UserCustomerSupportScreenState extends State<UserCustomerSupportScreen> {
                     }
                   },
                   child: Container(
-                    padding: const EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: Colors.grey[100],
-                      borderRadius: BorderRadius.circular(30),
+                      color: Colors.grey.shade100,
+                      borderRadius: BorderRadius.circular(40),
                     ),
                     child: Text(emoji, style: const TextStyle(fontSize: 32)),
                   ),
                 );
               }).toList(),
             ),
+            const SizedBox(height: 10),
           ],
         ),
       ),
     );
   }
 
-  /// Typing indicator widget - Updated to show "Typing..." instead of "Admin is typing..."
   Widget buildTypingIndicator() {
     if (!isAdminTyping) return const SizedBox();
 
@@ -470,18 +468,39 @@ class _UserCustomerSupportScreenState extends State<UserCustomerSupportScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Row(
         children: [
-          const SizedBox(
-            width: 20,
-            height: 20,
-            child: CircularProgressIndicator(
-              strokeWidth: 2,
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+          Container(
+            width: 28,
+            height: 28,
+            decoration: BoxDecoration(
+              color: Colors.grey.shade200,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: const Center(
+              child: SizedBox(
+                width: 16,
+                height: 16,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF00B712)),
+                ),
+              ),
             ),
           ),
-          const SizedBox(width: 8),
-          const Text(
-            "Typing...",  // Changed from "Admin is typing..." to "Typing..."
-            style: TextStyle(fontSize: 12, color: Colors.grey),
+          const SizedBox(width: 10),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            decoration: BoxDecoration(
+              color: Colors.grey.shade100,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: const Text(
+              "Typing",
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.grey,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
           ),
         ],
       ),
@@ -492,45 +511,95 @@ class _UserCustomerSupportScreenState extends State<UserCustomerSupportScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Customer Support",
-          style: TextStyle(fontWeight: FontWeight.bold),
+        title: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: const Icon(Icons.support_agent, size: 20),
+            ),
+            const SizedBox(width: 12),
+            const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  "Admin",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 0.5,
+                  ),
+                ),
+                Text(
+                  "Online • Usually replies in minutes",
+                  style: TextStyle(fontSize: 11, fontWeight: FontWeight.normal),
+                ),
+              ],
+            ),
+          ],
         ),
-        backgroundColor: Colors.green,
+        backgroundColor: const Color(0xFF00B712),
         foregroundColor: Colors.white,
         elevation: 0,
+        centerTitle: false,
         actions: [
-          IconButton(
-            icon: const Icon(Icons.info_outline),
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                  title: const Text("Support Info"),
-                  content: const Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Our support team is available 24/7 to assist you."),
-                      SizedBox(height: 12),
-                      Text("You can send:"),
-                      SizedBox(height: 4),
-                      Text("• Text messages"),
-                      Text("• Images"),
-                      Text("• Files"),
-                      SizedBox(height: 12),
-                      Text("💡 Tip: Long press on messages to add reactions!"),
+          Container(
+            margin: const EdgeInsets.only(right: 8),
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(30),
+            ),
+            child: IconButton(
+              icon: const Icon(Icons.info_outline, size: 22),
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    title: const Row(
+                      children: [
+                        Icon(Icons.support_agent, color: Color(0xFF00B712)),
+                        SizedBox(width: 10),
+                        Text("Support Info"),
+                      ],
+                    ),
+                    content: const Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Our support team is available 24/7 to assist you."),
+                        SizedBox(height: 16),
+                        Text("💬 You can send:"),
+                        SizedBox(height: 6),
+                        Text("  • Text messages"),
+                        Text("  • Images (JPEG, PNG)"),
+                        Text("  • Files (PDF, DOC)"),
+                        SizedBox(height: 16),
+                        Text(
+                          "💡 Tip: Long press on messages to add reactions!",
+                          style: TextStyle(fontWeight: FontWeight.w500),
+                        ),
+                      ],
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: const Text(
+                          "Got it",
+                          style: TextStyle(color: Color(0xFF00B712)),
+                        ),
+                      ),
                     ],
                   ),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(context),
-                      child: const Text("Got it"),
-                    ),
-                  ],
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
         ],
       ),
@@ -560,16 +629,23 @@ class _UserCustomerSupportScreenState extends State<UserCustomerSupportScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
-                          Icons.chat_bubble_outline,
-                          size: 80,
-                          color: Colors.grey.shade400,
+                        Container(
+                          padding: const EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade100,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Icon(
+                            Icons.chat_bubble_outline,
+                            size: 60,
+                            color: Colors.grey.shade400,
+                          ),
                         ),
-                        const SizedBox(height: 16),
+                        const SizedBox(height: 20),
                         const Text(
                           "No messages yet",
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 20,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -578,6 +654,7 @@ class _UserCustomerSupportScreenState extends State<UserCustomerSupportScreen> {
                           "Send a message to start chatting",
                           style: TextStyle(
                             color: Colors.grey.shade500,
+                            fontSize: 14,
                           ),
                         ),
                       ],
@@ -591,7 +668,7 @@ class _UserCustomerSupportScreenState extends State<UserCustomerSupportScreen> {
 
                 return ListView.builder(
                   controller: scrollController,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  padding: const EdgeInsets.symmetric(vertical: 12),
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: (context, index) {
                     final doc = snapshot.data!.docs[index];
@@ -601,63 +678,93 @@ class _UserCustomerSupportScreenState extends State<UserCustomerSupportScreen> {
               },
             ),
           ),
-          buildTypingIndicator(), // Shows "Typing..." when admin is typing
+          buildTypingIndicator(),
           Container(
-            padding: const EdgeInsets.all(12),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
             decoration: BoxDecoration(
               color: Colors.white,
               boxShadow: [
                 BoxShadow(
-                  color: Colors.grey.shade300,
-                  blurRadius: 4,
-                  offset: const Offset(0, -1),
+                  color: Colors.grey.shade200,
+                  blurRadius: 10,
+                  offset: const Offset(0, -2),
                 ),
               ],
             ),
             child: Row(
               children: [
-                IconButton(
-                  icon: const Icon(Icons.image, color: Colors.green),
-                  onPressed: sendImage,
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade50,
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  child: Row(
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.image, color: Color(0xFF00B712), size: 24),
+                        onPressed: sendImage,
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.attach_file, color: Color(0xFF00B712), size: 24),
+                        onPressed: sendFile,
+                      ),
+                    ],
+                  ),
                 ),
-                IconButton(
-                  icon: const Icon(Icons.attach_file, color: Colors.green),
-                  onPressed: sendFile,
-                ),
+                const SizedBox(width: 8),
                 Expanded(
-                  child: TextField(
-                    controller: messageController,
-                    decoration: InputDecoration(
-                      hintText: "Type your message...",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
-                        borderSide: BorderSide.none,
-                      ),
-                      filled: true,
-                      fillColor: Colors.grey.shade100,
-                      contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 10,
-                      ),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade50,
+                      borderRadius: BorderRadius.circular(30),
                     ),
-                    onChanged: (text) {
-                      updateTyping(text.isNotEmpty);
-                    },
-                    onSubmitted: (_) {
-                      updateTyping(false);
-                      sendMessage();
-                    },
+                    child: TextField(
+                      controller: messageController,
+                      decoration: InputDecoration(
+                        hintText: "Type your message...",
+                        hintStyle: TextStyle(color: Colors.grey.shade400),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: BorderSide.none,
+                        ),
+                        filled: true,
+                        fillColor: Colors.grey.shade50,
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 12,
+                        ),
+                      ),
+                      onChanged: (text) {
+                        updateTyping(text.isNotEmpty);
+                      },
+                      onSubmitted: (_) {
+                        updateTyping(false);
+                        sendMessage();
+                      },
+                    ),
                   ),
                 ),
                 const SizedBox(width: 8),
                 Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.green,
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      colors: [Color(0xFF5AFF15), Color(0xFF00B712)],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
                     shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: const Color(0xFF00B712).withOpacity(0.3),
+                        blurRadius: 8,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
                   ),
                   child: IconButton(
-                    icon: const Icon(Icons.send, color: Colors.white),
+                    icon: const Icon(Icons.send, color: Colors.white, size: 20),
                     onPressed: sendMessage,
+                    padding: const EdgeInsets.all(12),
                   ),
                 ),
               ],

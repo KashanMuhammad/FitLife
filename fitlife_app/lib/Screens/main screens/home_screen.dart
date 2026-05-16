@@ -7,6 +7,7 @@ import 'package:syncfusion_flutter_gauges/gauges.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../Chatbot/chat_bot_screen.dart';
 import '../custom widgets/custom_list_tile.dart';
 import '../custom widgets/custom_text.dart';
 import '../customer support/customer_support.dart';
@@ -43,10 +44,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   }
 
   Future<void> _loadUserData() async {
-    final user = FirebaseAuth.instance.currentUser;
+    final user = "hRgpbMK7f9QStWcl0ZAOnKS9Eyu2";
     if (user == null) return;
 
-    userId = user.uid;
+    userId = user;
 
     try {
       final doc = await FirebaseFirestore.instance
@@ -263,81 +264,121 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     return 'Good Night';
   }
 
+  // Professional Floating Action Button Builder
+  // Professional Floating Action Button Builder (No Text Label)
+  Widget _buildFloatingActionButton({
+    required String heroTag,
+    required VoidCallback onPressed,
+    required IconData icon,
+    required Color color,
+  }) {
+    return Container(
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [Color(0xFF5AFF15), Color(0xFF00B712)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: color.withOpacity(0.3),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onPressed,
+          borderRadius: BorderRadius.circular(16),
+          child: Container(
+            width: 48,
+            height: 48,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Icon(
+              icon,
+              color: Colors.white,
+              size: 24,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
-      floatingActionButton: Stack(
-        children: [
-          // Position the chat button on the LEFT side
-          Positioned(
-            left: 20,
-            bottom: 0,
-            child: Container(
-              height: 56,
-              width: 56,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(14),
-                gradient: const LinearGradient(
-                  colors: [Color(0xFF5AFF15), Color(0xFF00B712)],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                ),
-              ),
-              child: FloatingActionButton(
-                heroTag: "chat_button",
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => UserCustomerSupportScreen(
-                        userId: userId,
-                        userName: userData?['name'] ?? 'User',
-                      ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 20),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Chatbot Button (Top)
+            _buildFloatingActionButton(
+              heroTag: "chatbot_button",
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ChatbotScreen(
+                      userId: userId,
+                      userName: userData?['name'] ?? 'User',
                     ),
-                  );
-                },
-                backgroundColor: Colors.transparent,
-                elevation: 0,
-                child: const Icon(Icons.chat),
-              ),
+                  ),
+                );
+              },
+              icon: Icons.auto_awesome,
+
+              color: const Color(0xFF00B712),
             ),
-          ),
-          // Position the add button on the RIGHT side
-          Positioned(
-            right: 20,
-            bottom: 0,
-            child: Container(
-              height: 56,
-              width: 56,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(14),
-                gradient: const LinearGradient(
-                  colors: [Color(0xFF5AFF15), Color(0xFF00B712)],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                ),
-              ),
-              child: FloatingActionButton(
-                heroTag: "add_button",
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const AddMealsScreen()),
-                  ).then((_) {
-                    _loadUserData();
-                  });
-                },
-                backgroundColor: Colors.transparent,
-                elevation: 0,
-                child: const Icon(Icons.add),
-              ),
+            const SizedBox(height: 12),
+            // Customer Support Button (Middle)
+            _buildFloatingActionButton(
+              heroTag: "customer_support_button",
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => UserCustomerSupportScreen(
+                      userId: userId,
+                      userName: userData?['name'] ?? 'User',
+                    ),
+                  ),
+                );
+              },
+              icon: Icons.headset_mic,
+
+              color: const Color(0xFF00B712),
             ),
-          ),
-        ],
+            const SizedBox(height: 12),
+            // Add Meal Button (Bottom)
+            _buildFloatingActionButton(
+              heroTag: "add_button",
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const AddMealsScreen()),
+                ).then((_) {
+                  _loadUserData();
+                });
+              },
+              icon: Icons.restaurant_menu,
+
+              color: const Color(0xFF00B712),
+            ),
+            SizedBox(height: 34,)
+          ],
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(

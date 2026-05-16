@@ -12,32 +12,37 @@ dependencies:
     sdk: flutter
 
   # UI Components
+  google_generative_ai: ^0.4.6
   curved_navigation_bar: ^1.0.6
   font_awesome_flutter: ^10.7.0
   flutter_svg: ^2.0.10+1
 
-  # State Management (Compatible versions)
+  # State Management
   riverpod: ^2.5.1
-  flutter_riverpod: ^2.5.1
+  flutter_riverpod: ^2.5.1  # Use this version or higher
 
   # Icons
   cupertino_icons: ^1.0.8
 
-  # Charts (Fixed compatibility issues)
-  syncfusion_flutter_gauges: ^26.1.41
-  fl_chart: ^0.68.0  # Downgraded to fix Matrix4 errors
+  # Charts
+  syncfusion_flutter_gauges: ^31.1.19
+  fl_chart: ^1.2.0
 
-  # Firebase (Compatible versions)
-  firebase_core: ^3.8.0
-  firebase_auth: ^5.3.3
-  cloud_firestore: ^5.5.0
-  firebase_messaging: ^15.1.6
+  # Firebase (Fully aligned - NO conflicts)
+  firebase_core: ^4.7.0
+  firebase_auth: ^6.4.0
+  cloud_firestore: ^6.3.0
+  firebase_messaging: ^16.2.0
+  firebase_app_check: ^0.4.3
+  firebase_ai: ^3.11.0
 
-  # File Handling (Stable versions)
-  file_picker: ^8.1.4
+
+  # File Handling
+  file_picker: ^11.0.2
   image_picker: ^1.1.2
 
-  # Backend
+
+  # Backend (Optional alongside Firebase)
   supabase_flutter: ^2.8.1
 
   # Local Package
@@ -47,17 +52,11 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^4.0.0
+  flutter_lints: ^5.0.0
 
-# Override dependencies to resolve conflicts
+# Minimal safe override (optional)
 dependency_overrides:
   vector_math: ^2.1.4
-  flutter_riverpod: ^2.5.1
-  riverpod: ^2.5.1
-  firebase_core: ^3.8.0
-  firebase_auth: ^5.3.3
-  cloud_firestore: ^5.5.0
-  firebase_messaging: ^15.1.6
 
 flutter:
   uses-material-design: true

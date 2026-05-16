@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Added the chatbot module and modified the home screen flaoting action button.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Screens/Chatbot/chat_bot_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Screens/Chatbot/chat_bot_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Screens/main screens/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Screens/main screens/home_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/Screens/meals/add_meals_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/Screens/meals/add_meals_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_app/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_app/lib/main.dart" afterDir="false" />
-    </list>
+    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Re_Positioned the floating actiona butoon in homescreen and also modified the add meals screen and chatbot screens" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -58,26 +52,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Flutter.main.dart.executor&quot;: &quot;Run&quot;,
-    &quot;Flutter.main.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;fawadalishan/final__work&quot;,
-    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/practice_flutter&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;flutter.settings&quot;,
-    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Flutter.main.dart.executor": "Run",
+    "Flutter.main.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "Merging fawadalishan/final__work",
+    "io.flutter.reload.alreadyRun": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "E:/practice_flutter",
+    "settings.editor.selected.configurable": "flutter.settings",
+    "show.migrate.to.gradle.popup": "false"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Flutter.main.dart">
     <configuration name="android.app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
       <option name="ANDROID_RUN_CONFIGURATION_SCHEMA_VERSION" value="1" />
@@ -167,22 +161,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1747854831066</updated>
-    </task>
-    <task id="LOCAL-00027" summary="Major Updates (New FireBase Project with three platforms &amp; Many corrections &amp; Modifications) some files added">
-      <option name="closed" value="true" />
-      <created>1750377220094</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1750377220094</updated>
-    </task>
-    <task id="LOCAL-00028" summary="Re pulled and merged the code after just deployed the admin panel and now committing it.">
-      <option name="closed" value="true" />
-      <created>1750412442776</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1750412442776</updated>
     </task>
     <task id="LOCAL-00029" summary="privacy_policy_screen.dart and help_and_support_screen.dart is completed with firebase functionality.">
       <option name="closed" value="true" />
@@ -560,7 +538,23 @@
       <option name="project" value="LOCAL" />
       <updated>1777882884642</updated>
     </task>
-    <option name="localTasksCounter" value="76" />
+    <task id="LOCAL-00076" summary="Re_Positioned the floating actiona butoon in homescreen and also modified the add meals screen and chatbot screens">
+      <option name="closed" value="true" />
+      <created>1778902034942</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1778902034942</updated>
+    </task>
+    <task id="LOCAL-00077" summary="Re_Positioned the floating actiona butoon in homescreen and also modified the add meals screen and chatbot screens">
+      <option name="closed" value="true" />
+      <created>1778902069193</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1778902069193</updated>
+    </task>
+    <option name="localTasksCounter" value="78" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -602,7 +596,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Patient screen UI updated and also analytics screen toggle button updated" />
     <MESSAGE value="Upload Diet Screnn ,Upload Blog Screen,Upload Food Screen are updated to store images in the supabase storage and also diet screen, food screen , blog screen updated to retrieve the images stored in the supabse. Yet more work to be done" />
     <MESSAGE value="Supabse successfully connected , diet, food, blog images are successfully storing in the supabse storage and also updated upload blog button so not to upload null values to the firebase firestore" />
     <MESSAGE value="created a new branch" />
@@ -627,6 +620,7 @@
     <MESSAGE value="Added the customer and admin chating screen to the home screen and the timestamp to login screen." />
     <MESSAGE value=".." />
     <MESSAGE value="Added the chatbot module and modified the home screen flaoting action button." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added the chatbot module and modified the home screen flaoting action button." />
+    <MESSAGE value="Re_Positioned the floating actiona butoon in homescreen and also modified the add meals screen and chatbot screens" />
+    <option name="LAST_COMMIT_MESSAGE" value="Re_Positioned the floating actiona butoon in homescreen and also modified the add meals screen and chatbot screens" />
   </component>
 </project>

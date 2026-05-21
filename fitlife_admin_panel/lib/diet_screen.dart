@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'admin_provider.dart';
 import 'main.dart';
 import 'upload_diet_screen.dart';
 
@@ -101,6 +103,7 @@ class _DietScreenState extends State<DietScreen> {
 
   @override
   Widget build(BuildContext context) {
+    String adminName = Provider.of<AdminProvider>(context).adminName;
     return Scaffold(
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(12),
@@ -115,11 +118,11 @@ class _DietScreenState extends State<DietScreen> {
                 ),
                 const Spacer(),
                 Row(
-                  children: const [
+                  children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Text("Cody Fisher"),
+                        Text(adminName),
                         Text("Dashboard Manager"),
                       ],
                     ),
@@ -280,11 +283,14 @@ class _DietScreenState extends State<DietScreen> {
                                 DataCell(
                                   diet['dietImageUrl'] != null &&
                                           diet['dietImageUrl'] != ''
-                                      ? Image.network(
-                                        diet['dietImageUrl'],
-                                        width: 60,
-                                        height: 60,
-                                        fit: BoxFit.cover,
+                                      ? Padding(
+                                        padding: const EdgeInsets.all(6.0),
+                                        child: Image.network(
+                                          diet['dietImageUrl'],
+                                          width: 60,
+                                          height: 60,
+                                          fit: BoxFit.cover,
+                                        ),
                                       )
                                       : const Text(
                                         "No image",

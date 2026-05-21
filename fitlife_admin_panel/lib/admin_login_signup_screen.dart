@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:provider/provider.dart';
+
+import 'admin_provider.dart';
+import 'dashboard.dart';
+import 'forgot_pasword_screen.dart';
 
 class AdminLoginSignupScreen extends StatefulWidget {
   const AdminLoginSignupScreen({super.key});
@@ -37,8 +42,9 @@ class _AdminLoginSignupScreenState extends State<AdminLoginSignupScreen> {
     final regex = RegExp(
       r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#]).{8,}$',
     );
-    if (!regex.hasMatch(value))
+    if (!regex.hasMatch(value)) {
       return "Min 8 chars, upper, lower, number & symbol";
+    }
     return null;
   }
 
@@ -49,8 +55,44 @@ class _AdminLoginSignupScreenState extends State<AdminLoginSignupScreen> {
 
   // ---------------- SUBMIT ----------------
 
+  // Future<void> submit() async {
+  //   if (!_formKey.currentState!.validate()) return; // FIELD VALIDATION
+  //
+  //   setState(() => isLoading = true);
+  //
+  //   try {
+  //     if (isSignup) {
+  //       final cred = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+  //         email: emailCtrl.text.trim(),
+  //         password: passCtrl.text.trim(),
+  //       );
+  //
+  //       await FirebaseFirestore.instance
+  //           .collection('admins')
+  //           .doc(cred.user!.uid)
+  //           .set({
+  //             'name': nameCtrl.text.trim(),
+  //             'email': emailCtrl.text.trim(),
+  //             'isActive': true,
+  //           });
+  //     } else {
+  //       await FirebaseAuth.instance.signInWithEmailAndPassword(
+  //         email: emailCtrl.text.trim(),
+  //         password: passCtrl.text.trim(),
+  //       );
+  //     }
+  //   } on FirebaseAuthException catch (e) {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(content: Text(e.message ?? "Something went wrong")),
+  //     );
+  //   } finally {
+  //     setState(() => isLoading = false);
+  //   }
+  // }
+
+
   Future<void> submit() async {
-    if (!_formKey.currentState!.validate()) return; // FIELD VALIDATION
+    if (!_formKey.currentState!.validate()) return;
 
     setState(() => isLoading = true);
 
@@ -65,16 +107,29 @@ class _AdminLoginSignupScreenState extends State<AdminLoginSignupScreen> {
             .collection('admins')
             .doc(cred.user!.uid)
             .set({
-              'name': nameCtrl.text.trim(),
-              'email': emailCtrl.text.trim(),
-              'isActive': true,
-            });
+          'name': nameCtrl.text.trim(),
+          'email': emailCtrl.text.trim(),
+          'isActive': true,
+        });
+
+        // Load admin name after signup
+        await Provider.of<AdminProvider>(context, listen: false).getAdminName();
+
       } else {
         await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: emailCtrl.text.trim(),
           password: passCtrl.text.trim(),
         );
+
+        // Load admin name after login
+        await Provider.of<AdminProvider>(context, listen: false).getAdminName();
       }
+
+      // Navigate to dashboard after successful login/signup
+      Navigator.pushReplacement(context, MaterialPageRoute(
+        builder: (context) => const Dashboard(),
+      ));
+
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(e.message ?? "Something went wrong")),
@@ -304,6 +359,21 @@ class _AdminLoginSignupScreenState extends State<AdminLoginSignupScreen> {
                 ),
               ),
               if (isSignup) const SizedBox(height: 16),
+              if (!isSignup)
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const AdminForgotPasswordScreen(),
+                        ),
+                      );
+                    },
+                    child: const Text("Forgot Password?"),
+                  ),
+                ),
 
               if (isSignup)
                 TextFormField(

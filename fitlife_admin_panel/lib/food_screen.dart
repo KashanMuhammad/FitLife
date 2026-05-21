@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fitlife_admin_panel/upload_food_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'admin_provider.dart';
 
 class FoodScreen extends StatefulWidget {
   final VoidCallback? onUploadPressed;
@@ -37,25 +40,80 @@ class _FoodScreenState extends State<FoodScreen> {
   }
 
   @override
+  // Widget build(BuildContext context) {
+  //   String adminName = Provider.of<AdminProvider>(context).adminName;
+  //   return Scaffold(
+  //     body: SingleChildScrollView(
+  //       padding: const EdgeInsets.all(12),
+  //       child: Column(
+  //         crossAxisAlignment: CrossAxisAlignment.start,
+  //         children: [
+  //           _buildHeader(adminName),
+  //           const Divider(height: 20),
+  //           _buildTopBar(),
+  //           const SizedBox(height: 20),
+  //
+  //           const Text(
+  //             "All Foods",
+  //             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+  //           ),
+  //           const SizedBox(height: 8),
+  //           _buildFoodsTable(isAvoid: false),
+  //
+  //           const SizedBox(height: 30),
+  //           const Text(
+  //             "Foods To Avoid",
+  //             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+  //           ),
+  //           const SizedBox(height: 8),
+  //           _buildFoodsTable(isAvoid: true),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
+
+  // Widget _buildHeader() {
+  //   String adminName = Provider.of<AdminProvider>(context).adminName;
+  //   return Row(
+  //     children: [
+  //       Text(
+  //         "Foods",
+  //         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+  //       ),
+  //       Spacer(),
+  //       Column(
+  //         crossAxisAlignment: CrossAxisAlignment.end,
+  //         children: [Text(adminName), Text("Dashboard Manager")],
+  //       ),
+  //       SizedBox(width: 10),
+  //       CircleAvatar(
+  //         radius: 24,
+  //         backgroundImage: AssetImage("assets/male avatar.png"),
+  //       ),
+  //     ],
+  //   );
+  // }
+
+  @override
   Widget build(BuildContext context) {
+    String adminName = Provider.of<AdminProvider>(context).adminName;
     return Scaffold(
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildHeader(),
+            _buildHeader(adminName),
             const Divider(height: 20),
             _buildTopBar(),
             const SizedBox(height: 20),
-
             const Text(
               "All Foods",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             _buildFoodsTable(isAvoid: false),
-
             const SizedBox(height: 30),
             const Text(
               "Foods To Avoid",
@@ -69,20 +127,23 @@ class _FoodScreenState extends State<FoodScreen> {
     );
   }
 
-  Widget _buildHeader() {
+  Widget _buildHeader(String adminName) {
     return Row(
-      children: const [
-        Text(
+      children: [
+        const Text(
           "Foods",
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
         ),
-        Spacer(),
+        const Spacer(),
         Column(
           crossAxisAlignment: CrossAxisAlignment.end,
-          children: [Text("Cody Fisher"), Text("Dashboard Manager")],
+          children: [
+            Text(adminName),
+            const Text("Dashboard Manager"),
+          ],
         ),
-        SizedBox(width: 10),
-        CircleAvatar(
+        const SizedBox(width: 10),
+        const CircleAvatar(
           radius: 24,
           backgroundImage: AssetImage("assets/male avatar.png"),
         ),
@@ -252,7 +313,10 @@ class _FoodScreenState extends State<FoodScreen> {
               cells: [
                 DataCell(
                   food["foodImageUrl"] != null
-                      ? Image.network(food["foodImageUrl"], width: 50)
+                      ? Padding(
+                        padding: const EdgeInsets.all(6.0),
+                        child: Image.network(food["foodImageUrl"], width: 50),
+                      )
                       : const Icon(Icons.image),
                 ),
                 DataCell(Text(food["foodName"] ?? "")),

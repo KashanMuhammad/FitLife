@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:provider/provider.dart';
 import 'admin_login_signup_screen.dart';
+import 'admin_provider.dart';
 import 'dashboard.dart';
 
 class AuthGate extends StatelessWidget {
@@ -36,6 +38,9 @@ class AuthGate extends StatelessWidget {
             }
 
             if (adminSnapshot.hasData && adminSnapshot.data!.exists) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                Provider.of<AdminProvider>(context, listen: false).getAdminName();
+              });
               return const Dashboard();
             }
 

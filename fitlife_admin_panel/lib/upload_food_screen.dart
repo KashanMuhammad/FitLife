@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fitlife_admin_panel/custom_widgets.dart';
+import 'package:fitlife_admin_panel/food_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -95,7 +96,8 @@ class _UploadFoodScreenState extends State<UploadFoodScreen> {
                   children: [
                     IconButton(
                       icon: const Icon(Icons.arrow_back_rounded),
-                      onPressed: () => Navigator.pop(context),
+                      onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) =>FoodScreen())
+                    ),
                     ),
                   ],
                 ),

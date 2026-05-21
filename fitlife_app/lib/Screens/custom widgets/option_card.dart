@@ -17,8 +17,8 @@ class OptionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox( // ✅ Constrains the height
-      height: 150, // You can adjust this height as needed
+    return SizedBox(
+      height: 150,
         child: Card(
           color: backgroundColor,
           elevation: 3,

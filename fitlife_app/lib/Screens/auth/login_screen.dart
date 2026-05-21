@@ -1,12 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitlife_app/Screens/auth/sign_up.dart';
-import 'package:fitlife_app/Screens/custom%20widgets/custom_textformfield.dart';
-
+import 'package:fitlife_app/Screens/custom widgets/custom_textformfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shared/user_0nboarding_data_model_class.dart';
-
 import '../main screens/main_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -36,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                SizedBox(height: 40),
+                const SizedBox(height: 40),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -100,7 +98,27 @@ class _LoginScreenState extends State<LoginScreen> {
                     return null;
                   },
                 ),
-                const SizedBox(height: 30),
+                const SizedBox(height: 10),
+                // Forgot Password link added here - doesn't disturb UI layout
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    onPressed: () => _showForgotPasswordDialog(context),
+                    style: TextButton.styleFrom(
+                      padding: EdgeInsets.zero,
+                      minimumSize: Size(50, 30),
+                    ),
+                    child: const Text(
+                      "Forgot Password?",
+                      style: TextStyle(
+                        color: Color(0xFF00B712),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
                 buildNextButton(context),
                 const Padding(
                   padding: EdgeInsets.symmetric(vertical: 20),
@@ -163,14 +181,13 @@ class _LoginScreenState extends State<LoginScreen> {
   Center buildNextButton(BuildContext context) {
     return Center(
       child: InkWell(
-        onTap:
-            isLoading
-                ? null
-                : () {
-                  if (_formKey.currentState!.validate()) {
-                    handleLogin();
-                  }
-                },
+        onTap: isLoading
+            ? null
+            : () {
+          if (_formKey.currentState!.validate()) {
+            handleLogin();
+          }
+        },
         borderRadius: BorderRadius.circular(12),
         child: Container(
           height: 50,
@@ -182,20 +199,39 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
           alignment: Alignment.center,
-          child:
-              isLoading
-                  ? const CircularProgressIndicator(color: Colors.white)
-                  : const Text(
-                    "Login",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      fontSize: 18,
-                    ),
-                  ),
+          child: isLoading
+              ? const CircularProgressIndicator(color: Colors.white)
+              : const Text(
+            "Login",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+              fontSize: 18,
+            ),
+          ),
         ),
       ),
     );
+  }
+
+  // ✅ Helper to recursively convert nested LinkedMaps to Map<String, dynamic>
+  Map<String, dynamic> convertNestedMap(Map<String, dynamic> map) {
+    final result = <String, dynamic>{};
+    map.forEach((key, value) {
+      if (value is Map) {
+        result[key] = convertNestedMap(Map<String, dynamic>.from(value));
+      } else if (value is List) {
+        result[key] = value.map((e) {
+          if (e is Map) {
+            return convertNestedMap(Map<String, dynamic>.from(e));
+          }
+          return e;
+        }).toList();
+      } else {
+        result[key] = value;
+      }
+    });
+    return result;
   }
 
   Future<void> handleLogin() async {
@@ -212,14 +248,36 @@ class _LoginScreenState extends State<LoginScreen> {
 
       final userId = credential.user?.uid ?? '';
 
-      final doc =
-          await FirebaseFirestore.instance
-              .collection('Users')
-              .doc(userId)
-              .get();
+      // Save login timestamp to Firestore
+      await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(userId)
+          .update({
+        'lastLoginTimestamp': FieldValue.serverTimestamp(),
+        'lastLoginDate': DateTime.now().toIso8601String(),
+      })
+          .catchError((error) {
+        // If document doesn't exist, create it with timestamp
+        FirebaseFirestore.instance
+            .collection('Users')
+            .doc(userId)
+            .set({
+          'lastLoginTimestamp': FieldValue.serverTimestamp(),
+          'lastLoginDate': DateTime.now().toIso8601String(),
+          'userId': userId,
+        }, SetOptions(merge: true));
+      });
+
+      final doc = await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(userId)
+          .get();
 
       if (doc.exists) {
-        final userData = FirebaseDataModelClass.fromJson(doc.data()!);
+        final rawData = doc.data()!;
+        final safeData = convertNestedMap(Map<String, dynamic>.from(rawData));
+        final userData = FirebaseDataModelClass.fromJson(safeData);
+
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => const MainScreen()),
@@ -247,6 +305,121 @@ class _LoginScreenState extends State<LoginScreen> {
       showSnackbar(context, errorMessage);
     } catch (e) {
       print('Login error: $e');
+      showSnackbar(context, 'An unexpected error occurred.');
+    } finally {
+      setState(() => isLoading = false);
+    }
+  }
+
+  // Forgot Password Functionality
+  void _showForgotPasswordDialog(BuildContext context) {
+    final TextEditingController forgotEmailController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          title: const Text(
+            'Reset Password',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text(
+                'Enter your email address and we\'ll send you a link to reset your password.',
+                style: TextStyle(fontSize: 14),
+              ),
+              const SizedBox(height: 20),
+              TextFormField(
+                controller: forgotEmailController,
+                decoration: InputDecoration(
+                  hintText: 'Enter your email',
+                  prefixIcon: Icon(Icons.email_outlined, color: Colors.grey[600]),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: Colors.grey[300]!),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(color: Color(0xFF00B712)),
+                  ),
+                ),
+                keyboardType: TextInputType.emailAddress,
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.grey[600],
+              ),
+              child: const Text('Cancel'),
+            ),
+            ElevatedButton(
+              onPressed: () => _resetPassword(context, forgotEmailController.text.trim()),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF00B712),
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              child: const Text('Send Reset Link'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _resetPassword(BuildContext context, String email) async {
+    if (email.isEmpty) {
+      showSnackbar(context, 'Please enter your email address');
+      return;
+    }
+
+    if (!RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$").hasMatch(email)) {
+      showSnackbar(context, 'Please enter a valid email address');
+      return;
+    }
+
+    setState(() => isLoading = true);
+    Navigator.pop(context); // Close the dialog
+
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+
+      // Show success message
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Password reset email sent to $email'),
+          backgroundColor: Colors.green,
+          duration: const Duration(seconds: 4),
+        ),
+      );
+    } on FirebaseAuthException catch (e) {
+      String errorMessage;
+      switch (e.code) {
+        case 'user-not-found':
+          errorMessage = 'No user found with this email address.';
+          break;
+        case 'invalid-email':
+          errorMessage = 'Invalid email address.';
+          break;
+        default:
+          errorMessage = 'Failed to send reset email: ${e.message}';
+      }
+      showSnackbar(context, errorMessage);
+    } catch (e) {
+      print('Password reset error: $e');
       showSnackbar(context, 'An unexpected error occurred.');
     } finally {
       setState(() => isLoading = false);

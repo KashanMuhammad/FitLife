@@ -4,22 +4,8 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="forgot password button added with proper forgot password screen and when user click on button it navigate to forgot password screen, user will enter email and will receive reset password email">
-      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" />
+    <list default="true" id="e9975d98-60dd-4bf9-b09a-9d856069ed61" name="Changes" comment="Following functionalities are added to the admin panel, analytics screen toggle button also user chart, patient screen toggle button, provider added to the admin panel to get admin name, user support screen completed with successfully sending and receiving messages between the user abd admin">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/admin_login_signup_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/admin_login_signup_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/analytics_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/analytics_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/auth_gate.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/auth_gate.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/blog_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/blog_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/customer_support.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/customer_support.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/dashboard.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/dashboard.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/diet_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/diet_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/food_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/food_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/patient_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/patient_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_food_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/lib/upload_food_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fitlife_admin_panel/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/fitlife_admin_panel/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -178,14 +164,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1747854831066</updated>
-    </task>
-    <task id="LOCAL-00019" summary="modified">
-      <option name="closed" value="true" />
-      <created>1749520290410</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1749520290410</updated>
     </task>
     <task id="LOCAL-00020" summary="Dependencies Updated">
       <option name="closed" value="true" />
@@ -571,7 +549,15 @@
       <option name="project" value="LOCAL" />
       <updated>1771914669412</updated>
     </task>
-    <option name="localTasksCounter" value="68" />
+    <task id="LOCAL-00068" summary="Following functionalities are added to the admin panel, analytics screen toggle button also user chart, patient screen toggle button, provider added to the admin panel to get admin name, user support screen completed with successfully sending and receiving messages between the user abd admin">
+      <option name="closed" value="true" />
+      <created>1778067162759</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1778067162759</updated>
+    </task>
+    <option name="localTasksCounter" value="69" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -613,7 +599,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Admin panel Upload Blog Screen completed and also given functionality to create blog button" />
     <MESSAGE value="pulling updated project" />
     <MESSAGE value="new file commited" />
     <MESSAGE value="File slightly updated by the developer and some other functionalities were added" />
@@ -638,6 +623,7 @@
     <MESSAGE value="Functionalities assigned to diet screen and food screen toggle buttons and also applied linear gradient to various buttons and toggle buttons." />
     <MESSAGE value="All screens code updated,properly formatted and removed commited code, and duplicated code, and added some new functionalities to the admin panel" />
     <MESSAGE value="forgot password button added with proper forgot password screen and when user click on button it navigate to forgot password screen, user will enter email and will receive reset password email" />
-    <option name="LAST_COMMIT_MESSAGE" value="forgot password button added with proper forgot password screen and when user click on button it navigate to forgot password screen, user will enter email and will receive reset password email" />
+    <MESSAGE value="Following functionalities are added to the admin panel, analytics screen toggle button also user chart, patient screen toggle button, provider added to the admin panel to get admin name, user support screen completed with successfully sending and receiving messages between the user abd admin" />
+    <option name="LAST_COMMIT_MESSAGE" value="Following functionalities are added to the admin panel, analytics screen toggle button also user chart, patient screen toggle button, provider added to the admin panel to get admin name, user support screen completed with successfully sending and receiving messages between the user abd admin" />
   </component>
 </project>
